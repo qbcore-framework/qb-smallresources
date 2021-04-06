@@ -27,7 +27,7 @@ function TriggerCruiseControl ()
 
           if not IsTurningOrHandBraking() and GetVehiculeSpeed() < (CruisedSpeed - 1.5) then
             CruisedSpeed = 0
-            ESX.ShowNotification(_U('deactivated'))
+            QBCore.Functions.Notify("Cruise Deactivated", "error")
             Wait(2000)
             break
           end
@@ -70,7 +70,7 @@ function IsInVehicle ()
 end
 
 function IsDriver ()
-  return GetPedInVehicleSeat(GetVehiclePedIsIn(GetPlayerPed(-1), false), -1) == GetPlayerPed(-1)
+  return GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId(), false), -1) == PlayerPedId()
 end
 
 function GetVehiculeSpeed ()
