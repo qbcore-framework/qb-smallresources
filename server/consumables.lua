@@ -29,7 +29,7 @@ QBCore.Functions.CreateUseableItem("parachute", function(source, item)
     end
 end)
 
-QBCore.Commands.Add("parachuteuit", "Doe je parachute uit", {}, false, function(source, args)
+QBCore.Commands.Add("resetparachute", "Resets Parachute", {}, false, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
         TriggerClientEvent("consumables:client:ResetParachute", source)
 end)
@@ -146,11 +146,11 @@ QBCore.Functions.CreateUseableItem("firework4", function(source, item)
     TriggerClientEvent("fireworks:client:UseFirework", source, item.name, "scr_indep_fireworks")
 end)
 
-QBCore.Commands.Add("vestuit", "Doe je vest uit 4head", {}, false, function(source, args)
+QBCore.Commands.Add("resetarmor", "Resets Vest (Police Only)", {}, false, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.job.name == "police" then
         TriggerClientEvent("consumables:client:ResetArmor", source)
     else
-        TriggerClientEvent('chatMessage', source, "SYSTEM", "error", "This command is for emergency services!")
+        TriggerClientEvent('QBCore:Notify', source,  "For Emergency Service Only", "error")
     end
 end)

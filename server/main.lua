@@ -13,8 +13,8 @@ QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(source, cb)
     cb(VehicleNitrous)
 end)
 
-QBCore.Commands.Add("id", "Wat is mijn id?", {}, false, function(source, args)
-    TriggerClientEvent('chatMessage', source, "SYSTEM", "warning", "ID: "..source)
+QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source, args)
+    TriggerClientEvent('QBCore:Notify', source,  "ID: "..source)
 end)
 
 QBCore.Functions.CreateUseableItem("harness", function(source, item)
