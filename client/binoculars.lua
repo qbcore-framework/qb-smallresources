@@ -9,8 +9,8 @@ local binoculars = false
 local fov = (fov_max+fov_min)*0.5
 
 local keybindEnabled = false -- When enabled, binocular are available by keybind
-local binocularKey = Keys["X"]
-local storeBinoclarKey = Keys["BACKSPACE"]
+local binocularKey = 73
+local storeBinoclarKey = 177
 
 --THREADS--
 

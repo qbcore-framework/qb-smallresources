@@ -10,7 +10,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(1)
         local ped = PlayerPedId()
         
-        if IsControlJustReleased(0, Keys["G"]) then 
+        if IsControlJustReleased(0, 47) then 
             if not harnessOn then
                 if IsPedInAnyVehicle(ped) and GetVehicleClass(GetVehiclePedIsIn(ped)) ~= 8 and GetVehicleClass(GetVehiclePedIsIn(ped)) ~= 13 and GetVehicleClass(GetVehiclePedIsIn(ped)) ~= 14 then
                     if seatbeltOn then

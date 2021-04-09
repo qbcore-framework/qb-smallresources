@@ -38,19 +38,19 @@ Citizen.CreateThread(function()
         end
 
         if not keyPressed then
-            if IsControlPressed(0, Keys["B"]) and not mp_pointing and IsPedOnFoot(ped) then
+            if IsControlPressed(0, 29) and not mp_pointing and IsPedOnFoot(ped) then
                 Wait(200)
-                if not IsControlPressed(0, Keys["B"]) then
+                if not IsControlPressed(0, 29) then
                     keyPressed = true
                     startPointing()
                     mp_pointing = true
                 else
                     keyPressed = true
-                    while IsControlPressed(0, Keys["B"]) do
+                    while IsControlPressed(0, 29) do
                         Wait(50)
                     end
                 end
-            elseif (IsControlPressed(0, Keys["B"]) and mp_pointing) or (not IsPedOnFoot(ped) and mp_pointing) then
+            elseif (IsControlPressed(0, 29) and mp_pointing) or (not IsPedOnFoot(ped) and mp_pointing) then
                 keyPressed = true
                 mp_pointing = false
                 stopPointing()
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
         end
 
         if keyPressed then
-            if not IsControlPressed(0, Keys["B"]) then
+            if not IsControlPressed(0, 29) then
                 keyPressed = false
             end
         end

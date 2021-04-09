@@ -5,7 +5,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(1)
         local ped = PlayerPedId()
         if not IsPedSittingInAnyVehicle(ped) then
-            if IsControlJustReleased(0, Keys["LEFTCTRL"]) then
+            if IsControlJustReleased(0, 36) then
                 stage = stage + 1
                 if stage == 2 then
                     -- Crouch stuff
@@ -46,24 +46,24 @@ Citizen.CreateThread(function()
                 DisableControlAction(1, 141, true)
                 DisableControlAction(1, 142, true)
 
-                if (IsControlPressed(0, Keys["W"]) and not movingForward) then
+                if (IsControlPressed(0, 32) and not movingForward) then
                     movingForward = true
                     SetPedMoveAnimsBlendOut(ped)
                     local pronepos = GetEntityCoords(ped)
                     TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 7, 2.0, 1, 1) 
                     Citizen.Wait(500)
-                elseif (not IsControlPressed(0, Keys["W"]) and movingForward) then
+                elseif (not IsControlPressed(0, 32) and movingForward) then
                     local pronepos = GetEntityCoords(ped)
                     TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 6, 2.0, 1, 1)
                     Citizen.Wait(500)
                     movingForward = false
                 end
 
-                if IsControlPressed(0, Keys["A"]) then
+                if IsControlPressed(0, 34) then
                     SetEntityHeading(ped,GetEntityHeading(ped) + 1)
                 end     
 
-                if IsControlPressed(0, Keys["D"]) then
+                if IsControlPressed(0, 9) then
                     SetEntityHeading(ped,GetEntityHeading(ped) - 1)
                 end 
             end
