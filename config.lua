@@ -43,21 +43,12 @@ Config.BlacklistedVehs = {
     [`SAVAGE`] = true,
     [`TITAN`] = true,
     [`RHINO`] = true,
-    [`POLICE`] = true,
-    [`POLICE2`] = true,
-    [`POLICE3`] = true,
-    [`POLICE4`] = true,
-    [`POLICEB`] = true,
-    [`POLICET`] = true,
-    [`SHERIFF`] = true,
-    [`SHERIFF2`] = true,
     [`FIRETRUK`] = true,
     [`MULE`] = true,
-    [`POLMAV`] = true,
     [`MAVERICK`] = true,
     [`BLIMP`] = true,
     [`AIRTUG`] = true,
-    [`CAMPER`] = true,   
+    [`CAMPER`] = true,    
 }
 
 Config.BlacklistedPeds = {
