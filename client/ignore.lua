@@ -165,3 +165,9 @@ Citizen.CreateThread(function()
         Citizen.Wait(7)
     end
 end)
+
+-- enable pvp
+AddEventHandler("playerSpawned", function()
+    NetworkSetFriendlyFireOption(true)
+    SetCanAttackFriendly(PlayerPedId(), true, true)
+end)
