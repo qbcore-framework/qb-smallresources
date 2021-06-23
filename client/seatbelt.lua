@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
         local currentVehicle = GetVehiclePedIsIn(playerPed, false)
         local driverPed = GetPedInVehicleSeat(currentVehicle, -1)
         if currentVehicle ~= nil and currentVehicle ~= false and currentVehicle ~= 0 then
-            SetPedHelmet(playerPed, false)
+            SetPedHelmet(playerPed, true)
             lastVehicle = GetVehiclePedIsIn(playerPed, false)
             if GetVehicleEngineHealth(currentVehicle) < 0.0 then
                 SetVehicleEngineHealth(currentVehicle,0.0)
@@ -137,7 +137,7 @@ Citizen.CreateThread(function()
                         end
                     end
                     damagedone = true
-                    SetVehicleEngineHealth(currentVehicle, 0)
+--                     SetVehicleEngineHealth(currentVehicle, 0)
                     SetVehicleEngineOn(currentVehicle, false, true, true)
                 end
                 if currentvehicleBodyHealth < 350.0 and not damagedone then
@@ -184,13 +184,13 @@ Citizen.CreateThread(function()
             veloc = GetEntityVelocity(currentVehicle)
         else
             if lastVehicle ~= nil then
-                SetPedHelmet(playerPed, true)
+                SetPedHelmet(playerPed, false)
                 Citizen.Wait(200)
                 newvehicleBodyHealth = GetVehicleBodyHealth(lastVehicle)
                 if not damagedone and newvehicleBodyHealth < currentvehicleBodyHealth then
                     damagedone = true
-                    SetVehicleEngineHealth(lastVehicle, 0)
-                    SetVehicleEngineOn(lastVehicle, false, true, true)
+--                     SetVehicleEngineHealth(lastVehicle, 0)
+--                     SetVehicleEngineOn(lastVehicle, false, true, true)
                     Citizen.Wait(1000)
                 end
                 lastVehicle = nil
