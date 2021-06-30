@@ -264,7 +264,7 @@ AddEventHandler('seatbelt:client:UseHarness', function(ItemData)
             harnessData = ItemData
         end
     else
-        QBCore.Functions.Notify('Je zit niet in een auto.', 'error', 3500)
+        QBCore.Functions.Notify('You\'re not in a car.', 'error', 3500)
     end
 end)
 
