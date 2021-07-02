@@ -1,7 +1,3 @@
-QBCore = nil
-
-TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-
 local VehicleNitrous = {}
 
 RegisterServerEvent('tackle:server:TacklePlayer')
