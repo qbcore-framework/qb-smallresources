@@ -168,7 +168,7 @@ AddEventHandler("consumables:client:ResetArmor", function()
             TriggerServerEvent("QBCore:Server:AddItem", "heavyarmor", 1)
         end)
     else
-        QBCore.Functions.Notify("You're not wearing a vest..", "error")
+        QBCore.Functions.Notify("You\'re not wearing a vest..", "error")
     end
 end)
 
