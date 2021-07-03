@@ -201,7 +201,7 @@ end)
 RegisterNetEvent("consumables:client:Cokebaggy")
 AddEventHandler("consumables:client:Cokebaggy", function()
     local ped = PlayerPedId()
-    QBCore.Functions.Progressbar("snort_coke", "Snelle snuivie..", math.random(5000, 8000), false, true, {
+    QBCore.Functions.Progressbar("snort_coke", "Quick sniff..", math.random(5000, 8000), false, true, {
         disableMovement = false,
         disableCarMovement = false,
         disableMouse = false,
@@ -248,7 +248,7 @@ end)
 
 RegisterNetEvent('consumables:client:EcstasyBaggy')
 AddEventHandler('consumables:client:EcstasyBaggy', function()
-    QBCore.Functions.Progressbar("use_ecstasy", "Pillen poppen", 3000, false, true, {
+    QBCore.Functions.Progressbar("use_ecstasy", "Pops Pills", 3000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
