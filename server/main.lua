@@ -43,3 +43,11 @@ AddEventHandler('seatbelt:DoHarnessDamage', function(hp, data)
         Player.Functions.SetInventory(Player.PlayerData.items)
     end
 end)
+
+QBCore.Functions.CreateCallback('if-scoreboard:server:GetCurrentPlayers', function(source, cb)
+    local TotalPlayers = 0
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        TotalPlayers = TotalPlayers + 1
+    end
+    cb(TotalPlayers)
+end)
