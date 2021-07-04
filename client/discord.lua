@@ -1,12 +1,12 @@
 -- To Set This Up visit https://forum.cfx.re/t/how-to-updated-discord-rich-presence-custom-image/157686
 
 Citizen.CreateThread(function()
-	while true do
+    while true do
         -- This is the Application ID (Replace this with you own)
-		SetDiscordAppId()
+	SetDiscordAppId()
 
         -- Here you will have to put the image name for the "large" icon.
-		SetDiscordRichPresenceAsset('logo_name')
+	SetDiscordRichPresenceAsset('logo_name')
         
         -- (11-11-2018) New Natives:
 
@@ -19,6 +19,9 @@ Citizen.CreateThread(function()
         -- Here you can add hover text for the "small" icon.
         SetDiscordRichPresenceAssetSmallText('This is a lsmall icon with text')
 
+        QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
+            SetRichPresence('Players: '..result..'/64')
+        end)
 
         -- (26-02-2021) New Native:
 
@@ -31,6 +34,6 @@ Citizen.CreateThread(function()
         SetDiscordRichPresenceAction(1, "Second Button!", "fivem://connect/localhost:30120")
 
         -- It updates every minute just in case.
-		Citizen.Wait(60000)
-	end
+	Citizen.Wait(60000)
+    end
 end)
