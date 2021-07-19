@@ -13,47 +13,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-local entityEnumerator = {
-	__gc = function(enum)
-		if enum.destructor and enum.handle then
-			enum.destructor(enum.handle)
-		end
-
-		enum.destructor = nil
-		enum.handle = nil
-	end
-}
-
-local function EnumerateEntities(initFunc, moveFunc, disposeFunc)
-	return coroutine.wrap(function()
-		local iter, id = initFunc()
-		if not id or id == 0 then
-			disposeFunc(iter)
-			return
-		end
-
-		local enum = {handle = iter, destructor = disposeFunc}
-		setmetatable(enum, entityEnumerator)
-
-		local next = true
-		repeat
-		coroutine.yield(id)
-		next, id = moveFunc(iter)
-		until not next
-
-		enum.destructor, enum.handle = nil, nil
-		disposeFunc(iter)
-	end)
-end
-
-function EnumerateVehicles()
-	return EnumerateEntities(FindFirstVehicle, FindNextVehicle, EndFindVehicle)
-end
-
-function EnumeratePeds()
-	return EnumerateEntities(FindFirstPed, FindNextPed, EndFindPed)
-end
-
 Citizen.CreateThread(function()
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
     SetAudioFlag("PoliceScannerDisabled", true)
@@ -75,48 +34,47 @@ Citizen.CreateThread(function()
 		RemoveVehiclesFromGeneratorsInArea(-458.24 - 300.0, 6019.81 - 300.0, 31.34 - 300.0, -458.24 + 300.0, 6019.81 + 300.0, 31.34 + 300.0) -- politie bureau paleto
 		RemoveVehiclesFromGeneratorsInArea(1854.82 - 300.0, 3679.4 - 300.0, 33.82 - 300.0, 1854.82 + 300.0, 3679.4 + 300.0, 33.82 + 300.0) -- politie bureau sandy
 		RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
-
     	Citizen.Wait(10)
 	end
 end)
 
 Citizen.CreateThread(function()
-	for ped in EnumeratePeds() do
-		SetPedDropsWeaponsWhenDead(ped, false)
-		if Config.BlacklistedPeds[GetEntityModel(ped)] then
-			DeleteEntity(ped)
+	while true do
+		for k, v in pairs(Config.BlacklistedPeds) do
+			SetPedModelIsSuppressed(k, true)
+		end
+		Citizen.Wait(3)
+	end
+end)
+
+Citizen.CreateThread(function()
+	local pedPool = GetGamePool('CPed')
+	for k,v in pairs(pedPool) do
+		SetPedDropsWeaponsWhenDead(v, false)
+		if Config.BlacklistedPeds[GetEntityModel(v)] then
+			DeleteEntity(v)
 		end
 	end
 	Citizen.Wait(500)
 end)
 
 Citizen.CreateThread(function()
-	while true do
-
-		for k, v in pairs(Config.BlacklistedPeds) do
-			SetVehicleModelIsSuppressed(k, true)
-		end
-
-		Citizen.Wait(3)
-	end
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		for veh in EnumerateVehicles() do
-			if Config.BlacklistedVehs[GetEntityModel(veh)] then
-				DeleteEntity(veh)
-			end
-		end
+    while true do
+        local vehiclePool = GetGamePool('CVehicle')
+        for k,v in pairs(vehiclePool) do
+            SetPedDropsWeaponsWhenDead(v, false)
+            if Config.BlacklistedVehs[GetEntityModel(v)] then
+                DeleteEntity(v)
+            end
+        end
         Citizen.Wait(250)
-	end
+    end
 end)
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1)
 		local ped = PlayerPedId()
-		
 		if IsPedBeingStunned(ped) then
 			SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
 		else
@@ -129,11 +87,9 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local player = PlayerId()
-
 		for i = 1, 15 do
 			EnableDispatchService(i, false)
 		end
-
 		if GetPlayerWantedLevel(player) ~= 0 then
 			SetPlayerWantedLevel(player, 0, false)
 			SetPlayerWantedLevelNow(player, false)
@@ -141,7 +97,6 @@ Citizen.CreateThread(function()
 		else
 			Citizen.Wait(500)
 		end
-
 		Citizen.Wait(6)
 	end
 end)
@@ -151,7 +106,6 @@ Citizen.CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local weapon = GetSelectedPedWeapon(ped)
-
 		if weapon ~= GetHashKey("WEAPON_UNARMED") then
 			if IsPedArmed(ped, 6) then
 				DisableControlAction(1, 140, true)
@@ -168,7 +122,6 @@ Citizen.CreateThread(function()
 		else
 			Citizen.Wait(500)
 		end
-
         Citizen.Wait(7)
     end
 end)

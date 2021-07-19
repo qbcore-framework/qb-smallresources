@@ -1,7 +1,3 @@
-QBCore = nil
-
-TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-
 local VehicleNitrous = {}
 
 RegisterServerEvent('tackle:server:TacklePlayer')
@@ -46,4 +42,12 @@ AddEventHandler('seatbelt:DoHarnessDamage', function(hp, data)
         Player.PlayerData.items[data.slot].info.uses = Player.PlayerData.items[data.slot].info.uses - 1
         Player.Functions.SetInventory(Player.PlayerData.items)
     end
+end)
+
+QBCore.Functions.CreateCallback('if-scoreboard:server:GetCurrentPlayers', function(source, cb)
+    local TotalPlayers = 0
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        TotalPlayers = TotalPlayers + 1
+    end
+    cb(TotalPlayers)
 end)

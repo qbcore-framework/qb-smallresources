@@ -89,7 +89,7 @@ AddEventHandler("fireworks:client:UseFirework", function(itemName, assetName)
         DoFireWork(assetName, pos)
     end, function() -- Cancel
         StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        QBCore.Functions.Notify("Geannuleerd..", "error")
+        QBCore.Functions.Notify("Canceled..", "error")
     end)
 end)
 

@@ -4,7 +4,7 @@ local harnessHp = 20
 harnessData = {}
 local SpeedBuffer = {}
 local vehVelocity = {x = 0.0, y = 0.0, z = 0.0}
-local vehHealth = 0.0
+
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
@@ -73,7 +73,7 @@ Citizen.CreateThread(function()
             SetPedHelmet(playerPed, false)
             lastVehicle = GetVehiclePedIsIn(playerPed, false)
             if GetVehicleEngineHealth(currentVehicle) < 0.0 then
-                SetVehicleEngineHealth(currentVehicle,0.0)
+                SetVehicleEngineHealth(currentVehicle, 0.0)
             end
             if (GetVehicleHandbrake(currentVehicle) or (GetVehicleSteeringAngle(currentVehicle)) > 25.0 or (GetVehicleSteeringAngle(currentVehicle)) < -25.0) then
                 if handbrake == 0 then
@@ -137,13 +137,10 @@ Citizen.CreateThread(function()
                         end
                     end
                     damagedone = true
-                    SetVehicleEngineHealth(currentVehicle, 0)
                     SetVehicleEngineOn(currentVehicle, false, true, true)
                 end
                 if currentvehicleBodyHealth < 350.0 and not damagedone then
                     damagedone = true
-                    SetVehicleBodyHealth(targetVehicle, 945.0)
-                    SetVehicleEngineHealth(currentVehicle, 0)
                     SetVehicleEngineOn(currentVehicle, false, true, true)
                     Citizen.Wait(1000)
                 end
@@ -189,7 +186,6 @@ Citizen.CreateThread(function()
                 newvehicleBodyHealth = GetVehicleBodyHealth(lastVehicle)
                 if not damagedone and newvehicleBodyHealth < currentvehicleBodyHealth then
                     damagedone = true
-                    SetVehicleEngineHealth(lastVehicle, 0)
                     SetVehicleEngineOn(lastVehicle, false, true, true)
                     Citizen.Wait(1000)
                 end
@@ -264,7 +260,7 @@ AddEventHandler('seatbelt:client:UseHarness', function(ItemData)
             harnessData = ItemData
         end
     else
-        QBCore.Functions.Notify('Je zit niet in een auto.', 'error', 3500)
+        QBCore.Functions.Notify('You\'re not in a car.', 'error', 3500)
     end
 end)
 
