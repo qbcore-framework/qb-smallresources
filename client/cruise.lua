@@ -17,7 +17,7 @@ function TriggerCruiseControl ()
       CruisedSpeed = GetVehiculeSpeed()
       CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for km/h
       --CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
-
+      TriggerEvent('seatbelt:client:ToggleCruise')
       QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph ..  " MP/H") -- Comment me for km/h
       --QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedKm ..  " km/h") -- Uncomment me for km/h
 
@@ -27,6 +27,7 @@ function TriggerCruiseControl ()
 
           if not IsTurningOrHandBraking() and GetVehiculeSpeed() < (CruisedSpeed - 1.5) then
             CruisedSpeed = 0
+            TriggerEvent('seatbelt:client:ToggleCruise')
             QBCore.Functions.Notify("Cruise Deactivated", "error")
             Wait(2000)
             break
@@ -37,12 +38,14 @@ function TriggerCruiseControl ()
           end
 
           if IsControlJustPressed(1, 246) then
+            TriggerEvent('seatbelt:client:ToggleCruise')
             CruisedSpeed = GetVehiculeSpeed()
             CruisedSpeedKm = TransformToKm(CruisedSpeed)
           end
 
           if IsControlJustPressed(2, 72) then
             CruisedSpeed = 0
+            TriggerEvent('seatbelt:client:ToggleCruise')
             QBCore.Functions.Notify("Cruise Deactivated", "error")
             Wait(2000)
             break
