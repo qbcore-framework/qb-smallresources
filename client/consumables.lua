@@ -280,7 +280,7 @@ AddEventHandler("consumables:client:Eat", function(itemName)
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + Consumeables[itemName])
-        TriggerServerEvent('qb-hud:Server:RelieveStress', math.random(2, 4))
+        TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
     end)
 end)
 
@@ -329,7 +329,7 @@ function JointEffect()
     --             Citizen.Wait(1000)
     --             weedTime = weedTime - 1
     --             if weedTime == RelieveOdd then
-    --                 TriggerServerEvent('qb-hud:Server:RelieveStress', math.random(14, 18))
+    --                 TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
     --             end
     --             if weedTime <= 0 then
     --                 onWeed = false

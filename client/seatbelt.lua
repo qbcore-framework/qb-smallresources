@@ -238,7 +238,7 @@ function ToggleHarness(toggle)
     else
         TriggerEvent("seatbelt:client:ToggleSeatbelt", false)
     end
-    TriggerEvent('qb-hud:client:ToggleHarness', toggle)
+    TriggerEvent('hud:client:ToggleHarness', toggle)
 end
 
 RegisterNetEvent('seatbelt:client:UseHarness')
