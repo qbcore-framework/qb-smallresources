@@ -1,14 +1,15 @@
+Teleports = Teleports or {}
 Teleports.Locations = {
-    --Elevator @ labs
- [1] = {
-     [1] = vector4(3540.74, 3675.59, 20.99, 167.5),
-     [2] = vector4(3540.74, 3675.59, 28.11, 172.5),
- },
- --Coke Processing Enter/Exit
- [2] = {
-     [1] = vector3(909.49, -1589.22, 30.51),
-     [2] = vector3(1088.81, -3187.57, -38.99),
- }
+        --Elevator @ labs
+    [1] = {
+        [1] = vector4(3540.74, 3675.59, 20.99, 167.5),
+        [2] = vector4(3540.74, 3675.59, 28.11, 172.5),
+    },
+    --Coke Processing Enter/Exit
+    [2] = {
+        [1] = vector3(909.49, -1589.22, 30.51),
+        [2] = vector3(1088.81, -3187.57, -38.99),
+    }
 }
 JustTeleported = false
 
