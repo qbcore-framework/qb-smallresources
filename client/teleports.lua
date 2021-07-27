@@ -32,6 +32,7 @@ Citizen.CreateThread(function()
     while true do
         local inRange = false
         local ped = PlayerPedId()
+	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
         local pos = GetEntityCoords(ped)
 
         for loc,_ in pairs(Teleports.Locations) do
@@ -45,9 +46,9 @@ Citizen.CreateThread(function()
                         DrawText3Ds(v.x, v.y, v.z, '[E] To Teleport')
                         if IsControlJustReleased(0, 51) then
                             if k == 1 then
-                                SetEntityCoords(ped, Teleports.Locations[loc][2].x, Teleports.Locations[loc][2].y, Teleports.Locations[loc][2].z)
+                                SetPedCoordsKeepVehicle(ped, Teleports.Locations[loc][2].x, Teleports.Locations[loc][2].y, Teleports.Locations[loc][2].z)
                             elseif k == 2 then
-                                SetEntityCoords(ped, Teleports.Locations[loc][1].x, Teleports.Locations[loc][1].y, Teleports.Locations[loc][1].z)
+                                SetPedCoordsKeepVehicle(ped, Teleports.Locations[loc][1].x, Teleports.Locations[loc][1].y, Teleports.Locations[loc][1].z)
                             end
                             ResetTeleport()
                         end
