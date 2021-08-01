@@ -25,7 +25,6 @@ Citizen.CreateThread(function()
 		SetCreateRandomCopsOnScenarios(0)
 		DistantCopCarSirens(0)
 		CancelCurrentPoliceReport()
-		SetAllLowPriorityVehicleGeneratorsActive(1.0)
 		RemoveVehiclesFromGeneratorsInArea(335.2616 - 300.0, -1432.455 - 300.0, 46.51 - 300.0, 335.2616 + 300.0, -1432.455 + 300.0, 46.51 + 300.0) -- ziekenhuis
 		RemoveVehiclesFromGeneratorsInArea(441.8465 - 500.0, -987.99 - 500.0, 30.68 -500.0, 441.8465 + 500.0, -987.99 + 500.0, 30.68 + 500.0) -- politie bureau
 		RemoveVehiclesFromGeneratorsInArea(316.79 - 300.0, -592.36 - 300.0, 43.28 - 300.0, 316.79 + 300.0, -592.36 + 300.0, 43.28 + 300.0) -- pillbox
