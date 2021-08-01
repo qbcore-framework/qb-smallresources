@@ -220,7 +220,7 @@ function EjectFromVehicle()
     Citizen.Wait(5511) -- Wait until the ped stops ragdolling
     if(GetEntityHealth(ped) - ejectspeed) > 0 then
         SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
-    else
+    elseif GetEntityHealth(ped) ~= 0 then
         SetEntityHealth(ped, 0)
     end
 end
