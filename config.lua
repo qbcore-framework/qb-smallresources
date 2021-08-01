@@ -59,3 +59,29 @@ Config.BlacklistedPeds = {
     [`s_f_y_cop_01`] = true,
     [`s_m_y_hwaycop_01`] = true,
 }
+
+Config.Teleports = {
+    --Elevator @ labs
+    [1] = {
+        [1] = {
+            coords = vector4(3540.74, 3675.59, 20.99, 167.5),
+            ["AllowVehicle"] = false,
+        },
+        [2] = {
+            coords = vector4(3540.74, 3675.59, 28.11, 172.5),
+            ["AllowVehicle"] = false,
+        },
+        
+    },
+    --Coke Processing Enter/Exit
+    [2] = {
+        [1] = {
+            coords = vector3(909.49, -1589.22, 30.51),
+            ["AllowVehicle"] = false,
+        },
+        [2] = {
+            coords = vector3(1088.81, -3187.57, -38.99),
+            ["AllowVehicle"] = false,
+        },
+    },
+}
