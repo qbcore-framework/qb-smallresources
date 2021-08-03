@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
                     TriggerEvent("seatbelt:client:ToggleSeatbelt")
                 end
             else
-                QBCore.Functions.Progressbar("harness_equip", "Race harnas af doen..", 5000, false, true, {
+                QBCore.Functions.Progressbar("harness_equip", "Taking off race harness...", 5000, false, true, {
                     disableMovement = false,
                     disableCarMovement = false,
                     disableMouse = false,
@@ -247,7 +247,7 @@ AddEventHandler('seatbelt:client:UseHarness', function(ItemData)
     local inveh = IsPedInAnyVehicle(ped)
     if inveh and not IsThisModelABike(GetEntityModel(GetVehiclePedIsIn(ped))) then
         if not harnessOn then
-            QBCore.Functions.Progressbar("harness_equip", "Race harnas om doen..", 5000, false, true, {
+            QBCore.Functions.Progressbar("harness_equip", "Putting on race harness...", 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
