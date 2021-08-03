@@ -217,7 +217,12 @@ function EjectFromVehicle()
     SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
     SetEntityVelocity(ped, veloc.x*4,veloc.y*4,veloc.z*4)
     local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)
-    SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
+    Citizen.Wait(5511) -- Wait until the ped stops ragdolling
+    if(GetEntityHealth(ped) - ejectspeed) > 0 then
+        SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
+    elseif GetEntityHealth(ped) ~= 0 then
+        SetEntityHealth(ped, 0)
+    end
 end
 
 RegisterNetEvent("seatbelt:client:ToggleSeatbelt")
