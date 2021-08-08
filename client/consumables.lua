@@ -270,13 +270,23 @@ end)
 
 RegisterNetEvent("consumables:client:Eat")
 AddEventHandler("consumables:client:Eat", function(itemName)
-    TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
+    --TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
+    if ConsumeProps[itemName] ~= nil then
+        local ped = PlayerPedId()
+        local x,y,z = table.unpack(GetEntityCoords(ped))
+        CurrentProp = CreateObject(GetHashKey(ConsumeProps[itemName]), x, y, z + 0.2, true, true, true)
+        local boneIndex = GetPedBoneIndex(ped, 18905)
+        AttachEntityToEntity(CurrentProp, ped, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+    end
+
     QBCore.Functions.Progressbar("eat_something", "Eating..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
 		disableCombat = true,
     }, {}, {}, {}, function() -- Done
+        ClearPedSecondaryTask(ped)
+        DeleteObject(CurrentProp)
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + Consumeables[itemName])
@@ -286,13 +296,23 @@ end)
 
 RegisterNetEvent("consumables:client:Drink")
 AddEventHandler("consumables:client:Drink", function(itemName)
-    TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
+    --TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
+    if ConsumeProps[itemName] ~= nil then
+        local ped = PlayerPedId()
+        local x,y,z = table.unpack(GetEntityCoords(ped))
+        CurrentProp = CreateObject(GetHashKey(ConsumeProps[itemName]), x, y, z + 0.2, true, true, true)
+        local boneIndex = GetPedBoneIndex(ped, 18905)
+        AttachEntityToEntity(CurrentProp, ped, boneIndex, 0.10, -0.03, 0.03, -100.0, 0.0, -10.0, true, true, false, true, 1, true)
+    end
+		
     QBCore.Functions.Progressbar("drink_something", "Drinking..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
 		disableCombat = true,
     }, {}, {}, {}, function() -- Done
+	ClearPedSecondaryTask(ped)
+        DeleteObject(CurrentProp)			
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Consumeables[itemName])
