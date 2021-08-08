@@ -11,6 +11,11 @@ Consumeables = {
     ["vodka"] = math.random(20, 40),
 }
 
+ConsumeProps = {
+    ["sandwich"] = 'prop_sandwich_01',
+    ['coffee'] = 'p_amb_coffeecup_01',
+}
+
 Config = {}
 
 Config.RemoveWeaponDrops = true
