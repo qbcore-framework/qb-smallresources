@@ -37,6 +37,9 @@ Citizen.CreateThread(function()
                 DisableControlAction(0, 75, true)
                 DisableControlAction(27, 75, true)
             end
+        else
+            seatbeltOn = false
+            harnessOn = false
         end
     end
 end)
