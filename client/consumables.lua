@@ -194,7 +194,7 @@ AddEventHandler("consumables:client:DrinkAlcohol", function(itemName)
         
     end, function() -- Cancel
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        QBCore.Functions.Notify("Geannuleerd..", "error")
+        QBCore.Functions.Notify("Cancelled..", "error")
     end)
 end)
 
