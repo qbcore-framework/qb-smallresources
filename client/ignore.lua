@@ -13,6 +13,7 @@ Citizen.CreateThread(function()
     end
 end)
 
+AddEventHandler('playerSpawned', function()
 Citizen.CreateThread(function()
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
     SetAudioFlag("PoliceScannerDisabled", true)
@@ -35,6 +36,7 @@ Citizen.CreateThread(function()
 		RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
     	Citizen.Wait(10)
 	end
+end)
 end)
 
 Citizen.CreateThread(function()
