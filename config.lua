@@ -18,6 +18,9 @@ Config.RemoveWeaponDropsTimer = 25
 
 Config.JointEffectTime = 60
 
+Config.EnableBoats = false
+Config.EnableTrains = false
+
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
