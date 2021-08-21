@@ -17,6 +17,8 @@ Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 
 Config.JointEffectTime = 60
+Config.EnableBoats = false
+Config.EnableTrains = false
 
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
