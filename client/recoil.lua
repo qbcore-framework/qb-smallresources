@@ -1,7 +1,7 @@
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		local ped = GetPlayerPed( -1 )
+		local ped = PlayerPedId()
 		local weapon = GetSelectedPedWeapon(ped)
 		-- Pistol
 		if weapon == GetHashKey("WEAPON_STUNGUN") then
