@@ -70,3 +70,13 @@ RegisterCommand('point', function()
     end
 end)
 RegisterKeyMapping('point', 'Toggles Point', 'keyboard', 'b')
+
+RegisterNetEvent('smallresources:client:checkRep')
+AddEventHandler('smallresources:client:checkRep', function()
+	  TriggerEvent('chatMessage', "SYSTEM", "warning", 
+	  " | tow "..QBCore.Functions.GetPlayerData().metadata["jobrep"]["tow"]..
+	  " | taxi "..QBCore.Functions.GetPlayerData().metadata["jobrep"]["taxi"]..
+	  " | hotdog "..QBCore.Functions.GetPlayerData().metadata["jobrep"]["hotdog"]..
+	  " | trucker "..QBCore.Functions.GetPlayerData().metadata["jobrep"]["trucker"]..
+	  " ")
+  end)
