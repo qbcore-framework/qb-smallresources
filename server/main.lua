@@ -13,6 +13,13 @@ QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source, args)
     TriggerClientEvent('QBCore:Notify', source,  "ID: "..source)
 end)
 
+QBCore.Commands.Add("jobrep", "level all job", {}, false, function(source, args)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player ~= nil then
+        TriggerClientEvent("smallresources:client:checkRep", source)
+    end
+end)
+
 QBCore.Functions.CreateUseableItem("harness", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
     TriggerClientEvent('seatbelt:client:UseHarness', source, item)
