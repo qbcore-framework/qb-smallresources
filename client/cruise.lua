@@ -5,8 +5,12 @@ Citizen.CreateThread(function ()
   while true do
     Wait(0)
     if IsControlJustPressed(1, 246) and IsDriver() then
-      Player = PlayerPedId()
-      TriggerCruiseControl()
+      if GetVehicleClass(GetVehiclePedIsIn(PlayerPedId())) ~= 13 and GetVehicleClass(GetVehiclePedIsIn(PlayerPedId())) ~= 14 and GetVehicleClass(GetVehiclePedIsIn(PlayerPedId())) ~= 15 and GetVehicleClass(GetVehiclePedIsIn(PlayerPedId())) ~= 16 and GetVehicleClass(GetVehiclePedIsIn(PlayerPedId())) ~= 21 then
+        Player = PlayerPedId()
+        TriggerCruiseControl()
+      else
+        QBCore.Functions.Notify("Cruise control unavailable", "error")
+      end
     end
   end
 end)
