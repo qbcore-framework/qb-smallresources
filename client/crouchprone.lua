@@ -4,7 +4,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
         local ped = PlayerPedId()
-        if not IsPedSittingInAnyVehicle(ped) then
+        if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) then
             if IsControlJustReleased(0, 36) then
                 stage = stage + 1
                 if stage == 2 then
