@@ -1,13 +1,43 @@
 local Player = nil
 local CruisedSpeed, CruisedSpeedKm, VehicleVectorY = 0, 0, 0
+local vehicleClasses = {
+  [0] = true,
+  [1] = true,
+  [2] = true,
+  [3] = true,
+  [4] = true,
+  [5] = true,
+  [6] = true,
+  [7] = true,
+  [8] = true,
+  [9] = true,
+  [10] = true,
+  [11] = true,
+  [12] = true,
+  [13] = false,
+  [14] = false,
+  [15] = false,
+  [16] = false,
+  [17] = true,
+  [18] = true,
+  [19] = true,
+  [20] = true,
+  [21] = false,
+}
 
-Citizen.CreateThread(function ()
+CreateThread(function()
   while true do
-    Wait(0)
-    if IsControlJustPressed(1, 246) and IsDriver() then
-      Player = PlayerPedId()
-      TriggerCruiseControl()
-    end
+      Wait(0)
+      local veh = GetVehiclePedIsIn(PlayerPedId())
+      local vehClass = GetVehicleClass(veh)
+      if IsControlJustPressed(1, 246) and IsDriver() then
+          if vehicleClasses[vehClass] then
+              Player = PlayerPedId()
+              TriggerCruiseControl()
+          else
+              QBCore.Functions.Notify("Cruise control unavailable", "error")
+          end
+      end
   end
 end)
 
