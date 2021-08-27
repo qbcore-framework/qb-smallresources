@@ -255,12 +255,14 @@ AddEventHandler('seatbelt:client:UseHarness', function(ItemData)
     local inveh = IsPedInAnyVehicle(ped)
     if inveh and not IsThisModelABike(GetEntityModel(GetVehiclePedIsIn(ped))) then
         if not harnessOn then
+            LocalPlayer.state:set("inv_busy", true, true)
             QBCore.Functions.Progressbar("harness_equip", "Putting on race harness...", 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
                 disableCombat = true,
             }, {}, {}, {}, function() -- Done
+                LocalPlayer.state:set("inv_busy", false, true)
                 ToggleHarness(true)
                 TriggerServerEvent('equip:harness', ItemData)
             end)
