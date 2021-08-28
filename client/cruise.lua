@@ -30,13 +30,17 @@ CreateThread(function()
       Wait(0)
       local veh = GetVehiclePedIsIn(PlayerPedId())
       local vehClass = GetVehicleClass(veh)
-      if IsControlJustPressed(1, 246) and IsDriver() then
-          if vehicleClasses[vehClass] then
-              Player = PlayerPedId()
-              TriggerCruiseControl()
-          else
-              QBCore.Functions.Notify("Cruise control unavailable", "error")
-          end
+      if IsDriver() then
+        if vehicleClasses[vehClass] then
+            if IsControlJustPressed(1, 246) then
+                Player = PlayerPedId()
+                TriggerCruiseControl()
+            else
+                QBCore.Functions.Notify("Cruise control unavailable", "error")
+            end
+        end
+      else
+        Citizen.Wait(1000)
       end
   end
 end)
