@@ -13,6 +13,8 @@ Consumeables = {
 
 Config = {}
 
+Config.EnableProne = true
+
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 
