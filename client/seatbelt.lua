@@ -219,8 +219,12 @@ function EjectFromVehicle()
     Citizen.Wait(1)
     SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
     SetEntityVelocity(ped, veloc.x*4,veloc.y*4,veloc.z*4)
-    local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)
-    Citizen.Wait(5511) -- Wait until the ped stops ragdolling
+    local entitySpeed = GetEntitySpeed(ped)
+    local ejectspeed = math.ceil(entitySpeed * 8)
+    while entitySpeed > 0.5 do
+      Citizen.Wait(10)
+      entitySpeed = GetEntitySpeed(ped)
+    end
     if(GetEntityHealth(ped) - ejectspeed) > 0 then
         SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
     elseif GetEntityHealth(ped) ~= 0 then
