@@ -14,6 +14,8 @@ local recoils = {
 	[584646201] = 2.5, -- APPistol
 	[911657153] = 0.1, -- StunGun
 	[1198879012] = 0.9, -- FlareGun
+	[-120179019] = 0.9, -- Glock
+	
 
 -- SMG
 	[324215364] = 0.2, -- MicroSMG
