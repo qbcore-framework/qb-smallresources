@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
                     DrawMarker(2, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.15, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
 
                     if dist < 1 then
-                        DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, '[E] To Teleport')
+                        DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
                         if IsControlJustReleased(0, 51) then
                             if k == 1 then
                                 if v["AllowVehicle"] then
