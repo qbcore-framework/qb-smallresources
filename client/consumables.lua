@@ -48,11 +48,13 @@ local ParachuteEquiped = false
 RegisterNetEvent("consumables:client:UseParachute")
 AddEventHandler("consumables:client:UseParachute", function()
     EquipParachuteAnim()
+	LocalPlayer.state:set("inv_busy", true, true)
     QBCore.Functions.Progressbar("use_parachute", "parachute using..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
 		disableCombat = true,
+	LocalPlayer.state:set("inv_busy", false, true)
     }, {}, {}, {}, function() -- Done
         local ped = PlayerPedId()
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "remove")
@@ -109,11 +111,13 @@ end)
 
 RegisterNetEvent("consumables:client:UseArmor")
 AddEventHandler("consumables:client:UseArmor", function()
+	LocalPlayer.state:set("inv_busy", true, true)
     QBCore.Functions.Progressbar("use_armor", "Putting on the body armour..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
 		disableCombat = true,
+	LocalPlayer.state:set("inv_busy", false, true)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["armor"], "remove")
         TriggerServerEvent('hospital:server:SetArmor', 75)
