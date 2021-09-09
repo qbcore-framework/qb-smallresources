@@ -1,3 +1,13 @@
+Config = {}
+Config.MaxWidth = 5.0
+Config.MaxHeight = 5.0
+Config.MaxLength = 5.0
+Config.DamageNeeded = 100.0
+Config.EnableProne = true
+Config.JointEffectTime = 60
+Config.RemoveWeaponDrops = true
+Config.RemoveWeaponDropsTimer = 25
+
 Consumeables = {
     ["sandwich"] = math.random(35, 54),
     ["water_bottle"] = math.random(35, 54),
@@ -10,15 +20,6 @@ Consumeables = {
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
 }
-
-Config = {}
-
-Config.EnableProne = true
-
-Config.RemoveWeaponDrops = true
-Config.RemoveWeaponDropsTimer = 25
-
-Config.JointEffectTime = 60
 
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
