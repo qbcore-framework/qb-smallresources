@@ -58,9 +58,6 @@ local recoils = {
 	[-1121678507] = 0.1, -- MINI SMG		
 }
 
-
-
-
 Citizen.CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
@@ -94,4 +91,13 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(0)
 	end
+end)
+
+CreateThread(function() -- Weapon Damage
+    for weapon, modifier in pairs(Config.DamageWeapons) do
+      local hash = GetHashKey(weapon)
+      local ped = PlayerPedId()
+      SetWeaponDamageModifier(hash, modifier)
+      SetPedSuffersCriticalHits(ped, false)
+    end
 end)
