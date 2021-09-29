@@ -106,6 +106,25 @@ QBCore.Functions.CreateUseableItem("tosti", function(source, item)
     end
 end)
 
+QBCore.Functions.CreateUseableItem("repairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+    TriggerClientEvent('qb-items:client:use:repairkit', source)
+    Citizen.Wait(10000)
+    TriggerClientEvent('iens:repaira', source)
+    TriggerClientEvent('vehiclemod:client:fixEverything', source)
+    end
+end)
+
+QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+    TriggerClientEvent('qb-items:client:use:advancedrepairkit', source)
+    TriggerClientEvent('iens:repaira', source)
+    TriggerClientEvent('vehiclemod:client:fixEverything', source)
+    end
+end)
+
 QBCore.Functions.CreateUseableItem("binoculars", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
     TriggerClientEvent("binoculars:Toggle", source)
