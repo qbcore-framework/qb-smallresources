@@ -109,6 +109,7 @@ end)
 
 RegisterNetEvent("consumables:client:UseArmor")
 AddEventHandler("consumables:client:UseArmor", function()
+    if GetPedArmour(PlayerPedId()) >= 75 then QBCore.Functions.Notify('You already have enough armor on!', 'error') return end
     QBCore.Functions.Progressbar("use_armor", "Putting on the body armour..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
@@ -125,6 +126,7 @@ local currentVest = nil
 local currentVestTexture = nil
 RegisterNetEvent("consumables:client:UseHeavyArmor")
 AddEventHandler("consumables:client:UseHeavyArmor", function()
+    if GetPedArmour(PlayerPedId()) == 100 then QBCore.Functions.Notify('You already have enough armor on!', 'error') return end
     local ped = PlayerPedId()
     local PlayerData = QBCore.Functions.GetPlayerData()
     QBCore.Functions.Progressbar("use_heavyarmor", "Putting on body armour..", 5000, false, true, {
