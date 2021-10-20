@@ -107,6 +107,34 @@ end)
 --     end
 -- end)
 
+RegisterNetEvent("consumables:client:UseAdvancedReparikit", function()
+    QBCore.Functions.Progressbar("advancedrepairkit", "Repairing..", 100, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent('qb-items:client:use:advancedrepairkit', source)
+        TriggerEvent('iens:repaira', source)
+        TriggerEvent('vehiclemod:client:fixEverything', source)
+        
+    end)
+end)
+
+RegisterNetEvent("consumables:client:UseReparikit", function()
+    QBCore.Functions.Progressbar("repairkit", "Repairing..", 1000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent('qb-items:client:use:repairkit', source)
+        TriggerEvent('iens:repaira', source)
+        TriggerEvent('vehiclemod:client:fixEverything', source)
+        
+    end)
+end)
+
 RegisterNetEvent("consumables:client:UseArmor")
 AddEventHandler("consumables:client:UseArmor", function()
     if GetPedArmour(PlayerPedId()) >= 75 then QBCore.Functions.Notify('You already have enough armor on!', 'error') return end
@@ -122,6 +150,7 @@ AddEventHandler("consumables:client:UseArmor", function()
         SetPedArmour(PlayerPedId(), 75)
     end)
 end)
+
 local currentVest = nil
 local currentVestTexture = nil
 RegisterNetEvent("consumables:client:UseHeavyArmor")
