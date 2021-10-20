@@ -106,6 +106,20 @@ QBCore.Functions.CreateUseableItem("tosti", function(source, item)
     end
 end)
 
+QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:UseAdvancedReparikit", source, item.name)
+    end
+end)
+
+QBCore.Functions.CreateUseableItem("repairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:UseReparikit", source, item.name)
+    end
+end)
+
 QBCore.Functions.CreateUseableItem("binoculars", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
     TriggerClientEvent("binoculars:Toggle", source)
