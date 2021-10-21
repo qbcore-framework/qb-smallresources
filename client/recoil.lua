@@ -155,38 +155,3 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 end)
-
-Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-		if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
-			local _,wep = GetCurrentPedWeapon(ped)
-			_,cAmmo = GetAmmoInClip(ped, wep)
-			if recoils[wep] and recoils[wep] ~= 0 then
-				tv = 0
-				if GetFollowPedCamViewMode() ~= 4 then
-					repeat 
-						Wait(0)
-						p = GetGameplayCamRelativePitch()
-						SetGameplayCamRelativePitch(p+0.1, 0.2)
-						tv = tv+0.1
-					until tv >= recoils[wep]
-				else
-					repeat 
-						Wait(0)
-						p = GetGameplayCamRelativePitch()
-						if recoils[wep] > 0.1 then
-							SetGameplayCamRelativePitch(p+0.6, 1.2)
-							tv = tv+0.6
-						else
-							SetGameplayCamRelativePitch(p+0.016, 0.333)
-							tv = tv+0.1
-						end
-					until tv >= recoils[wep]
-				end
-			end
-		end
-
-		Citizen.Wait(0)
-	end
-end)
