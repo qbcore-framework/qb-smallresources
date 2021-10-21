@@ -186,7 +186,7 @@ AddEventHandler("consumables:client:DrinkAlcohol", function(itemName)
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
-        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesAlcohol[itemName])
         alcoholCount = alcoholCount + 1
         if alcoholCount > 1 and alcoholCount < 4 then
             TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
@@ -281,7 +281,7 @@ AddEventHandler("consumables:client:Eat", function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + ConsumeablesEat[itemName])
         TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
     end)
 end)
@@ -297,7 +297,7 @@ AddEventHandler("consumables:client:Drink", function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesDrink[itemName])
     end)
 end)
 
