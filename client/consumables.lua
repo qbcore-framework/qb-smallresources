@@ -91,7 +91,7 @@ AddEventHandler("consumables:client:ResetParachute", function()
             ParachuteEquiped = false
         end)
     else
-        QBCore.Functions.Notify("U dont have a parachute!", "error")
+        QBCore.Functions.Notify("You dont have a parachute!", "error")
     end
 end)
 
