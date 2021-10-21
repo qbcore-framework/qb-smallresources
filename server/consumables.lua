@@ -95,6 +95,11 @@ QBCore.Functions.CreateUseableItem("oxy", function(source, item)
     TriggerClientEvent("consumables:client:oxy", source)
 end)
 
+QBCore.Functions.CreateUseableItem("meth", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("consumables:client:meth", source)
+end)
+
 ----------- / Tools
 
 QBCore.Functions.CreateUseableItem("armor", function(source, item)
