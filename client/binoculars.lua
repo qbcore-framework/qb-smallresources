@@ -1,13 +1,10 @@
-
 local fov_max = 70.0
 local fov_min = 5.0 -- max zoom level (smaller fov is more zoom)
 local zoomspeed = 10.0 -- camera zoom speed
 local speed_lr = 8.0 -- speed by which the camera pans left-right
 local speed_ud = 8.0 -- speed by which the camera pans up-down
-
 local binoculars = false
 local fov = (fov_max+fov_min)*0.5
-
 local keybindEnabled = false -- When enabled, binocular are available by keybind
 local binocularKey = 73
 local storeBinoclarKey = 177
@@ -34,18 +31,13 @@ Citizen.CreateThread(function()
             Wait(2000)
 
             SetTimecycleModifier("default")
-
-
             SetTimecycleModifierStrength(0.3)
-
             local scaleform = RequestScaleformMovie("BINOCULARS")
-
             while not HasScaleformMovieLoaded(scaleform) do
                 Citizen.Wait(10)
             end
 
             local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
-
             AttachCamToEntity(cam, lPed, 0.0,0.0,1.0, true)
             SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed))
             SetCamFov(cam, fov)
@@ -63,10 +55,8 @@ Citizen.CreateThread(function()
 
                 local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
                 CheckInputRotation(cam, zoomvalue)
-
                 HandleZoom(cam)
                 HideHUDThisFrame()
-
                 DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
                 Citizen.Wait(1)
             end
@@ -94,6 +84,7 @@ AddEventHandler('binoculars:Toggle', function()
 end)
 
 --FUNCTIONS--
+
 function HideHUDThisFrame()
     HideHelpTextThisFrame()
     HideHudAndRadarThisFrame()
