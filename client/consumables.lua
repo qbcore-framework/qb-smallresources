@@ -270,6 +270,45 @@ AddEventHandler('consumables:client:EcstasyBaggy', function()
     end)
 end)
 
+RegisterNetEvent('consumables:client:oxy')
+AddEventHandler('consumables:client:oxy', function()
+    QBCore.Functions.Progressbar("use_oxy", "Healing", 2000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "pill",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "oxy", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["oxy"], "remove")
+        ClearPedBloodDamage(PlayerPedId())
+		HealOxy()
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify("Canceled", "error")
+    end)
+end)
+
+function HealOxy()
+    if not healing then
+        healing = true
+    else
+        return
+    end
+    
+    local count = 9
+    while count > 0 do
+        Citizen.Wait(1000)
+        count = count - 1
+        SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 6) 
+    end
+    healing = false
+end
+
 RegisterNetEvent("consumables:client:Eat")
 AddEventHandler("consumables:client:Eat", function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
