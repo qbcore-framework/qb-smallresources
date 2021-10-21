@@ -90,6 +90,11 @@ QBCore.Functions.CreateUseableItem("xtcbaggy", function(source, item)
     TriggerClientEvent("consumables:client:EcstasyBaggy", source)
 end)
 
+QBCore.Functions.CreateUseableItem("oxy", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("consumables:client:oxy", source)
+end)
+
 ----------- / Tools
 
 QBCore.Functions.CreateUseableItem("armor", function(source, item)
