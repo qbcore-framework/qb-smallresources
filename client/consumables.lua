@@ -309,6 +309,59 @@ function HealOxy()
     healing = false
 end
 
+RegisterNetEvent("consumables:client:meth")
+AddEventHandler("consumables:client:meth", function()
+    QBCore.Functions.Progressbar("snort_meth", "Smoking Ass Meth", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = "switch@trevor@trev_smoking_meth",
+        anim = "trev_smoking_meth_loop",
+        flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "switch@trevor@trev_smoking_meth", "trev_smoking_meth_loop", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "meth", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["meth"], "remove")
+        TriggerEvent("evidence:client:SetStatus", "widepupils", 300)
+		TriggerEvent("evidence:client:SetStatus", "agitated", 300)
+        MethBagEffect()
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "switch@trevor@trev_smoking_meth", "trev_smoking_meth_loop", 1.0)
+        QBCore.Functions.Notify("Canceled..", "error")
+	end)
+end)
+
+function MethBagEffect()
+    local startStamina = 8
+    TrevorEffect()
+    SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
+    while startStamina > 0 do 
+        Citizen.Wait(1000)
+        if math.random(5, 100) < 10 then
+            RestorePlayerStamina(PlayerId(), 1.0)
+        end
+        startStamina = startStamina - 1
+        if math.random(5, 100) < 51 then
+            TrevorEffect()
+        end
+    end
+    startStamina = 0
+    SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
+end
+
+function TrevorEffect()
+    StartScreenEffect("DrugsTrevorClownsFightIn", 3.0, 0)
+    Citizen.Wait(3000)
+    StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
+    Citizen.Wait(3000)
+	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
+	StopScreenEffect("DrugsTrevorClownsFight")
+	StopScreenEffect("DrugsTrevorClownsFightIn")
+	StopScreenEffect("DrugsTrevorClownsFightOut")
+end
+
 RegisterNetEvent("consumables:client:Eat")
 AddEventHandler("consumables:client:Eat", function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
