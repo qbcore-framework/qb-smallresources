@@ -65,3 +65,10 @@ ensure qb-smallresources
 
 ## Configuration
 Each feature has a different file name correlative with its function. You can configure each one by its own.
+
+## Features
+Adds the option to use drugs that adds effects ex. speed, damage reduction, health recharge.
+
+Weed -> Run Faster
+Meth -> Heal 20%
+Coke -> Heal 30% + Armour
