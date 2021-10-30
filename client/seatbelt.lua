@@ -78,19 +78,23 @@ function ToggleSeatbelt()
         seatbeltOn = false
         TriggerEvent("seatbelt:client:ToggleSeatbelt")
         TriggerServerEvent("InteractSound_SV:PlayOnSource", "carunbuckle", 0.25)
+        TriggerEvent('QBCore:Notify', "Seat belt unbuckled!", "error")
     else
         seatbeltOn = true
         TriggerEvent("seatbelt:client:ToggleSeatbelt")
         TriggerServerEvent("InteractSound_SV:PlayOnSource", "carbuckle", 0.25)
+        TriggerEvent('QBCore:Notify', "Seat belt buckled!")
     end
 end
 
 function ToggleHarness()
     if harnessOn then
         harnessOn = false
+        TriggerEvent('QBCore:Notify', "Race harness off!", "error")
     else
         harnessOn = true
         ToggleSeatbelt()
+        TriggerEvent('QBCore:Notify', "Race harness on!")
     end
 end
 
