@@ -102,7 +102,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
-		if DoesEntityExist(ped) and not IsEntityDead(ped) then
+		if DoesEntityExist(ped) and not IsEntityDead(ped) and not IsPedInParachuteFreeFall(ped) and not IsPedFalling(ped) and (GetPedParachuteState(ped) == -1 or GetPedParachuteState(ped) == 0) then
 			if currWeapon ~= GetSelectedPedWeapon(ped) then
 				pos = GetEntityCoords(ped, true)
 				rot = GetEntityHeading(ped)

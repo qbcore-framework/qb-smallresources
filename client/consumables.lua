@@ -91,7 +91,7 @@ AddEventHandler("consumables:client:ResetParachute", function()
             ParachuteEquiped = false
         end)
     else
-        QBCore.Functions.Notify("U dont have a parachute!", "error")
+        QBCore.Functions.Notify("You dont have a parachute!", "error")
     end
 end)
 
@@ -186,7 +186,7 @@ AddEventHandler("consumables:client:DrinkAlcohol", function(itemName)
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
-        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesAlcohol[itemName])
         alcoholCount = alcoholCount + 1
         if alcoholCount > 1 and alcoholCount < 4 then
             TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
@@ -270,6 +270,98 @@ AddEventHandler('consumables:client:EcstasyBaggy', function()
     end)
 end)
 
+RegisterNetEvent('consumables:client:oxy')
+AddEventHandler('consumables:client:oxy', function()
+    QBCore.Functions.Progressbar("use_oxy", "Healing", 2000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "pill",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "oxy", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["oxy"], "remove")
+        ClearPedBloodDamage(PlayerPedId())
+		HealOxy()
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify("Canceled", "error")
+    end)
+end)
+
+function HealOxy()
+    if not healing then
+        healing = true
+    else
+        return
+    end
+    
+    local count = 9
+    while count > 0 do
+        Citizen.Wait(1000)
+        count = count - 1
+        SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 6) 
+    end
+    healing = false
+end
+
+RegisterNetEvent("consumables:client:meth")
+AddEventHandler("consumables:client:meth", function()
+    QBCore.Functions.Progressbar("snort_meth", "Smoking Ass Meth", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = "switch@trevor@trev_smoking_meth",
+        anim = "trev_smoking_meth_loop",
+        flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "switch@trevor@trev_smoking_meth", "trev_smoking_meth_loop", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "meth", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["meth"], "remove")
+        TriggerEvent("evidence:client:SetStatus", "widepupils", 300)
+		TriggerEvent("evidence:client:SetStatus", "agitated", 300)
+        MethBagEffect()
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "switch@trevor@trev_smoking_meth", "trev_smoking_meth_loop", 1.0)
+        QBCore.Functions.Notify("Canceled..", "error")
+	end)
+end)
+
+function MethBagEffect()
+    local startStamina = 8
+    TrevorEffect()
+    SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
+    while startStamina > 0 do 
+        Citizen.Wait(1000)
+        if math.random(5, 100) < 10 then
+            RestorePlayerStamina(PlayerId(), 1.0)
+        end
+        startStamina = startStamina - 1
+        if math.random(5, 100) < 51 then
+            TrevorEffect()
+        end
+    end
+    startStamina = 0
+    SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
+end
+
+function TrevorEffect()
+    StartScreenEffect("DrugsTrevorClownsFightIn", 3.0, 0)
+    Citizen.Wait(3000)
+    StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
+    Citizen.Wait(3000)
+	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
+	StopScreenEffect("DrugsTrevorClownsFight")
+	StopScreenEffect("DrugsTrevorClownsFightIn")
+	StopScreenEffect("DrugsTrevorClownsFightOut")
+end
+
 RegisterNetEvent("consumables:client:Eat")
 AddEventHandler("consumables:client:Eat", function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
@@ -281,7 +373,7 @@ AddEventHandler("consumables:client:Eat", function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + ConsumeablesEat[itemName])
         TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
     end)
 end)
@@ -297,7 +389,7 @@ AddEventHandler("consumables:client:Drink", function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Consumeables[itemName])
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesDrink[itemName])
     end)
 end)
 
