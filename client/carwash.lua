@@ -69,16 +69,42 @@ CreateThread(function()
     end
 end)
 
+local function CreateBlip(coords)
+	local blip = AddBlipForCoord(coords)
+	SetBlipSprite(blip, 100)
+	SetBlipScale(blip, 0.75)
+	SetBlipColour(blip, 37)
+	SetBlipDisplay(blip, 4)
+	SetBlipAsShortRange(blip, true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Hands Free Carwash")
+	EndTextCommandSetBlipName(blip)
+
+	return blip
+end
+
 CreateThread(function()
-    for k, v in pairs(Config.Locations) do
-        carWash = AddBlipForCoord(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"])
-        SetBlipSprite (carWash, 100)
-        SetBlipDisplay(carWash, 4)
-        SetBlipScale  (carWash, 0.75)
-        SetBlipAsShortRange(carWash, true)
-        SetBlipColour(carWash, 37)
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentSubstringPlayerName(Config.Locations[k]["label"])
-        EndTextCommandSetBlipName(carWash)
-    end
+	local currentCarwashBlip = 0
+
+	while true do
+		local coords = GetEntityCoords(PlayerPedId())
+		local closest = 1000
+		local closestCoords
+
+		for _, carWashCoords in pairs(Config.Locations) do
+			local dstcheck = #(coords - carWashCoords)
+
+			if dstcheck < closest then
+				closest = dstcheck
+				closestCoords = carWashCoords
+			end
+		end
+
+		if DoesBlipExist(currentCarwashBlip) then
+			RemoveBlip(currentCarwashBlip)
+		end
+
+		currentCarwashBlip = CreateBlip(closestCoords)
+		Wait(10000)
+	end
 end)
