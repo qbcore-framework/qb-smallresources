@@ -7,6 +7,7 @@ Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
+Config.DefaultPrice = 20 -- carwash
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -47,7 +48,6 @@ Config.BlacklistedVehs = {
     [`JET`] = true,
     [`LAZER`] = true,
     [`BUZZARD`] = true,
-    [`BUZZARD2`] = true,
     [`ANNIHILATOR`] = true,
     [`SAVAGE`] = true,
     [`TITAN`] = true,
@@ -82,7 +82,7 @@ Config.Teleports = {
             ["AllowVehicle"] = false,
             drawText = '[E] Take Elevator Down'
         },
-        
+
     },
     --Coke Processing Enter/Exit
     [2] = {
