@@ -80,7 +80,7 @@ end
 RegisterCommand('togglecruise', function()
     local veh = GetVehiclePedIsIn(PlayerPedId())
     local vehClass = GetVehicleClass(veh)
-    if IsDriving() and IsDriver() then
+    if IsDriver() then
         if vehicleClasses[vehClass] then
             Player = PlayerPedId()
             TriggerCruiseControl()
