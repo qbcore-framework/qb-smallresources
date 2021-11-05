@@ -59,7 +59,7 @@ AddEventHandler("consumables:client:UseParachute", function()
         GiveWeaponToPed(ped, GetHashKey("GADGET_PARACHUTE"), 1, false)
         local ParachuteData = {
             outfitData = {
-                ["bag"]   = { item = 7, texture = 0},  -- Nek / Das
+                ["bag"]   = { item = 7, texture = 0},  -- Adding Parachute Clothing
             }
         }
         TriggerEvent('qb-clothing:client:loadOutfit', ParachuteData)
@@ -82,7 +82,7 @@ AddEventHandler("consumables:client:ResetParachute", function()
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "add")
             local ParachuteRemoveData = { 
                 outfitData = { 
-                    ["bag"] = { item = 0, texture = 0} -- Nek / Das
+                    ["bag"] = { item = 0, texture = 0} -- Removing Parachute Clothing
                 }
             }
             TriggerEvent('qb-clothing:client:loadOutfit', ParachuteRemoveData)
@@ -141,7 +141,7 @@ AddEventHandler("consumables:client:UseHeavyArmor", function()
             if GetPedDrawableVariation(ped, 9) == 7 then
                 SetPedComponentVariation(ped, 9, 19, GetPedTextureVariation(ped, 9), 2)
             else
-                SetPedComponentVariation(ped, 9, 5, 2, 2) -- blauw
+                SetPedComponentVariation(ped, 9, 5, 2, 2) -- Blue
             end
         else
             currentVest = GetPedDrawableVariation(ped, 30)
