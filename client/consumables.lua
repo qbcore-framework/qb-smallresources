@@ -56,7 +56,7 @@ AddEventHandler("consumables:client:UseParachute", function()
     }, {}, {}, {}, function() -- Done
         local ped = PlayerPedId()
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "remove")
-        GiveWeaponToPed(ped, `gadget_parachute`, 1, false)
+        GiveWeaponToPed(ped, `GADGET_PARACHUTE`, 1, false)
         local ParachuteData = {
             outfitData = {
                 ["bag"]   = { item = 7, texture = 0},  -- Nek / Das
