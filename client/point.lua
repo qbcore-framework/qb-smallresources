@@ -63,7 +63,7 @@ RegisterCommand('point', function()
 			SetTaskMoveNetworkSignalFloat (ped, "Pitch", camPitch)
 			SetTaskMoveNetworkSignalFloat (ped, "Heading", camHeading * -1.0 + 1.0)
 			SetTaskMoveNetworkSignalBool  (ped, "isBlocked", blocked)
-			SetTaskMoveNetworkSignalBool  (ped, "isFirstPerson",  false)
+			SetTaskMoveNetworkSignalBool(ped, "isFirstPerson", GetCamViewModeForContext(GetCamActiveViewModeContext()) == 4)
             Wait(1)
         end
     end
