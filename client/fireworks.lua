@@ -1,5 +1,6 @@
 local fireworkTime = 0
 local fireworkLoc = nil
+
 local FireworkList = {
     ["proj_xmas_firework"] = {
         "scr_firework_xmas_ring_burst_rgw",
@@ -33,45 +34,44 @@ local FireworkList = {
         "scr_firework_indep_repeat_burst_rwb",
     },
 }
-Citizen.CreateThread(function()
+CreateThread(function()
     local asset = "scr_indep_fireworks"
     if not HasNamedPtfxAssetLoaded(asset) then
         RequestNamedPtfxAsset(asset)
         while not HasNamedPtfxAssetLoaded(asset) do
-            Citizen.Wait(1)
+            Wait(1)
         end
     end
     local asset2 = "proj_xmas_firework"
     if not HasNamedPtfxAssetLoaded(asset2) then
         RequestNamedPtfxAsset(asset2)
         while not HasNamedPtfxAssetLoaded(asset2) do
-            Citizen.Wait(1)
+            Wait(1)
         end
     end
     local asset3 = "proj_indep_firework_v2"
     if not HasNamedPtfxAssetLoaded(asset3) then
         RequestNamedPtfxAsset(asset3)
         while not HasNamedPtfxAssetLoaded(asset3) do
-            Citizen.Wait(1)
+            Wait(1)
         end
     end
     local asset4 = "proj_indep_firework"
     if not HasNamedPtfxAssetLoaded(asset4) then
         RequestNamedPtfxAsset(asset4)
         while not HasNamedPtfxAssetLoaded(asset4) do
-            Citizen.Wait(1)
+            Wait(1)
         end
     end
     while true do
-        Citizen.Wait(1)
+        Wait(1)
         if fireworkTime > 0 and fireworkLoc ~= nil then
             DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, "Firework over ~r~"..fireworkTime)
         end
     end
 end)
 
-RegisterNetEvent("fireworks:client:UseFirework")
-AddEventHandler("fireworks:client:UseFirework", function(itemName, assetName)
+RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
     QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
@@ -111,9 +111,9 @@ end
 function DoFireWork(asset, coords)
     fireworkTime = 5
     fireworkLoc = {x = coords.x, y = coords.y, z = coords.z}
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while fireworkTime > 0 do
-            Citizen.Wait(1000)
+            Wait(1000)
             fireworkTime = fireworkTime - 1
         end
         UseParticleFxAssetNextCall("scr_indep_fireworks")
@@ -122,7 +122,7 @@ function DoFireWork(asset, coords)
             local firework = FireworkList[asset][math.random(1, #FireworkList[asset])]
             UseParticleFxAssetNextCall(asset)
             local part = StartNetworkedParticleFxNonLoopedAtCoord(firework, fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)
-            Citizen.Wait(math.random()*500)
+            Wait(math.random()*500)
         end
         fireworkLoc = nil
     end)
