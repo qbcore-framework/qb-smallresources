@@ -1,19 +1,19 @@
 local alcoholCount = 0
 local onWeed = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do 
-        Citizen.Wait(10)
+        Wait(10)
         if alcoholCount > 0 then
-            Citizen.Wait(1000 * 60 * 15)
+            Wait(1000 * 60 * 15)
             alcoholCount = alcoholCount - 1
         else
-            Citizen.Wait(2000)
+            Wait(2000)
         end
     end
 end)
-RegisterNetEvent("consumables:client:UseJoint")
-AddEventHandler("consumables:client:UseJoint", function()
+
+RegisterNetEvent('consumables:client:UseJoint', function()
     QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
         disableMovement = false,
         disableCarMovement = false,
@@ -34,7 +34,7 @@ end)
 function loadAnimDict(dict)
     while (not HasAnimDictLoaded(dict)) do
         RequestAnimDict(dict)
-        Citizen.Wait(5)
+        Wait(5)
     end
 end
 
@@ -45,8 +45,7 @@ end
 
 local ParachuteEquiped = false
 
-RegisterNetEvent("consumables:client:UseParachute")
-AddEventHandler("consumables:client:UseParachute", function()
+RegisterNetEvent('consumables:client:UseParachute', function()
     EquipParachuteAnim()
     QBCore.Functions.Progressbar("use_parachute", "parachute using..", 5000, false, true, {
         disableMovement = false,
@@ -68,8 +67,7 @@ AddEventHandler("consumables:client:UseParachute", function()
     end)
 end)
 
-RegisterNetEvent("consumables:client:ResetParachute")
-AddEventHandler("consumables:client:ResetParachute", function()
+RegisterNetEvent('consumables:client:ResetParachute', function()
     if ParachuteEquiped then 
         EquipParachuteAnim()
         QBCore.Functions.Progressbar("reset_parachute", "Packing parachute..", 40000, false, true, {
@@ -95,8 +93,7 @@ AddEventHandler("consumables:client:ResetParachute", function()
     end
 end)
 
--- RegisterNetEvent("consumables:client:UseRedSmoke")
--- AddEventHandler("consumables:client:UseRedSmoke", function()
+-- RegisterNetEvent('consumables:client:UseRedSmoke', function()
 --     if ParachuteEquiped then
 --         local ped = PlayerPedId()
 --         SetPlayerParachuteSmokeTrailColor(ped, 255, 0, 0)
@@ -107,8 +104,7 @@ end)
 --     end
 -- end)
 
-RegisterNetEvent("consumables:client:UseArmor")
-AddEventHandler("consumables:client:UseArmor", function()
+RegisterNetEvent('consumables:client:UseArmor', function()
     if GetPedArmour(PlayerPedId()) >= 75 then QBCore.Functions.Notify('You already have enough armor on!', 'error') return end
     QBCore.Functions.Progressbar("use_armor", "Putting on the body armour..", 5000, false, true, {
         disableMovement = false,
@@ -122,10 +118,11 @@ AddEventHandler("consumables:client:UseArmor", function()
         SetPedArmour(PlayerPedId(), 75)
     end)
 end)
+
 local currentVest = nil
 local currentVestTexture = nil
-RegisterNetEvent("consumables:client:UseHeavyArmor")
-AddEventHandler("consumables:client:UseHeavyArmor", function()
+
+RegisterNetEvent('consumables:client:UseHeavyArmor', function()
     if GetPedArmour(PlayerPedId()) == 100 then QBCore.Functions.Notify('You already have enough armor on!', 'error') return end
     local ped = PlayerPedId()
     local PlayerData = QBCore.Functions.GetPlayerData()
@@ -154,8 +151,7 @@ AddEventHandler("consumables:client:UseHeavyArmor", function()
     end)
 end)
 
-RegisterNetEvent("consumables:client:ResetArmor")
-AddEventHandler("consumables:client:ResetArmor", function()
+RegisterNetEvent('consumables:client:ResetArmor', function()
     local ped = PlayerPedId()
     if currentVest ~= nil and currentVestTexture ~= nil then 
         QBCore.Functions.Progressbar("remove_armor", "Removing the body armour..", 2500, false, true, {
@@ -174,8 +170,7 @@ AddEventHandler("consumables:client:ResetArmor", function()
     end
 end)
 
-RegisterNetEvent("consumables:client:DrinkAlcohol")
-AddEventHandler("consumables:client:DrinkAlcohol", function(itemName)
+RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
     QBCore.Functions.Progressbar("snort_coke", "Drinking liquor..", math.random(3000, 6000), false, true, {
         disableMovement = false,
@@ -200,8 +195,7 @@ AddEventHandler("consumables:client:DrinkAlcohol", function(itemName)
     end)
 end)
 
-RegisterNetEvent("consumables:client:Cokebaggy")
-AddEventHandler("consumables:client:Cokebaggy", function()
+RegisterNetEvent('consumables:client:Cokebaggy', function()
     local ped = PlayerPedId()
     QBCore.Functions.Progressbar("snort_coke", "Quick sniff..", math.random(5000, 8000), false, true, {
         disableMovement = false,
@@ -224,8 +218,7 @@ AddEventHandler("consumables:client:Cokebaggy", function()
     end)
 end)
 
-RegisterNetEvent("consumables:client:Crackbaggy")
-AddEventHandler("consumables:client:Crackbaggy", function()
+RegisterNetEvent('consumables:client:Crackbaggy', function()
     local ped = PlayerPedId()
     QBCore.Functions.Progressbar("snort_coke", "Smoking crack..", math.random(7000, 10000), false, true, {
         disableMovement = false,
@@ -248,8 +241,7 @@ AddEventHandler("consumables:client:Crackbaggy", function()
     end)
 end)
 
-RegisterNetEvent('consumables:client:EcstasyBaggy')
-AddEventHandler('consumables:client:EcstasyBaggy', function()
+RegisterNetEvent('consumables:client:EcstasyBaggy', function()
     QBCore.Functions.Progressbar("use_ecstasy", "Pops Pills", 3000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
@@ -270,8 +262,7 @@ AddEventHandler('consumables:client:EcstasyBaggy', function()
     end)
 end)
 
-RegisterNetEvent('consumables:client:oxy')
-AddEventHandler('consumables:client:oxy', function()
+RegisterNetEvent('consumables:client:oxy', function()
     QBCore.Functions.Progressbar("use_oxy", "Healing", 2000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
@@ -302,15 +293,14 @@ function HealOxy()
     
     local count = 9
     while count > 0 do
-        Citizen.Wait(1000)
+        Wait(1000)
         count = count - 1
         SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 6) 
     end
     healing = false
 end
 
-RegisterNetEvent("consumables:client:meth")
-AddEventHandler("consumables:client:meth", function()
+RegisterNetEvent('consumables:client:meth', function()
     QBCore.Functions.Progressbar("snort_meth", "Smoking Ass Meth", 1500, false, true, {
         disableMovement = false,
         disableCarMovement = false,
@@ -338,7 +328,7 @@ function MethBagEffect()
     TrevorEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
     while startStamina > 0 do 
-        Citizen.Wait(1000)
+        Wait(1000)
         if math.random(5, 100) < 10 then
             RestorePlayerStamina(PlayerId(), 1.0)
         end
@@ -353,17 +343,16 @@ end
 
 function TrevorEffect()
     StartScreenEffect("DrugsTrevorClownsFightIn", 3.0, 0)
-    Citizen.Wait(3000)
+    Wait(3000)
     StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
-    Citizen.Wait(3000)
+    Wait(3000)
 	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
 	StopScreenEffect("DrugsTrevorClownsFight")
 	StopScreenEffect("DrugsTrevorClownsFightIn")
 	StopScreenEffect("DrugsTrevorClownsFightOut")
 end
 
-RegisterNetEvent("consumables:client:Eat")
-AddEventHandler("consumables:client:Eat", function(itemName)
+RegisterNetEvent('consumables:client:Eat', function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
     QBCore.Functions.Progressbar("eat_something", "Eating..", 5000, false, true, {
         disableMovement = false,
@@ -378,8 +367,7 @@ AddEventHandler("consumables:client:Eat", function(itemName)
     end)
 end)
 
-RegisterNetEvent("consumables:client:Drink")
-AddEventHandler("consumables:client:Drink", function(itemName)
+RegisterNetEvent('consumables:client:Drink', function(itemName)
     TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
     QBCore.Functions.Progressbar("drink_something", "Drinking..", 5000, false, true, {
         disableMovement = false,
@@ -397,7 +385,7 @@ function EcstasyEffect()
     local startStamina = 30
     SetFlash(0, 0, 500, 7000, 500)
     while startStamina > 0 do 
-        Citizen.Wait(1000)
+        Wait(1000)
         startStamina = startStamina - 1
         RestorePlayerStamina(PlayerId(), 1.0)
         if math.random(1, 100) < 51 then
@@ -417,10 +405,10 @@ function JointEffect()
     --     local RelieveOdd = math.random(35, 45)
     --     onWeed = true
     --     local weedTime = Config.JointEffectTime
-    --     Citizen.CreateThread(function()
+    --     CreateThread(function()
     --         while onWeed do 
     --             SetPlayerHealthRechargeMultiplier(PlayerId(), 1.8)
-    --             Citizen.Wait(1000)
+    --             Wait(1000)
     --             weedTime = weedTime - 1
     --             if weedTime == RelieveOdd then
     --                 TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
@@ -439,7 +427,7 @@ function CrackBaggyEffect()
     AlienEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.3)
     while startStamina > 0 do 
-        Citizen.Wait(1000)
+        Wait(1000)
         if math.random(1, 100) < 10 then
             RestorePlayerStamina(PlayerId(), 1.0)
         end
@@ -465,7 +453,7 @@ function CokeBaggyEffect()
     AlienEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.1)
     while startStamina > 0 do 
-        Citizen.Wait(1000)
+        Wait(1000)
         if math.random(1, 100) < 20 then
             RestorePlayerStamina(PlayerId(), 1.0)
         end
@@ -475,7 +463,7 @@ function CokeBaggyEffect()
         end
         if math.random(1, 300) < 10 then
             AlienEffect()
-            Citizen.Wait(math.random(3000, 6000))
+            Wait(math.random(3000, 6000))
         end
     end
     if IsPedRunning(ped) then
@@ -488,9 +476,9 @@ end
 
 function AlienEffect()
     StartScreenEffect("DrugsMichaelAliensFightIn", 3.0, 0)
-    Citizen.Wait(math.random(5000, 8000))
+    Wait(math.random(5000, 8000))
     StartScreenEffect("DrugsMichaelAliensFight", 3.0, 0)
-    Citizen.Wait(math.random(5000, 8000))    
+    Wait(math.random(5000, 8000))    
     StartScreenEffect("DrugsMichaelAliensFightOut", 3.0, 0)
     StopScreenEffect("DrugsMichaelAliensFightIn")
     StopScreenEffect("DrugsMichaelAliensFight")

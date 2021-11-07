@@ -8,7 +8,7 @@ RegisterCommand('hu', function()
     local ped = PlayerPedId()
 	RequestAnimDict(animDict)
 	while not HasAnimDictLoaded(animDict) do
-		Citizen.Wait(100)
+		Wait(100)
 	end
     handsup = not handsup
     if exports['qb-policejob']:IsHandcuffed() then return end
@@ -17,9 +17,9 @@ RegisterCommand('hu', function()
         if IsPedInAnyVehicle(ped, false) then
             local vehicle = GetVehiclePedIsIn(ped, false)
             if GetPedInVehicleSeat(vehicle, -1) == ped then
-                Citizen.CreateThread(function()
+                CreateThread(function()
                     while handsup do
-                        Citizen.Wait(1)
+                        Wait(1)
                         DisableControlAction(0, 59, true) -- Disable steering in vehicle
                     end
                 end)

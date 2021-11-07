@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()-- https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+CreateThread(function()-- https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
     while true do
 		HideHudComponentThisFrame(1) -- 1 : WANTED_STARS
 		HideHudComponentThisFrame(2) -- 2 : WEAPON_ICON
@@ -25,6 +25,6 @@ Citizen.CreateThread(function()-- https://docs.fivem.net/natives/?_0x6806C51AD12
 		DisableControlAction(1, 37)
 		DisplayAmmoThisFrame(true)
 
-		Citizen.Wait(4)
+		Wait(4)
     end
 end)

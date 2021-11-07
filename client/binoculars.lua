@@ -11,10 +11,10 @@ local storeBinoclarKey = 177
 
 --THREADS--
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
 
-        Citizen.Wait(1500)
+        Wait(1500)
 
         local lPed = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(lPed)
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
         if binoculars then
             binoculars = true
             if not ( IsPedSittingInAnyVehicle( lPed ) ) then
-                Citizen.CreateThread(function()
+                CreateThread(function()
                     TaskStartScenarioInPlace(lPed, "WORLD_HUMAN_BINOCULARS", 0, 1)
                     PlayAmbientSpeech1(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
                 end)
@@ -34,7 +34,7 @@ Citizen.CreateThread(function()
             SetTimecycleModifierStrength(0.3)
             local scaleform = RequestScaleformMovie("BINOCULARS")
             while not HasScaleformMovieLoaded(scaleform) do
-                Citizen.Wait(10)
+                Wait(10)
             end
 
             local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
                 HandleZoom(cam)
                 HideHUDThisFrame()
                 DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
-                Citizen.Wait(1)
+                Wait(1)
             end
             binoculars = false
             ClearTimecycleModifier()
@@ -75,8 +75,7 @@ end)
 --EVENTS--
 
 -- Activate binoculars
-RegisterNetEvent('binoculars:Toggle')
-AddEventHandler('binoculars:Toggle', function()
+RegisterNetEvent('binoculars:Toggle', function()
     binoculars = not binoculars
     if not binoculars then
         ClearPedTasks(PlayerPedId())

@@ -1,7 +1,6 @@
 local VehicleNitrous = {}
 
-RegisterServerEvent('tackle:server:TacklePlayer')
-AddEventHandler('tackle:server:TacklePlayer', function(playerId)
+RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
     TriggerClientEvent("tackle:client:GetTackled", playerId)
 end)
 
@@ -20,8 +19,7 @@ QBCore.Functions.CreateUseableItem("harness", function(source, item)
     TriggerClientEvent('seatbelt:client:UseHarness', src, item)
 end)
 
-RegisterServerEvent('equip:harness')
-AddEventHandler('equip:harness', function(item)
+RegisterNetEvent('equip:harness', function(item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.PlayerData.items[item.slot].info.uses - 1 == 0 then
@@ -33,8 +31,7 @@ AddEventHandler('equip:harness', function(item)
     end
 end)
 
-RegisterServerEvent('seatbelt:DoHarnessDamage')
-AddEventHandler('seatbelt:DoHarnessDamage', function(hp, data)
+RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -46,8 +43,7 @@ AddEventHandler('seatbelt:DoHarnessDamage', function(hp, data)
     end
 end)
 
-RegisterServerEvent('qb-carwash:server:washCar')
-AddEventHandler('qb-carwash:server:washCar', function()
+RegisterNetEvent('qb-carwash:server:washCar', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 

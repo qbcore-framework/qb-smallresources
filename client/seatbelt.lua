@@ -34,8 +34,7 @@ RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
 
 -- Events
 
-RegisterNetEvent('seatbelt:client:UseHarness') -- On Item Use (registered server side)
-AddEventHandler('seatbelt:client:UseHarness', function(ItemData)
+RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use (registered server side)
     local ped = PlayerPedId()
     local inveh = IsPedInAnyVehicle(ped, false)
     local class = GetVehicleClass(GetVehiclePedIsUsing(ped))
@@ -129,7 +128,7 @@ end)
 
 CreateThread(function()
     while true do
-        Citizen.Wait(5)
+        Wait(5)
         local playerPed = PlayerPedId()
         local currentVehicle = GetVehiclePedIsIn(playerPed, false)
         local driverPed = GetPedInVehicleSeat(currentVehicle, -1)
@@ -206,7 +205,7 @@ CreateThread(function()
                 if currentvehicleBodyHealth < 350.0 and not damagedone then
                     damagedone = true
                     SetVehicleEngineOn(currentVehicle, false, true, true)
-                    Citizen.Wait(1000)
+                    Wait(1000)
                 end
             end
             if lastFrameVehiclespeed < 100 then
@@ -246,12 +245,12 @@ CreateThread(function()
         else
             if lastVehicle ~= nil then
                 SetPedHelmet(playerPed, true)
-                Citizen.Wait(200)
+                Wait(200)
                 newvehicleBodyHealth = GetVehicleBodyHealth(lastVehicle)
                 if not damagedone and newvehicleBodyHealth < currentvehicleBodyHealth then
                     damagedone = true
                     SetVehicleEngineOn(lastVehicle, false, true, true)
-                    Citizen.Wait(1000)
+                    Wait(1000)
                 end
                 lastVehicle = nil
             end
@@ -260,7 +259,7 @@ CreateThread(function()
             newvehicleBodyHealth = 0
             currentvehicleBodyHealth = 0
             frameBodyChange = 0
-            Citizen.Wait(2000)
+            Wait(2000)
         end
     end
 end)
@@ -277,7 +276,7 @@ function EjectFromVehicle()
     local veh = GetVehiclePedIsIn(ped,false)
     local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
     SetEntityCoords(ped,coords)
-    Citizen.Wait(1)
+    Wait(1)
     SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
     SetEntityVelocity(ped, veloc.x*4,veloc.y*4,veloc.z*4)
     local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)

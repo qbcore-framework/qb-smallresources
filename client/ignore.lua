@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
             SetScenarioTypeEnabled(sctyp, false)
@@ -9,11 +9,11 @@ Citizen.CreateThread(function()
 		for _, carmdl in next, Config.BlacklistedVehs do
 			SetVehicleModelIsSuppressed(carmdl, true)
 		end
-		Citizen.Wait(10000)
+		Wait(10000)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
     SetAudioFlag("PoliceScannerDisabled", true)
     while true do
@@ -33,20 +33,20 @@ Citizen.CreateThread(function()
 		RemoveVehiclesFromGeneratorsInArea(-458.24 - 300.0, 6019.81 - 300.0, 31.34 - 300.0, -458.24 + 300.0, 6019.81 + 300.0, 31.34 + 300.0) -- police station paleto
 		RemoveVehiclesFromGeneratorsInArea(1854.82 - 300.0, 3679.4 - 300.0, 33.82 - 300.0, 1854.82 + 300.0, 3679.4 + 300.0, 33.82 + 300.0) -- police station sandy
 		RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
-    	Citizen.Wait(10)
+    	Wait(10)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k, v in pairs(Config.BlacklistedPeds) do
 			SetPedModelIsSuppressed(k, true)
 		end
-		Citizen.Wait(3)
+		Wait(3)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	local pedPool = GetGamePool('CPed')
 	for k,v in pairs(pedPool) do
 		SetPedDropsWeaponsWhenDead(v, false)
@@ -54,10 +54,10 @@ Citizen.CreateThread(function()
 			DeleteEntity(v)
 		end
 	end
-	Citizen.Wait(500)
+	Wait(500)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local vehiclePool = GetGamePool('CVehicle')
         for k,v in pairs(vehiclePool) do
@@ -66,24 +66,24 @@ Citizen.CreateThread(function()
                 DeleteEntity(v)
             end
         end
-        Citizen.Wait(250)
+        Wait(250)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1)
+		Wait(1)
 		local ped = PlayerPedId()
 		if IsPedBeingStunned(ped) then
 			SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
 		else
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local player = PlayerId()
 		for i = 1, 15 do
@@ -94,13 +94,13 @@ Citizen.CreateThread(function()
 			SetPlayerWantedLevelNow(player, false)
 			SetPlayerWantedLevelNoDrop(player, 0, false)
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
-		Citizen.Wait(6)
+		Wait(6)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local weapon = GetSelectedPedWeapon(ped)
@@ -118,8 +118,8 @@ Citizen.CreateThread(function()
 				end
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
-        Citizen.Wait(7)
+        Wait(7)
     end
 end)
