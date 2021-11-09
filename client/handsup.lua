@@ -29,6 +29,7 @@ RegisterCommand('hu', function()
             elseif IsPedClimbing(ped) then
                 Citizen.Wait(200)
                 SetPedToRagdoll(ped, 1500, 2000, 0, 0.0, 0.0, 0.0)
+        	handsup = not handsup
             end
         else
             ClearPedTasks(ped)
