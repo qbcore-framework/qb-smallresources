@@ -56,6 +56,7 @@ RegisterNetEvent('consumables:client:UseParachute', function()
         local ped = PlayerPedId()
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "remove")
         GiveWeaponToPed(ped, `GADGET_PARACHUTE`, 1, false)
+	SetPedParachuteTintIndex(ped, 2) --Choose a number from 1 to 6
         local ParachuteData = {
             outfitData = {
                 ["bag"]   = { item = 7, texture = 0},  -- Adding Parachute Clothing
