@@ -1,3 +1,5 @@
+QBCore = exports['qb-core']:GetCoreObject()
+
 ----------- / alcohol
 
 QBCore.Functions.CreateUseableItem("vodka", function(source, item)
