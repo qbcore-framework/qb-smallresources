@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 local washingVehicle = false
 
 local function DrawText3Ds(x, y, z, text)

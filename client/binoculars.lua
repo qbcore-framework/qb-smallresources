@@ -6,8 +6,6 @@ local speed_lr = 8.0 -- speed by which the camera pans left-right
 local speed_ud = 8.0 -- speed by which the camera pans up-down
 local binoculars = false
 local fov = (fov_max+fov_min)*0.5
-local keybindEnabled = false -- When enabled, binocular are available by keybind
-local binocularKey = 73
 local storeBinoclarKey = 177
 
 --THREADS--

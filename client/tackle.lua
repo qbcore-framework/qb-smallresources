@@ -1,14 +1,14 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 CreateThread(function()
     while true do 
-        if QBCore ~= nil then
-            local ped = PlayerPedId()
-            if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
-                if IsControlJustPressed(1, 19) then
-                    Tackle()
-                end
-            else
-                Wait(250)
+        local ped = PlayerPedId()
+        if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
+            if IsControlJustPressed(1, 19) then
+                Tackle()
             end
+        else
+            Wait(250)
         end
 
         Wait(1)
@@ -24,7 +24,6 @@ end)
 
 function Tackle()
     closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
-    local closestPlayerPed = GetPlayerPed(closestPlayer)
     if(distance ~= -1 and distance < 2) then
         TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
         TackleAnim()

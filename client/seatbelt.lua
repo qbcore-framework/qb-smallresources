@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 local seatbeltOn = false
 local harnessOn = false
 local harnessHp = 20
