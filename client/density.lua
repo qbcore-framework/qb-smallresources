@@ -1,8 +1,11 @@
+local density = 0.8
 CreateThread(function()
 	while true do
-		SetVehicleDensityMultiplierThisFrame(0.05)
-	    SetPedDensityMultiplierThisFrame(1.0)
-	    SetParkedVehicleDensityMultiplierThisFrame(1.0)
-		Wait(3)
+		SetParkedVehicleDensityMultiplierThisFrame(density)
+		SetVehicleDensityMultiplierThisFrame(density)
+		SetRandomVehicleDensityMultiplierThisFrame(density)
+		SetPedDensityMultiplierThisFrame(density)
+		SetScenarioPedDensityMultiplierThisFrame(density, density) -- Walking NPC Density
+		Wait(0)
 	end
 end)
