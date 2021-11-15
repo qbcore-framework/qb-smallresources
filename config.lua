@@ -111,7 +111,7 @@ Config.CarWash = { -- carwash
     },
     [3] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-74.56, 6427.87, 31.44)),
+        ["coords"] = vector3(-74.56, 6427.87, 31.44),
     },
     [5] = {
         ["label"] = "Hands Free Carwash",
