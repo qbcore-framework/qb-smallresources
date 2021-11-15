@@ -8,6 +8,7 @@ Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- carwash
+Config.DirtLevel = 0.1 --carwash dirt level
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -99,7 +100,7 @@ Config.Teleports = {
     },
 }
 
-Config.Locations = { -- carwash
+Config.CarWash = { -- carwash
     [1] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(26.5906, -1392.0261, 27.3634),
