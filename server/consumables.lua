@@ -183,6 +183,18 @@ QBCore.Functions.CreateUseableItem("firework4", function(source, item)
     TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "scr_indep_fireworks")
 end)
 
+----------- / Lockpicking
+
+QBCore.Functions.CreateUseableItem("lockpick", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("lockpicks:UseLockpick", source, false)
+end)
+
+QBCore.Functions.CreateUseableItem("advancedlockpick", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("lockpicks:UseLockpick", source, true)
+end)
+
 ----------- / Unused
 
 -- QBCore.Functions.CreateUseableItem("smoketrailred", function(source, item)
