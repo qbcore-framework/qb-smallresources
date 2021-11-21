@@ -1,7 +1,18 @@
 local disableShuffle = true
+
 function disableSeatShuffle(flag)
 	disableShuffle = flag
 end
+
+RegisterNetEvent('SeatShuffle', function()
+	if IsPedInAnyVehicle(PlayerPedId(), false) then
+		disableSeatShuffle(false)
+		Wait(5000)
+		disableSeatShuffle(true)
+	else
+		CancelEvent()
+	end
+end)
 
 CreateThread(function()
     while true do
@@ -16,16 +27,6 @@ CreateThread(function()
             end
         Wait(10)
     end
-end)
-
-RegisterNetEvent('SeatShuffle', function()
-	if IsPedInAnyVehicle(PlayerPedId(), false) then
-		disableSeatShuffle(false)
-		Wait(5000)
-		disableSeatShuffle(true)
-	else
-		CancelEvent()
-	end
 end)
 
 RegisterCommand("shuff", function(source, args, raw)
