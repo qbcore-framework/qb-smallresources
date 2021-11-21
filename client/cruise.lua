@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local Player = nil
 local CruisedSpeed, CruisedSpeedKm, VehicleVectorY = 0, 0, 0
 local vehicleClasses = {
