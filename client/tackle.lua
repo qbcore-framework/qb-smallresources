@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 CreateThread(function()
     while true do 
         if QBCore ~= nil then
