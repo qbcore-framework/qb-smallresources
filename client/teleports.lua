@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 JustTeleported = false
 
 CreateThread(function()
@@ -10,34 +12,72 @@ CreateThread(function()
             for k, v in pairs(Config.Teleports[loc]) do
                 local dist = #(pos - vector3(v.coords.x, v.coords.y, v.coords.z))
                 if dist < 2 then
-                    inRange = true
-                    DrawMarker(2, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.15, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
+                    local Player = QBCore.Functions.GetPlayerData()
+                    if v.isJobLocked then
+                        for l,m in pairs(v.allowedJobs) do
+                            if Player.job.name == m then
+                                inRange = true
+                                DrawMarker(2, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.15, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
 
-                    if dist < 1 then
-                        DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
-                        if IsControlJustReleased(0, 51) then
-                            if k == 1 then
-                                if v["AllowVehicle"] then
-                                    SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
-                                else
-                                    SetEntityCoords(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
-                                end
+                                if dist < 1 then
+                                    DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
+                                    if IsControlJustReleased(0, 51) then
+                                        if k == 1 then
+                                            if v["AllowVehicle"] then
+                                                SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
+                                            else
+                                                SetEntityCoords(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
+                                            end
 
-                                if type(Config.Teleports[loc][2].coords) == "vector4" then
-                                    SetEntityHeading(ped, Config.Teleports[loc][2].coords.w)
-                                end
-                            elseif k == 2 then
-                                if v["AllowVehicle"] then
-                                    SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
-                                else
-                                    SetEntityCoords(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
-                                end
+                                            if type(Config.Teleports[loc][2].coords) == "vector4" then
+                                                SetEntityHeading(ped, Config.Teleports[loc][2].coords.w)
+                                            end
+                                        elseif k == 2 then
+                                            if v["AllowVehicle"] then
+                                                SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
+                                            else
+                                                SetEntityCoords(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
+                                            end
 
-                                if type(Config.Teleports[loc][1].coords) == "vector4" then
-                                    SetEntityHeading(ped, Config.Teleports[loc][1].coords.w)
+                                            if type(Config.Teleports[loc][1].coords) == "vector4" then
+                                                SetEntityHeading(ped, Config.Teleports[loc][1].coords.w)
+                                            end
+                                        end
+                                        ResetTeleport()
+                                    end
                                 end
                             end
-                            ResetTeleport()
+                        end
+                    else
+                        inRange = true
+                        DrawMarker(2, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.15, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
+
+                        if dist < 1 then
+                            DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
+                            if IsControlJustReleased(0, 51) then
+                                if k == 1 then
+                                    if v["AllowVehicle"] then
+                                        SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
+                                    else
+                                        SetEntityCoords(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
+                                    end
+
+                                    if type(Config.Teleports[loc][2].coords) == "vector4" then
+                                        SetEntityHeading(ped, Config.Teleports[loc][2].coords.w)
+                                    end
+                                elseif k == 2 then
+                                    if v["AllowVehicle"] then
+                                        SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
+                                    else
+                                        SetEntityCoords(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
+                                    end
+
+                                    if type(Config.Teleports[loc][1].coords) == "vector4" then
+                                        SetEntityHeading(ped, Config.Teleports[loc][1].coords.w)
+                                    end
+                                end
+                                ResetTeleport()
+                            end
                         end
                     end
                 end
