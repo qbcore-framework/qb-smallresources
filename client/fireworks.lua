@@ -1,6 +1,6 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local fireworkTime = 0
 local fireworkLoc = nil
-
 local FireworkList = {
     ["proj_xmas_firework"] = {
         "scr_firework_xmas_ring_burst_rgw",
@@ -34,6 +34,64 @@ local FireworkList = {
         "scr_firework_indep_repeat_burst_rwb",
     },
 }
+
+function DrawText3Ds(x, y, z, text)
+	SetTextScale(0.35, 0.35)
+    SetTextFont(4)
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 215)
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(text)
+    SetDrawOrigin(x,y,z, 0)
+    DrawText(0.0, 0.0)
+    local factor = (string.len(text)) / 370
+    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
+    ClearDrawOrigin()
+end
+
+function DoFireWork(asset, coords)
+    fireworkTime = 5
+    fireworkLoc = {x = coords.x, y = coords.y, z = coords.z}
+    CreateThread(function()
+        while fireworkTime > 0 do
+            Wait(1000)
+            fireworkTime = fireworkTime - 1
+        end
+        UseParticleFxAssetNextCall("scr_indep_fireworks")
+        local part = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_shotburst", fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)    
+        for i = 1, math.random(5, 10), 1 do
+            local firework = FireworkList[asset][math.random(1, #FireworkList[asset])]
+            UseParticleFxAssetNextCall(asset)
+            local part = StartNetworkedParticleFxNonLoopedAtCoord(firework, fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)
+            Wait(math.random()*500)
+        end
+        fireworkLoc = nil
+    end)
+end
+
+RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
+    QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
+        disableMovement = true,
+        disableCarMovement = true,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = "anim@narcotics@trash",
+        anim = "drop_front",
+        flags = 16,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
+        local pos = GetEntityCoords(PlayerPedId())
+        DoFireWork(assetName, pos)
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
+        QBCore.Functions.Notify("Canceled..", "error")
+    end)
+end)
+
 CreateThread(function()
     local asset = "scr_indep_fireworks"
     if not HasNamedPtfxAssetLoaded(asset) then
@@ -70,60 +128,3 @@ CreateThread(function()
         end
     end
 end)
-
-RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
-    QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "anim@narcotics@trash",
-        anim = "drop_front",
-        flags = 16,
-    }, {}, {}, function() -- Done
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        local pos = GetEntityCoords(PlayerPedId())
-        DoFireWork(assetName, pos)
-    end, function() -- Cancel
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        QBCore.Functions.Notify("Canceled..", "error")
-    end)
-end)
-
-function DrawText3Ds(x, y, z, text)
-	SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(true)
-    AddTextComponentString(text)
-    SetDrawOrigin(x,y,z, 0)
-    DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
-end
-
-function DoFireWork(asset, coords)
-    fireworkTime = 5
-    fireworkLoc = {x = coords.x, y = coords.y, z = coords.z}
-    CreateThread(function()
-        while fireworkTime > 0 do
-            Wait(1000)
-            fireworkTime = fireworkTime - 1
-        end
-        UseParticleFxAssetNextCall("scr_indep_fireworks")
-        local part = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_shotburst", fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)    
-        for i = 1, math.random(5, 10), 1 do
-            local firework = FireworkList[asset][math.random(1, #FireworkList[asset])]
-            UseParticleFxAssetNextCall(asset)
-            local part = StartNetworkedParticleFxNonLoopedAtCoord(firework, fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)
-            Wait(math.random()*500)
-        end
-        fireworkLoc = nil
-    end)
-end
