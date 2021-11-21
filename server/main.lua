@@ -1,23 +1,14 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local VehicleNitrous = {}
 
-RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
-    TriggerClientEvent("tackle:client:GetTackled", playerId)
-end)
-
-QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(source, cb)
-    cb(VehicleNitrous)
-end)
-
-QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source, args)
-    local src = source
-    TriggerClientEvent('QBCore:Notify', src,  "ID: "..src)
-end)
-
 QBCore.Functions.CreateUseableItem("harness", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     TriggerClientEvent('seatbelt:client:UseHarness', src, item)
+end)
+
+RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
+    TriggerClientEvent("tackle:client:GetTackled", playerId)
 end)
 
 RegisterNetEvent('equip:harness', function(item)
@@ -57,10 +48,19 @@ RegisterNetEvent('qb-carwash:server:washCar', function()
     end
 end)
 
+QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(source, cb)
+    cb(VehicleNitrous)
+end)
+
 QBCore.Functions.CreateCallback('smallresources:server:GetCurrentPlayers', function(source, cb)
     local TotalPlayers = 0
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         TotalPlayers = TotalPlayers + 1
     end
     cb(TotalPlayers)
+end)
+
+QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source, args)
+    local src = source
+    TriggerClientEvent('QBCore:Notify', src,  "ID: "..src)
 end)
