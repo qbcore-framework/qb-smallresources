@@ -1,5 +1,11 @@
 JustTeleported = false
 
+ResetTeleport = function()
+    SetTimeout(1000, function()
+        JustTeleported = false
+    end)
+end
+
 CreateThread(function()
     while true do
         local inRange = false
@@ -51,9 +57,3 @@ CreateThread(function()
         Wait(3)
     end
 end)
-
-ResetTeleport = function()
-    SetTimeout(1000, function()
-        JustTeleported = false
-    end)
-end
