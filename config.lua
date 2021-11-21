@@ -8,6 +8,7 @@ Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- carwash
+Config.DirtLevel = 0.1 --carwash dirt level
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -57,7 +58,7 @@ Config.BlacklistedVehs = {
     [`MAVERICK`] = true,
     [`BLIMP`] = true,
     [`AIRTUG`] = true,
-    [`CAMPER`] = true,    
+    [`CAMPER`] = true,
 }
 
 Config.BlacklistedPeds = {
@@ -88,7 +89,7 @@ Config.Teleports = {
     [2] = {
         [1] = {
             coords = vector4(909.49, -1589.22, 30.51, 92.24),
-            ["AllowVehicle"] = false, 
+            ["AllowVehicle"] = false,
             drawText = '[E] Enter Coke Processing'
         },
         [2] = {
@@ -99,29 +100,25 @@ Config.Teleports = {
     },
 }
 
-Config.Locations = { -- carwash
+Config.CarWash = { -- carwash
     [1] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(26.5906, -1392.0261, 27.3634),
+        ["coords"] = vector3(25.29, -1391.96, 29.33),
     },
     [2] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(167.1034, -1719.4704, 27.2916),
+        ["coords"] = vector3(174.18, -1736.66, 29.35),
     },
     [3] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-74.5693, 6427.8715, 29.4400),
-    },
-    [4] = {
-        ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-1200.4, -1720.46, 3.40),
+        ["coords"] = vector3(-74.56, 6427.87, 31.44),
     },
     [5] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(1363.22, 3592.7, 34.41),
+        ["coords"] = vector3(1363.22, 3592.7, 34.92),
     },
     [6] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-699.6325, -932.7043, 17.0139),
+        ["coords"] = vector3(-699.62, -932.7, 19.01),
     }
 }
