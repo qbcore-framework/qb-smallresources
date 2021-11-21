@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local weapons = {
 	'WEAPON_KNIFE',
 	'WEAPON_NIGHTSTICK',
@@ -90,6 +91,31 @@ local holstered = true
 local canFire = true
 local currWeapon = `WEAPON_UNARMED`
 local currentHoldster = nil
+
+function CheckWeapon(newWeap)
+	for i = 1, #weapons do
+		if GetHashKey(weapons[i]) == newWeap then
+			return true
+		end
+	end
+	return false
+end
+
+function IsWeaponHolsterable(weap)
+	for i = 1, #holsterableWeapons do
+		if GetHashKey(holsterableWeapons[i]) == weap then
+			return true
+		end
+	end
+	return false
+end
+
+function loadAnimDict(dict)
+	while (not HasAnimDictLoaded(dict)) do
+		RequestAnimDict(dict)
+		Wait(5)
+	end
+end
 
 RegisterNetEvent('weapons:ResetHolster', function()
 	holstered = true
@@ -273,7 +299,6 @@ CreateThread(function()
 	end
 end)
 
-
 CreateThread(function()
 	while true do
 		if not canFire then
@@ -286,28 +311,3 @@ CreateThread(function()
 		Wait(3)
 	end
 end)
-
-function CheckWeapon(newWeap)
-	for i = 1, #weapons do
-		if GetHashKey(weapons[i]) == newWeap then
-			return true
-		end
-	end
-	return false
-end
-
-function IsWeaponHolsterable(weap)
-	for i = 1, #holsterableWeapons do
-		if GetHashKey(holsterableWeapons[i]) == weap then
-			return true
-		end
-	end
-	return false
-end
-
-function loadAnimDict(dict)
-	while (not HasAnimDictLoaded(dict)) do
-		RequestAnimDict(dict)
-		Wait(5)
-	end
-end
