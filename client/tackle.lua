@@ -2,15 +2,13 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 CreateThread(function()
     while true do 
-        if QBCore ~= nil then
-            local ped = PlayerPedId()
-            if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
-                if IsControlJustPressed(1, 19) then
-                    Tackle()
-                end
-            else
-                Wait(250)
+        local ped = PlayerPedId()
+        if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
+            if IsControlJustPressed(1, 19) then
+                Tackle()
             end
+        else
+            Wait(250)
         end
 
         Wait(1)
