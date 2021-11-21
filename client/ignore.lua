@@ -32,15 +32,10 @@ CreateThread(function() -- all these should only need to be called once
 end)
 
 CreateThread(function()
-	while true do
-		for k, v in pairs(Config.BlacklistedPeds) do
-			SetPedModelIsSuppressed(k, true)
-		end
-		Wait(3)
-	end
-end)
-
-CreateThread(function()
+	for k, v in pairs(Config.BlacklistedPeds) do
+        SetPedModelIsSuppressed(k, true)
+    end
+    -- TODO: Does this need to loop?
 	local pedPool = GetGamePool('CPed')
 	for k,v in pairs(pedPool) do
 		SetPedDropsWeaponsWhenDead(v, false)
@@ -48,7 +43,6 @@ CreateThread(function()
 			DeleteEntity(v)
 		end
 	end
-	Wait(500)
 end)
 
 CreateThread(function()
