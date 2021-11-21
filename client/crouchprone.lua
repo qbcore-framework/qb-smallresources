@@ -1,5 +1,35 @@
 local stage = 0
 local movingForward = false
+local walkSet = "default"
+
+function ResetAnimSet()
+    local ped = PlayerPedId()
+    if walkSet == "default" then
+        ResetPedMovementClipset(ped)
+        ResetPedWeaponMovementClipset(ped)
+        ResetPedStrafeClipset(ped)
+    else
+        ResetPedMovementClipset(ped)
+        ResetPedWeaponMovementClipset(ped)
+        ResetPedStrafeClipset(ped)
+        Wait(100)
+        RequestWalking(walkSet)
+        SetPedMovementClipset(ped, walkSet, 1)
+        RemoveAnimSet(walkSet)
+    end
+end
+
+function RequestWalking(set)
+    RequestAnimSet(set)
+    while not HasAnimSetLoaded(set) do
+        Wait(1)
+    end
+end
+
+RegisterNetEvent('crouchprone:client:SetWalkSet', function(clipset)
+    walkSet = clipset
+end)
+
 CreateThread(function()
     while true do
         Wait(1)
@@ -73,33 +103,3 @@ CreateThread(function()
         end
     end
 end)
-
-local walkSet = "default"
-
-RegisterNetEvent('crouchprone:client:SetWalkSet', function(clipset)
-    walkSet = clipset
-end)
-
-function ResetAnimSet()
-    local ped = PlayerPedId()
-    if walkSet == "default" then
-        ResetPedMovementClipset(ped)
-        ResetPedWeaponMovementClipset(ped)
-        ResetPedStrafeClipset(ped)
-    else
-        ResetPedMovementClipset(ped)
-        ResetPedWeaponMovementClipset(ped)
-        ResetPedStrafeClipset(ped)
-        Wait(100)
-        RequestWalking(walkSet)
-        SetPedMovementClipset(ped, walkSet, 1)
-        RemoveAnimSet(walkSet)
-    end
-end
-
-function RequestWalking(set)
-    RequestAnimSet(set)
-    while not HasAnimSetLoaded(set) do
-        Wait(1)
-    end
-end
