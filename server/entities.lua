@@ -6,8 +6,4 @@ AddEventHandler("entityCreating", function(handle)
     if Config.BlacklistedVehs[entityModel] or Config.BlacklistedPeds[entityModel] then
         CancelEvent()
     end
-
-    if GetEntityType(handle) == 1 then
-        SetPedDropsWeaponsWhenDead(handle, false)
-    end
 end)
