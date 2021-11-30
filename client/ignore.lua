@@ -6,9 +6,6 @@ CreateThread(function()
         for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
             SetScenarioGroupEnabled(scgrp, false)
         end
-		for _, carmdl in next, Config.BlacklistedVehs do
-			SetVehicleModelIsSuppressed(carmdl, true)
-		end
 		Wait(10000)
     end
 end)
@@ -31,38 +28,6 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
-CreateThread(function()
-	while true do
-		for k, v in pairs(Config.BlacklistedPeds) do
-			SetPedModelIsSuppressed(k, true)
-		end
-		Wait(3)
-	end
-end)
-
-CreateThread(function()
-	local pedPool = GetGamePool('CPed')
-	for k,v in pairs(pedPool) do
-		SetPedDropsWeaponsWhenDead(v, false)
-		if Config.BlacklistedPeds[GetEntityModel(v)] then
-			DeleteEntity(v)
-		end
-	end
-	Wait(500)
-end)
-
-CreateThread(function()
-    while true do
-        local vehiclePool = GetGamePool('CVehicle')
-        for k,v in pairs(vehiclePool) do
-            SetPedDropsWeaponsWhenDead(v, false)
-            if Config.BlacklistedVehs[GetEntityModel(v)] then
-                DeleteEntity(v)
-            end
-        end
-        Wait(250)
-    end
-end)
 
 CreateThread(function()
 	while true do
