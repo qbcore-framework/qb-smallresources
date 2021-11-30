@@ -10,6 +10,12 @@ CreateThread(function()
     end
 end)
 
+AddEventHandler("populationPedCreating", function(x, y, z, model)
+	Wait(500)	-- Give the entity some time to be created
+	local found, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
+	SetPedDropsWeaponsWhenDead(handle, false)
+end)
+
 CreateThread(function() -- all these should only need to be called once
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
     SetAudioFlag("PoliceScannerDisabled", true)
