@@ -17,7 +17,7 @@ CreateThread(function()
 	end
 end)
 
-local function DecorSet(Type, Value)
+function DecorSet(Type, Value)
     if Type == 'parked' then
         density['parked'] = Value
     elseif Type == 'vehicle' then
