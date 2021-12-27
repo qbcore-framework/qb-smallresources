@@ -56,6 +56,7 @@ CreateThread(function()
 	SetMaxWantedLevel(0)
 end)
 
+-- No more shitty loops - DisableIdleCamera(bool) - available from 4889 build
 CreateThread(function()
     while true do
       InvalidateIdleCam()
