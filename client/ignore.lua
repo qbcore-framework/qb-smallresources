@@ -56,6 +56,15 @@ CreateThread(function()
 	SetMaxWantedLevel(0)
 end)
 
+if Config.Headshot then
+	CreateThread(function()
+		while true do
+			Wait(5)
+			SetPedSuffersCriticalHits(PlayerPedId(), false)
+		end
+	end)
+end
+
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
