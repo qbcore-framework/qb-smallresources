@@ -58,6 +58,14 @@ end)
 
 CreateThread(function()
     while true do
+      InvalidateIdleCam()
+      InvalidateVehicleIdleCam() -- Disable the vehicle idle camera
+      Wait(10000) --The idle camera activates after 30 second so we don't need to call this per frame
+    end
+end)
+
+CreateThread(function()
+    while true do
         local ped = PlayerPedId()
         local weapon = GetSelectedPedWeapon(ped)
 		if weapon ~= `WEAPON_UNARMED` then
