@@ -56,7 +56,7 @@ CreateThread(function()
 	SetMaxWantedLevel(0)
 end)
 
-if Config.Headshot then
+if Config.NoHeadshotOneshot then
 	CreateThread(function()
 		while true do
 			Wait(5)
