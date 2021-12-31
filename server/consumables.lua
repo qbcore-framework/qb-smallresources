@@ -1,3 +1,5 @@
+QBCore = exports['qb-core']:GetCoreObject()
+
 ----------- / alcohol
 
 QBCore.Functions.CreateUseableItem("vodka", function(source, item)
@@ -153,8 +155,7 @@ QBCore.Commands.Add("resetparachute", "Resets Parachute", {}, false, function(so
 	TriggerClientEvent("consumables:client:ResetParachute", src)
 end)
 
-RegisterServerEvent("qb-smallpenis:server:AddParachute")
-AddEventHandler("qb-smallpenis:server:AddParachute", function()
+RegisterNetEvent('qb-smallpenis:server:AddParachute', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.Functions.AddItem("parachute", 1)
@@ -180,6 +181,18 @@ end)
 QBCore.Functions.CreateUseableItem("firework4", function(source, item)
     local src = source
     TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "scr_indep_fireworks")
+end)
+
+----------- / Lockpicking
+
+QBCore.Functions.CreateUseableItem("lockpick", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("lockpicks:UseLockpick", source, false)
+end)
+
+QBCore.Functions.CreateUseableItem("advancedlockpick", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent("lockpicks:UseLockpick", source, true)
 end)
 
 ----------- / Unused

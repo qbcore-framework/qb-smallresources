@@ -8,6 +8,7 @@ Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- carwash
+Config.DirtLevel = 0.1 --carwash dirt level
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -48,6 +49,7 @@ Config.BlacklistedVehs = {
     [`JET`] = true,
     [`LAZER`] = true,
     [`BUZZARD`] = true,
+    [`BUZZARD2`] = true,
     [`ANNIHILATOR`] = true,
     [`SAVAGE`] = true,
     [`TITAN`] = true,
@@ -57,7 +59,35 @@ Config.BlacklistedVehs = {
     [`MAVERICK`] = true,
     [`BLIMP`] = true,
     [`AIRTUG`] = true,
-    [`CAMPER`] = true,    
+    [`CAMPER`] = true,
+    [`HYDRA`] = true,
+    [`OPPRESSOR`] = true,
+    [`technical3`] = true,
+    [`insurgent3`] = true,
+    [`apc`] = true,
+    [`tampa3`] = true,
+    [`trailersmall2`] = true,
+    [`halftrack`] = true,
+    [`hunter`] = true,
+    [`vigilante`] = true,
+    [`akula`] = true,
+    [`barrage`] = true,
+    [`khanjali`] = true,
+    [`caracara`] = true,
+    [`blimp3`] = true,
+    [`menacer`] = true,
+    [`oppressor2`] = true,
+    [`scramjet`] = true,
+    [`strikeforce`] = true,
+    [`cerberus`] = true,
+    [`cerberus2`] = true,
+    [`cerberus3`] = true,
+    [`scarab`] = true,
+    [`scarab2`] = true,
+    [`scarab3`] = true,
+    [`rrocket`] = true,
+    [`ruiner2`] = true,
+    [`deluxo`] = true,
 }
 
 Config.BlacklistedPeds = {
@@ -88,7 +118,7 @@ Config.Teleports = {
     [2] = {
         [1] = {
             coords = vector4(909.49, -1589.22, 30.51, 92.24),
-            ["AllowVehicle"] = false, 
+            ["AllowVehicle"] = false,
             drawText = '[E] Enter Coke Processing'
         },
         [2] = {
@@ -99,7 +129,7 @@ Config.Teleports = {
     },
 }
 
-Config.Locations = {
+Config.CarWash = { -- carwash
 	vector3(26.5906, -1392.0261, 27.3634),
 	vector3(167.1034, -1719.4704, 27.2916),
 	vector3(-74.5693, 6427.8715, 29.4400),

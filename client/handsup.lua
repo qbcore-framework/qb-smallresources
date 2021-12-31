@@ -8,7 +8,7 @@ RegisterCommand('hu', function()
     local ped = PlayerPedId()
 	RequestAnimDict(animDict)
 	while not HasAnimDictLoaded(animDict) do
-		Citizen.Wait(100)
+		Wait(100)
 	end
     handsup = not handsup
     if exports['qb-policejob']:IsHandcuffed() then return end
@@ -17,10 +17,28 @@ RegisterCommand('hu', function()
         if IsPedInAnyVehicle(ped, false) then
             local vehicle = GetVehiclePedIsIn(ped, false)
             if GetPedInVehicleSeat(vehicle, -1) == ped then
-                Citizen.CreateThread(function()
+                CreateThread(function()
                     while handsup do
-                        Citizen.Wait(1)
+                        Wait(1)
                         DisableControlAction(0, 59, true) -- Disable steering in vehicle
+			DisableControlAction(0,21,true) -- disable sprint
+                        DisableControlAction(0,24,true) -- disable attack
+                        DisableControlAction(0,25,true) -- disable aim
+                        DisableControlAction(0,47,true) -- disable weapon
+                        DisableControlAction(0,58,true) -- disable weapon
+                        DisableControlAction(0,71,true) -- veh forward
+                        DisableControlAction(0,72,true) -- veh backwards
+                        DisableControlAction(0,63,true) -- veh turn left
+                        DisableControlAction(0,64,true) -- veh turn right
+                        DisableControlAction(0,263,true) -- disable melee
+                        DisableControlAction(0,264,true) -- disable melee
+                        DisableControlAction(0,257,true) -- disable melee
+                        DisableControlAction(0,140,true) -- disable melee
+                        DisableControlAction(0,141,true) -- disable melee
+                        DisableControlAction(0,142,true) -- disable melee
+                        DisableControlAction(0,143,true) -- disable melee
+                        DisableControlAction(0,75,true) -- disable exit vehicle
+                        DisableControlAction(27,75,true) -- disable exit vehicle
                     end
                 end)
             end

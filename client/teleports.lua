@@ -1,6 +1,6 @@
 JustTeleported = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local inRange = false
         local ped = PlayerPedId()
@@ -45,10 +45,10 @@ Citizen.CreateThread(function()
         end
 
         if not inRange then
-            Citizen.Wait(1000)
+            Wait(1000)
         end
 
-        Citizen.Wait(3)
+        Wait(3)
     end
 end)
 

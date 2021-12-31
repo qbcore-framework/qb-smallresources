@@ -5,8 +5,7 @@ local Vehicle = {
     Coords = nil,
     Vehicle = nil,
     Dimension = nil,
-    IsInFront = false,
-    Distance = nil
+    IsInFront = false
 }
 
 CreateThread(function()
@@ -23,7 +22,6 @@ CreateThread(function()
                 Vehicle.Coords = vehpos
                 Vehicle.Dimensions = dimension
                 Vehicle.Vehicle = vehicle
-                Vehicle.Distance = Distance
                 if #(vehpos + GetEntityForwardVector(vehicle) - pos) >
                     #(vehpos + GetEntityForwardVector(vehicle) * -1 - pos) then
                     Vehicle.IsInFront = false
@@ -35,8 +33,7 @@ CreateThread(function()
                     Coords = nil,
                     Vehicle = nil,
                     Dimensions = nil,
-                    IsInFront = false,
-                    Distance = nil
+                    IsInFront = false
                 }
             end
         end
@@ -50,7 +47,7 @@ CreateThread(function()
             local ped = PlayerPedId()
             local vehClass = GetVehicleClass(Vehicle.Vehicle)
 
-            if IsVehicleSeatFree(Vehicle.Vehicle, -1) and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
+            if IsVehicleSeatFree(Vehicle.Vehicle, -1) and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded and GetVehicleEngineHealth(Vehicle.Vehicle) >= 0 then
                 if vehClass ~= 13 or vehClass ~= 14 or vehClass ~= 15 or vehClass ~= 16 then
                     DrawText3Ds(Vehicle.Coords.x, Vehicle.Coords.y, Vehicle.Coords.z, 'Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle')
                 end
@@ -60,7 +57,6 @@ CreateThread(function()
                 not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, 38) and
                 GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
                 NetworkRequestControlOfEntity(Vehicle.Vehicle)
-                local coords = GetEntityCoords(ped)
                 if Vehicle.IsInFront then
                     AttachEntityToEntity(ped, Vehicle.Vehicle, GetPedBoneIndex(6286), 0.0,
                         Vehicle.Dimensions.y * -1 + 0.1, Vehicle.Dimensions.z + 1.0, 0.0, 0.0, 180.0, 0.0, false, false,

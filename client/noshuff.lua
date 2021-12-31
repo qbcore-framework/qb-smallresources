@@ -3,7 +3,7 @@ function disableSeatShuffle(flag)
 	disableShuffle = flag
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local veh = GetVehiclePedIsIn(ped)
@@ -11,18 +11,18 @@ Citizen.CreateThread(function()
                 if GetPedInVehicleSeat(veh, false, 0) == ped then
                     if GetIsTaskActive(ped, 165) then
                         SetPedIntoVehicle(ped, veh, 0)
+                        SetPedConfigFlag(ped, 184, true)
                     end
                 end
             end
-        Citizen.Wait(10)
+        Wait(5)
     end
 end)
 
-RegisterNetEvent("SeatShuffle")
-AddEventHandler("SeatShuffle", function()
+RegisterNetEvent('SeatShuffle', function()
 	if IsPedInAnyVehicle(PlayerPedId(), false) then
 		disableSeatShuffle(false)
-		Citizen.Wait(5000)
+		Wait(5000)
 		disableSeatShuffle(true)
 	else
 		CancelEvent()
@@ -31,4 +31,4 @@ end)
 
 RegisterCommand("shuff", function(source, args, raw)
     TriggerEvent("SeatShuffle")
-end, false) 
+end, false)

@@ -8,13 +8,13 @@ startPointing = function()
     end
     SetPedCurrentWeaponVisible(ped, 0, 1, 1, 1)
     SetPedConfigFlag(ped, 36, 1)
-    Citizen.InvokeNative(0x2D537BA194896636, ped, "task_mp_pointing", 0.5, 0, "anim@mp_point", 24)
+	TaskMoveNetworkByName(ped, 'task_mp_pointing', 0.5, false, 'anim@mp_point', 24)
     RemoveAnimDict("anim@mp_point")
 end
 
 stopPointing = function()
     local ped = PlayerPedId()
-    Citizen.InvokeNative(0xD01015C7316AE176, ped, "Stop")
+	RequestTaskMoveNetworkStateTransition(ped, 'Stop')
     if not IsPedInjured(ped) then
         ClearPedSecondaryTask(ped)
     end
@@ -59,14 +59,14 @@ RegisterCommand('point', function()
 
             local coords = GetOffsetFromEntityInWorldCoords(ped, (cosCamHeading * -0.2) - (sinCamHeading * (0.4 * camHeading + 0.3)), (sinCamHeading * -0.2) + (cosCamHeading * (0.4 * camHeading + 0.3)), 0.6)
             local ray = Cast_3dRayPointToPoint(coords.x, coords.y, coords.z - 0.2, coords.x, coords.y, coords.z + 0.2, 0.4, 95, ped, 7);
-            nn,blocked,coords,coords = GetRaycastResult(ray)
-
-            Citizen.InvokeNative(0xD5BB4025AE449A4E, ped, "Pitch", camPitch)
-            Citizen.InvokeNative(0xD5BB4025AE449A4E, ped, "Heading", camHeading * -1.0 + 1.0)
-            Citizen.InvokeNative(0xB0A6CFD2C69C1088, ped, "isBlocked", blocked)
-            Citizen.InvokeNative(0xB0A6CFD2C69C1088, ped, "isFirstPerson", Citizen.InvokeNative(0xEE778F8C7E1142E2, Citizen.InvokeNative(0x19CAFA3C87F7C2FF)) == 4)
+            nn,blocked,coords,coords = GetRaycastResult(ray)	
+			SetTaskMoveNetworkSignalFloat(ped, "Pitch", camPitch)
+			SetTaskMoveNetworkSignalFloat(ped, "Heading", camHeading * -1.0 + 1.0)
+			SetTaskMoveNetworkSignalBool(ped, "isBlocked", blocked)
+			SetTaskMoveNetworkSignalBool(ped, "isFirstPerson", GetCamViewModeForContext(GetCamActiveViewModeContext()) == 4)
             Wait(1)
         end
     end
 end)
+
 RegisterKeyMapping('point', 'Toggles Point', 'keyboard', 'b')

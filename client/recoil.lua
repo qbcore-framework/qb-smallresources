@@ -122,7 +122,7 @@ local recoils = {
 	-- [-1168940174] = 0.3,		--['weapon_hazardcan']
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
@@ -152,6 +152,6 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)

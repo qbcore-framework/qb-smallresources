@@ -15,6 +15,20 @@ local function DrawText3Ds(x, y, z, text)
     ClearDrawOrigin()
 end
 
+local function CreateBlip(coords)
+	local blip = AddBlipForCoord(coords)
+	SetBlipSprite(blip, 100)
+	SetBlipScale(blip, 0.75)
+	SetBlipColour(blip, 37)
+	SetBlipDisplay(blip, 4)
+	SetBlipAsShortRange(blip, true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Hands Free Carwash")
+	EndTextCommandSetBlipName(blip)
+
+	return blip
+end
+
 RegisterNetEvent('qb-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed)
@@ -42,20 +56,25 @@ CreateThread(function()
         local PlayerPos = GetEntityCoords(PlayerPed)
         local PedVehicle = GetVehiclePedIsIn(PlayerPed)
         local Driver = GetPedInVehicleSeat(PedVehicle, -1)
+        local dirtLevel = GetVehicleDirtLevel(PedVehicle)
         if IsPedInAnyVehicle(PlayerPed) then
-            for k, v in pairs(Config.Locations) do
-                local dist = #(PlayerPos - vector3(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"]))
+            for k, v in pairs(Config.CarWash) do
+                local dist = #(PlayerPos - vector3(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"]))
                 if dist <= 10 then
                     inRange = true
                     if dist <= 7.5 then
                         if Driver == PlayerPed then
                             if not washingVehicle then
-                                DrawText3Ds(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"], '~g~E~w~ - Washing car ($'..Config.DefaultPrice..')')
+                                DrawText3Ds(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"], '~g~E~w~ - Washing car ($'..Config.DefaultPrice..')')
                                 if IsControlJustPressed(0, 38) then
-                                    TriggerServerEvent('qb-carwash:server:washCar')
+                                    if dirtLevel > Config.DirtLevel then
+                                        TriggerServerEvent('qb-carwash:server:washCar')
+                                    else
+                                        QBCore.Functions.Notify("The vehicle isn't dirty", 'error')
+                                    end
                                 end
                             else
-                                DrawText3Ds(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"], 'The car wash is not available ..')
+                                DrawText3Ds(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"], 'The car wash is not available ..')
                             end
                         end
                     end
@@ -69,20 +88,6 @@ CreateThread(function()
     end
 end)
 
-local function CreateBlip(coords)
-	local blip = AddBlipForCoord(coords)
-	SetBlipSprite(blip, 100)
-	SetBlipScale(blip, 0.75)
-	SetBlipColour(blip, 37)
-	SetBlipDisplay(blip, 4)
-	SetBlipAsShortRange(blip, true)
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Hands Free Carwash")
-	EndTextCommandSetBlipName(blip)
-
-	return blip
-end
-
 CreateThread(function()
 	local currentCarwashBlip = 0
 
@@ -91,7 +96,7 @@ CreateThread(function()
 		local closest = 1000
 		local closestCoords
 
-		for _, carWashCoords in pairs(Config.Locations) do
+		for _, carWashCoords in pairs(Config.CarWash) do
 			local dstcheck = #(coords - carWashCoords)
 
 			if dstcheck < closest then

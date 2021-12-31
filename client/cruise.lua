@@ -32,18 +32,18 @@ local function IsInVehicle() return GetPedInVehicleSeat(GetVehicle(), -1) end
 local function IsDriver() return GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId(), false), -1) == PlayerPedId() end
 local function GetVehicleSpeed() return GetEntitySpeed(GetVehicle()) end
 --local function TransformToKm(speed) return math.floor(speed * 3.6 + 0.5) end -- Uncomment me for km/h
-local function TransformToMph(speed) return math.floor(speed * 2.2369 + 0.5) end -- Comment me for km/h
+local function TransformToMph(speed) return math.floor(speed * 2.2369 + 0.5) end -- Comment me for mp/h
 
 local function TriggerCruiseControl()
     if CruisedSpeed == 0 and IsDriving() then
         if GetVehicleSpeed() > 0 and GetVehicleCurrentGear(GetVehicle()) > 0 then
             CruisedSpeed = GetVehicleSpeed()
-            CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for km/h
+            CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
             -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
-            QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for km/h
+            QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
             -- QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedKm ..  " km/h") -- Uncomment me for km/h
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
                     if not IsTurningOrHandBraking() and GetVehicleSpeed() <
@@ -61,7 +61,7 @@ local function TriggerCruiseControl()
                     end
                     if IsControlJustPressed(1, 246) then
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        CruisedSpeed = GetVehicleSpeed() -- Comment me for km/h
+                        CruisedSpeed = GetVehicleSpeed() -- Comment me for mp/h
                         --CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
                     end
                     if IsControlJustPressed(2, 72) then
@@ -80,7 +80,7 @@ end
 RegisterCommand('togglecruise', function()
     local veh = GetVehiclePedIsIn(PlayerPedId())
     local vehClass = GetVehicleClass(veh)
-    if IsDriving() and IsDriver() then
+    if IsDriver() then
         if vehicleClasses[vehClass] then
             Player = PlayerPedId()
             TriggerCruiseControl()
