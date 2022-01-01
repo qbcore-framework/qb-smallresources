@@ -4,6 +4,7 @@ Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
 Config.DamageNeeded = 100.0
 Config.IdleCamera = true
+Config.NoHeadshotOneshot = true
 Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
