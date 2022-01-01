@@ -1,11 +1,10 @@
 local stage = 0
 local movingForward = false
-
 CreateThread(function()
     while true do
         Wait(1)
         local ped = PlayerPedId()
-        if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) then
+        if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
             if IsControlJustReleased(0, 36) then
                 stage = stage + 1
                 if stage == 2 then
@@ -16,7 +15,7 @@ CreateThread(function()
                         Wait(0)
                     end
 
-                    SetPedMovementClipset(ped, "move_ped_crouched",1.0)    
+                    SetPedMovementClipset(ped, "move_ped_crouched",1.0)
                     SetPedWeaponMovementClipset(ped, "move_ped_crouched",1.0)
                     SetPedStrafeClipset(ped, "move_ped_crouched_strafing",1.0)
                 elseif stage == 3 then
@@ -42,7 +41,7 @@ CreateThread(function()
                     ResetPedStrafeClipset(ped)
                 end
             elseif stage == 3 then
-                DisableControlAction( 0, 21, true ) -- sprint
+                DisableControlAction(0, 21, true ) -- sprint
                 DisableControlAction(1, 140, true)
                 DisableControlAction(1, 141, true)
                 DisableControlAction(1, 142, true)
@@ -51,7 +50,7 @@ CreateThread(function()
                     movingForward = true
                     SetPedMoveAnimsBlendOut(ped)
                     local pronepos = GetEntityCoords(ped)
-                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 7, 2.0, 1, 1) 
+                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 7, 2.0, 1, 1)
                     Wait(500)
                 elseif (not IsControlPressed(0, 32) and movingForward) then
                     local pronepos = GetEntityCoords(ped)
@@ -62,11 +61,11 @@ CreateThread(function()
 
                 if IsControlPressed(0, 34) then
                     SetEntityHeading(ped,GetEntityHeading(ped) + 1)
-                end     
+                end
 
                 if IsControlPressed(0, 9) then
                     SetEntityHeading(ped,GetEntityHeading(ped) - 1)
-                end 
+                end
             end
         else
             stage = 0
@@ -80,7 +79,6 @@ local walkSet = "default"
 RegisterNetEvent('crouchprone:client:SetWalkSet', function(clipset)
     walkSet = clipset
 end)
-
 
 function ResetAnimSet()
     local ped = PlayerPedId()
@@ -103,5 +101,5 @@ function RequestWalking(set)
     RequestAnimSet(set)
     while not HasAnimSetLoaded(set) do
         Wait(1)
-    end 
+    end
 end
