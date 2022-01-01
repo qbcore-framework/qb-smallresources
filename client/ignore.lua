@@ -49,21 +49,16 @@ end)
 
 
 CreateThread(function()
-	while true do
-		local player = PlayerId()
-		for i = 1, 15 do
-			EnableDispatchService(i, false)
-		end
-		if GetPlayerWantedLevel(player) ~= 0 then
-			SetPlayerWantedLevel(player, 0, false)
-			SetPlayerWantedLevelNow(player, false)
-			SetPlayerWantedLevelNoDrop(player, 0, false)
-		else
-			Wait(500)
-		end
-		Wait(6)
+	for i = 1, 15 do
+		EnableDispatchService(i, false)
 	end
+
+	SetMaxWantedLevel(0)
 end)
+
+if Config.IdleCamera then --Disable Idle Cinamatic Cam
+  DisableIdleCamera(true)
+end
 
 CreateThread(function()
     while true do
