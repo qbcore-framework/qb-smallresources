@@ -56,6 +56,11 @@ CreateThread(function()
 	SetMaxWantedLevel(0)
 end)
 
+if Config.IdleCamera then --Disable Idle Cinamatic Cam
+  DisableIdleCamera(true)
+	end
+end
+
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
