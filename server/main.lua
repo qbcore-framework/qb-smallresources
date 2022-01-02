@@ -22,7 +22,7 @@ end)
 RegisterNetEvent('equip:harness', function(item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    if Player.PlayerData.items[item.slot].info.uses - 1 == 0 then
+    if Player.PlayerData.items[item.slot].info.uses == 1 then
         TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
         Player.Functions.RemoveItem('harness', 1)
     else
