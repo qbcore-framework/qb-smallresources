@@ -7,5 +7,5 @@ function AddTextEntry(key, value)
 end
 
 Citizen.CreateThread(function()
-  AddTextEntry('FE_THDR_GTAO', '~y~ The Lux | ~b~ Empire, ~s~ RP..')
+  AddTextEntry('FE_THDR_GTAO', '~y~ The Name | ~b~ OF Your Server, ~s~ RP..')
 end)
