@@ -22,9 +22,9 @@ CreateThread(function()-- https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
 		HideHudComponentThisFrame(20) -- 20 : WEAPON_WHEEL_STATS
 		HideHudComponentThisFrame(21) -- 21 : HUD_COMPONENTS
 		HideHudComponentThisFrame(22) -- 22 : HUD_WEAPONS
+		BlockWeaponWheelThisFrame() --Block Weapon Wheel
 		DisableControlAction(1, 37)
 		DisplayAmmoThisFrame(true)
-
 		Wait(4)
     end
 end)
