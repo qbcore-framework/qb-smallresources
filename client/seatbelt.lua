@@ -1,17 +1,12 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local seatbeltOn = false
 local harnessOn = false
 local harnessHp = 20
 local handbrake = 0
 local sleep = 0
 local harnessData = {}
-local SpeedBuffer = {}
-local vehVelocity = {x = 0.0, y = 0.0, z = 0.0}
 local newvehicleBodyHealth = 0
-local newvehicleEngineHealth = 0
-local currentvehicleEngineHealth = 0
-local currentvehicleBodyHealth = 0
 local frameBodyChange = 0
-local frameEngineChange = 0
 local lastFrameVehiclespeed = 0
 local lastFrameVehiclespeed2 = 0
 local thisFrameVehicleSpeed = 0
@@ -19,18 +14,57 @@ local tick = 0
 local damagedone = false
 local modifierDensity = true
 
--- Register Key
+-- Functions
 
-RegisterCommand('toggleseatbelt', function()
-    if IsPedInAnyVehicle(PlayerPedId(), false) then
-        local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
-        if class ~= 8 and class ~= 13 and class ~= 14 then
-            ToggleSeatbelt()
-        end
+local function ToggleSeatbelt()
+    if seatbeltOn then
+        seatbeltOn = false
+        TriggerEvent("seatbelt:client:ToggleSeatbelt")
+        TriggerServerEvent("InteractSound_SV:PlayOnSource", "carunbuckle", 0.25)
+    else
+        seatbeltOn = true
+        TriggerEvent("seatbelt:client:ToggleSeatbelt")
+        TriggerServerEvent("InteractSound_SV:PlayOnSource", "carbuckle", 0.25)
     end
-end, false)
+end
 
-RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
+local function ToggleHarness()
+    if harnessOn then
+        harnessOn = false
+    else
+        harnessOn = true
+        ToggleSeatbelt()
+    end
+end
+
+local function ResetHandBrake()
+    if handbrake > 0 then
+        handbrake = handbrake - 1
+    end
+end
+
+-- local function GetFwd(entity) -- ununsed function
+    -- local hr = GetEntityHeading(entity) + 90.0
+    -- if hr < 0.0 then hr = 360.0 + hr end
+    -- hr = hr * 0.0174533
+    -- return { x = math.cos(hr) * 5.73, y = math.sin(hr) * 5.73 }
+-- end
+
+local function EjectFromVehicle()
+    local ped = PlayerPedId()
+    local veh = GetVehiclePedIsIn(ped,false)
+    local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
+    SetEntityCoords(ped,coords)
+    Wait(1)
+    SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
+    SetEntityVelocity(ped, veloc.x*4,veloc.y*4,veloc.z*4)
+    local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)
+    if(GetEntityHealth(ped) - ejectspeed) > 0 then
+        SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
+    elseif GetEntityHealth(ped) ~= 0 then
+        SetEntityHealth(ped, 0)
+    end
+end
 
 -- Events
 
@@ -70,42 +104,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
     end
 end)
 
--- Functions
-
-function ToggleSeatbelt()
-    if seatbeltOn then
-        seatbeltOn = false
-        TriggerEvent("seatbelt:client:ToggleSeatbelt")
-        TriggerServerEvent("InteractSound_SV:PlayOnSource", "carunbuckle", 0.25)
-    else
-        seatbeltOn = true
-        TriggerEvent("seatbelt:client:ToggleSeatbelt")
-        TriggerServerEvent("InteractSound_SV:PlayOnSource", "carbuckle", 0.25)
-    end
-end
-
-function ToggleHarness()
-    if harnessOn then
-        harnessOn = false
-    else
-        harnessOn = true
-        ToggleSeatbelt()
-    end
-end
-
-function ResetHandBrake()
-    if handbrake > 0 then
-        handbrake = handbrake - 1
-    end
-end
-
--- Export
-
-function HasHarness()
-    return harnessOn
-end
-
--- Main Thread
+-- Thread
 
 CreateThread(function()
     while true do
@@ -124,9 +123,7 @@ CreateThread(function()
     end
 end)
 
--- Ejection Logic
-
-CreateThread(function()
+CreateThread(function() -- Ejection Logic
     while true do
         Wait(5)
         local playerPed = PlayerPedId()
@@ -264,25 +261,21 @@ CreateThread(function()
     end
 end)
 
-function GetFwd(entity)
-    local hr = GetEntityHeading(entity) + 90.0
-    if hr < 0.0 then hr = 360.0 + hr end
-    hr = hr * 0.0174533
-    return { x = math.cos(hr) * 5.73, y = math.sin(hr) * 5.73 }
-end
+-- Register Key
 
-function EjectFromVehicle()
-    local ped = PlayerPedId()
-    local veh = GetVehiclePedIsIn(ped,false)
-    local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
-    SetEntityCoords(ped,coords)
-    Wait(1)
-    SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
-    SetEntityVelocity(ped, veloc.x*4,veloc.y*4,veloc.z*4)
-    local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)
-    if(GetEntityHealth(ped) - ejectspeed) > 0 then
-        SetEntityHealth(ped, (GetEntityHealth(ped) - ejectspeed) )
-    elseif GetEntityHealth(ped) ~= 0 then
-        SetEntityHealth(ped, 0)
+RegisterCommand('toggleseatbelt', function()
+    if IsPedInAnyVehicle(PlayerPedId(), false) then
+        local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
+        if class ~= 8 and class ~= 13 and class ~= 14 then
+            ToggleSeatbelt()
+        end
     end
+end, false)
+
+RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
+
+-- Export
+
+function HasHarness()
+    return harnessOn
 end
