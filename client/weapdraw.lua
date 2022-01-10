@@ -1,3 +1,8 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+local holstered = true
+local canFire = true
+local currWeapon = `WEAPON_UNARMED`
+local currentHoldster = nil
 local weapons = {
 	'WEAPON_KNIFE',
 	'WEAPON_NIGHTSTICK',
@@ -72,8 +77,7 @@ local weapons = {
 	'WEAPON_DOUBLEACTION',
 }
 
--- Wheapons that require the Police holster animation
-local holsterableWeapons = {
+local holsterableWeapons = { -- Wheapons that require the Police holster animation
 	--'WEAPON_STUNGUN',
 	'WEAPON_PISTOL',
 	'WEAPON_PISTOL_MK2',
@@ -86,10 +90,23 @@ local holsterableWeapons = {
 	'WEAPON_VINTAGEPISTOL'
 }
 
-local holstered = true
-local canFire = true
-local currWeapon = `WEAPON_UNARMED`
-local currentHoldster = nil
+local function CheckWeapon(newWeap)
+	for i = 1, #weapons do
+		if GetHashKey(weapons[i]) == newWeap then
+			return true
+		end
+	end
+	return false
+end
+
+local function IsWeaponHolsterable(weap)
+	for i = 1, #holsterableWeapons do
+		if GetHashKey(holsterableWeapons[i]) == weap then
+			return true
+		end
+	end
+	return false
+end
 
 RegisterNetEvent('weapons:ResetHolster', function()
 	holstered = true
@@ -108,10 +125,10 @@ CreateThread(function()
 
 				local newWeap = GetSelectedPedWeapon(ped)
 				SetCurrentPedWeapon(ped, currWeapon, true)
-				loadAnimDict("reaction@intimidation@1h")
-				loadAnimDict("reaction@intimidation@cop@unarmed")
-				loadAnimDict("rcmjosh4")
-				loadAnimDict("weapons@pistol@")
+				QBCore.Functions.RequestAnimDict("reaction@intimidation@1h")
+				QBCore.Functions.RequestAnimDict("reaction@intimidation@cop@unarmed")
+				QBCore.Functions.RequestAnimDict("rcmjosh4")
+				QBCore.Functions.RequestAnimDict("weapons@pistol@")
 				if CheckWeapon(newWeap) then
 					if holstered then
 						if QBCore.Functions.GetPlayerData().job.name == "police" then
@@ -273,7 +290,6 @@ CreateThread(function()
 	end
 end)
 
-
 CreateThread(function()
 	while true do
 		if not canFire then
@@ -286,28 +302,3 @@ CreateThread(function()
 		Wait(3)
 	end
 end)
-
-function CheckWeapon(newWeap)
-	for i = 1, #weapons do
-		if GetHashKey(weapons[i]) == newWeap then
-			return true
-		end
-	end
-	return false
-end
-
-function IsWeaponHolsterable(weap)
-	for i = 1, #holsterableWeapons do
-		if GetHashKey(holsterableWeapons[i]) == weap then
-			return true
-		end
-	end
-	return false
-end
-
-function loadAnimDict(dict)
-	while (not HasAnimDictLoaded(dict)) do
-		RequestAnimDict(dict)
-		Wait(5)
-	end
-end
