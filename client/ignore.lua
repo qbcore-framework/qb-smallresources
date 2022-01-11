@@ -57,7 +57,7 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-  DisableIdleCamera(true)
+  	DisableIdleCamera(true)
 end
 
 CreateThread(function()

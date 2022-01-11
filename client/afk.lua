@@ -9,8 +9,8 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
         group = UserGroup
     end)
 end)
-    
-RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function()
+
+RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function(UserGroup)
     group = UserGroup
 end)
 
@@ -32,15 +32,15 @@ CreateThread(function()
                                 elseif time == (300) then
                                     QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
                                 elseif time == (150) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)   
+                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
                                 elseif time == (60) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute!', 'error', 10000) 
+                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute!', 'error', 10000)
                                 elseif time == (30) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)  
+                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
                                 elseif time == (20) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)    
+                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
                                 elseif time == (10) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)                                                                                                            
+                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
                                 end
                                 time = time - 1
                             else
