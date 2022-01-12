@@ -6,6 +6,7 @@ local onWeed = false
 local ParachuteEquiped = false
 local currentVest = nil
 local currentVestTexture = nil
+local healing = false
 
 -- Functions
 
