@@ -40,6 +40,13 @@ local function CleanVehicle(vehicle)
 	end)
 end
 
+
+RegisterNetEvent('qb-carwash:client:SyncWash', function(veh)
+	SetVehicleDirtLevel(veh, 0.1)
+	SetVehicleUndriveable(veh, false)
+	WashDecalsFromVehicle(veh, 1.0)
+end)
+
 RegisterNetEvent('qb-carwash:client:CleanVehicle', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	if vehicle ~= nil and vehicle ~= 0 then
