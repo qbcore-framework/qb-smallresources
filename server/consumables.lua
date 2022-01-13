@@ -224,7 +224,7 @@ RegisterNetEvent('qb-vehiclefailure:removeItem', function(item)
     ply.Functions.RemoveItem(item, 1)
 end)
 
-RegisterNetEvent('qb-vehiclefailure:server:removewashingkit', function(veh)
+RegisterNetEvent('qb-carwash:server:removewashingkit', function(veh)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
     ply.Functions.RemoveItem("cleaningkit", 1)
