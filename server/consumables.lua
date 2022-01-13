@@ -207,7 +207,7 @@ end)
 QBCore.Functions.CreateUseableItem("cleaningkit", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
 	if Player.Functions.GetItemBySlot(item.slot) ~= nil then
-        TriggerClientEvent("qb-vehiclefailure:client:CleanVehicle", source)
+        TriggerClientEvent("qb-carwash:client:CleanVehicle", source)
     end
 end)
 
