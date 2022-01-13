@@ -218,6 +218,18 @@ QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
     end
 end)
 
+RegisterNetEvent('qb-vehiclefailure:removeItem', function(item)
+    local src = source
+    local ply = QBCore.Functions.GetPlayer(src)
+    ply.Functions.RemoveItem(item, 1)
+end)
+
+RegisterNetEvent('qb-vehiclefailure:server:removewashingkit', function(veh)
+    local src = source
+    local ply = QBCore.Functions.GetPlayer(src)
+    ply.Functions.RemoveItem("cleaningkit", 1)
+    TriggerClientEvent('qb-vehiclefailure:client:SyncWash', -1, veh)
+end)
 
 ----------- / Unused
 
