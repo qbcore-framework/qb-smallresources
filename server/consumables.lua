@@ -195,6 +195,30 @@ QBCore.Functions.CreateUseableItem("advancedlockpick", function(source, item)
     TriggerClientEvent("lockpicks:UseLockpick", source, true)
 end)
 
+----------- / Vehicle
+
+QBCore.Functions.CreateUseableItem("repairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.GetItemBySlot(item.slot) ~= nil then
+        TriggerClientEvent("qb-vehiclefailure:client:RepairVehicle", source)
+    end
+end)
+
+QBCore.Functions.CreateUseableItem("cleaningkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.GetItemBySlot(item.slot) ~= nil then
+        TriggerClientEvent("qb-vehiclefailure:client:CleanVehicle", source)
+    end
+end)
+
+QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.GetItemBySlot(item.slot) ~= nil then
+        TriggerClientEvent("qb-vehiclefailure:client:RepairVehicleFull", source)
+    end
+end)
+
+
 ----------- / Unused
 
 -- QBCore.Functions.CreateUseableItem("smoketrailred", function(source, item)
