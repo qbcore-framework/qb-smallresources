@@ -15,6 +15,43 @@ local function DrawText3Ds(x, y, z, text)
     ClearDrawOrigin()
 end
 
+local function CleanVehicle(vehicle)
+	local ped = PlayerPedId()
+	local pos = GetEntityCoords(ped)
+	TaskStartScenarioInPlace(ped, "WORLD_HUMAN_MAID_CLEAN", 0, true)
+	QBCore.Functions.Progressbar("cleaning_vehicle", "Cleaning the car...", math.random(10000, 20000), false, true, {
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function() -- Done
+		QBCore.Functions.Notify("Vehicle cleaned!")
+		SetVehicleDirtLevel(vehicle, 0.1)
+        	SetVehicleUndriveable(vehicle, false)
+		WashDecalsFromVehicle(vehicle, 1.0)
+		TriggerServerEvent('qb-carwash:server:removewashingkit', vehicle)
+		TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["cleaningkit"], "remove")
+		ClearAllPedProps(ped)
+		ClearPedTasks(ped)
+	end, function() -- Cancel
+		QBCore.Functions.Notify("Failed!", "error")
+		ClearAllPedProps(ped)
+		ClearPedTasks(ped)
+	end)
+end
+
+RegisterNetEvent('qb-carwash:client:CleanVehicle', function()
+	local vehicle = QBCore.Functions.GetClosestVehicle()
+	if vehicle ~= nil and vehicle ~= 0 then
+		local ped = PlayerPedId()
+		local pos = GetEntityCoords(ped)
+		local vehpos = GetEntityCoords(vehicle)
+		if #(pos - vehpos) < 3.0 and not IsPedInAnyVehicle(ped) then
+			CleanVehicle(vehicle)
+		end
+	end
+end)
+
 RegisterNetEvent('qb-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed)
