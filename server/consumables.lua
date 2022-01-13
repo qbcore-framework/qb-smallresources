@@ -218,7 +218,7 @@ QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
     end
 end)
 
-RegisterNetEvent('qb-vehiclefailure:removeItem', function(item)
+RegisterNetEvent('smallresources:server:removeItem', function(item)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
     ply.Functions.RemoveItem(item, 1)
