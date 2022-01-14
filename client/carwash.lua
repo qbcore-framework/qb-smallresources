@@ -32,7 +32,13 @@ end
 RegisterNetEvent('qb-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed)
+	local coords = GetEntityCoords(PlayerPed)
     washingVehicle = true
+	QBCore.Functions.LoadParticleDictionary("core")
+    UseParticleFxAssetNextCall("core")
+    particles1  = StartParticleFxLoopedAtCoord("ent_amb_waterfall_splash_p", coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
+	UseParticleFxAssetNextCall("core")
+	particles2  = StartParticleFxLoopedAtCoord("ent_amb_waterfall_splash_p", coords.x + 2, coords.y, coords.z, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
     QBCore.Functions.Progressbar("search_cabin", "Vehicle is being washed ..", math.random(4000, 8000), false, true, {
         disableMovement = true,
         disableCarMovement = true,
@@ -42,6 +48,8 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
         SetVehicleDirtLevel(PedVehicle)
         SetVehicleUndriveable(PedVehicle, false)
         WashDecalsFromVehicle(PedVehicle, 1.0)
+        StopParticleFxLooped(particles1, 0)
+        StopParticleFxLooped(particles2, 0)
         washingVehicle = false
     end, function() -- Cancel
         QBCore.Functions.Notify("Washing canceled ..", "error")
