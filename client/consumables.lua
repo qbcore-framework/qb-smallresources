@@ -1,26 +1,25 @@
 -- Variables
-
 local alcoholCount = 0
 local onWeed = false
 local ParachuteEquiped = false
 local currentVest = nil
 local currentVestTexture = nil
-
+local healing = false
 -- Functions
 
-function loadAnimDict(dict)
+local function loadAnimDict(dict)
     while (not HasAnimDictLoaded(dict)) do
         RequestAnimDict(dict)
         Wait(5)
     end
 end
 
-function EquipParachuteAnim()
+local function EquipParachuteAnim()
     loadAnimDict("clothingshirt")        
     TaskPlayAnim(PlayerPedId(), "clothingshirt", "try_shirt_positive_d", 8.0, 1.0, -1, 49, 0, 0, 0, 0)
 end
 
-function HealOxy()
+local function HealOxy()
     if not healing then
         healing = true
     else
@@ -36,7 +35,18 @@ function HealOxy()
     healing = false
 end
 
-function MethBagEffect()
+local function TrevorEffect()
+    StartScreenEffect("DrugsTrevorClownsFightIn", 3.0, 0)
+    Wait(3000)
+    StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
+    Wait(3000)
+	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
+	StopScreenEffect("DrugsTrevorClownsFight")
+	StopScreenEffect("DrugsTrevorClownsFightIn")
+	StopScreenEffect("DrugsTrevorClownsFightOut")
+end
+
+local function MethBagEffect()
     local startStamina = 8
     TrevorEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
@@ -54,18 +64,7 @@ function MethBagEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
-function TrevorEffect()
-    StartScreenEffect("DrugsTrevorClownsFightIn", 3.0, 0)
-    Wait(3000)
-    StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
-    Wait(3000)
-	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
-	StopScreenEffect("DrugsTrevorClownsFight")
-	StopScreenEffect("DrugsTrevorClownsFightIn")
-	StopScreenEffect("DrugsTrevorClownsFightOut")
-end
-
-function EcstasyEffect()
+local function EcstasyEffect()
     local startStamina = 30
     SetFlash(0, 0, 500, 7000, 500)
     while startStamina > 0 do 
@@ -80,11 +79,21 @@ function EcstasyEffect()
     if IsPedRunning(PlayerPedId()) then
         SetPedToRagdoll(PlayerPedId(), math.random(1000, 3000), math.random(1000, 3000), 3, 0, 0, 0)
     end
-
     startStamina = 0
 end
 
-function JointEffect()
+local function AlienEffect()
+    StartScreenEffect("DrugsMichaelAliensFightIn", 3.0, 0)
+    Wait(math.random(5000, 8000))
+    StartScreenEffect("DrugsMichaelAliensFight", 3.0, 0)
+    Wait(math.random(5000, 8000))    
+    StartScreenEffect("DrugsMichaelAliensFightOut", 3.0, 0)
+    StopScreenEffect("DrugsMichaelAliensFightIn")
+    StopScreenEffect("DrugsMichaelAliensFight")
+    StopScreenEffect("DrugsMichaelAliensFightOut")
+end
+
+--local function JointEffect()
     -- if not onWeed then
     --     local RelieveOdd = math.random(35, 45)
     --     onWeed = true
@@ -103,9 +112,9 @@ function JointEffect()
     --         end
     --     end)
     -- end
-end
+--end
 
-function CrackBaggyEffect()
+local function CrackBaggyEffect()
     local startStamina = 8
     local ped = PlayerPedId()
     AlienEffect()
@@ -131,7 +140,8 @@ function CrackBaggyEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
-function CokeBaggyEffect()
+
+local function CokeBaggyEffect()
     local startStamina = 20
     local ped = PlayerPedId()
     AlienEffect()
@@ -158,41 +168,31 @@ function CokeBaggyEffect()
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
-function AlienEffect()
-    StartScreenEffect("DrugsMichaelAliensFightIn", 3.0, 0)
-    Wait(math.random(5000, 8000))
-    StartScreenEffect("DrugsMichaelAliensFight", 3.0, 0)
-    Wait(math.random(5000, 8000))    
-    StartScreenEffect("DrugsMichaelAliensFightOut", 3.0, 0)
-    StopScreenEffect("DrugsMichaelAliensFightIn")
-    StopScreenEffect("DrugsMichaelAliensFight")
-    StopScreenEffect("DrugsMichaelAliensFightOut")
-end
 
-function AddArmor()
-    local a = 15
-    while a > 0 do
-        Wait(math.random(750, 1150))
-        a = a - 1
-        AddArmourToPed(PlayerPedId(), 1)
-    end
-end
+-- local function AddArmor()
+--     local a = 15
+--     while a > 0 do
+--         Wait(math.random(750, 1150))
+--         a = a - 1
+--         AddArmourToPed(PlayerPedId(), 1)
+--     end
+-- end
 
-function AddHealth()
-    if not healing then
-        healing = true
-    else
-        return
-    end
+-- local function AddHealth()
+--     if not healing then
+--         healing = true
+--     else
+--         return
+--     end
     
-    local count = 30
-    while count > 0 do
-        Wait(1000)
-        count = count - 1
-        SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 1) 
-    end
-    healing = false
-end
+--     local count = 30
+--     while count > 0 do
+--         Wait(1000)
+--         count = count - 1
+--         SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 1) 
+--     end
+--     healing = false
+-- end
 
 -- Events
 
@@ -491,19 +491,7 @@ RegisterNetEvent('consumables:client:ResetArmor', function()
     end
 end)
 
--- RegisterNetEvent('consumables:client:UseRedSmoke', function()
---     if ParachuteEquiped then
---         local ped = PlayerPedId()
---         SetPlayerParachuteSmokeTrailColor(ped, 255, 0, 0)
---         SetPlayerCanLeaveParachuteSmokeTrail(ped, true)
---         TriggerEvent("inventory:client:Itembox", QBCore.Shared.Items["smoketrailred"], "remove")
---     else
---         QBCore.Functions.Notify("You need to have a paracute to activate smoke!", "error")    
---     end
--- end)
-
 --Threads
-
 CreateThread(function()
     while true do 
         Wait(10)
