@@ -5,6 +5,7 @@ Config.MaxLength = 5.0
 Config.DamageNeeded = 100.0
 Config.IdleCamera = true
 Config.EnableProne = true
+Config.JumpDisabled = false
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
