@@ -1,3 +1,9 @@
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+	if Config.NoHeadshotOneshot then
+		SetPedSuffersCriticalHits(PlayerPedId(), false)
+	end
+end)
+
 CreateThread(function()
     while true do
         for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
@@ -58,15 +64,6 @@ end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
   DisableIdleCamera(true)
-end
-
-if Config.NoHeadshotOneshot then
-	CreateThread(function()
-		while true do
-			Wait(5)
-			SetPedSuffersCriticalHits(PlayerPedId(), false)
-		end
-	end)
 end
 
 CreateThread(function()
