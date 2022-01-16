@@ -107,11 +107,15 @@ Config.Teleports = {
         [1] = {
             coords = vector4(3540.74, 3675.59, 20.99, 167.5),
             ["AllowVehicle"] = false,
+            isJobLocked = false, -- if set to true, enter jobs in allowedJobs
+            allowedJobs = {},
             drawText = '[E] Take Elevator Up'
         },
         [2] = {
             coords = vector4(3540.74, 3675.59, 28.11, 172.5),
             ["AllowVehicle"] = false,
+            isJobLocked = false, -- if set to true, enter jobs in allowedJobs
+            allowedJobs = {},
             drawText = '[E] Take Elevator Down'
         },
 
@@ -121,11 +125,15 @@ Config.Teleports = {
         [1] = {
             coords = vector4(909.49, -1589.22, 30.51, 92.24),
             ["AllowVehicle"] = false,
+            isJobLocked = true,
+            allowedJobs = {'unemployed', 'trucker', 'farmer'},
             drawText = '[E] Enter Coke Processing'
         },
         [2] = {
             coords = vector4(1088.81, -3187.57, -38.99, 181.7),
             ["AllowVehicle"] = false,
+            isJobLocked = true,
+            allowedJobs = {'unemployed', 'trucker', 'farmer'},
             drawText = '[E] Leave'
         },
     },
