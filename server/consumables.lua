@@ -218,12 +218,6 @@ QBCore.Functions.CreateUseableItem("advancedrepairkit", function(source, item)
     end
 end)
 
-RegisterNetEvent('smallresources:server:removeItem', function(item)
-    local src = source
-    local ply = QBCore.Functions.GetPlayer(src)
-    ply.Functions.RemoveItem(item, 1)
-end)
-
 RegisterNetEvent('qb-carwash:server:removewashingkit', function(veh)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
