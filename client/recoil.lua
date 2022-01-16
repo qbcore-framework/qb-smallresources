@@ -29,6 +29,7 @@ local recoils = {
 	[1593441988] = 0.2,			--['weapon_combatpistol']
 	[584646201] = 0.3,			--['weapon_appistol']
 	[911657153] = 0.1,			--['weapon_stungun']
+	[-618237638] = 0.1,			--['weapon_emplauncher']
 	[-1716589765] = 0.6,		--['weapon_pistol50']
 	[-1076751822] = 0.2,		--['weapon_snspistol']
 	[-771403250] = 0.5,			--['weapon_heavypistol']
@@ -78,6 +79,7 @@ local recoils = {
 	[-1768145561] = 0.2,		--['weapon_specialcarbine_mk2']
 	[-2066285827] = 0.2,		--['weapon_bullpuprifle_mk2']
 	[-1658906650] = 0.0,		--['weapon_militaryrifle']
+	[-947031628] = 0.2,			--['weapon_heavyrifle']
 
 	-- Light Machine Guns
 	[-1660422300] = 0.1,		--['weapon_mg']
@@ -120,35 +122,38 @@ local recoils = {
 	-- [883325847] = 0.3,		--['weapon_petrolcan']
 	-- [101631238] = 0.3,		--['weapon_fireextinguisher']
 	-- [-1168940174] = 0.3,		--['weapon_hazardcan']
+	-- [-1168940174] = 0.3,		--['weapon_fertilizercan']
 }
 
 CreateThread(function()
 	while true do
-		local ped = PlayerPedId()
-		if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
-			local _,wep = GetCurrentPedWeapon(ped)
-			_,cAmmo = GetAmmoInClip(ped, wep)
-			if recoils[wep] and recoils[wep] ~= 0 then
-				tv = 0
-				if GetFollowPedCamViewMode() ~= 4 then
-					repeat 
-						Wait(0)
-						p = GetGameplayCamRelativePitch()
-						SetGameplayCamRelativePitch(p+0.1, 0.2)
-						tv = tv+0.1
-					until tv >= recoils[wep]
-				else
-					repeat 
-						Wait(0)
-						p = GetGameplayCamRelativePitch()
-						if recoils[wep] > 0.1 then
-							SetGameplayCamRelativePitch(p+0.6, 1.2)
-							tv = tv+0.6
-						else
-							SetGameplayCamRelativePitch(p+0.016, 0.333)
+		if Config.UseRecoil then
+			local ped = PlayerPedId()
+			if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
+				local _,wep = GetCurrentPedWeapon(ped)
+				_,cAmmo = GetAmmoInClip(ped, wep)
+				if recoils[wep] and recoils[wep] ~= 0 then
+					tv = 0
+					if GetFollowPedCamViewMode() ~= 4 then
+						repeat 
+							Wait(0)
+							p = GetGameplayCamRelativePitch()
+							SetGameplayCamRelativePitch(p+0.1, 0.2)
 							tv = tv+0.1
-						end
-					until tv >= recoils[wep]
+						until tv >= recoils[wep]
+					else
+						repeat 
+							Wait(0)
+							p = GetGameplayCamRelativePitch()
+							if recoils[wep] > 0.1 then
+								SetGameplayCamRelativePitch(p+0.6, 1.2)
+								tv = tv+0.6
+							else
+								SetGameplayCamRelativePitch(p+0.016, 0.333)
+								tv = tv+0.1
+							end
+						until tv >= recoils[wep]
+					end
 				end
 			end
 		end
