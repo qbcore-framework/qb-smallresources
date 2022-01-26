@@ -56,6 +56,11 @@ RegisterNetEvent('qb-carwash:server:washCar', function()
     end
 end)
 
+RegisterNetEvent('density:server:rogue', function(toDelete)
+	if toDelete == nil then return end
+	TriggerClientEvent('density:client:delete',-1 , toDelete)
+end)
+
 QBCore.Functions.CreateCallback('smallresources:server:GetCurrentPlayers', function(source, cb)
     local TotalPlayers = 0
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
