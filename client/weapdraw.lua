@@ -89,13 +89,15 @@ local holsterableWeapons = {
 local holstered = true
 local canFire = true
 local currWeapon = `WEAPON_UNARMED`
-local currentHoldster = nil
+local currentHolster = nil
+local currentHolsterTexture = nil
 
 RegisterNetEvent('weapons:ResetHolster', function()
 	holstered = true
 	canFire = true
 	currWeapon = `WEAPON_UNARMED`
-	currentHoldster = nil
+	currentHolster = nil
+	currentHolsterTexture = nil
 end)
 
 CreateThread(function()
@@ -117,17 +119,18 @@ CreateThread(function()
 						if QBCore.Functions.GetPlayerData().job.name == "police" then
 							--TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
 							canFire = false
-							currentHoldster = GetPedDrawableVariation(ped, 7)
+							currentHolster = GetPedDrawableVariation(ped, 7)
+							currentHolsterTexture = GetPedTextureVariation(ped, 7)
 							TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", GetEntityCoords(ped, true), 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(300)
 							SetCurrentPedWeapon(ped, newWeap, true)
 
 							if IsWeaponHolsterable(newWeap) then
-								if currentHoldster == 8 then
+								if currentHolster == 8 then
 									SetPedComponentVariation(ped, 7, 2, 0, 2)
-								elseif currentHoldster == 1 then
+								elseif currentHolster == 1 then
 									SetPedComponentVariation(ped, 7, 3, 0, 2)
-								elseif currentHoldster == 6 then
+								elseif currentHolster == 6 then
 									SetPedComponentVariation(ped, 7, 5, 0, 2)
 								end
 							end
@@ -155,22 +158,23 @@ CreateThread(function()
 							Wait(500)
 
 							if IsWeaponHolsterable(currWeapon) then
-								SetPedComponentVariation(ped, 7, currentHoldster, 0, 2)
+								SetPedComponentVariation(ped, 7, currentHolster, currentHolsterTexture, 2)
 							end
 
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-							currentHoldster = GetPedDrawableVariation(ped, 7)
+							currentHolster = GetPedDrawableVariation(ped, 7)
+							currentHolsterTexture = GetPedTextureVariation(ped, 7)
 
 							TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", GetEntityCoords(ped, true), 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(300)
 							SetCurrentPedWeapon(ped, newWeap, true)
 
 							if IsWeaponHolsterable(newWeap) then
-								if currentHoldster == 8 then
+								if currentHolster == 8 then
 									SetPedComponentVariation(ped, 7, 2, 0, 2)
-								elseif currentHoldster == 1 then
+								elseif currentHolster == 1 then
 									SetPedComponentVariation(ped, 7, 3, 0, 2)
-								elseif currentHoldster == 6 then
+								elseif currentHolster == 6 then
 									SetPedComponentVariation(ped, 7, 5, 0, 2)
 								end
 							end
@@ -197,17 +201,18 @@ CreateThread(function()
 					else
 						if QBCore.Functions.GetPlayerData().job.name == "police" then
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-							currentHoldster = GetPedDrawableVariation(ped, 7)
+							currentHolster = GetPedDrawableVariation(ped, 7)
+							currentHolsterTexture = GetPedTextureVariation(ped, 7)
 							TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", GetEntityCoords(ped, true), 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(300)
 							SetCurrentPedWeapon(ped, newWeap, true)
 
 							if IsWeaponHolsterable(newWeap) then
-								if currentHoldster == 8 then
+								if currentHolster == 8 then
 									SetPedComponentVariation(ped, 7, 2, 0, 2)
-								elseif currentHoldster == 1 then
+								elseif currentHolster == 1 then
 									SetPedComponentVariation(ped, 7, 3, 0, 2)
-								elseif currentHoldster == 6 then
+								elseif currentHolster == 6 then
 									SetPedComponentVariation(ped, 7, 5, 0, 2)
 								end
 							end
@@ -237,7 +242,7 @@ CreateThread(function()
 							Wait(500)
 							
 							if IsWeaponHolsterable(currWeapon) then
-								SetPedComponentVariation(ped, 7, currentHoldster, 0, 2)
+								SetPedComponentVariation(ped, 7, currentHolster, currentHolsterTexture, 2)
 							end
 
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
