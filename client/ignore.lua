@@ -91,3 +91,24 @@ CreateThread(function()
     end
     Wait(500)
 end)
+
+if Config.CloseViewCamOnly then
+	CreateThread(function()
+		local setPov = false
+
+		while true do
+			DisableControlAction(0, 0, true)
+			local context = GetCamActiveViewModeContext()
+
+			if not setPov and IsDisabledControlJustPressed(0, 0) then
+				setPov = true
+				SetCamViewModeForContext(context, 4)
+			elseif setPov and IsDisabledControlJustPressed(0, 0) then
+				setPov = false
+				SetCamViewModeForContext(context, 0)
+			end
+
+			Citizen.Wait(0)
+		end
+	end)
+end
