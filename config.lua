@@ -34,6 +34,7 @@ Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
         "WORLD_VEHICLE_MILITARY_PLANES_BIG",
+        "WORLD_VEHICLE_AMBULANCE",
     },
     ['GROUPS'] = {
         2017590552,
