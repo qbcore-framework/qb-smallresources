@@ -37,6 +37,6 @@ end
 LastTime = GetTime()
 Tick()
 
-AddEventHandler('cron:runAt', function(h, m, cb)
+AddEventHandler('smallresources:server:cronrunAt', function(h, m, cb)
 	RunAt(h, m, cb)
 end)
