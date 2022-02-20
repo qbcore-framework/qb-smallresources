@@ -20,7 +20,6 @@ local damagedone = false
 local modifierDensity = true
 
 -- Register Key
-
 RegisterCommand('toggleseatbelt', function()
     if IsPedInAnyVehicle(PlayerPedId(), false) then
         local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
@@ -33,7 +32,6 @@ end, false)
 RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
 
 -- Events
-
 RegisterNetEvent('seatbelt:client:UseHarness', function(item) -- On Item Use (registered server side)
     local ped = PlayerPedId()
     local inveh = IsPedInAnyVehicle(ped, false)
@@ -53,6 +51,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(item) -- On Item Use (re
             end)
             harnessHp = item.info.uses
             harnessData = item
+            TriggerEvent('hud:client:UpdateHarness', harnessHp)
         else
             LocalPlayer.state:set("inv_busy", true, true)
             QBCore.Functions.Progressbar("harness_equip", "Removing Race Harness", 5000, false, true, {
@@ -71,7 +70,6 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(item) -- On Item Use (re
 end)
 
 -- Functions
-
 function ToggleSeatbelt()
     if seatbeltOn then
         seatbeltOn = false
@@ -100,13 +98,11 @@ function ResetHandBrake()
 end
 
 -- Export
-
 function HasHarness()
     return harnessOn
 end
 
 -- Main Thread
-
 CreateThread(function()
     while true do
         sleep = 1000
@@ -125,7 +121,6 @@ CreateThread(function()
 end)
 
 -- Ejection Logic
-
 CreateThread(function()
     while true do
         Wait(5)
