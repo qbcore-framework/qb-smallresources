@@ -92,7 +92,7 @@ CreateThread(function()
     Wait(500)
 end)
 
-if Config.CloseViewCamOnly then
+if Config.FirstPersonViewOnly then
 	CreateThread(function()
 		local setPov = false
 
