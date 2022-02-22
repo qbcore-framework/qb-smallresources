@@ -10,7 +10,7 @@ Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- carwash
 Config.DirtLevel = 0.1 --carwash dirt level
-Config.CloseViewCamOnly = false -- Only show firt person and third person close
+Config.FirstPersonViewOnly = false -- Only show firt person and third person close
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
