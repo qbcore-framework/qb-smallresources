@@ -484,7 +484,7 @@ RegisterNetEvent('consumables:client:ResetArmor', function()
             SetPedComponentVariation(ped, 9, currentVest, currentVestTexture, 2)
             SetPedArmour(ped, 0)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["heavyarmor"], "add")
-            TriggerServerEvent("QBCore:Server:AddItem", "heavyarmor", 1)
+            TriggerServerEvent("qb-smallresources:server:finishedreset")
         end)
     else
         QBCore.Functions.Notify("You\'re not wearing a vest..", "error")
