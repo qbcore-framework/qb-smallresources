@@ -483,7 +483,6 @@ RegisterNetEvent('consumables:client:ResetArmor', function()
         }, {}, {}, {}, function() -- Done
             SetPedComponentVariation(ped, 9, currentVest, currentVestTexture, 2)
             SetPedArmour(ped, 0)
-            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["heavyarmor"], "add")
             TriggerServerEvent("qb-smallresources:server:finishedreset")
         end)
     else

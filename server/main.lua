@@ -8,6 +8,7 @@ RegisterNetEvent('qb-smallresources:server:finishedreset', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player then
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items["heavyarmor"], "add")
         Player.Functions.AddItem('heavyarmor', 1)
     end
 end)
