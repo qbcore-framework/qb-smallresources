@@ -9,21 +9,18 @@ QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(source, cb)
 end)
 
 QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source, args)
-    local src = source
-    TriggerClientEvent('QBCore:Notify', src,  "ID: "..src)
+    TriggerClientEvent('QBCore:Notify', source,  "ID: "..source)
 end)
 
 QBCore.Functions.CreateUseableItem("harness", function(source, item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    TriggerClientEvent('seatbelt:client:UseHarness', src, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    TriggerClientEvent('seatbelt:client:UseHarness', source, item)
 end)
 
 RegisterNetEvent('equip:harness', function(item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.items[item.slot].info.uses == 1 then
-        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
+        TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['harness'], "remove")
         Player.Functions.RemoveItem('harness', 1)
     else
         Player.PlayerData.items[item.slot].info.uses = Player.PlayerData.items[item.slot].info.uses - 1
@@ -32,9 +29,7 @@ RegisterNetEvent('equip:harness', function(item)
 end)
 
 RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
+    local Player = QBCore.Functions.GetPlayer(source)
     if hp == 0 then
         Player.Functions.RemoveItem('harness', 1, data.slot)
     else
@@ -44,15 +39,13 @@ RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
 end)
 
 RegisterNetEvent('qb-carwash:server:washCar', function()
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
+    local Player = QBCore.Functions.GetPlayer(source)
     if Player.Functions.RemoveMoney('cash', Config.DefaultPrice, "car-washed") then
-        TriggerClientEvent('qb-carwash:client:washCar', src)
+        TriggerClientEvent('qb-carwash:client:washCar', source)
     elseif Player.Functions.RemoveMoney('bank', Config.DefaultPrice, "car-washed") then
-        TriggerClientEvent('qb-carwash:client:washCar', src)
+        TriggerClientEvent('qb-carwash:client:washCar', source)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'You dont have enough money..', 'error')
+        TriggerClientEvent('QBCore:Notify', source, 'You dont have enough money..', 'error')
     end
 end)
 
