@@ -26,21 +26,21 @@ CreateThread(function()
                         if time ~= nil then
                             if time > 0 then
                                 if time == (900) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_minutes",{timeLeft = math.ceil(time / 60)}), 'error', 10000)
                                 elseif time == (600) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_minutes",{timeLeft = math.ceil(time / 60)}), 'error', 10000)
                                 elseif time == (300) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_minutes",{timeLeft = math.ceil(time / 60)}), 'error', 10000)
                                 elseif time == (150) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_minutes",{timeLeft = math.ceil(time / 60)}), 'error', 10000)
                                 elseif time == (60) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_minute",{timeLeft = math.ceil(time / 60)}), 'error', 10000)
                                 elseif time == (30) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_seconds",{timeLeft = time}), 'error', 10000)
                                 elseif time == (20) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_seconds",{timeLeft = time}), 'error', 10000)
                                 elseif time == (10) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t("error.afk_time_left_seconds",{timeLeft = time}), 'error', 10000)
                                 end
                                 time = time - 1
                             else

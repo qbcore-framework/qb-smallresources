@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterNetEvent('KickForAFK', function()
     local src = source
-	DropPlayer(src, 'You Have Been Kicked For Being AFK')
+	DropPlayer(src, Lang:t("text.afk_kick_message"))
 end)
 
 QBCore.Functions.CreateCallback('qb-afkkick:server:GetPermissions', function(source, cb)
