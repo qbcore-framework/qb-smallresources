@@ -41,7 +41,7 @@ local function TriggerCruiseControl()
             CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
             -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
-            QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
+            QBCore.Functions.Notify("✅ Régulateur Activée: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
             -- QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedKm ..  " km/h") -- Uncomment me for km/h
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
@@ -50,14 +50,15 @@ local function TriggerCruiseControl()
                         (CruisedSpeed - 1.5) then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+						SetEntityMaxSpeed(GetVehicle(), GetVehicleHandlingFloat(GetVehicle(),"CHandlingData","fInitialDriveMaxFlatVel"))
+                        QBCore.Functions.Notify("❌ Régulateur Désactivé", "error")
                         Wait(2000)
                         break
                     end
                     if not IsTurningOrHandBraking() and
                         IsVehicleOnAllWheels(GetVehicle()) and
                         GetVehicleSpeed() < CruisedSpeed then
-                        SetVehicleForwardSpeed(GetVehicle(), CruisedSpeed)
+                        SetEntityMaxSpeed(GetVehicle(), CruisedSpeed)
                     end
                     if IsControlJustPressed(1, 246) then
                         TriggerEvent('seatbelt:client:ToggleCruise')
@@ -67,7 +68,8 @@ local function TriggerCruiseControl()
                     if IsControlJustPressed(2, 72) then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+						SetEntityMaxSpeed(GetVehicle(), GetVehicleHandlingFloat(GetVehicle(),"CHandlingData","fInitialDriveMaxFlatVel"))
+                        QBCore.Functions.Notify("❌ Régulateur Désactivé", "error")
                         Wait(2000)
                         break
                     end
@@ -85,7 +87,7 @@ RegisterCommand('togglecruise', function()
             Player = PlayerPedId()
             TriggerCruiseControl()
         else
-            QBCore.Functions.Notify("Cruise control unavailable", "error")
+            QBCore.Functions.Notify("❌ Cruise control indisponible", "error")
         end
     end
 end, false)
