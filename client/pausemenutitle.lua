@@ -1,0 +1,8 @@
+Citizen.CreateThread(function()
+	local name = GetPlayerName(PlayerId())
+	local id = GetPlayerServerId(PlayerId())
+    AddTextEntry("PM_PANE_LEAVE", "~r~Quit ~w~de ~y~QBCore ☹️")
+	Citizen.InvokeNative(GetHashKey("ADD_TEXT_ENTRY"), 'FE_THDR_GTAO', "☠️~w~~r~QBCore~b~RP~s~☠️ | ~b~Discord : ~g~https://discord.gg/qbcore~s~ | ~b~ID: "..id.." | ~r~")
+	AddTextEntry("PM_PANE_QUIT", "~r~Leave ~o~QBCore RP ☠️")
+	Wait(10000)
+end)
