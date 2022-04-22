@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
 	local name = GetPlayerName(PlayerId())
 	local id = GetPlayerServerId(PlayerId())
     AddTextEntry("PM_PANE_LEAVE", "~r~Quit ~w~de ~y~QBCore ☹️")
