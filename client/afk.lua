@@ -1,46 +1,35 @@
 -- AFK Kick Time Limit (in seconds)
-local group = 'user'
 local secondsUntilKick = 1800
-local QBCore = exports['qb-core']:GetCoreObject()
 local prevPos, time = nil, nil
-
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(UserGroup)
-        group = UserGroup
-    end)
-end)
-
-RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function(UserGroup)
-    group = UserGroup
-end)
 
 CreateThread(function()
     while true do
-        Wait(1000)
-        local playerPed = PlayerPedId()
-        if LocalPlayer.state.isLoggedIn then
-            if group == 'user' then
-                currentPos = GetEntityCoords(playerPed, true)
+        local Sleep = 1500
+        if ESX.IsPlayerLoaded() then
+            if ESX.PlayerData.group == 'user' then
+                Sleep = 1500
+                currentPos = GetEntityCoords(ESX.PlayerData.ped, true)
                 if prevPos ~= nil then
                     if currentPos == prevPos then
+                        Sleep = 1000
                         if time ~= nil then
                             if time > 0 then
                                 if time == (900) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                   ESX.ShowNotification('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!')
                                 elseif time == (600) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!')
                                 elseif time == (300) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!')
                                 elseif time == (150) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minutes!')
                                 elseif time == (60) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute!')
                                 elseif time == (30) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. time .. ' seconds!')
                                 elseif time == (20) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. time .. ' seconds!')
                                 elseif time == (10) then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    ESX.ShowNotification('You are AFK and will be kicked in ' .. time .. ' seconds!')
                                 end
                                 time = time - 1
                             else
@@ -56,5 +45,6 @@ CreateThread(function()
                 prevPos = currentPos
             end
         end
+    Wait(Sleep)
     end
 end)

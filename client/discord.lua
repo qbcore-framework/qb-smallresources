@@ -19,7 +19,7 @@ CreateThread(function()
         -- Here you can add hover text for the "small" icon.
         SetDiscordRichPresenceAssetSmallText('This is a lsmall icon with text')
 
-        QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
+        ESX.TriggerServerCallback('smallresources:server:GetCurrentPlayers', function(result)
             SetRichPresence('Players: '..result..'/64')
         end)
 
@@ -30,8 +30,8 @@ CreateThread(function()
             First paramater is the button index (0 or 1), second is the title and 
             last is the url (this has to start with "fivem://connect/" or "https://") 
         ]]--
-        SetDiscordRichPresenceAction(0, "First Button!", "fivem://connect/localhost:30120")
-        SetDiscordRichPresenceAction(1, "Second Button!", "fivem://connect/localhost:30120")
+        SetDiscordRichPresenceAction(0, "ESX Discord!", "https://discord.esx-framework.org/")
+        SetDiscordRichPresenceAction(1, "Join The Server!", "fivem://connect/localhost:30120")
 
         -- It updates every minute just in case.
 	Wait(60000)

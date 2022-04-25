@@ -17,7 +17,7 @@ CreateThread(function()
                         DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
                         if IsControlJustReleased(0, 51) then
                             if k == 1 then
-                                if v["AllowVehicle"] then
+                                if v.AllowVehicle then
                                     SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
                                 else
                                     SetEntityCoords(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
@@ -27,7 +27,7 @@ CreateThread(function()
                                     SetEntityHeading(ped, Config.Teleports[loc][2].coords.w)
                                 end
                             elseif k == 2 then
-                                if v["AllowVehicle"] then
+                                if v.AllowVehicle then
                                     SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
                                 else
                                     SetEntityCoords(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)

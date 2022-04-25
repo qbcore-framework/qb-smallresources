@@ -2,14 +2,14 @@ local fireworkTime = 0
 local fireworkLoc = nil
 
 local FireworkList = {
-    ["proj_xmas_firework"] = {
+    proj_xmas_firework = {
         "scr_firework_xmas_ring_burst_rgw",
         "scr_firework_xmas_burst_rgw",
         "scr_firework_xmas_repeat_burst_rgw",
         "scr_firework_xmas_spiral_burst_rgw",
         "scr_xmas_firework_sparkle_spawn",
     },
-    ["scr_indep_fireworks"] = {
+    scr_indep_fireworks = {
         "scr_indep_firework_sparkle_spawn",
         "scr_indep_firework_starburst",
         "scr_indep_firework_shotburst",
@@ -19,13 +19,13 @@ local FireworkList = {
         "scr_indep_firework_trail_spawn",
         "scr_indep_firework_fountain",
     },
-    ["proj_indep_firework"] = {
+    proj_indep_firework = {
         "scr_indep_firework_grd_burst",
         "scr_indep_launcher_sparkle_spawn",
         "scr_indep_firework_air_burst",
         "proj_indep_flare_trail",
     },
-    ["proj_indep_firework_v2"] = {
+    proj_indep_firework_v2 = {
         "scr_firework_indep_burst_rwb",
         "scr_firework_indep_spiral_burst_rwb",
         "scr_xmas_firework_sparkle_spawn",
@@ -66,47 +66,18 @@ CreateThread(function()
     while true do
         Wait(1)
         if fireworkTime > 0 and fireworkLoc ~= nil then
-            DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, "Firework over ~r~"..fireworkTime)
+            ESX.Game.Utils.DrawText3D(vector3(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z), "Firework over ~r~"..fireworkTime)
         end
     end
 end)
 
 RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
-    QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "anim@narcotics@trash",
-        anim = "drop_front",
-        flags = 16,
-    }, {}, {}, function() -- Done
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        local pos = GetEntityCoords(PlayerPedId())
-        DoFireWork(assetName, pos)
-    end, function() -- Cancel
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        QBCore.Functions.Notify("Canceled..", "error")
-    end)
+    StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
+    TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
+    TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
+    local pos = GetEntityCoords(PlayerPedId())
+    DoFireWork(assetName, pos)
 end)
-
-function DrawText3Ds(x, y, z, text)
-	SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(true)
-    AddTextComponentString(text)
-    SetDrawOrigin(x,y,z, 0)
-    DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
-end
 
 function DoFireWork(asset, coords)
     fireworkTime = 5

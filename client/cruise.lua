@@ -41,8 +41,7 @@ local function TriggerCruiseControl()
             CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
             -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
-            QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
-            -- QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedKm ..  " km/h") -- Uncomment me for km/h
+            ESX.ShowNotification("Cruise Activated: " .. CruisedSpeedMph .." MP/H")
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
@@ -50,7 +49,7 @@ local function TriggerCruiseControl()
                         (CruisedSpeed - 1.5) then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+                        ESX.ShowNotification("Cruise Deactivated")
                         Wait(2000)
                         break
                     end
@@ -67,7 +66,7 @@ local function TriggerCruiseControl()
                     if IsControlJustPressed(2, 72) then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+                        ESX.ShowNotification("Cruise Deactivated", "error")
                         Wait(2000)
                         break
                     end
@@ -85,7 +84,7 @@ RegisterCommand('togglecruise', function()
             Player = PlayerPedId()
             TriggerCruiseControl()
         else
-            QBCore.Functions.Notify("Cruise control unavailable", "error")
+            ESX.ShowNotification("Cruise control unavailable")
         end
     end
 end, false)
