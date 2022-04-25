@@ -11,7 +11,7 @@ local Vehicle = {
 CreateThread(function()
     while true do
         Wait(500)
-        local vehicle = QBCore.Functions.GetClosestVehicle()
+        local vehicle = ESX.Game.GetClosestVehicle()
         if vehicle ~= nil and vehicle ~= 0 then
             local ped = PlayerPedId()
             local pos = GetEntityCoords(ped)

@@ -51,7 +51,7 @@ local Colors = { -- https://www.spycolor.com/
     ["lightgreen"] = 65309,
 }
 
-RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)        
+RegisterNetEvent('esx-log:server:CreateLog', function(name, title, color, message, tagEveryone)        
     local tag = tagEveryone or false
     local webHook = Webhooks[name] or Webhooks['default']
     local embedData = {
@@ -63,7 +63,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
             },
             ['description'] = message,
             ['author'] = {
-                ['name'] = 'QBCore Logs',
+                ['name'] = 'ESX-Legacy Logs',
                 ['icon_url'] = 'https://media.discordapp.net/attachments/870094209783308299/870104331142189126/Logo_-_Display_Picture_-_Stylized_-_Red.png?width=670&height=670',
             },
         }

@@ -39,7 +39,7 @@ Base scripts for ESX-Framework :building_construction:
 
 ### Manual
 
-- Download the script and put it in the `[qb]` directory.
+- Download the script and put it in the `[esx]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 
 ```
