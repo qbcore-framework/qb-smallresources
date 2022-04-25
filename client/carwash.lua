@@ -54,10 +54,11 @@ end)
 
 CreateThread(function()
     for k, v in pairs(Config.CarWash) do
-        Config.CarWash[k].blip = AddBlipForCoord(Config.CarWash[k].coords)
+        carWashLocation = Config.CarWash[k].coords
+        local carWash = AddBlipForCoord(carWashLocation)
         SetBlipSprite (carWash, 100)
         SetBlipDisplay(carWash, 4)
-        SetBlipScale  (carWash, 0.75)
+        SetBlipScale  (carWash, 0.4)
         SetBlipAsShortRange(carWash, true)
         SetBlipColour(carWash, 37)
         BeginTextCommandSetBlipName("STRING")
