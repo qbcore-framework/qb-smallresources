@@ -1,5 +1,4 @@
--- AFK Kick Time Limit (in seconds)
-local secondsUntilKick = 1800
+local secondsUntilKick = Config.AFKTimer
 local prevPos, time = nil, nil
 
 CreateThread(function()
