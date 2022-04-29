@@ -64,7 +64,7 @@ RegisterNetEvent('esx-log:server:CreateLog', function(name, title, color, messag
             ['description'] = message,
             ['author'] = {
                 ['name'] = 'ESX-Legacy Logs',
-                ['icon_url'] = 'https://media.discordapp.net/attachments/870094209783308299/870104331142189126/Logo_-_Display_Picture_-_Stylized_-_Red.png?width=670&height=670',
+                ['icon_url'] = 'https://cdn.discordapp.com/attachments/936727454087806987/937875927717785660/30593074.png',
             },
         }
     }
