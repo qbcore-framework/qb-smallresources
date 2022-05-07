@@ -4,6 +4,15 @@ RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
     TriggerClientEvent("tackle:client:GetTackled", playerId)
 end)
 
+RegisterNetEvent('qb-smallresources:server:finishedreset', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player then
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items["heavyarmor"], "add")
+        Player.Functions.AddItem('heavyarmor', 1)
+    end
+end)
+
 QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(source, cb)
     cb(VehicleNitrous)
 end)
