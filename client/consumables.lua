@@ -85,24 +85,24 @@ function EcstasyEffect()
 end
 
 function JointEffect()
-    -- if not onWeed then
-    --     local RelieveOdd = math.random(35, 45)
-    --     onWeed = true
-    --     local weedTime = Config.JointEffectTime
-    --     CreateThread(function()
-    --         while onWeed do
-    --             SetPlayerHealthRechargeMultiplier(PlayerId(), 1.8)
-    --             Wait(1000)
-    --             weedTime = weedTime - 1
-    --             if weedTime == RelieveOdd then
-    --                 TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
-    --             end
-    --             if weedTime <= 0 then
-    --                 onWeed = false
-    --             end
-    --         end
-    --     end)
-    -- end
+    local onWeed = true
+    local weedTime = Config.JointEffectTime
+    CreateThread(function()
+        while onWeed do 
+            local armour = GetPedArmour(PlayerPedId())
+            if armour < 30 and math.random(1, 4) == 3 then
+                SetPedArmour(PlayerPedId(), armour + math.random(2, 3))
+                if armour > 30 then
+                    SetPedArmour(PlayerPedId(), 30)
+                end
+            end
+            Wait(1000)
+            weedTime = weedTime - 1
+            if weedTime <= 0 then
+                onWeed = false
+            end
+        end
+    end)
 end
 
 function CrackBaggyEffect()
@@ -377,6 +377,7 @@ RegisterNetEvent('consumables:client:UseJoint', function()
         end
         TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
         TriggerEvent('animations:client:SmokeWeed')
+        JointEffect()
     end)
 end)
 
