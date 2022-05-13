@@ -1,5 +1,5 @@
 local Player = nil
-local CruisedSpeed, CruisedSpeedKm, VehicleVectorY = 0, 0, 0
+local CruisedSpeed = 0
 local vehicleClasses = {
     [0] = true,
     [1] = true,
@@ -38,7 +38,7 @@ local function TriggerCruiseControl()
     if CruisedSpeed == 0 and IsDriving() then
         if GetVehicleSpeed() > 0 and GetVehicleCurrentGear(GetVehicle()) > 0 then
             CruisedSpeed = GetVehicleSpeed()
-            CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
+            local CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
             -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
             QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h

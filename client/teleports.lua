@@ -1,5 +1,3 @@
-JustTeleported = false
-
 CreateThread(function()
     while true do
         local inRange = false
@@ -37,7 +35,6 @@ CreateThread(function()
                                     SetEntityHeading(ped, Config.Teleports[loc][1].coords.w)
                                 end
                             end
-                            ResetTeleport()
                         end
                     end
                 end
@@ -51,9 +48,3 @@ CreateThread(function()
         Wait(3)
     end
 end)
-
-ResetTeleport = function()
-    SetTimeout(1000, function()
-        JustTeleported = false
-    end)
-end

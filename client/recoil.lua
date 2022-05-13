@@ -129,18 +129,18 @@ CreateThread(function()
 			local _,wep = GetCurrentPedWeapon(ped)
 			_,cAmmo = GetAmmoInClip(ped, wep)
 			if recoils[wep] and recoils[wep] ~= 0 then
-				tv = 0
+				local tv = 0
 				if GetFollowPedCamViewMode() ~= 4 then
-					repeat 
+					repeat
 						Wait(0)
-						p = GetGameplayCamRelativePitch()
+						local p = GetGameplayCamRelativePitch()
 						SetGameplayCamRelativePitch(p+0.1, 0.2)
 						tv = tv+0.1
 					until tv >= recoils[wep]
 				else
-					repeat 
+					repeat
 						Wait(0)
-						p = GetGameplayCamRelativePitch()
+						local p = GetGameplayCamRelativePitch()
 						if recoils[wep] > 0.1 then
 							SetGameplayCamRelativePitch(p+0.6, 1.2)
 							tv = tv+0.6
