@@ -10,6 +10,7 @@ Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- carwash
 Config.DirtLevel = 0.1 --carwash dirt level
+Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 
 ConsumeablesEat = {
     ["sandwich"] = math.random(35, 54),
