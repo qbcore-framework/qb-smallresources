@@ -75,7 +75,7 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    for k, _ in pairs(Config.CarWash) do
+    for k in pairs(Config.CarWash) do
         local carWash = AddBlipForCoord(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"])
         SetBlipSprite (carWash, 100)
         SetBlipDisplay(carWash, 4)
