@@ -76,7 +76,7 @@ QBCore.Functions.CreateUseableItem("joint", function(source, item)
     end
 end)
 
-QBCore.Functions.CreateUseableItem("cokebaggy", function(source, _)
+QBCore.Functions.CreateUseableItem("cokebaggy", function(source)
     TriggerClientEvent("consumables:client:Cokebaggy", source)
 end)
 
