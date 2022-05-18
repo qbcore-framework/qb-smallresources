@@ -144,11 +144,11 @@ CreateThread(function()
 
 							if IsWeaponHolsterable(newWeap) then
 								if currentHolster == 8 then
-									SetPedComponentVariation(ped, 7, 2, 0, 2)
+									SetPedComponentVariation(ped, 7, 2, currentHolsterTexture, 2)
 								elseif currentHolster == 1 then
-									SetPedComponentVariation(ped, 7, 3, 0, 2)
+									SetPedComponentVariation(ped, 7, 3, currentHolsterTexture, 2)
 								elseif currentHolster == 6 then
-									SetPedComponentVariation(ped, 7, 5, 0, 2)
+									SetPedComponentVariation(ped, 7, 5, currentHolsterTexture, 2)
 								end
 							end
 							currWeapon = newWeap
@@ -188,11 +188,11 @@ CreateThread(function()
 
 							if IsWeaponHolsterable(newWeap) then
 								if currentHolster == 8 then
-									SetPedComponentVariation(ped, 7, 2, 0, 2)
+									SetPedComponentVariation(ped, 7, 2, currentHolsterTexture, 2)
 								elseif currentHolster == 1 then
-									SetPedComponentVariation(ped, 7, 3, 0, 2)
+									SetPedComponentVariation(ped, 7, 3, currentHolsterTexture, 2)
 								elseif currentHolster == 6 then
-									SetPedComponentVariation(ped, 7, 5, 0, 2)
+									SetPedComponentVariation(ped, 7, 5, currentHolsterTexture, 2)
 								end
 							end
 
@@ -226,11 +226,11 @@ CreateThread(function()
 
 							if IsWeaponHolsterable(newWeap) then
 								if currentHolster == 8 then
-									SetPedComponentVariation(ped, 7, 2, 0, 2)
+									SetPedComponentVariation(ped, 7, 2, currentHolsterTexture, 2)
 								elseif currentHolster == 1 then
-									SetPedComponentVariation(ped, 7, 3, 0, 2)
+									SetPedComponentVariation(ped, 7, 3, currentHolsterTexture, 2)
 								elseif currentHolster == 6 then
-									SetPedComponentVariation(ped, 7, 5, 0, 2)
+									SetPedComponentVariation(ped, 7, 5, currentHolsterTexture, 2)
 								end
 							end
 
@@ -259,7 +259,7 @@ CreateThread(function()
 							Wait(500)
 							
 							if IsWeaponHolsterable(currWeapon) then
-								SetPedComponentVariation(ped, 7, currentHolster, 0, 2)
+								SetPedComponentVariation(ped, 7, currentHolster, currentHolsterTexture, 2)
 							end
 
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
