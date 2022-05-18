@@ -3,7 +3,7 @@ RegisterCommand("record", function()
     QBCore.Functions.Notify("Started Recording!", "success")
 end)
 
-RegisterCommand("clip", function(_ , _)
+RegisterCommand("clip", function()
     StartRecording(0)
 end)
 
