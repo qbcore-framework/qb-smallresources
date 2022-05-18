@@ -1,4 +1,4 @@
-RegisterCommand("record", function(_ , _)
+RegisterCommand("record", function()
     StartRecording(1)
     QBCore.Functions.Notify("Started Recording!", "success")
 end)
