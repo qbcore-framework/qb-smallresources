@@ -160,7 +160,7 @@ end)
 
 ----------- / Lockpicking
 
-QBCore.Functions.CreateUseableItem("lockpick", function(source, _)
+QBCore.Functions.CreateUseableItem("lockpick", function(source)
     TriggerClientEvent("lockpicks:UseLockpick", source, false)
 end)
 
