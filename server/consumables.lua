@@ -98,7 +98,7 @@ end)
 
 ----------- / Tools
 
-QBCore.Functions.CreateUseableItem("armor", function(source, _)
+QBCore.Functions.CreateUseableItem("armor", function(source)
     TriggerClientEvent("consumables:client:UseArmor", source)
 end)
 
