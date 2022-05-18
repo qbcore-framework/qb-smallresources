@@ -17,7 +17,7 @@ RegisterCommand("delclip", function()
     QBCore.Functions.Notify("Deleted Recording!", "error")
 end)
 
-RegisterCommand("editor", function(_ , _)
+RegisterCommand("editor", function()
     NetworkSessionLeaveSinglePlayer()
     ActivateRockstarEditor()
     QBCore.Functions.Notify("Later aligator!", "error")
