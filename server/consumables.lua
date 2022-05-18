@@ -88,7 +88,7 @@ QBCore.Functions.CreateUseableItem("xtcbaggy", function(source, _)
     TriggerClientEvent("consumables:client:EcstasyBaggy", source)
 end)
 
-QBCore.Functions.CreateUseableItem("oxy", function(source, _)
+QBCore.Functions.CreateUseableItem("oxy", function(source)
     TriggerClientEvent("consumables:client:oxy", source)
 end)
 
