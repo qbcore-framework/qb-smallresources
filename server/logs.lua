@@ -70,7 +70,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
             },
         }
     }
-    PerformHttpRequest(webHook, function(_, _, _) end, 'POST', json.encode({ username = 'QB Logs', embeds = embedData}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', embeds = embedData}), { ['Content-Type'] = 'application/json' })
     Citizen.Wait(100)
     if tag then
         PerformHttpRequest(webHook, function(_, _, _) end, 'POST', json.encode({ username = 'QB Logs', content = '@everyone'}), { ['Content-Type'] = 'application/json' })
