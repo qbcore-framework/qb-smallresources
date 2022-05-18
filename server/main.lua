@@ -56,7 +56,7 @@ end)
 
 QBCore.Functions.CreateCallback('smallresources:server:GetCurrentPlayers', function(_, cb)
     local TotalPlayers = 0
-    for _, _ in pairs(QBCore.Functions.GetPlayers()) do
+    for _ in pairs(QBCore.Functions.GetPlayers()) do
         TotalPlayers = TotalPlayers + 1
     end
     cb(TotalPlayers)
