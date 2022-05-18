@@ -164,7 +164,7 @@ QBCore.Functions.CreateUseableItem("lockpick", function(source)
     TriggerClientEvent("lockpicks:UseLockpick", source, false)
 end)
 
-QBCore.Functions.CreateUseableItem("advancedlockpick", function(source, _)
+QBCore.Functions.CreateUseableItem("advancedlockpick", function(source)
     TriggerClientEvent("lockpicks:UseLockpick", source, true)
 end)
 
