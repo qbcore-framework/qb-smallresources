@@ -106,7 +106,7 @@ QBCore.Functions.CreateUseableItem("heavyarmor", function(source)
     TriggerClientEvent("consumables:client:UseHeavyArmor", source)
 end)
 
-QBCore.Commands.Add("resetarmor", "Resets Vest (Police Only)", {}, false, function(source, _)
+QBCore.Commands.Add("resetarmor", "Resets Vest (Police Only)", {}, false, function(source)
     local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.job.name == "police" then
         TriggerClientEvent("consumables:client:ResetArmor", source)
