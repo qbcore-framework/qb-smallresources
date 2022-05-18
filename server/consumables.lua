@@ -80,7 +80,7 @@ QBCore.Functions.CreateUseableItem("cokebaggy", function(source)
     TriggerClientEvent("consumables:client:Cokebaggy", source)
 end)
 
-QBCore.Functions.CreateUseableItem("crack_baggy", function(source, _)
+QBCore.Functions.CreateUseableItem("crack_baggy", function(source)
     TriggerClientEvent("consumables:client:Crackbaggy", source)
 end)
 
