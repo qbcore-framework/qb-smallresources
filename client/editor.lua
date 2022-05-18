@@ -7,7 +7,7 @@ RegisterCommand("clip", function()
     StartRecording(0)
 end)
 
-RegisterCommand("saveclip", function(_ , _)
+RegisterCommand("saveclip", function()
     StopRecordingAndSaveClip()
     QBCore.Functions.Notify("Saved Recording!", "success")
 end)
