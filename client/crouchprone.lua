@@ -5,7 +5,7 @@ CreateThread(function()
         Wait(1)
         local ped = PlayerPedId()
         if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
-            if IsControlJustReleased(0, 36) then
+            if IsDisabledControlJustPressed(0, 36) then
                 stage = stage + 1
                 if stage == 2 then
                     -- Crouch stuff
