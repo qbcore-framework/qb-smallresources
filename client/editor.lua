@@ -12,7 +12,7 @@ RegisterCommand("saveclip", function()
     QBCore.Functions.Notify("Saved Recording!", "success")
 end)
 
-RegisterCommand("delclip", function(_ , _)
+RegisterCommand("delclip", function()
     StopRecordingAndDiscardClip()
     QBCore.Functions.Notify("Deleted Recording!", "error")
 end)
