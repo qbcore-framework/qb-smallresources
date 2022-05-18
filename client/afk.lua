@@ -20,7 +20,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         if LocalPlayer.state.isLoggedIn then
             if group == 'user' then
-                currentPos = GetEntityCoords(playerPed, true)
+                local currentPos = GetEntityCoords(playerPed, true)
                 if prevPos ~= nil then
                     if currentPos == prevPos then
                         if time ~= nil then

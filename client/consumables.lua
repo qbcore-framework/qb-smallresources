@@ -1,10 +1,10 @@
 -- Variables
 
 local alcoholCount = 0
-local onWeed = false
 local ParachuteEquiped = false
 local currentVest = nil
 local currentVestTexture = nil
+local healing = false
 
 -- Functions
 
@@ -50,7 +50,6 @@ function MethBagEffect()
             TrevorEffect()
         end
     end
-    startStamina = 0
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
@@ -80,29 +79,6 @@ function EcstasyEffect()
     if IsPedRunning(PlayerPedId()) then
         SetPedToRagdoll(PlayerPedId(), math.random(1000, 3000), math.random(1000, 3000), 3, 0, 0, 0)
     end
-
-    startStamina = 0
-end
-
-function JointEffect()
-    -- if not onWeed then
-    --     local RelieveOdd = math.random(35, 45)
-    --     onWeed = true
-    --     local weedTime = Config.JointEffectTime
-    --     CreateThread(function()
-    --         while onWeed do
-    --             SetPlayerHealthRechargeMultiplier(PlayerId(), 1.8)
-    --             Wait(1000)
-    --             weedTime = weedTime - 1
-    --             if weedTime == RelieveOdd then
-    --                 TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
-    --             end
-    --             if weedTime <= 0 then
-    --                 onWeed = false
-    --             end
-    --         end
-    --     end)
-    -- end
 end
 
 function CrackBaggyEffect()
@@ -126,8 +102,6 @@ function CrackBaggyEffect()
     if IsPedRunning(ped) then
         SetPedToRagdoll(ped, math.random(1000, 3000), math.random(1000, 3000), 3, 0, 0, 0)
     end
-
-    startStamina = 0
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
@@ -153,8 +127,6 @@ function CokeBaggyEffect()
     if IsPedRunning(ped) then
         SetPedToRagdoll(ped, math.random(1000, 3000), math.random(1000, 3000), 3, 0, 0, 0)
     end
-
-    startStamina = 0
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
 end
 
@@ -167,31 +139,6 @@ function AlienEffect()
     StopScreenEffect("DrugsMichaelAliensFightIn")
     StopScreenEffect("DrugsMichaelAliensFight")
     StopScreenEffect("DrugsMichaelAliensFightOut")
-end
-
-function AddArmor()
-    local a = 15
-    while a > 0 do
-        Wait(math.random(750, 1150))
-        a = a - 1
-        AddArmourToPed(PlayerPedId(), 1)
-    end
-end
-
-function AddHealth()
-    if not healing then
-        healing = true
-    else
-        return
-    end
-
-    local count = 30
-    while count > 0 do
-        Wait(1000)
-        count = count - 1
-        SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) + 1)
-    end
-    healing = false
 end
 
 -- Events
