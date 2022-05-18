@@ -92,7 +92,7 @@ QBCore.Functions.CreateUseableItem("oxy", function(source)
     TriggerClientEvent("consumables:client:oxy", source)
 end)
 
-QBCore.Functions.CreateUseableItem("meth", function(source, _)
+QBCore.Functions.CreateUseableItem("meth", function(source)
     TriggerClientEvent("consumables:client:meth", source)
 end)
 
