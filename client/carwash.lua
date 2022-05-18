@@ -44,7 +44,7 @@ CreateThread(function()
         local Driver = GetPedInVehicleSeat(PedVehicle, -1)
         local dirtLevel = GetVehicleDirtLevel(PedVehicle)
         if IsPedInAnyVehicle(PlayerPed) then
-            for k, _ in pairs(Config.CarWash) do
+            for k in pairs(Config.CarWash) do
                 local dist = #(PlayerPos - vector3(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"]))
                 if dist <= 10 then
                     inRange = true
