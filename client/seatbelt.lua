@@ -31,7 +31,7 @@ RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
 
 -- Events
 
-RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use (registered server side)
+RegisterNetEvent('seatbelt:client:UseHarness', function(item) -- On Item Use (registered server side)
     local ped = PlayerPedId()
     local inveh = IsPedInAnyVehicle(ped, false)
     local class = GetVehicleClass(GetVehiclePedIsUsing(ped))
@@ -46,10 +46,10 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
             }, {}, {}, {}, function()
                 LocalPlayer.state:set("inv_busy", false, true)
                 ToggleHarness()
-                TriggerServerEvent('equip:harness', ItemData)
+                TriggerServerEvent('equip:harness', item)
             end)
-            harnessHp = ItemData.info.uses
-            harnessData = ItemData
+            harnessHp = item.info.uses
+            harnessData = item
             TriggerEvent('hud:client:UpdateHarness', harnessHp)
         else
             LocalPlayer.state:set("inv_busy", true, true)
