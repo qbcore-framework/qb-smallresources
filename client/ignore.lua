@@ -10,9 +10,9 @@ CreateThread(function()
     end
 end)
 
-AddEventHandler("populationPedCreating", function(x, y, z, model)
+AddEventHandler("populationPedCreating", function(x, y, z)
 	Wait(500)	-- Give the entity some time to be created
-	local found, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
+	local _, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
 	SetPedDropsWeaponsWhenDead(handle, false)
 end)
 
@@ -57,7 +57,7 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-  DisableIdleCamera(true)
+	DisableIdleCamera(true)
 end
 
 CreateThread(function()
@@ -82,4 +82,12 @@ CreateThread(function()
 		end
         Wait(7)
     end
+end)
+
+CreateThread(function()
+    local pedPool = GetGamePool('CPed')
+    for _, v in pairs(pedPool) do
+        SetPedDropsWeaponsWhenDead(v, false)
+    end
+    Wait(500)
 end)

@@ -6,8 +6,6 @@ local speed_lr = 8.0 -- speed by which the camera pans left-right
 local speed_ud = 8.0 -- speed by which the camera pans up-down
 local binoculars = false
 local fov = (fov_max+fov_min)*0.5
-local keybindEnabled = false -- When enabled, binocular are available by keybind
-local binocularKey = 73
 local storeBinoclarKey = 177
 
 --THREADS--
@@ -25,7 +23,7 @@ CreateThread(function()
             if not ( IsPedSittingInAnyVehicle( lPed ) ) then
                 CreateThread(function()
                     TaskStartScenarioInPlace(lPed, "WORLD_HUMAN_BINOCULARS", 0, 1)
-                    PlayAmbientSpeech1(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
+                    PlayPedAmbientSpeechNative(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
                 end)
             end
 
@@ -109,8 +107,8 @@ function CheckInputRotation(cam, zoomvalue)
     local rightAxisY = GetDisabledControlNormal(0, 221)
     local rotation = GetCamRot(cam, 2)
     if rightAxisX ~= 0.0 or rightAxisY ~= 0.0 then
-        new_z = rotation.z + rightAxisX*-1.0*(speed_ud)*(zoomvalue+0.1)
-        new_x = math.max(math.min(20.0, rotation.x + rightAxisY*-1.0*(speed_lr)*(zoomvalue+0.1)), -89.5)
+        local new_z = rotation.z + rightAxisX*-1.0*(speed_ud)*(zoomvalue+0.1)
+        local new_x = math.max(math.min(20.0, rotation.x + rightAxisY*-1.0*(speed_lr)*(zoomvalue+0.1)), -89.5)
         SetCamRot(cam, new_x, 0.0, new_z, 2)
         SetEntityHeading(PlayerPedId(),new_z)
     end

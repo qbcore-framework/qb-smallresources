@@ -44,7 +44,7 @@ CreateThread(function()
         local Driver = GetPedInVehicleSeat(PedVehicle, -1)
         local dirtLevel = GetVehicleDirtLevel(PedVehicle)
         if IsPedInAnyVehicle(PlayerPed) then
-            for k, v in pairs(Config.CarWash) do
+            for k in pairs(Config.CarWash) do
                 local dist = #(PlayerPos - vector3(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"]))
                 if dist <= 10 then
                     inRange = true
@@ -75,8 +75,8 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    for k, v in pairs(Config.CarWash) do
-        carWash = AddBlipForCoord(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"])
+    for k in pairs(Config.CarWash) do
+        local carWash = AddBlipForCoord(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"])
         SetBlipSprite (carWash, 100)
         SetBlipDisplay(carWash, 4)
         SetBlipScale  (carWash, 0.75)
