@@ -1,6 +1,6 @@
 RegisterCommand("record", function()
     StartRecording(1)
-    QBCore.Functions.Notify("Started Recording!", "success")
+    QBCore.Functions.Notify(Lang:t("editor.record"), "success")
 end)
 
 RegisterCommand("clip", function()
@@ -9,16 +9,16 @@ end)
 
 RegisterCommand("saveclip", function()
     StopRecordingAndSaveClip()
-    QBCore.Functions.Notify("Saved Recording!", "success")
+    QBCore.Functions.Notify(Lang:t("editor.save"), "success")
 end)
 
 RegisterCommand("delclip", function()
     StopRecordingAndDiscardClip()
-    QBCore.Functions.Notify("Deleted Recording!", "error")
+    QBCore.Functions.Notify(Lang:t("editor.delete_clip"), "error")
 end)
 
 RegisterCommand("editor", function()
     NetworkSessionLeaveSinglePlayer()
     ActivateRockstarEditor()
-    QBCore.Functions.Notify("Later aligator!", "error")
+    QBCore.Functions.Notify(Lang:t("editor.editor"), "error")
 end)
