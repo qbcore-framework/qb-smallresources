@@ -3,6 +3,7 @@ Config.MaxWidth = 5.0
 Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
 Config.DamageNeeded = 100.0
+Config.IdleCamera = true
 Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
@@ -33,6 +34,10 @@ Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
         "WORLD_VEHICLE_MILITARY_PLANES_BIG",
+        "WORLD_VEHICLE_AMBULANCE",
+        "WORLD_VEHICLE_POLICE_NEXT_TO_CAR",
+        "WORLD_VEHICLE_POLICE_CAR",
+        "WORLD_VEHICLE_POLICE_BIKE",
     },
     ['GROUPS'] = {
         2017590552,
@@ -49,6 +54,7 @@ Config.BlacklistedVehs = {
     [`JET`] = true,
     [`LAZER`] = true,
     [`BUZZARD`] = true,
+    [`BUZZARD2`] = true,
     [`ANNIHILATOR`] = true,
     [`SAVAGE`] = true,
     [`TITAN`] = true,
@@ -59,6 +65,34 @@ Config.BlacklistedVehs = {
     [`BLIMP`] = true,
     [`AIRTUG`] = true,
     [`CAMPER`] = true,
+    [`HYDRA`] = true,
+    [`OPPRESSOR`] = true,
+    [`technical3`] = true,
+    [`insurgent3`] = true,
+    [`apc`] = true,
+    [`tampa3`] = true,
+    [`trailersmall2`] = true,
+    [`halftrack`] = true,
+    [`hunter`] = true,
+    [`vigilante`] = true,
+    [`akula`] = true,
+    [`barrage`] = true,
+    [`khanjali`] = true,
+    [`caracara`] = true,
+    [`blimp3`] = true,
+    [`menacer`] = true,
+    [`oppressor2`] = true,
+    [`scramjet`] = true,
+    [`strikeforce`] = true,
+    [`cerberus`] = true,
+    [`cerberus2`] = true,
+    [`cerberus3`] = true,
+    [`scarab`] = true,
+    [`scarab2`] = true,
+    [`scarab3`] = true,
+    [`rrocket`] = true,
+    [`ruiner2`] = true,
+    [`deluxo`] = true,
 }
 
 Config.BlacklistedPeds = {

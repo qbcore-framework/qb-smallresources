@@ -54,12 +54,11 @@ RegisterCommand('point', function()
             end
             camHeading = (camHeading + 180.0) / 360.0
 
-            local blocked = 0
-            local nn = 0
+            local blocked
 
             local coords = GetOffsetFromEntityInWorldCoords(ped, (cosCamHeading * -0.2) - (sinCamHeading * (0.4 * camHeading + 0.3)), (sinCamHeading * -0.2) + (cosCamHeading * (0.4 * camHeading + 0.3)), 0.6)
-            local ray = Cast_3dRayPointToPoint(coords.x, coords.y, coords.z - 0.2, coords.x, coords.y, coords.z + 0.2, 0.4, 95, ped, 7);
-            nn,blocked,coords,coords = GetRaycastResult(ray)	
+            local ray = Cast_3dRayPointToPoint(coords.x, coords.y, coords.z - 0.2, coords.x, coords.y, coords.z + 0.2, 0.4, 95, ped, 7)
+            _, blocked = GetRaycastResult(ray)
 			SetTaskMoveNetworkSignalFloat(ped, "Pitch", camPitch)
 			SetTaskMoveNetworkSignalFloat(ped, "Heading", camHeading * -1.0 + 1.0)
 			SetTaskMoveNetworkSignalBool(ped, "isBlocked", blocked)
