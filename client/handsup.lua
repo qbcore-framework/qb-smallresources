@@ -2,6 +2,10 @@ local animDict = "missminuteman_1ig_2"
 local anim = "handsup_base"
 local handsup = false
 
+exports('IsHandsUp', function()
+    return handsup
+end)
+
 RegisterKeyMapping('hu', 'Put your hands up', 'KEYBOARD', 'X')
 
 RegisterCommand('hu', function()
