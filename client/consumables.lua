@@ -329,7 +329,7 @@ end)
 
 RegisterNetEvent('consumables:client:UseParachute', function()
     EquipParachuteAnim()
-    QBCore.Functions.Progressbar("use_parachute", "parachute using..", 5000, false, true, {
+    QBCore.Functions.Progressbar("use_parachute", "Putting on parachute..", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
 		disableMouse = false,
