@@ -19,6 +19,7 @@ end)
 CreateThread(function() -- all these should only need to be called once
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
     SetAudioFlag("PoliceScannerDisabled", true)
+    SetAudioFlag("DisableFlightMusic", true)
 	SetGarbageTrucks(false)
 	SetCreateRandomCops(false)
 	SetCreateRandomCopsNotOnScenarios(false)
