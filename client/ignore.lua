@@ -34,6 +34,44 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
+-- The below will stop the vehicle from spawning on the map, but allows you /car and /admincar without it
+-- dissapearing due to it being on the blacklist -- as you may want to use it in roleplay scenarios.
+-- https://wiki.gtanet.work/index.php?title=Vehicle_Models
+
+Citizen.CreateThread(function()
+    while true do
+        	SetVehicleModelIsSuppressed("frogger", true) -- Helicopters around LISA and CBD scenario
+		SetVehicleModelIsSuppressed("swift", true) 
+		SetVehicleModelIsSuppressed("cuban800", true) -- Paleto and east coast aircraft scenario
+		SetVehicleModelIsSuppressed("stunt", true)
+		SetVehicleModelIsSuppressed("mammatus", true) -- Sandy scenario
+		SetVehicleModelIsSuppressed("buzzard2", true) -- Grove Street midnight scenario
+		SetVehicleModelIsSuppressed("duster", true) -- Vineyard crop duster scenario
+		SetVehicleModelIsSuppressed("dump", true) -- Quarry scenario
+		SetVehicleModelIsSuppressed("handler", true) -- Southern dock yard scenario
+		SetVehicleModelIsSuppressed("docktug", true)
+		-- Boats scenario
+		SetVehicleModelIsSuppressed("longfin", true)
+		SetVehicleModelIsSuppressed("toro", true)
+		SetVehicleModelIsSuppressed("toro2", true)
+		SetVehicleModelIsSuppressed("speeder", true)
+		SetVehicleModelIsSuppressed("speeder2", true)
+		SetVehicleModelIsSuppressed("seashark", true)
+		SetVehicleModelIsSuppressed("seashark2", true)
+		SetVehicleModelIsSuppressed("seashark3", true)
+		SetVehicleModelIsSuppressed("tropic", true)
+		SetVehicleModelIsSuppressed("tropic2", true)
+		SetVehicleModelIsSuppressed("suntrap", true)
+		SetVehicleModelIsSuppressed("squalo", true)
+		SetVehicleModelIsSuppressed("marquis", true)
+		SetVehicleModelIsSuppressed("jetmax", true)
+		SetVehicleModelIsSuppressed("dinghy", true)
+		SetVehicleModelIsSuppressed("dinghy2", true)
+		SetVehicleModelIsSuppressed("dinghy3", true)
+		SetVehicleModelIsSuppressed("dinghy4", true)
+		Wait(100)
+     end
+end)
 
 CreateThread(function()
 	while true do
