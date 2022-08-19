@@ -129,7 +129,7 @@ CreateThread(function()
 			local _, wep = GetCurrentPedWeapon(ped)
 			_, cAmmo = GetAmmoInClip(ped, wep)
 			if recoils[wep] and recoils[wep] ~= 0 then
-				local tv = 0
+				local tv
 				if GetFollowPedCamViewMode() ~= 4 then
 					repeat
 						Wait(0)
