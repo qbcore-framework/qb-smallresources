@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local isLoggedIn = LocalPlayer.state.isLoggedIn
 
 local function TackleAnim()
     local ped = PlayerPedId()
