@@ -35,16 +35,16 @@ local function EjectFromVehicle()
     end
 end
 
-local function ToggleHarness()
-    harnessOn = not harnessOn
-    if not harnessOn then return end
-    ToggleSeatbelt()
-end
-
 local function ToggleSeatbelt()
     seatbeltOn = not seatbeltOn
     TriggerEvent("seatbelt:client:ToggleSeatbelt")
     TriggerServerEvent("InteractSound_SV:PlayOnSource", seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+end
+
+local function ToggleHarness()
+    harnessOn = not harnessOn
+    if not harnessOn then return end
+    ToggleSeatbelt()
 end
 
 local function ResetHandBrake()
