@@ -1,18 +1,21 @@
 local disableShuffle = true
 
 CreateThread(function()
+    local sleep
     while true do
+        sleep = 100
         local ped = PlayerPedId()
-        local veh = GetVehiclePedIsIn(ped)
-            if IsPedInAnyVehicle(ped, false) and disableShuffle then
-                if GetPedInVehicleSeat(veh, false, 0) == ped then
-                    if GetIsTaskActive(ped, 165) then
-                        SetPedIntoVehicle(ped, veh, 0)
-                        SetPedConfigFlag(ped, 184, true)
-                    end
+        local veh = GetVehiclePedIsIn(ped, false)
+        if IsPedInAnyVehicle(ped, false) and disableShuffle then
+            if GetPedInVehicleSeat(veh, 0) == ped then
+                if GetIsTaskActive(ped, 165) then
+                    sleep = 0
+                    SetPedIntoVehicle(ped, veh, 0)
+                    SetPedConfigFlag(ped, 184, true)
                 end
             end
-        Wait(5)
+        end
+        Wait(sleep)
     end
 end)
 
