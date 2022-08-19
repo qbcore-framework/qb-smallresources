@@ -272,3 +272,19 @@ RegisterNetEvent('consumables:server:UseFirework', function(item)
 
     Player.Functions.RemoveItem(foundItem, 1)
 end)
+
+RegisterNetEvent('consumables:server:addThirst', function(amount)
+    local Player = QBCore.Functions.GetPlayer(source)
+
+    if not Player then return end
+
+    Player.Functions.SetMetaData('thirst', amount)
+end)
+
+RegisterNetEvent('consumables:server:addHunger', function(amount)
+    local Player = QBCore.Functions.GetPlayer(source)
+
+    if not Player then return end
+
+    Player.Functions.SetMetaData('hunger', amount)
+end)
