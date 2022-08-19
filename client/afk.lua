@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local isLoggedIn = false
+local isLoggedIn = LocalPlayer.state.isLoggedIn
 local ignoredGroups = {
     ['mod'] = true,
     ['admin'] = true,
