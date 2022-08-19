@@ -1,13 +1,13 @@
 CreateThread(function()
-    while true do
-        for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
-            SetScenarioTypeEnabled(sctyp, false)
-        end
-        for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
-            SetScenarioGroupEnabled(scgrp, false)
-        end
+	while true do
+		for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
+			SetScenarioTypeEnabled(sctyp, false)
+		end
+		for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
+			SetScenarioGroupEnabled(scgrp, false)
+		end
 		Wait(10000)
-    end
+	end
 end)
 
 AddEventHandler("populationPedCreating", function(x, y, z)
@@ -17,8 +17,10 @@ AddEventHandler("populationPedCreating", function(x, y, z)
 end)
 
 CreateThread(function() -- all these should only need to be called once
-    StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
-    SetAudioFlag("PoliceScannerDisabled", true)
+	if Config.DisableAmbience then
+		StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
+	end
+	SetAudioFlag("PoliceScannerDisabled", true)
 	SetGarbageTrucks(false)
 	SetCreateRandomCops(false)
 	SetCreateRandomCopsNotOnScenarios(false)
@@ -34,16 +36,16 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
-
 CreateThread(function()
+	local sleep
 	while true do
-		Wait(1)
+		sleep = 1000
 		local ped = PlayerPedId()
-		if IsPedBeingStunned(ped) then
+		if IsPedBeingStunned(ped, 0) then
+			sleep = 0
 			SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
-		else
-			Wait(1000)
 		end
+		Wait(sleep)
 	end
 end)
 
@@ -61,33 +63,33 @@ if Config.IdleCamera then --Disable Idle Cinamatic Cam
 end
 
 CreateThread(function()
-    while true do
-        local ped = PlayerPedId()
-        local weapon = GetSelectedPedWeapon(ped)
+	local sleep
+	while true do
+		sleep = 500
+		local ped = PlayerPedId()
+		local weapon = GetSelectedPedWeapon(ped)
 		if weapon ~= `WEAPON_UNARMED` then
 			if IsPedArmed(ped, 6) then
+				sleep = 0
 				DisableControlAction(1, 140, true)
 				DisableControlAction(1, 141, true)
 				DisableControlAction(1, 142, true)
 			end
 
-			if weapon == `WEAPON_FIREEXTINGUISHER` or  weapon == `WEAPON_PETROLCAN` then
+			if weapon == `WEAPON_FIREEXTINGUISHER` or weapon == `WEAPON_PETROLCAN` then
 				if IsPedShooting(ped) then
 					SetPedInfiniteAmmo(ped, true, `WEAPON_FIREEXTINGUISHER`)
 					SetPedInfiniteAmmo(ped, true, `WEAPON_PETROLCAN`)
 				end
 			end
-		else
-			Wait(500)
 		end
-        Wait(7)
-    end
+		Wait(sleep)
+	end
 end)
 
 CreateThread(function()
-    local pedPool = GetGamePool('CPed')
-    for _, v in pairs(pedPool) do
-        SetPedDropsWeaponsWhenDead(v, false)
-    end
-    Wait(500)
+	local pedPool = GetGamePool('CPed')
+	for _, v in pairs(pedPool) do
+		SetPedDropsWeaponsWhenDead(v, false)
+	end
 end)
