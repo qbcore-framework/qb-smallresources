@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local Player = nil
 local CruisedSpeed = 0
 local vehicleClasses = {
@@ -46,17 +47,14 @@ local function TriggerCruiseControl()
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
-                    if not IsTurningOrHandBraking() and GetVehicleSpeed() <
-                        (CruisedSpeed - 1.5) then
+                    if not IsTurningOrHandBraking() and GetVehicleSpeed() < CruisedSpeed - 1.5 then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
                         QBCore.Functions.Notify("Cruise Deactivated", "error")
                         Wait(2000)
                         break
                     end
-                    if not IsTurningOrHandBraking() and
-                        IsVehicleOnAllWheels(GetVehicle()) and
-                        GetVehicleSpeed() < CruisedSpeed then
+                    if not IsTurningOrHandBraking() and IsVehicleOnAllWheels(GetVehicle()) and GetVehicleSpeed() < CruisedSpeed then
                         SetVehicleForwardSpeed(GetVehicle(), CruisedSpeed)
                     end
                     if IsControlJustPressed(1, 246) then
@@ -78,7 +76,7 @@ local function TriggerCruiseControl()
 end
 
 RegisterCommand('togglecruise', function()
-    local veh = GetVehiclePedIsIn(PlayerPedId())
+    local veh = GetVehiclePedIsIn(PlayerPedId(), false)
     local vehClass = GetVehicleClass(veh)
     if IsDriver() then
         if vehicleClasses[vehClass] then

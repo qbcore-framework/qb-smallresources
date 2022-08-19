@@ -8,26 +8,34 @@ Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
-Config.DefaultPrice = 20 -- carwash
-Config.DirtLevel = 0.1 --carwash dirt level
+Config.DefaultPrice = 20 -- Default price for the carwash
+Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
+Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 
-ConsumeablesEat = {
+ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),
     ["twerks_candy"] = math.random(35, 54),
     ["snikkel_candy"] = math.random(40, 50),
 }
 
-ConsumeablesDrink = {
+ConsumablesDrink = {
     ["water_bottle"] = math.random(35, 54),
     ["kurkakola"] = math.random(35, 54),
     ["coffee"] = math.random(40, 50),
 }
 
-ConsumeablesAlcohol = {
+ConsumablesAlcohol = {
     ["whiskey"] = math.random(20, 30),
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
+}
+
+ConsumablesFireworks = {
+    "firework1",
+    "firework2",
+    "firework3",
+    "firework4"
 }
 
 Config.BlacklistedScenarios = {
@@ -147,11 +155,11 @@ Config.CarWash = { -- carwash
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-74.56, 6427.87, 31.44),
     },
-    [5] = {
+    [4] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(1363.22, 3592.7, 34.92),
     },
-    [6] = {
+    [5] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-699.62, -932.7, 19.01),
     }
