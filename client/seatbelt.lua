@@ -259,11 +259,10 @@ end)
 -- Register Key
 
 RegisterCommand('toggleseatbelt', function()
-    if IsPedInAnyVehicle(PlayerPedId(), false) then
-        local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
-        if class == 8 or class == 13 or class == 14 then return end
-        ToggleSeatbelt()
-    end
+    if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
+    local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
+    if class == 8 or class == 13 or class == 14 then return end
+    ToggleSeatbelt()
 end, false)
 
 RegisterKeyMapping('toggleseatbelt', 'Toggle Seatbelt', 'keyboard', 'B')
