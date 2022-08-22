@@ -52,7 +52,7 @@ local Translations = {
     },
     interaction = {
         veh_wash_int = "~g~E~w~ - Spala masina pentru ($ %{value})",
-        user_afk_kicked = "Ai primit kick, deoarece erai AFK - Away From Keyboard'
+        user_afk_kicked = "Ai primit kick, deoarece erai AFK - Away From Keyboard",
 
 
     },
