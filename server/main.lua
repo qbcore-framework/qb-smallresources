@@ -9,8 +9,8 @@ QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(_, cb)
     cb(VehicleNitrous)
 end)
 
-QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source)
-    TriggerClientEvent('QBCore:Notify', source,  "ID: "..source)
+QBCore.Commands.Add("id", Lang:t("inf_mapping.check_id"), {}, false, function(source)
+    TriggerClientEvent('QBCore:Notify', source,  Lang:t('notify.your_id', {value = source}))
 end)
 
 QBCore.Functions.CreateUseableItem("harness", function(source, item)
@@ -60,7 +60,7 @@ RegisterNetEvent('qb-carwash:server:washCar', function()
     elseif Player.Functions.RemoveMoney('bank', Config.DefaultPrice, "car-washed") then
         TriggerClientEvent('qb-carwash:client:washCar', src)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'You dont have enough money..', 'error')
+        TriggerClientEvent('QBCore:Notify', src, Lang:t("notify.not_enough_money"), 'error')
     end
 end)
 
