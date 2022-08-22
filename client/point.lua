@@ -68,4 +68,4 @@ RegisterCommand('point', function()
     end
 end, false)
 
-RegisterKeyMapping('point', 'Toggles Point', 'keyboard', 'b')
+RegisterKeyMapping('point', Lang:t("inf_mapping.point"), 'keyboard', 'b')
