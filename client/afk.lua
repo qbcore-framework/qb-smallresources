@@ -57,9 +57,9 @@ CreateThread(function()
                             if time > 0 then
                                 local _type = timeMinutes[tostring(time)]
                                 if _type == 'minutes' then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute(s)!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t('notify.afk_kickm', {value = math.ceil(time / 60)}), 'error', 10000)
                                 elseif _type == 'seconds' then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t('afk_kicks.afk_kicks', {value = time}), 'error', 10000)
                                 end
                                 time -= 1
                             else
