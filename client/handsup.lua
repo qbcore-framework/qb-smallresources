@@ -22,6 +22,6 @@ RegisterCommand('hu', function()
     end
 end, false)
 
-RegisterKeyMapping('hu', 'Put your hands up', 'KEYBOARD', 'X')
+RegisterKeyMapping('hu', Lang:t("inf_mapping.hu"), 'KEYBOARD', 'X')
 
 exports('getHandsup', function() return handsup end)
