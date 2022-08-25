@@ -148,7 +148,6 @@ CreateThread(function()
 				loadAnimDict("weapons@pistol@")
 
 				local HolsterVariant = GetPedDrawableVariation(ped, 8)
-				print(HolsterVariant)
 				if HolsterVariant == 130 or HolsterVariant == 122 or HolsterVariant == 3 or HolsterVariant == 6 or HolsterVariant == 8 then
 					WearingHolster = true
 				else
