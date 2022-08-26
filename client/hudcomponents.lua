@@ -1,4 +1,4 @@
-local disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}
+local disableHudComponents = Config.disableHudComponents
 local disableControls = {37}
 local displayAmmo = true
 
