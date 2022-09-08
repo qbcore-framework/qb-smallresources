@@ -27,9 +27,7 @@ local vehicleClasses = {
 }
 
 local function IsTurningOrHandBraking() return IsControlPressed(2, 76) or IsControlPressed(2, 63) or IsControlPressed(2, 64) end
-local function IsDriving() return IsPedInAnyVehicle(Player, false) end
-local function GetVehicle() return GetVehiclePedIsIn(Player, false) end
-local function IsInVehicle() return GetPedInVehicleSeat(GetVehicle(), -1) end
+
 
 local function TransformToSpeed(speed) 
     local mult = 3.6
