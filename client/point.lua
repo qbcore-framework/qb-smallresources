@@ -22,11 +22,12 @@ local function stopPointing()
         SetPedCurrentWeaponVisible(ped, 1, true, true, true)
     end
     SetPedConfigFlag(ped, 36, false)
-    ClearPedSecondaryTask(PlayerPedId())
+    ClearPedSecondaryTask(ped)
 end
 
 RegisterCommand('point', function()
-    if not IsPedInAnyVehicle(PlayerPedId(), false) then
+    local ped = PlayerPedId()
+    if not IsPedInAnyVehicle(ped, false) then
         if mp_pointing then
             stopPointing()
             mp_pointing = false
@@ -35,7 +36,6 @@ RegisterCommand('point', function()
             mp_pointing = true
         end
         while mp_pointing do
-            local ped = PlayerPedId()
             local camPitch = GetGameplayCamRelativePitch()
             if camPitch < -70.0 then
                 camPitch = -70.0

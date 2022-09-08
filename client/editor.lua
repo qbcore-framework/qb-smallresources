@@ -1,6 +1,6 @@
 RegisterCommand("record", function()
     StartRecording(1)
-    TriggerEvent('QBCore:Notify', "Started Recording!", "success")
+    TriggerEvent('QBCore:Notify', Lang:t('cruise.started'), "success")
 end, false)
 
 RegisterCommand("clip", function()
@@ -9,16 +9,16 @@ end, false)
 
 RegisterCommand("saveclip", function()
     StopRecordingAndSaveClip()
-    TriggerEvent('QBCore:Notify', "Saved Recording!", "success")
+    TriggerEvent('QBCore:Notify', Lang:t('cruise.save'), "success")
 end, false)
 
 RegisterCommand("delclip", function()
     StopRecordingAndDiscardClip()
-    TriggerEvent('QBCore:Notify', "Deleted Recording!", "error")
+    TriggerEvent('QBCore:Notify', Lang:t('cruise.delete'), "error")
 end, false)
 
 RegisterCommand("editor", function()
     NetworkSessionLeaveSinglePlayer()
     ActivateRockstarEditor()
-    TriggerEvent('QBCore:Notify', "Later aligator!", "error")
+    TriggerEvent('QBCore:Notify', Lang:t('cruise.editor'), "error")
 end, false)

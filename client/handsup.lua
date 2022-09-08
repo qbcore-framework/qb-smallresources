@@ -1,7 +1,7 @@
 local animDict = "missminuteman_1ig_2"
 local anim = "handsup_base"
 local handsup = false
-local disableHandsupControls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
+local disableHandsupControls = Config.disableHandsupControls
 
 RegisterCommand('hu', function()
     local ped = PlayerPedId()

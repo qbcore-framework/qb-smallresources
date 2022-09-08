@@ -121,9 +121,15 @@ local recoils = {
 	-- [101631238] = 0.3,		--['weapon_fireextinguisher']
 	-- [-1168940174] = 0.3,		--['weapon_hazardcan']
 }
+local weaponcheck = 0
+local loopend = true
 
-CreateThread(function()
-	while true do
+RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
+	loopend = true
+	if currentWeapon == nil then
+		loopend = false
+	end
+	while loopend do
 		local ped = PlayerPedId()
 		if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
 			local _, wep = GetCurrentPedWeapon(ped)

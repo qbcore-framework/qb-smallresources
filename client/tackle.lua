@@ -21,14 +21,6 @@ local function TackleAnim()
     end
 end
 
-local function Tackle()
-    local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
-    if distance ~= -1 and distance < 2 then
-        TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
-        TackleAnim()
-    end
-end
-
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
 end)
@@ -37,23 +29,15 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     isLoggedIn = false
 end)
 
-CreateThread(function()
-    local sleep
-    while true do
-        sleep = 250
-        if isLoggedIn then
-            local ped = PlayerPedId()
-            if not IsPedInAnyVehicle(ped, false) and GetEntitySpeed(ped) > 2.5 then
-                sleep = 0
-                if IsControlJustPressed(1, 19) then
-                    Tackle()
-                end
-            end
-        end
-
-        Wait(sleep)
+RegisterCommand('tackle', function()
+    local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
+    if distance ~= -1 and distance < 2 then
+        TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
+        TackleAnim()
     end
 end)
+
+RegisterKeyMapping('tackle', 'Tackle Someone', 'KEYBOARD', 'LMENU')
 
 RegisterNetEvent('tackle:client:GetTackled', function()
 	SetPedToRagdoll(PlayerPedId(), math.random(1000, 6000), math.random(1000, 6000), 0, false, false, false)

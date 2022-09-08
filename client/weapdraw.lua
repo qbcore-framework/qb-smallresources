@@ -72,20 +72,6 @@ local weapons = {
 	'WEAPON_DOUBLEACTION',
 }
 
--- Wheapons that require the Police holster animation
-local holsterableWeapons = {
-	--'WEAPON_STUNGUN',
-	'WEAPON_PISTOL',
-	'WEAPON_PISTOL_MK2',
-	'WEAPON_COMBATPISTOL',
-	'WEAPON_APPISTOL',
-	'WEAPON_PISTOL50',
-	'WEAPON_REVOLVER',
-	'WEAPON_SNSPISTOL',
-	'WEAPON_HEAVYPISTOL',
-	'WEAPON_VINTAGEPISTOL'
-}
-
 local holstered = true
 local canFire = true
 local currWeapon = `WEAPON_UNARMED`
@@ -111,8 +97,8 @@ local function CheckWeapon(newWeap)
 end
 
 local function IsWeaponHolsterable(weap)
-	for i = 1, #holsterableWeapons do
-		if joaat(holsterableWeapons[i]) == weap then
+	for i = 1, #Config.HolsterableWeapons do
+		if joaat(Config.HolsterableWeapons[i]) == weap then
 			return true
 		end
 	end
@@ -128,9 +114,10 @@ RegisterNetEvent('weapons:ResetHolster', function()
 	WearingHolster = nil
 end)
 
-CreateThread(function()
+RegisterNetEvent('weapons:client:DrawWeapon', function()
 	if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
 	local sleep
+	local weaponcheck = 0
 	while true do
 		local ped = PlayerPedId()
 		sleep = 250
@@ -148,16 +135,18 @@ CreateThread(function()
 				loadAnimDict("weapons@pistol@")
 
 				local HolsterVariant = GetPedDrawableVariation(ped, 8)
-				if HolsterVariant == 130 or HolsterVariant == 122 or HolsterVariant == 3 or HolsterVariant == 6 or HolsterVariant == 8 then
-					WearingHolster = true
-				else
-					WearingHolster = false
+				WearingHolster = false
+				for i = 1,#Config.HolsterVariant,1 do
+					if HolsterVariant == Config.HolsterVariant[i] then
+						WearingHolster = true
+					end				
 				end
 				if CheckWeapon(newWeap) then
 					if holstered then
 						if WearingHolster then
 							--TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
 							canFire = false
+							CeaseFire()
 							currentHolster = GetPedDrawableVariation(ped, 7)
 							currentHolsterTexture = GetPedTextureVariation(ped, 7)
 							TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
@@ -174,6 +163,7 @@ CreateThread(function()
 							canFire = true
 						else
 							canFire = false
+							CeaseFire()
 							TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(1000)
 							SetCurrentPedWeapon(ped, newWeap, true)
@@ -186,6 +176,7 @@ CreateThread(function()
 					elseif newWeap ~= currWeapon and CheckWeapon(currWeapon) then
 						if WearingHolster then
 							canFire = false
+							CeaseFire()
 
 							TaskPlayAnimAdvanced(ped, "reaction@intimidation@cop@unarmed", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(500)
@@ -213,6 +204,7 @@ CreateThread(function()
 							canFire = true
 						else
 							canFire = false
+							CeaseFire()
 							TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "outro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(1600)
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
@@ -259,6 +251,7 @@ CreateThread(function()
 					if not holstered and CheckWeapon(currWeapon) then
 						if WearingHolster then
 							canFire = false
+							CeaseFire()
 							TaskPlayAnimAdvanced(ped, "reaction@intimidation@cop@unarmed", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(500)
 
@@ -274,6 +267,7 @@ CreateThread(function()
 							currWeapon = newWeap
 						else
 							canFire = false
+							CeaseFire()
 							TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "outro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
 							Wait(1400)
 							SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
@@ -292,21 +286,23 @@ CreateThread(function()
 				end
 			end
 		end
-
 		Wait(sleep)
+		if currWeapon == nil or currWeapon == `WEAPON_UNARMED` then 
+			weaponcheck = weaponcheck + 1
+			if weaponcheck == 2 then
+				break 
+			end
+		end
 	end
 end)
 
-CreateThread(function()
-	if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
-	local sleep
-	while true do
-		sleep = 250
-		if not canFire then
-			sleep = 0
+function CeaseFire()
+	CreateThread(function()
+		if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
+		while not canFire do
 			DisableControlAction(0, 25, true)
 			DisablePlayerFiring(PlayerId(), true)
+			Wait(0)
 		end
-		Wait(sleep)
-	end
-end)
+	end)
+end
