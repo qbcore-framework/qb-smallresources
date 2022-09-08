@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
+local bones = {'bonnet', 'boot'}
 local First = vector3(0.0, 0.0, 0.0)
 local Second = vector3(5.0, 5.0, 5.0)
 local IsInFront = false
@@ -67,4 +67,19 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
             end
         end
     end
+end)
+
+CreateThread(function()
+    exports['qb-target']:AddTargetBone(bones, {
+        options = {
+            ["Push Vehicle"] = {
+                icon = "fas fa-wrench",
+                label = "Push Vehicle",
+                action = function(entity)
+                    TriggerEvent('vehiclepush:client:push', entity)
+                end,
+                distance = 0.9
+            }
+        }
+    })
 end)

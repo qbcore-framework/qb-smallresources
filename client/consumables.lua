@@ -200,6 +200,44 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
     end)
 end)
 
+RegisterNetEvent('consumables:client:Custom', function(itemName)
+    QBCore.Functions.Progressbar("custom_consumable", ConsumablesCustom[itemName]['progress'].label, ConsumablesCustom[itemName]['progress'].time, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+	    animDict = ConsumablesCustom[itemName]['animation'].animDict,
+	    anim = ConsumablesCustom[itemName]['animation'].anim,
+	    flags = ConsumablesCustom[itemName]['animation'].flags,
+	}, {
+		model = ConsumablesCustom[itemName]['prop'].model,
+		bone = ConsumablesCustom[itemName]['prop'].bone,
+		coords = ConsumablesCustom[itemName]['prop'].coords,
+		rotation = ConsumablesCustom[itemName]['prop'].rotation,
+    }, {}, function() -- Done
+        local replenish = ConsumablesCustom[itemName]['replenish']
+        ClearPedTasks(PlayerPedId())
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
+        if replenish.type then  
+            TriggerServerEvent("consumables:server:add".. replenish.type, QBCore.Functions.GetPlayerData().metadata[string.lower(replenish.type)] + replenish.replenish)
+        end
+        if replenish.isAlcohol then
+            alcoholCount += 1
+            AlcoholLoop()
+            if alcoholCount > 1 and alcoholCount < 4 then
+                TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
+            elseif alcoholCount >= 4 then
+                TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
+            end
+        end
+        if replenish.event then
+    end, function() -- Cancel
+        ClearPedTasks(PlayerPedId())
+        QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
+    end)
+end)
+
 RegisterNetEvent('consumables:client:Cokebaggy', function()
     local ped = PlayerPedId()
     QBCore.Functions.Progressbar("snort_coke", Lang:t('consumables.coke_progress'), math.random(5000, 8000), false, true, {

@@ -6,14 +6,12 @@ local washPoly = {}
 function WashLoop()    
     CreateThread(function()
         while listen do
-            Wait(0)
             local PlayerPed = PlayerPedId()
             local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
             local Driver = GetPedInVehicleSeat(PedVehicle, -1)
             local dirtLevel = GetVehicleDirtLevel(PedVehicle)
             if Driver == PlayerPed and not washingVehicle then
                 if IsControlPressed(0, 38) then
-                    exports['qb-core']:KeyPressed()    
                     if dirtLevel > Config.DirtLevel then
                         TriggerServerEvent('qb-carwash:server:washCar')
                     else  
@@ -22,7 +20,8 @@ function WashLoop()
                     listen = false
                     break
                 end
-            end
+            end            
+            Wait(0)
         end
     end)
 end
@@ -52,9 +51,10 @@ CreateThread(function()
         if Config.UseTarget then
             exports["qb-target"]:AddBoxZone('carwash', v['poly'].coords, v['poly'].length, v['poly'].width, {
                 name = 'carwash',
+                debugPoly = false,
                 heading = v['poly'].heading,
-                minZ = v['poly'].coords.z - 1,
-                maxZ = v['poly'].coords.z + 1,
+                minZ = v['poly'].coords.z - 5,
+                maxZ = v['poly'].coords.z + 5,
             }, {
                     options = {
                         {
@@ -89,8 +89,10 @@ CreateThread(function()
             washCombo:onPlayerInOut(function(isPointInside)
                 if isPointInside then
                     exports['qb-core']:DrawText(Lang:t('wash.wash_vehicle'),'left')
-                    listen = true
-                    WashLoop()
+                    if not listen then
+                        listen = true
+                        WashLoop()
+                    end
                 else
                     listen = false
                     exports['qb-core']:HideText()

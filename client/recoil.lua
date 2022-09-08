@@ -24,7 +24,7 @@ local recoils = {
 	-- [940833800] = 0.3,		--['weapon_stone_hatchet']
 
 	-- Handguns
-	[453432689] = 0.3,			--['weapon_pistol']
+	[453432689] = 13.3,			--['weapon_pistol']
 	[-1075685676] = 0.5,		--['weapon_pistol_mk2']
 	[1593441988] = 0.2,			--['weapon_combatpistol']
 	[584646201] = 0.3,			--['weapon_appistol']
@@ -130,6 +130,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
 		loopend = false
 	end
 	while loopend do
+		if loopend then break end
 		local ped = PlayerPedId()
 		if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
 			local _, wep = GetCurrentPedWeapon(ped)

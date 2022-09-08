@@ -68,9 +68,6 @@ end
 function BinocularLoop()
     CreateThread(function()
         while binoculars do
-
-            Wait(1500)
-
             local lPed = PlayerPedId()
             local vehicle = GetVehiclePedIsIn(lPed, false)
 
@@ -79,7 +76,7 @@ function BinocularLoop()
                 PlayPedAmbientSpeechNative(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
             end
 
-            Wait(2000)
+            Wait(2500)
 
             SetTimecycleModifier("default")
             SetTimecycleModifierStrength(0.3)
@@ -97,11 +94,11 @@ function BinocularLoop()
             PushScaleformMovieFunctionParameterInt(0) -- 0 for nothing, 1 for LSPD logo
             PopScaleformMovieFunctionVoid()
 
-            while binoculars and not IsEntityDead(lPed) and (GetVehiclePedIsIn(lPed, false) == vehicle) and IsPedUsingScenario(lPed, "WORLD_HUMAN_BINOCULARS") do
+            while binoculars and IsPedUsingScenario(lPed, "WORLD_HUMAN_BINOCULARS") do
                 if IsControlJustPressed(0, Config.Binoculars.storeBinoclarKey) then -- Toggle binoculars
+                    binoculars = false
                     PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
                     ClearPedTasks(lPed)
-                    binoculars = false
                 end
 
                 local zoomvalue = (1.0/(Config.Binoculars.fov_max-Config.Binoculars.fov_min))*(fov-Config.Binoculars.fov_min)
@@ -111,13 +108,14 @@ function BinocularLoop()
                 DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255, 0)
                 Wait(0)
             end
+            binoculars = false
             ClearTimecycleModifier()
             fov = (Config.Binoculars.fov_max+Config.Binoculars.fov_min)*0.5
             RenderScriptCams(false, false, 0, true, false)
             SetScaleformMovieAsNoLongerNeeded(scaleform)
             DestroyCam(cam, false)
             SetNightvision(false)
-            SetSeethrough(false)
+            SetSeethrough(false)                      
         end
     end)
 end

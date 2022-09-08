@@ -40,7 +40,7 @@ end)
 
 CreateThread(function()
     while true do
-        Wait(5000)
+        Wait(10000)
         local playerPed = PlayerPedId()
         if isLoggedIn then
             if checkUser then
@@ -55,7 +55,7 @@ CreateThread(function()
                                 elseif _type == 'seconds' then
                                     QBCore.Functions.Notify(Lang:t('afk.will_kick') .. time .. Lang:t('afk.time_seconds'), 'error', 10000)
                                 end
-                                time -= 5
+                                time -= 10
                             else
                                 TriggerServerEvent('KickForAFK')
                             end

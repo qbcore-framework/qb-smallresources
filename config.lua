@@ -1,8 +1,7 @@
 Config = {}
+Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
 -- To make this simple. Everything you need is in the config, except for discord, weapon drops, vehicle classes for cruise, hands up disabled keys, and recoil
-
-Config.UseTarget = true
 
 Config.AFK = {
     ignoredGroups = {
@@ -47,13 +46,8 @@ Config.IdleCamera = true
 Config.disableHandsupControls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 Config.HarnessUses = 20
-Config.DamageNeeded = 1010.0 -- vehiclepush 0-1000
-Config.EnableProne = true
-Config.JointEffectTime = 60
-Config.RemoveWeaponDrops = true
-Config.RemoveWeaponDropsTimer = 25
-Config.DefaultPrice = 20 -- Default price for the carwash
-Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
+Config.DamageNeeded = 100.0 -- vehiclepush 0-1000
+Config.EnableProne = false -- prone isnt recomended at this time
 
 ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -72,6 +66,33 @@ ConsumablesAlcohol = {
     ["whiskey"] = math.random(20, 30),
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
+}
+
+ConsumablesCustom = {
+    -- ['newitem'] = {
+    --     ['progress'] = {
+    --         label = 'Using Item...',
+    --         time = 5000
+    --     },
+    --     ['animation'] = {
+    --         animDict = "amb@prop_human_bbq@male@base",
+    --         anim = "base",
+    --         flags = 8,
+    --     },
+    --     ['prop'] = {
+    --         model = false,
+    --         bone = false,
+    --         coords = false, -- vector 3 format
+    --         rotation = false, -- vector 3 format
+    --     },
+    --     ['replenish'] = {
+    --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
+    --         replenish = math.random(20, 40), 
+    --         isAlcohol = false, -- if you want it to add alcohol count
+    --         event = false -- 'eventname' if you want it to trigger an outside event on use useful for drugs
+    --         server = false -- if the event above is a server event
+    --     }
+    -- }
 }
 
 ConsumablesFireworks = {
@@ -253,6 +274,8 @@ Config.Teleports = {
     }
 }
 
+Config.DefaultPrice = 20 -- Default price for the carwash
+Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.CarWash = { -- carwash
     [1] = {
         ["label"] = "Hands Free Carwash",
