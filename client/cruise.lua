@@ -26,7 +26,7 @@ local vehicleClasses = {
 
 local function IsTurningOrHandBraking() return IsControlPressed(2, 76) or IsControlPressed(2, 63) or IsControlPressed(2, 64) end
 
-local function TransformToSpeed(speed) 
+local function TransformToSpeed(speed)
     local mult = 3.6
     if Config.Cruise == 'mp/h' then
         mult = 2.2369

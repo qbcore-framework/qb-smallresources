@@ -36,7 +36,7 @@ local function EjectFromVehicle()
 end
 
 local function ToggleSeatbelt()
-    seatbeltOn = not seatbeltOn    
+    seatbeltOn = not seatbeltOn
     SeatBeltLoop()
     TriggerEvent("seatbelt:client:ToggleSeatbelt")
     TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)

@@ -32,8 +32,7 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
                     loadAnimDict('missfinale_c2ig_11')
                     TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, false, false, false)
                     exports['qb-core']:DrawText(Lang:t('pushcar.stop_push'),'left')
-                    local pushing = true
-                    while pushing do
+                    while true do
                         Wait(0)
                         if IsDisabledControlPressed(0, 34) then
                             TaskVehicleTempAction(ped, veh, 11, 1000)
@@ -58,7 +57,6 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
                             DetachEntity(ped, false, false)
                             StopAnimTask(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0)
                             FreezeEntityPosition(ped, false)
-                            pushing = false
                             break
                         end
                     end
