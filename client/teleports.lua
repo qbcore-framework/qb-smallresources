@@ -67,4 +67,3 @@ RegisterNetEvent("teleports:chooseloc", function(data)
     Wait(500)
     DoScreenFadeIn(500)
 end)
-
