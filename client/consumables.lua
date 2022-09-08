@@ -232,6 +232,8 @@ RegisterNetEvent('consumables:client:Custom', function(itemName)
             end
         end
         if replenish.event then
+            TriggerEvent(replenish.event)
+        end
     end, function() -- Cancel
         ClearPedTasks(PlayerPedId())
         QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
