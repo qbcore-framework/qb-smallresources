@@ -103,7 +103,7 @@ CreateThread(function()
 end)
 
 function FireWorkText()
-    CreateThread(function()    
+    CreateThread(function()
         while true do
             Wait(0)
             if fireworkTime > 0 and fireworkLoc then

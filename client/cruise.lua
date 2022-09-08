@@ -1,6 +1,4 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local Player = nil
-local speed = 0
 local vehicleClasses = {
     [0] = true,
     [1] = true,
@@ -33,8 +31,8 @@ local function TransformToSpeed(speed)
     if Config.Cruise == 'mp/h' then
         mult = 2.2369
     end
-    return math.floor(speed * 2.2369 + 0.5)
-end 
+    return math.floor(speed * mult + 0.5)
+end
 
 local function TriggerCruiseControl(veh)
     local ped = PlayerPedId()

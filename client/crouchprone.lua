@@ -34,12 +34,9 @@ end)
 
 function crouch()
     CreateThread(function()
-        local sleep
         while true do
-            sleep = 1000
             local ped = PlayerPedId()
             if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
-                sleep = 0
                 if trigger then
                     trigger = false
                     stage += 1
@@ -102,7 +99,7 @@ function crouch()
                 stage = 0
                 break
             end
-            Wait(sleep)
+            Wait(0)
         end
     end)
 end

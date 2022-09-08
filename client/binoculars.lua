@@ -69,7 +69,6 @@ function BinocularLoop()
     CreateThread(function()
         while binoculars do
             local lPed = PlayerPedId()
-            local vehicle = GetVehiclePedIsIn(lPed, false)
 
             if not IsPedSittingInAnyVehicle(lPed) then
                 TaskStartScenarioInPlace(lPed, "WORLD_HUMAN_BINOCULARS", 0, true)

@@ -14,13 +14,13 @@ function WashLoop()
                 if IsControlPressed(0, 38) then
                     if dirtLevel > Config.DirtLevel then
                         TriggerServerEvent('qb-carwash:server:washCar')
-                    else  
+                    else
                         QBCore.Functions.Notify(Lang:t('wash.dirty'), 'error')
                     end
                     listen = false
                     break
                 end
-            end            
+            end
             Wait(0)
         end
     end)
@@ -47,7 +47,7 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
 end)
 
 CreateThread(function()
-    for k,v in pairs(Config.CarWash) do
+    for _,v in pairs(Config.CarWash) do
         if Config.UseTarget then
             exports["qb-target"]:AddBoxZone('carwash', v['poly'].coords, v['poly'].length, v['poly'].width, {
                 name = 'carwash',

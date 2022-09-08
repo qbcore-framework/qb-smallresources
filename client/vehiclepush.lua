@@ -1,4 +1,3 @@
-local QBCore = exports['qb-core']:GetCoreObject()
 local bones = {'bonnet', 'boot'}
 local First = vector3(0.0, 0.0, 0.0)
 local Second = vector3(5.0, 5.0, 5.0)
@@ -33,7 +32,7 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
                     loadAnimDict('missfinale_c2ig_11')
                     TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, false, false, false)
                     exports['qb-core']:DrawText(Lang:t('pushcar.stop_push'),'left')
-                    pushing = true
+                    local pushing = true
                     while pushing do
                         Wait(0)
                         if IsDisabledControlPressed(0, 34) then

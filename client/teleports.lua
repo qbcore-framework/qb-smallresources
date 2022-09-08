@@ -40,7 +40,7 @@ CreateThread(function()
                 data = {pad = u}
             })
             local teleportCombo = ComboZone:Create(teleportPoly, {name = "teleportPoly"})
-            teleportCombo:onPlayerInOut(function(isPointInside,point,zone)
+            teleportCombo:onPlayerInOut(function(isPointInside, _, zone)
                 if isPointInside then
                     if not ran then
                         ran = true

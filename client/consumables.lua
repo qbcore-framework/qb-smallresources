@@ -43,10 +43,10 @@ local function TrevorEffect()
     Wait(3000)
     StartScreenEffect("DrugsTrevorClownsFight", 3.0, 0)
     Wait(3000)
-	StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
-	StopScreenEffect("DrugsTrevorClownsFight")
-	StopScreenEffect("DrugsTrevorClownsFightIn")
-	StopScreenEffect("DrugsTrevorClownsFightOut")
+    StartScreenEffect("DrugsTrevorClownsFightOut", 3.0, 0)
+    StopScreenEffect("DrugsTrevorClownsFight")
+    StopScreenEffect("DrugsTrevorClownsFightIn")
+    StopScreenEffect("DrugsTrevorClownsFightOut")
 end
 
 local function MethBagEffect()
@@ -150,8 +150,8 @@ RegisterNetEvent('consumables:client:Eat', function(itemName)
     QBCore.Functions.Progressbar("eat_something", Lang:t('consumables.consumables'), 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
@@ -165,8 +165,8 @@ RegisterNetEvent('consumables:client:Drink', function(itemName)
     QBCore.Functions.Progressbar("drink_something", Lang:t('consumables.drink_progress'), 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
@@ -207,19 +207,19 @@ RegisterNetEvent('consumables:client:Custom', function(itemName)
         disableMouse = false,
         disableCombat = true,
     }, {
-	    animDict = ConsumablesCustom[itemName]['animation'].animDict,
-	    anim = ConsumablesCustom[itemName]['animation'].anim,
-	    flags = ConsumablesCustom[itemName]['animation'].flags,
-	}, {
-		model = ConsumablesCustom[itemName]['prop'].model,
-		bone = ConsumablesCustom[itemName]['prop'].bone,
-		coords = ConsumablesCustom[itemName]['prop'].coords,
-		rotation = ConsumablesCustom[itemName]['prop'].rotation,
+        animDict = ConsumablesCustom[itemName]['animation'].animDict,
+        anim = ConsumablesCustom[itemName]['animation'].anim,
+        flags = ConsumablesCustom[itemName]['animation'].flags,
+    }, {
+        model = ConsumablesCustom[itemName]['prop'].model,
+        bone = ConsumablesCustom[itemName]['prop'].bone,
+        coords = ConsumablesCustom[itemName]['prop'].coords,
+        rotation = ConsumablesCustom[itemName]['prop'].rotation,
     }, {}, function() -- Done
         local replenish = ConsumablesCustom[itemName]['replenish']
         ClearPedTasks(PlayerPedId())
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        if replenish.type then  
+        if replenish.type then
             TriggerServerEvent("consumables:server:add".. replenish.type, QBCore.Functions.GetPlayerData().metadata[string.lower(replenish.type)] + replenish.replenish)
         end
         if replenish.isAlcohol then
@@ -290,12 +290,12 @@ RegisterNetEvent('consumables:client:EcstasyBaggy', function()
     QBCore.Functions.Progressbar("use_ecstasy", Lang:t('consumables.ecstasy_progress'), 3000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {
-		animDict = "mp_suicide",
-		anim = "pill",
-		flags = 49,
+        animDict = "mp_suicide",
+        anim = "pill",
+        flags = 49,
     }, {}, {}, function() -- Done
         StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
         TriggerServerEvent("consumables:server:useXTCBaggy")
@@ -311,18 +311,18 @@ RegisterNetEvent('consumables:client:oxy', function()
     QBCore.Functions.Progressbar("use_oxy", Lang:t('consumables.healing_progress'), 2000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {
-		animDict = "mp_suicide",
-		anim = "pill",
-		flags = 49,
+        animDict = "mp_suicide",
+        anim = "pill",
+        flags = 49,
     }, {}, {}, function() -- Done
         StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
         TriggerServerEvent("consumables:server:useOxy")
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["oxy"], "remove")
         ClearPedBloodDamage(PlayerPedId())
-		HealOxy()
+        HealOxy()
     end, function() -- Cancel
         StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
         QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
@@ -344,20 +344,20 @@ RegisterNetEvent('consumables:client:meth', function()
         TriggerServerEvent("consumables:server:useMeth")
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["meth"], "remove")
         TriggerEvent("evidence:client:SetStatus", "widepupils", 300)
-		TriggerEvent("evidence:client:SetStatus", "agitated", 300)
+        TriggerEvent("evidence:client:SetStatus", "agitated", 300)
         MethBagEffect()
     end, function() -- Cancel
         StopAnimTask(PlayerPedId(), "switch@trevor@trev_smoking_meth", "trev_smoking_meth_loop", 1.0)
         QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
-	end)
+    end)
 end)
 
 RegisterNetEvent('consumables:client:UseJoint', function()
     QBCore.Functions.Progressbar("smoke_joint", Lang:t('consumables.joint_progress'), 1500, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["joint"], "remove")
         if IsPedInAnyVehicle(PlayerPedId(), false) then
@@ -375,8 +375,8 @@ RegisterNetEvent('consumables:client:UseParachute', function()
     QBCore.Functions.Progressbar("use_parachute", Lang:t('consumables.use_parachute_progress'), 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         local ped = PlayerPedId()
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "remove")
@@ -423,8 +423,8 @@ RegisterNetEvent('consumables:client:UseArmor', function()
     QBCore.Functions.Progressbar("use_armor", Lang:t('consumables.armor_progress'), 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["armor"], "remove")
         TriggerServerEvent('hospital:server:SetArmor', 75)
@@ -440,8 +440,8 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
     QBCore.Functions.Progressbar("use_heavyarmor", Lang:t('consumables.heavy_armor_progress'), 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
+        disableMouse = false,
+        disableCombat = true,
     }, {}, {}, {}, function() -- Done
         if PlayerData.charinfo.gender == 0 then
             currentVest = GetPedDrawableVariation(ped, 9)

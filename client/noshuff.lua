@@ -2,9 +2,9 @@ local disableShuffle = true
 
 RegisterNetEvent('QBCore:Client:EnteredVehicle', function(data)
     local sleep
+    local ped = PlayerPedId()
     while IsPedInAnyVehicle(ped, false) do
         sleep = 100
-        local ped = PlayerPedId()
         if IsPedInAnyVehicle(ped, false) and disableShuffle then
             if GetPedInVehicleSeat(data.vehicle, 0) == ped then
                 if GetIsTaskActive(ped, 165) then

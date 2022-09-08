@@ -1,5 +1,4 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local isLoggedIn = LocalPlayer.state.isLoggedIn
 
 local function TackleAnim()
     local ped = PlayerPedId()
@@ -20,14 +19,6 @@ local function TackleAnim()
         end
     end
 end
-
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    isLoggedIn = true
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-    isLoggedIn = false
-end)
 
 RegisterCommand('tackle', function()
     local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()

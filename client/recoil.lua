@@ -121,7 +121,6 @@ local recoils = {
     -- [101631238] = 0.3,        --['weapon_fireextinguisher']
     -- [-1168940174] = 0.3,        --['weapon_hazardcan']
 }
-local weaponcheck = 0
 local loopend = true
 
 RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)

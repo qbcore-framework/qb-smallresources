@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 ----------- / alcohol
 
-for k,v in pairs(ConsumablesAlcohol) do
+for k,_ in pairs(ConsumablesAlcohol) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
     end)
@@ -10,7 +10,7 @@ end
 
 ----------- / Eat
 
-for k,v in pairs(ConsumablesEat) do
+for k,_ in pairs(ConsumablesEat) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -19,7 +19,7 @@ for k,v in pairs(ConsumablesEat) do
 end
 
 ----------- / Drink
-for k,v in pairs(ConsumablesDrink) do
+for k,_ in pairs(ConsumablesDrink) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -28,7 +28,7 @@ for k,v in pairs(ConsumablesDrink) do
 end
 
 ----------- / Custom
-for k,v in pairs(ConsumablesCustom) do
+for k,_ in pairs(ConsumablesCustom) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -106,7 +106,7 @@ end)
 
 ----------- / Firework
 
-for k,v in pairs(ConsumablesFireworks) do
+for _,v in pairs(ConsumablesFireworks) do
     QBCore.Functions.CreateUseableItem(v, function(source, item)
         local src = source
         TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_indep_firework")

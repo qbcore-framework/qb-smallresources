@@ -26,9 +26,9 @@ CreateThread(function() -- all these should only need to be called once
     SetCreateRandomCopsNotOnScenarios(false)
     SetCreateRandomCopsOnScenarios(false)
     DistantCopCarSirens(false)
-    for i,u in pairs(Config.RemoveVehicles) do
+    for i in pairs(Config.RemoveVehicles) do
         local distance = 300
-        for k,v in pairs(Config.RemoveVehicles[i]) do
+        for _,v in pairs(Config.RemoveVehicles[i]) do
             if i == 'long_range' then
                 distance = 500
             end
@@ -65,7 +65,7 @@ if Config.IdleCamera then --Disable Idle Cinamatic Cam
     DisableIdleCamera(true)
 end
 
-RegisterNetEvent('QBCore:Client:DrawWeapon', function(currentWeapon)
+RegisterNetEvent('QBCore:Client:DrawWeapon', function()
     local sleep
     while true do
         sleep = 500
