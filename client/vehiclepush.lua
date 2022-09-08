@@ -14,21 +14,21 @@ end
 
 RegisterNetEvent('vehiclepush:client:push', function(veh)
     if veh then
-        local ped = PlayerPedId() 
+        local ped = PlayerPedId()
         local pos = GetEntityCoords(ped)
         local vehpos = GetEntityCoords(veh)
-        local dimension = GetModelDimensions(GetEntityModel(veh), First, Second)        
+        local dimension = GetModelDimensions(GetEntityModel(veh), First, Second)
         local vehClass = GetVehicleClass(veh)
         if not IsEntityAttachedToEntity(ped, veh) and IsVehicleSeatFree(veh, -1) and GetVehicleEngineHealth(veh) <= Config.DamageNeeded and GetVehicleEngineHealth(veh) >= 0 then
-            if vehClass ~= 13 or vehClass ~= 14 or vehClass ~= 15 or vehClass ~= 16 then           
+            if vehClass ~= 13 or vehClass ~= 14 or vehClass ~= 15 or vehClass ~= 16 then
                 NetworkRequestControlOfEntity(veh)
                 if #(pos - vehpos) < 3.0 and not IsPedInAnyVehicle(ped, false) then
-                    if #(vehpos + GetEntityForwardVector(veh) - pos) > #(vehpos + GetEntityForwardVector(veh) * -1 - pos) then 
+                    if #(vehpos + GetEntityForwardVector(veh) - pos) > #(vehpos + GetEntityForwardVector(veh) * -1 - pos) then
                         IsInFront = false
-                        AttachEntityToEntity(ped, veh, GetPedBoneIndex(ped, 6286), 0.0, dimension.y - 0.3, dimension.z + 1.0, 0.0, 0.0, 0.0, false, false, false, true, 0, true)                       
+                        AttachEntityToEntity(ped, veh, GetPedBoneIndex(ped, 6286), 0.0, dimension.y - 0.3, dimension.z + 1.0, 0.0, 0.0, 0.0, false, false, false, true, 0, true)
                         else
                         IsInFront = true
-                        AttachEntityToEntity(ped, veh, GetPedBoneIndex(ped, 6286), 0.0, dimension.y * -1 + 0.1, dimension.z + 1.0, 0.0, 0.0, 180.0, false, false, false, true, 0, true)                          
+                        AttachEntityToEntity(ped, veh, GetPedBoneIndex(ped, 6286), 0.0, dimension.y * -1 + 0.1, dimension.z + 1.0, 0.0, 0.0, 180.0, false, false, false, true, 0, true)
                     end
                     loadAnimDict('missfinale_c2ig_11')
                     TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, false, false, false)

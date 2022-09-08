@@ -39,7 +39,7 @@ end
 
 QBCore.Functions.CreateUseableItem("joint", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+    if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
     TriggerClientEvent("consumables:client:UseJoint", source)
 end)
 
@@ -88,12 +88,12 @@ end)
 
 QBCore.Functions.CreateUseableItem("parachute", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+    if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
     TriggerClientEvent("consumables:client:UseParachute", source)
 end)
 
 QBCore.Commands.Add("resetparachute", "Resets Parachute", {}, false, function(source)
-	TriggerClientEvent("consumables:client:ResetParachute", source)
+    TriggerClientEvent("consumables:client:ResetParachute", source)
 end)
 
 RegisterNetEvent('qb-smallpenis:server:AddParachute', function()
@@ -127,7 +127,7 @@ end)
 
 -- QBCore.Functions.CreateUseableItem("smoketrailred", function(source, item)
 --     local Player = QBCore.Functions.GetPlayer(source)
--- 	   if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+--     if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
 --     TriggerClientEvent("consumables:client:UseRedSmoke", source)
 -- end)
 
@@ -254,7 +254,7 @@ RegisterNetEvent('consumables:server:addHunger', function(amount)
 end)
 
 local function AddDrink(drinkname, replenish)
-    if ConsumablesDrink[drinkname] ~= nil then 
+    if ConsumablesDrink[drinkname] ~= nil then
         return false, "already added"
     else
         ConsumablesDrink[drinkname] = replenish
@@ -265,7 +265,7 @@ end
 exports('AddDrink', AddDrink)
 
 local function AddFood(foodname, replenish)
-    if ConsumablesEat[foodname] ~= nil then 
+    if ConsumablesEat[foodname] ~= nil then
         return false, "already added"
     else
         ConsumablesEat[foodname] = replenish
@@ -276,7 +276,7 @@ end
 exports('AddFood', AddFood)
 
 local function AddAlcohol(alocholname, replenish)
-    if ConsumablesAlcohol[alocholname] ~= nil then 
+    if ConsumablesAlcohol[alocholname] ~= nil then
         return false, "already added"
     else
         ConsumablesAlcohol[alocholname] = replenish
@@ -287,7 +287,7 @@ end
 exports('AddAlcohol', AddAlcohol)
 
 local function AddCustom(itemname, data)
-    if ConsumablesCustom[itemname] ~= nil then 
+    if ConsumablesCustom[itemname] ~= nil then
         return false, "already added"
     else
         ConsumablesCustom[itemname] = data

@@ -115,7 +115,7 @@ function BinocularLoop()
             SetScaleformMovieAsNoLongerNeeded(scaleform)
             DestroyCam(cam, false)
             SetNightvision(false)
-            SetSeethrough(false)                      
+            SetSeethrough(false)
         end
     end)
 end
@@ -126,9 +126,9 @@ end
 RegisterNetEvent('binoculars:Toggle', function()
     binoculars = not binoculars
 
-    if binoculars then 
+    if binoculars then
         BinocularLoop()
-        return 
+        return
     end
 
     ClearPedTasks(PlayerPedId())

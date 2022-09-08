@@ -54,7 +54,7 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent("teleports:chooseloc", function(data)    
+RegisterNetEvent("teleports:chooseloc", function(data)
     local ped = PlayerPedId()
     DoScreenFadeOut(500)
     Wait(500)

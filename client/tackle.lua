@@ -40,8 +40,8 @@ end)
 RegisterKeyMapping('tackle', 'Tackle Someone', 'KEYBOARD', 'LMENU')
 
 RegisterNetEvent('tackle:client:GetTackled', function()
-	SetPedToRagdoll(PlayerPedId(), math.random(1000, 6000), math.random(1000, 6000), 0, false, false, false)
-	TimerEnabled = true
-	Wait(1500)
-	TimerEnabled = false
+    SetPedToRagdoll(PlayerPedId(), math.random(1000, 6000), math.random(1000, 6000), 0, false, false, false)
+    TimerEnabled = true
+    Wait(1500)
+    TimerEnabled = false
 end)

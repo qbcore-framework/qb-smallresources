@@ -29,7 +29,7 @@ local Translations = {
         armor_progress = "Putting on the body armour..",
         heavy_armor_progress = "Putting on body armour..",
         remove_armor_progress = "Removing the body armour..",
-        canceled = "Canceled..",        
+        canceled = "Canceled..",
     },
     cruise = {
         unavailable = "Cruise control unavailable",

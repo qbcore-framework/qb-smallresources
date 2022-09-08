@@ -20,14 +20,14 @@ end)
 
 RegisterNetEvent('SeatShuffle', function()
     local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped, false) then
-		disableShuffle = false
+    if IsPedInAnyVehicle(ped, false) then
+        disableShuffle = false
         SetPedConfigFlag(ped, 184, false)
         Wait(3000)
         disableShuffle = true
-	else
-		CancelEvent()
-	end
+    else
+        CancelEvent()
+    end
 end)
 
 RegisterCommand("shuff", function()

@@ -3,7 +3,7 @@ local washingVehicle = false
 local listen = false
 local washPoly = {}
 
-function WashLoop()    
+function WashLoop()
     CreateThread(function()
         while listen do
             local PlayerPed = PlayerPedId()
