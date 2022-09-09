@@ -89,7 +89,7 @@ ConsumablesCustom = {
     --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
     --         replenish = math.random(20, 40), 
     --         isAlcohol = false, -- if you want it to add alcohol count
-    --         event = false -- 'eventname' if you want it to trigger an outside event on use useful for drugs
+    --         event = false, -- 'eventname' if you want it to trigger an outside event on use useful for drugs
     --         server = false -- if the event above is a server event
     --     }
     -- }
