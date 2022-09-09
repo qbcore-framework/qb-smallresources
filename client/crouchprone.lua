@@ -36,7 +36,7 @@ CreateThread(function()
     while true do
         sleep = 1000
         local ped = PlayerPedId()
-        if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
+        if not Config.DisableProne and not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
             sleep = 0
             if IsControlJustReleased(2, 36) then
                 stage += 1

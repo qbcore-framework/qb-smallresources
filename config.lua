@@ -11,6 +11,7 @@ Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
+Config.DisableProne = false -- Disables prone behaviour
 
 ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
