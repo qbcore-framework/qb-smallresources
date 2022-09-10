@@ -35,6 +35,14 @@ for k,_ in pairs(ConsumablesCustom) do
         TriggerClientEvent("consumables:client:Custom", source, item.name)
     end)
 end
+
+local function CreateItem(name,type)
+    QBCore.Functions.CreateUseableItem(name, function(source, item)
+        local Player = QBCore.Functions.GetPlayer(source)
+        if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+        TriggerClientEvent("consumables:client:"..type, source, item.name)
+    end)
+end
 ----------- / Drug
 
 QBCore.Functions.CreateUseableItem("joint", function(source, item)
@@ -258,6 +266,7 @@ local function AddDrink(drinkname, replenish)
         return false, "already added"
     else
         ConsumablesDrink[drinkname] = replenish
+        CreateItem(drinkname, 'Drink')
         return true, "success"
     end
 end
@@ -269,17 +278,19 @@ local function AddFood(foodname, replenish)
         return false, "already added"
     else
         ConsumablesEat[foodname] = replenish
+        CreateItem(foodname, 'Eat')
         return true, "success"
     end
 end
 
 exports('AddFood', AddFood)
 
-local function AddAlcohol(alocholname, replenish)
-    if ConsumablesAlcohol[alocholname] ~= nil then
+local function AddAlcohol(alcoholname, replenish)
+    if ConsumablesAlcohol[alcoholname] ~= nil then
         return false, "already added"
     else
-        ConsumablesAlcohol[alocholname] = replenish
+        ConsumablesAlcohol[alcoholname] = replenish
+        CreateItem(alcoholname, 'DrinkAlcohol')
         return true, "success"
     end
 end
@@ -291,6 +302,7 @@ local function AddCustom(itemname, data)
         return false, "already added"
     else
         ConsumablesCustom[itemname] = data
+        CreateItem(itemname, 'Custom')
         return true, "success"
     end
 end
