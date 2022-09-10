@@ -12,6 +12,24 @@ Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 
+Config.DispatchServices = {
+    ["AmbulanceDepartment"] = false,
+    ["ArmyVehicle"] = false,
+    ["BikerBackup"] = false,
+    ["FireDepartment"] = false,
+    ["Gangs"] = false,
+    ["PoliceAutomobile"] = false,
+    ["PoliceAutomobileWaitCruising"] = false,
+    ["PoliceAutomobileWaitPulledOver"] = false,
+    ["PoliceBoat"] = false,
+    ["PoliceHelicopter"] = false,
+    ["PoliceRiders"] = false,
+    ["PoliceRoadBlock"] = false,
+    ["PoliceVehicleRequest"] = false,
+    ["SwatAutomobile"] = false,
+    ["SwatHelicopter"] = false,
+}
+
 ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),

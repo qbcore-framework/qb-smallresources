@@ -11,7 +11,7 @@ CreateThread(function()
 end)
 
 AddEventHandler("populationPedCreating", function(x, y, z)
-	Wait(500)	-- Give the entity some time to be created
+	Wait(500) -- Give the entity some time to be created
 	local _, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
 	SetPedDropsWeaponsWhenDead(handle, false)
 end)
@@ -49,10 +49,25 @@ CreateThread(function()
 	end
 end)
 
-
 CreateThread(function()
-	for i = 1, 15 do
-		EnableDispatchService(i, false)
+	for dispatchService, enabled in pairs({
+		[1]  = Config.DispatchServices.PoliceAutomobile,
+		[2]  = Config.DispatchServices.PoliceHelicopter,
+		[3]  = Config.DispatchServices.FireDepartment,
+		[4]  = Config.DispatchServices.SwatAutomobile,
+		[5]  = Config.DispatchServices.AmbulanceDepartment,
+		[6]  = Config.DispatchServices.PoliceRiders,
+		[7]  = Config.DispatchServices.PoliceVehicleRequest,
+		[8]  = Config.DispatchServices.PoliceRoadBlock,
+		[9]  = Config.DispatchServices.PoliceAutomobileWaitPulledOver,
+		[10] = Config.DispatchServices.PoliceAutomobileWaitCruising,
+		[11] = Config.DispatchServices.Gangs,
+		[12] = Config.DispatchServices.SwatHelicopter,
+		[13] = Config.DispatchServices.PoliceBoat,
+		[15] = Config.DispatchServices.ArmyVehicle,
+		[16] = Config.DispatchServices.BikerBackup
+	}) do
+		EnableDispatchService(dispatchService, enabled)
 	end
 
 	SetMaxWantedLevel(0)
