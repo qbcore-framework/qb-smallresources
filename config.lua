@@ -12,6 +12,49 @@ Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 
+-- To Set This Up visit https://forum.cfx.re/t/how-to-updated-discord-rich-presence-custom-image/157686
+Config.Discord = {
+    ["IsEnabled"] = "true",
+    ["ApplicationId"] = '915674222628585472',
+    ["IconLarge"] = 'logo_name',
+    ["IconLargeHoverText"] = 'This is a Large icon with text',
+    ["IconSmall"] = 'small_logo_name',
+    ["IconSmallHoverText"] = 'This is a Small icon with text',
+    ["UpdateRate"] = 60000,
+    ["PlayerCount"] = {
+        ["IsEnabled"] = true,
+    },
+    ["Buttons"] = {
+        ["IsEnabled"] = true,
+        [1] = {
+            text = 'First Button!',
+            url = 'fivem://connect/localhost:30120'
+        },
+        [2] = {
+            text = 'Second Button!',
+            url = 'fivem://connect/localhost:30120'
+        }
+    }
+}
+
+Config.DispatchServices = {
+    ["AmbulanceDepartment"] = false,
+    ["ArmyVehicle"] = false,
+    ["BikerBackup"] = false,
+    ["FireDepartment"] = false,
+    ["Gangs"] = false,
+    ["PoliceAutomobile"] = false,
+    ["PoliceAutomobileWaitCruising"] = false,
+    ["PoliceAutomobileWaitPulledOver"] = false,
+    ["PoliceBoat"] = false,
+    ["PoliceHelicopter"] = false,
+    ["PoliceRiders"] = false,
+    ["PoliceRoadBlock"] = false,
+    ["PoliceVehicleRequest"] = false,
+    ["SwatAutomobile"] = false,
+    ["SwatHelicopter"] = false,
+}
+
 ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),
