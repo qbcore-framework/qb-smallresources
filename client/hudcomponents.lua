@@ -1,9 +1,22 @@
-local disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}
-local disableControls = {37}
-local displayAmmo = true
+local disableHudComponents = Config.Disable.disableHudComponents
+local disableControls = Config.Disable.disableControls
+local displayAmmo = Config.Disable.displayAmmo
 
--- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
--- Controls: https://docs.fivem.net/docs/game-references/controls/
+local function DecorSet(Type, Value)
+    if Type == 'parked' then
+        Config.Density['parked'] = Value
+    elseif Type == 'vehicle' then
+        Config.Density['vehicle'] = Value
+    elseif Type == 'multiplier' then
+        Config.Density['multiplier'] = Value
+    elseif Type == 'peds' then
+        Config.Density['peds'] = Value
+    elseif Type == 'scenario' then
+        Config.Density['scenario'] = Value
+    end
+end
+
+exports('DecorSet', DecorSet)
 
 CreateThread(function()
     while true do
@@ -16,7 +29,12 @@ CreateThread(function()
 		end
 
 		DisplayAmmoThisFrame(displayAmmo)
-
+		
+		SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
+		SetVehicleDensityMultiplierThisFrame(Config.Density['vehicle'])
+		SetRandomVehicleDensityMultiplierThisFrame(Config.Density['multiplier'])
+		SetPedDensityMultiplierThisFrame(Config.Density['peds'])
+		SetScenarioPedDensityMultiplierThisFrame(Config.Density['scenario'], Config.Density['scenario']) -- Walking NPC Density
 		Wait(0)
     end
 end)
