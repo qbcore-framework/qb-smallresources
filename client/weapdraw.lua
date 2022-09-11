@@ -134,9 +134,8 @@ CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		sleep = 250
-		if DoesEntityExist(ped) and not IsEntityDead(ped) and not IsPedInParachuteFreeFall(ped) and not IsPedFalling(ped) and (GetPedParachuteState(ped) == -1 or GetPedParachuteState(ped) == 0) then
+		if DoesEntityExist(ped) and currWeapon ~= GetSelectedPedWeapon(ped) and not IsEntityDead(ped) and not IsPedInParachuteFreeFall(ped) and not IsPedFalling(ped) and (GetPedParachuteState(ped) == -1 or GetPedParachuteState(ped) == 0) then
 			sleep = 0
-			if currWeapon ~= GetSelectedPedWeapon(ped) then
 				local pos = GetEntityCoords(ped, true)
 				local rot = GetEntityHeading(ped)
 
@@ -291,8 +290,7 @@ CreateThread(function()
 					end
 				end
 			end
-		end
-
+			
 		Wait(sleep)
 	end
 end)
