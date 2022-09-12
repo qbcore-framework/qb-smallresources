@@ -49,26 +49,27 @@ Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- vehiclepush 0-1000
 Config.EnableProne = false -- prone isnt recomended at this time
 
-ConsumablesEat = {
+Config.ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),
     ["twerks_candy"] = math.random(35, 54),
     ["snikkel_candy"] = math.random(40, 50),
 }
 
-ConsumablesDrink = {
+Config.ConsumablesDrink = {
     ["water_bottle"] = math.random(35, 54),
     ["kurkakola"] = math.random(35, 54),
     ["coffee"] = math.random(40, 50),
 }
 
-ConsumablesAlcohol = {
+Config.ConsumablesAlcohol = {
     ["whiskey"] = math.random(20, 30),
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
 }
 
-ConsumablesCustom = {
+Config.ConsumablesCustom = {
+   
     -- ['newitem'] = {
     --     ['progress'] = {
     --         label = 'Using Item...',

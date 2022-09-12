@@ -155,7 +155,7 @@ RegisterNetEvent('consumables:client:Eat', function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("consumables:server:addHunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + ConsumablesEat[itemName])
+        TriggerServerEvent("consumables:server:addHunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + Config.ConsumablesEat[itemName])
         TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
     end)
 end)
@@ -170,7 +170,7 @@ RegisterNetEvent('consumables:client:Drink', function(itemName)
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumablesDrink[itemName])
+        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Config.ConsumablesDrink[itemName])
     end)
 end)
 
@@ -185,7 +185,7 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
         TriggerServerEvent("consumables:server:drinkAlcohol", itemName)
-        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumablesAlcohol[itemName])
+        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + Config.ConsumablesAlcohol[itemName])
         TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
         alcoholCount += 1
         AlcoholLoop()
@@ -202,43 +202,47 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
 end)
 
 RegisterNetEvent('consumables:client:Custom', function(itemName)
-    QBCore.Functions.Progressbar("custom_consumable", ConsumablesCustom[itemName]['progress'].label, ConsumablesCustom[itemName]['progress'].time, false, true, {
-        disableMovement = false,
-        disableCarMovement = false,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = ConsumablesCustom[itemName]['animation'].animDict,
-        anim = ConsumablesCustom[itemName]['animation'].anim,
-        flags = ConsumablesCustom[itemName]['animation'].flags,
-    }, {
-        model = ConsumablesCustom[itemName]['prop'].model,
-        bone = ConsumablesCustom[itemName]['prop'].bone,
-        coords = ConsumablesCustom[itemName]['prop'].coords,
-        rotation = ConsumablesCustom[itemName]['prop'].rotation,
-    }, {}, function() -- Done
-        local replenish = ConsumablesCustom[itemName]['replenish']
-        ClearPedTasks(PlayerPedId())
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        if replenish.type then
-            TriggerServerEvent("consumables:server:add".. replenish.type, QBCore.Functions.GetPlayerData().metadata[string.lower(replenish.type)] + replenish.replenish)
-        end
-        if replenish.isAlcohol then
-            alcoholCount += 1
-            AlcoholLoop()
-            if alcoholCount > 1 and alcoholCount < 4 then
-                TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
-            elseif alcoholCount >= 4 then
-                TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
+    print(itemName)
+    QBCore.Functions.TriggerCallback('consumables:itemdata', function(data)
+        print(data['progress'].label)
+        QBCore.Functions.Progressbar("custom_consumable", data['progress'].label, data['progress'].time, false, true, {
+            disableMovement = false,
+            disableCarMovement = false,
+            disableMouse = false,
+            disableCombat = true,
+        }, {
+            animDict = data['animation'].animDict,
+            anim = data['animation'].anim,
+            flags = data['animation'].flags,
+        }, {
+            model = data['prop'].model,
+            bone = data['prop'].bone,
+            coords = data['prop'].coords,
+            rotation = data['prop'].rotation,
+        }, {}, function() -- Done
+            local replenish = data['replenish']
+            ClearPedTasks(PlayerPedId())
+            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
+            if replenish.type then
+                TriggerServerEvent("consumables:server:add".. replenish.type, QBCore.Functions.GetPlayerData().metadata[string.lower(replenish.type)] + replenish.replenish)
             end
-        end
-        if replenish.event then
-            TriggerEvent(replenish.event)
-        end
-    end, function() -- Cancel
-        ClearPedTasks(PlayerPedId())
-        QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
-    end)
+            if replenish.isAlcohol then
+                alcoholCount += 1
+                AlcoholLoop()
+                if alcoholCount > 1 and alcoholCount < 4 then
+                    TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
+                elseif alcoholCount >= 4 then
+                    TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
+                end
+            end
+            if replenish.event then
+                TriggerEvent(replenish.event)
+            end
+        end, function() -- Cancel
+            ClearPedTasks(PlayerPedId())
+            QBCore.Functions.Notify(Lang:t('consumables.canceled'), "error")
+        end)
+    end, itemName)
 end)
 
 RegisterNetEvent('consumables:client:Cokebaggy', function()

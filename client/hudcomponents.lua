@@ -35,6 +35,7 @@ CreateThread(function()
 		SetRandomVehicleDensityMultiplierThisFrame(Config.Density['multiplier'])
 		SetPedDensityMultiplierThisFrame(Config.Density['peds'])
 		SetScenarioPedDensityMultiplierThisFrame(Config.Density['scenario'], Config.Density['scenario']) -- Walking NPC Density
+        SetPauseMenuActive(false)
 		Wait(0)
     end
 end)
