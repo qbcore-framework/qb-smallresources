@@ -20,6 +20,9 @@ exports('DecorSet', DecorSet)
 
 CreateThread(function()
     while true do
+
+        -- Hud Components
+
         for i = 1, #disableHudComponents do
             HideHudComponentThisFrame(disableHudComponents[i])
         end
@@ -30,6 +33,8 @@ CreateThread(function()
 
         DisplayAmmoThisFrame(displayAmmo)
         
+        -- Density
+
         SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
         SetVehicleDensityMultiplierThisFrame(Config.Density['vehicle'])
         SetRandomVehicleDensityMultiplierThisFrame(Config.Density['multiplier'])
