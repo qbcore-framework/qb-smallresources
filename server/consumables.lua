@@ -261,7 +261,6 @@ RegisterNetEvent('consumables:server:addHunger', function(amount)
 end)
 
 QBCore.Functions.CreateCallback('consumables:itemdata', function(source, cb, itemName)
-    print(Config.ConsumablesCustom[itemname]['progress'].time)
     cb(Config.ConsumablesCustom[itemname])
 end)
 
@@ -305,7 +304,6 @@ local function AddCustom(itemname, data)
     if 'consumables:itemdata' ~= nil then
         return false, "already added"
     else
-        print(itemname)
         Config.ConsumablesCustom[itemname] = data
         CreateItem(itemname, 'Custom')
         return true, "success"
