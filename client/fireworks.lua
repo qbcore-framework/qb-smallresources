@@ -52,9 +52,10 @@ local function DrawText3Ds(x, y, z, text)
 end
 
 local function DoFireWork(asset, coords)
-    fireworkTime = 5
+    fireworkTime = Config.FireworkTime
     fireworkLoc = {x = coords.x, y = coords.y, z = coords.z}
     CreateThread(function()
+        FireWorkText()
         while fireworkTime > 0 do
             Wait(1000)
             fireworkTime -= 1
@@ -99,16 +100,22 @@ CreateThread(function()
             Wait(10)
         end
     end
-    while true do
-        Wait(0)
-        if fireworkTime > 0 and fireworkLoc then
-            DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, "Firework over ~r~"..fireworkTime)
-        end
-    end
 end)
 
+function FireWorkText()
+    CreateThread(function()
+        while true do
+            Wait(0)
+            if fireworkTime > 0 and fireworkLoc then
+                DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, Lang:t('firework.time_left')..fireworkTime)
+            end
+            if fireworkTime <= 0 then break end
+        end
+    end)
+end
+
 RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
-    QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
+    QBCore.Functions.Progressbar("spawn_object", Lang:t('firework.place_progress'), 3000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -125,6 +132,6 @@ RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
         DoFireWork(assetName, pos)
     end, function() -- Cancel
         StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        QBCore.Functions.Notify("Canceled..", "error")
+        QBCore.Functions.Notify(Lang:t('firework.canceled'), "error")
     end)
 end)
