@@ -202,9 +202,7 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
 end)
 
 RegisterNetEvent('consumables:client:Custom', function(itemName)
-    print(itemName)
     QBCore.Functions.TriggerCallback('consumables:itemdata', function(data)
-        print(data['progress'].label)
         QBCore.Functions.Progressbar("custom_consumable", data['progress'].label, data['progress'].time, false, true, {
             disableMovement = false,
             disableCarMovement = false,
