@@ -122,21 +122,6 @@ Config.BlacklistedScenarios = {
     }
 }
 
-Config.RemoveVehicles = {
-    ['short_range'] = { -- extends up to 300 away
-        [1] = vector3(335.2616,-1432.455,46.51), -- central los santos medical center
-        [2] = vector3(316.79,-592.36,43.28), -- pillbox
-        [3] = vector3(-1108.35,4920.64,217.2), -- nudist
-        [4] = vector3(-458.24,6019.81,31.34), -- police station paleto
-        [5] = vector3(1854.82,3679.4,33.82), -- police station sandy
-        [6] = vector3(-724.46,-1444.03,5.0) -- REMOVE CHOPPERS WOW
-    },
-    ['long_range'] = { -- extends up to 500 away
-        [1] = vector3(441.8465,-987.99,30.68), -- police station mission row
-        [2] = vector3(-2150.44,3075.99,32.8) -- military
-    }
-}
-
 Config.BlacklistedVehs = {
     [`SHAMAL`] = true,
     [`LUXOR`] = true,
