@@ -211,7 +211,7 @@ RegisterNetEvent('consumables:server:drinkAlcohol', function(item)
 
     local foundItem = nil
 
-    for k in pairs(ConsumablesAlcohol) do
+    for k in pairs(Config.ConsumablesAlcohol) do
         if k == item then
             foundItem = k
             break
