@@ -69,7 +69,6 @@ Config.ConsumablesAlcohol = {
 }
 
 Config.ConsumablesCustom = {
-   
     -- ['newitem'] = {
     --     ['progress'] = {
     --         label = 'Using Item...',
