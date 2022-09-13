@@ -29,6 +29,8 @@ CreateThread(function()
 		end
 
 		DisplayAmmoThisFrame(displayAmmo)
+
+		-- Density
 		
 		SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
 		SetVehicleDensityMultiplierThisFrame(Config.Density['vehicle'])
