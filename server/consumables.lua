@@ -260,8 +260,8 @@ RegisterNetEvent('consumables:server:addHunger', function(amount)
     TriggerClientEvent('hud:client:UpdateNeeds', source, amount, Player.PlayerData.metadata.thirst)
 end)
 
-QBCore.Functions.CreateCallback('consumables:itemdata', function(source, cb, itemName)
-    cb(Config.ConsumablesCustom[itemname])
+QBCore.Functions.CreateCallback('consumables:itemdata', function(_, cb, itemName)
+    cb(Config.ConsumablesCustom[itemName])
 end)
 
 local function AddDrink(drinkname, replenish)
