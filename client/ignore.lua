@@ -25,7 +25,7 @@ CreateThread(function() -- all these should only need to be called once
     SetCreateRandomCops(false)
     SetCreateRandomCopsNotOnScenarios(false)
     SetCreateRandomCopsOnScenarios(false)
-    DistantCopCarSirens(false)    
+    DistantCopCarSirens(false)
     RemoveVehiclesFromGeneratorsInArea(335.2616 - 300.0, -1432.455 - 300.0, 46.51 - 300.0, 335.2616 + 300.0, -1432.455 + 300.0, 46.51 + 300.0) -- central los santos medical center
     RemoveVehiclesFromGeneratorsInArea(441.8465 - 500.0, -987.99 - 500.0, 30.68 -500.0, 441.8465 + 500.0, -987.99 + 500.0, 30.68 + 500.0) -- police station mission row
     RemoveVehiclesFromGeneratorsInArea(316.79 - 300.0, -592.36 - 300.0, 43.28 - 300.0, 316.79 + 300.0, -592.36 + 300.0, 43.28 + 300.0) -- pillbox
