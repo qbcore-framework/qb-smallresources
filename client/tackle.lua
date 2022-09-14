@@ -22,7 +22,8 @@ end
 
 RegisterCommand('tackle', function()
     local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
-    if distance ~= -1 and distance < 2 then
+    local ped = PlayerPedId()
+    if distance ~= -1 and distance < 2 and GetEntitySpeed(ped) > 2.5 and not IsPedInAnyVehicle(ped, false) then
         TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
         TackleAnim()
     end
