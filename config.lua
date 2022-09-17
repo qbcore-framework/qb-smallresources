@@ -4,27 +4,13 @@ Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
 Config.DamageNeeded = 100.0
 Config.IdleCamera = true
-Config.EnableProne = true
+Config.EnableProne = false
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
 Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
-
-Config.Disable = {
-    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
-    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
-    displayAmmo = true -- false disables ammo display
-}
-
-Config.Density = {
-    ['parked'] = 0.8,
-    ['vehicle'] = 0.8,
-    ['multiplier'] = 0.8,
-    ['peds'] = 0.8,
-    ['scenario'] = 0.8,
-}
 
 ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
@@ -159,22 +145,24 @@ Config.Teleports = {
 Config.CarWash = { -- carwash
     [1] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(25.29, -1391.96, 29.33),
+        ["coords"] = vector4(25.29, -1391.96, 29.33, 183.0),
     },
     [2] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(174.18, -1736.66, 29.35),
+        ["coords"] = vector4(174.18, -1736.66, 29.35, 270.0),
     },
     [3] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-74.56, 6427.87, 31.44),
+        ["coords"] = vector4(-74.56, 6427.87, 31.44, 317.66),
+        ["width"] = 10, -- this is a special place, need a bigger box
+
     },
     [4] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(1363.22, 3592.7, 34.92),
+        ["coords"] = vector4(1363.22, 3592.7, 34.92, 198.66),
     },
     [5] = {
         ["label"] = "Hands Free Carwash",
-        ["coords"] = vector3(-699.62, -932.7, 19.01),
+        ["coords"] = vector4(-699.62, -932.7, 19.01, 273.6),
     }
 }
