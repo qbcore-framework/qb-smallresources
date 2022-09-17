@@ -29,7 +29,7 @@ CreateThread(function()
         local el = Config.CarWash[k]
         WashPlaces[k] = BoxZone:Create(el["coords"].xyz, el["width"] or 5, 10, {
             name = "CarWash" .. k,
-            debugPoly = true,
+         --   debugPoly = true,
             minZ = el.coords.z - 1,
             maxZ = el.coords.z + 3,
             heading = el["coords"].w
