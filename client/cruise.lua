@@ -37,7 +37,7 @@ end
 local function TriggerCruiseControl(veh)
     local ped = PlayerPedId()
     local speed = GetEntitySpeed(veh)
-    if speed == 0 and IsPedInAnyVehicle(ped, false) then
+    if IsPedInAnyVehicle(ped, false) then
         if speed > 0 and GetVehicleCurrentGear(veh) > 0 then
             speed = GetEntitySpeed(veh)
             local TransformedSpeed = TransformToSpeed(speed) -- Comment me for mp/h
@@ -80,7 +80,7 @@ RegisterCommand('togglecruise', function()
     local vehClass = GetVehicleClass(veh)
     if ped == driver then
         if vehicleClasses[vehClass] then
-            TriggerCruiseControl()
+            TriggerCruiseControl(veh)
         else
             QBCore.Functions.Notify(Lang:t('cruise.unavailable'), "error")
         end
