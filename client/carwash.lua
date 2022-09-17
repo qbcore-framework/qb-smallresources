@@ -27,7 +27,6 @@ CreateThread(function()
     Wait(1000)
     for k in pairs(Config.CarWash) do
         local el = Config.CarWash[k]
-
         WashPlaces[k] = BoxZone:Create(el["coords"].xyz, el["width"] or 5, 10, {
             name = "CarWash" .. k,
             debugPoly = true,
