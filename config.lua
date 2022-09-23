@@ -12,6 +12,7 @@ Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 
+-- Whether to dispatch services
 Config.DispatchServices = {
     ["AmbulanceDepartment"] = false,
     ["ArmyVehicle"] = false,
