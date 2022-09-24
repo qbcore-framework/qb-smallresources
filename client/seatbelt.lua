@@ -249,6 +249,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
             }, {}, {}, {}, function()
                 LocalPlayer.state:set("inv_busy", false, true)
                 ToggleHarness()
+                TriggerServerEvent('remove:harness', ItemData)
             end)
         end
     else
