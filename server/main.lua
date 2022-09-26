@@ -23,14 +23,20 @@ RegisterNetEvent('equip:harness', function(item)
 
     if not Player then return end
 
-    if not Player.PlayerData.items[item.slot].info.uses then
-        Player.PlayerData.items[item.slot].info.uses = 19
+    local harness = Player.PlayerData.items[item.slot]
+    if not harness then return end -- incase the item in the slot is nil
+
+    if not harness.info.uses then
+        harness.info.uses = 19 -- Set to 19 because it's including the current usage
         Player.Functions.SetInventory(Player.PlayerData.items)
-    elseif Player.PlayerData.items[item.slot].info.uses == 1 then
-        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
-        Player.Functions.RemoveItem('harness', 1)
     else
-        Player.PlayerData.items[item.slot].info.uses -= 1
+        if harness.info.uses - 1 < 1 then
+            TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
+            Player.Functions.RemoveItem('harness', 1, item.slot)
+            return
+        end
+
+        Player.PlayerData.items[item.slot].info.uses -= 1 -- have to set this in the table and not use the temp var
         Player.Functions.SetInventory(Player.PlayerData.items)
     end
 end)
