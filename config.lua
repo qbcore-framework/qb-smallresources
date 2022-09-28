@@ -55,14 +55,6 @@ Config.Disable = {
     displayAmmo = true -- false disables ammo display
 }
 
-Config.Density = {
-    ['parked'] = 0.8,
-    ['vehicle'] = 0.8,
-    ['multiplier'] = 0.8,
-    ['peds'] = 0.8,
-    ['scenario'] = 0.8,
-}
-
 Config.ConsumablesEat = {
 
     ["sandwich"] = math.random(35, 54),
