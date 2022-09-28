@@ -55,13 +55,19 @@ end
 
 function SeatBeltLoop()
     CreateThread(function()
-        while IsPedInAnyVehicle(PlayerPedId(), false) do
+        while true do
             sleep = 0
             if seatbeltOn or harnessOn then
                 DisableControlAction(0, 75, true)
                 DisableControlAction(27, 75, true)
             end
-            if not seatbeltOn or harnessOn then break end
+            if not IsPedInAnyVehicle(PlayerPedId(), false) then
+                seatbeltOn = false
+                harnessOn = false
+                TriggerEvent("seatbelt:client:ToggleSeatbelt")
+                break
+            end
+            if not seatbeltOn and not harnessOn then break end
             Wait(sleep)
         end
     end)
