@@ -14,6 +14,7 @@ CreateThread(function()
     entCombo:onPlayerInOut(function(isPointInside)
         if isPointInside then
             for _,v in pairs(Config.Objects) do
+                local model = v.model
                 if type(v.model) == 'string' then
                     model = GetHashKey(v.model)
                 end
