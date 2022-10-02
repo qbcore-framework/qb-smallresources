@@ -14,7 +14,10 @@ CreateThread(function()
     entCombo:onPlayerInOut(function(isPointInside)
         if isPointInside then
             for _,v in pairs(Config.Objects) do
-                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, GetHashKey(v.model), false, false, false)
+                if type(v.model) == 'string' then
+                    model = GetHashKey(v.model)
+                end
+                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, model, false, false, false)
                 SetEntityAsMissionEntity(ent, true, true)
                 DeleteObject(ent)
                 SetEntityAsNoLongerNeeded(ent)
