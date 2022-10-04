@@ -1,6 +1,7 @@
 local entPoly = {}
 
-CreateThread(function()
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    Wait(5000)
     for _, v in pairs(Config.Objects) do
         entPoly[#entPoly + 1] = BoxZone:Create(v.coords, v.length, v.width, {
             name = v.model,
