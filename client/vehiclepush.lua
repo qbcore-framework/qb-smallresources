@@ -75,7 +75,7 @@ CreateThread(function()
                 action = function(entity)
                     TriggerEvent('vehiclepush:client:push', entity)
                 end,
-                distance = 0.9
+                distance = 1.3
             }
         }
     })
