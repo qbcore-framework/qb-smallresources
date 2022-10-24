@@ -8,6 +8,9 @@ local currentVestTexture = nil
 local healing = false
 
 -- Functions
+RegisterNetEvent('QBCore:Client:UpdateObject', function()
+    QBCore = exports['qb-core']:GetCoreObject()
+end)
 
 local function loadAnimDict(dict)
     if HasAnimDictLoaded(dict) then return end
