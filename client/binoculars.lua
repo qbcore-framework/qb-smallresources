@@ -67,55 +67,53 @@ end
 
 function BinocularLoop()
     CreateThread(function()
-        while binoculars do
-            local lPed = PlayerPedId()
+        local lPed = PlayerPedId()
 
-            if not IsPedSittingInAnyVehicle(lPed) then
-                TaskStartScenarioInPlace(lPed, "WORLD_HUMAN_BINOCULARS", 0, true)
-                PlayPedAmbientSpeechNative(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
-            end
-
-            Wait(2500)
-
-            SetTimecycleModifier("default")
-            SetTimecycleModifierStrength(0.3)
-            local scaleform = RequestScaleformMovie("BINOCULARS")
-            while not HasScaleformMovieLoaded(scaleform) do
-                Wait(10)
-            end
-
-            local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
-            AttachCamToEntity(cam, lPed, 0.0,0.0,1.0, true)
-            SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed), 2)
-            SetCamFov(cam, fov)
-            RenderScriptCams(true, false, 0, true, false)
-            PushScaleformMovieFunction(scaleform, "SET_CAM_LOGO")
-            PushScaleformMovieFunctionParameterInt(0) -- 0 for nothing, 1 for LSPD logo
-            PopScaleformMovieFunctionVoid()
-
-            while binoculars and IsPedUsingScenario(lPed, "WORLD_HUMAN_BINOCULARS") do
-                if IsControlJustPressed(0, Config.Binoculars.storeBinoclarKey) then -- Toggle binoculars
-                    binoculars = false
-                    PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
-                    ClearPedTasks(lPed)
-                end
-
-                local zoomvalue = (1.0/(Config.Binoculars.fov_max-Config.Binoculars.fov_min))*(fov-Config.Binoculars.fov_min)
-                CheckInputRotation(cam, zoomvalue)
-                HandleZoom(cam)
-                HideHUDThisFrame()
-                DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255, 0)
-                Wait(0)
-            end
-            binoculars = false
-            ClearTimecycleModifier()
-            fov = (Config.Binoculars.fov_max+Config.Binoculars.fov_min)*0.5
-            RenderScriptCams(false, false, 0, true, false)
-            SetScaleformMovieAsNoLongerNeeded(scaleform)
-            DestroyCam(cam, false)
-            SetNightvision(false)
-            SetSeethrough(false)
+        if not IsPedSittingInAnyVehicle(lPed) then
+            TaskStartScenarioInPlace(lPed, "WORLD_HUMAN_BINOCULARS", 0, true)
+            PlayPedAmbientSpeechNative(lPed, "GENERIC_CURSE_MED", "SPEECH_PARAMS_FORCE")
         end
+
+        Wait(2500)
+
+        SetTimecycleModifier("default")
+        SetTimecycleModifierStrength(0.3)
+        local scaleform = RequestScaleformMovie("BINOCULARS")
+        while not HasScaleformMovieLoaded(scaleform) do
+            Wait(10)
+        end
+
+        local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
+        AttachCamToEntity(cam, lPed, 0.0,0.0,1.0, true)
+        SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed), 2)
+        SetCamFov(cam, fov)
+        RenderScriptCams(true, false, 0, true, false)
+        PushScaleformMovieFunction(scaleform, "SET_CAM_LOGO")
+        PushScaleformMovieFunctionParameterInt(0) -- 0 for nothing, 1 for LSPD logo
+        PopScaleformMovieFunctionVoid()
+
+        while binoculars and IsPedUsingScenario(lPed, "WORLD_HUMAN_BINOCULARS") do
+            if IsControlJustPressed(0, Config.Binoculars.storeBinoclarKey) then -- Toggle binoculars
+                binoculars = false
+                PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
+                ClearPedTasks(lPed)
+            end
+
+            local zoomvalue = (1.0/(Config.Binoculars.fov_max-Config.Binoculars.fov_min))*(fov-Config.Binoculars.fov_min)
+            CheckInputRotation(cam, zoomvalue)
+            HandleZoom(cam)
+            HideHUDThisFrame()
+            DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255, 0)
+            Wait(0)
+        end
+        binoculars = false
+        ClearTimecycleModifier()
+        fov = (Config.Binoculars.fov_max+Config.Binoculars.fov_min)*0.5
+        RenderScriptCams(false, false, 0, true, false)
+        SetScaleformMovieAsNoLongerNeeded(scaleform)
+        DestroyCam(cam, false)
+        SetNightvision(false)
+        SetSeethrough(false)
     end)
 end
 
