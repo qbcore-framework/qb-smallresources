@@ -144,59 +144,40 @@ local function CokeBaggyEffect()
 end
 
 -- Events
+RegisterNetEvent('consumables:client:consume', function(itemName)
+    local item = Config.Consumables[itemName]
+    local anim, prop = Config.ConsumableAnims[item.anim], Config.ConsumableProps[item.prop]
 
-RegisterNetEvent('consumables:client:Eat', function(itemName)
-    TriggerEvent('animations:client:EmoteCommandStart', {"eat"})
-    QBCore.Functions.Progressbar("eat_something", "Eating..", 5000, false, true, {
-        disableMovement = false,
-        disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
-    }, {}, {}, {}, function() -- Done
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("consumables:server:addHunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + ConsumablesEat[itemName])
-        TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
-    end)
-end)
-
-RegisterNetEvent('consumables:client:Drink', function(itemName)
-    TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
-    QBCore.Functions.Progressbar("drink_something", "Drinking..", 5000, false, true, {
-        disableMovement = false,
-        disableCarMovement = false,
-		disableMouse = false,
-		disableCombat = true,
-    }, {}, {}, {}, function() -- Done
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumablesDrink[itemName])
-    end)
-end)
-
-RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
-    TriggerEvent('animations:client:EmoteCommandStart', {"drink"})
-    QBCore.Functions.Progressbar("snort_coke", "Drinking liquor..", math.random(3000, 6000), false, true, {
+    QBCore.Functions.Progressbar("item_consuming", "Consuming...", 5000, false, true, {
         disableMovement = false,
         disableCarMovement = false,
         disableMouse = false,
         disableCombat = true,
-    }, {}, {}, {}, function() -- Done
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+    }, {
+        animDict = anim.dict,
+        anim = anim.clip,
+        flags = 1,
+    }, {
+        model = prop.model,
+        coords = prop.pos,
+        rotation = prop.rot,
+    }, {}, function()
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        TriggerServerEvent("consumables:server:drinkAlcohol", itemName)
-        TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumablesAlcohol[itemName])
-        TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
-        alcoholCount += 1
-        if alcoholCount > 1 and alcoholCount < 4 then
-            TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
-        elseif alcoholCount >= 4 then
-            TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
+        if item.type == 'food' then
+            TriggerServerEvent("consumables:server:addHunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + item.value)
+        elseif item.type == 'drink' then
+            TriggerServerEvent("consumables:server:addThirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + item.value)
+        elseif item.type == 'alcool' then
+            TriggerServerEvent("consumables:server:drinkAlcohol", itemName)
+            TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
+            alcoholCount += 1
+            if alcoholCount > 1 and alcoholCount < 4 then
+                TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
+            elseif alcoholCount >= 4 then
+                TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
+            end
         end
-
-    end, function() -- Cancel
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        QBCore.Functions.Notify("Cancelled..", "error")
+        StopAnimTask(PlayerPedId(), anim.dict, anim.clip, 1.0)
     end)
 end)
 

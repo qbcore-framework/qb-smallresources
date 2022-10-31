@@ -26,23 +26,86 @@ Config.Density = {
     ['scenario'] = 0.8,
 }
 
-ConsumablesEat = {
-    ["sandwich"] = math.random(35, 54),
-    ["tosti"] = math.random(40, 50),
-    ["twerks_candy"] = math.random(35, 54),
-    ["snikkel_candy"] = math.random(40, 50),
+Config.ConsumableAnims = {
+    ['drinking'] = { dict = 'mp_player_intdrink', clip = 'loop_bottle' },
+    ['eating'] = { dict = 'mp_player_inteat@burger', clip = 'mp_player_int_eat_burger_fp' },
+    ['bowl'] = { dict = 'anim@scripted@island@special_peds@pavel@hs4_pavel_ig5_caviar_p1', clip = 'base_idle' },
 }
 
-ConsumablesDrink = {
-    ["water_bottle"] = math.random(35, 54),
-    ["kurkakola"] = math.random(35, 54),
-    ["coffee"] = math.random(40, 50),
+Config.ConsumableProps = {
+    ['burger'] = { model = 'prop_cs_burger_01', pos = vec3(0.02, 0.02, -0.02), rot = vec3(0.0, 0.0, 0.0) },
+    ['donut'] = { model = 'prop_amb_donut', pos = vec3(0.02, 0.02, -0.02), rot = vec3(0.0, 0.0, 0.0) },
+    ['water'] = { model = 'ba_prop_club_water_bottle', pos = vec3(0.02, 0.02, -0.02), rot = vec3(0.0, 0.0, 0.0) },
+    ['spoon'] = { model = 'h4_prop_h4_caviar_spoon_01a', pos = vec3(0.0, 0.0, 0.0), rot = vec3(0.0, 0.0, 0.0) },
+    ['fork'] = { model = 'prop_cs_fork', pos = vec3(0.0, 0.0, 0.0), rot = vec3(0.0, 0.0, 0.0) },
+    ['pizza'] = { model = 'v_res_tt_pizzaplate', pos = vec3(0.0, 0.0300, 0.0100), rot = vec3(0.0, 0.0, 0.0) },
+    ['uwubowl'] = { model = 'prop_cs_bowl_01b', pos = vec3(0.0, 0.0300, 0.0100), rot = vec3(0.0, 0.0, 0.0) },
+    ['uwusoup'] = { model = 'v_ret_247_noodle1', pos = vec3(0.0, 0.0300, 0.0100), rot = vec3(0.0, 0.0, 0.0) },
+    ['uwupancake'] = { model = 'ng_proc_food_ornge1a', pos = vec3(0.0, 0.0, 0.0), rot = vec3(0.0, 0.0, 0.0) },
+    ['uwudrink'] = { model = 'apa_prop_cs_plastic_cup_01', pos = vec3(0.0, 0.0, 0.0), rot = vec3(0.0, 0.0, 0.0) },
 }
 
-ConsumablesAlcohol = {
-    ["whiskey"] = math.random(20, 30),
-    ["beer"] = math.random(30, 40),
-    ["vodka"] = math.random(20, 40),
+Config.Consumables = {
+    ["sandwich"] = {
+        prop = 'burger',
+        anim = 'eating',
+        type = 'food',
+        value = math.random(35, 54),
+    },
+    ["tosti"] = {
+        prop = 'burger',
+        anim = 'eating',
+        type = 'food',
+        value = math.random(40, 50),
+    },
+    ["twerks_candy"] = {
+        prop = 'donut',
+        anim = 'eating',
+        type = 'food',
+        value = math.random(35, 54),
+    },
+    ["snikkel_candy"] = {
+        prop = 'donut',
+        anim = 'eating',
+        type = 'food',
+        value = math.random(40, 50),
+    },
+    ["water_bottle"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'drink',
+        value = math.random(35, 54),
+    },
+    ["kurkakola"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'drink',
+        value = math.random(35, 54),
+    },
+    ["coffee"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'drink',
+        value = math.random(40, 50),
+    },
+    ["whiskey"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'alcool',
+        value = math.random(20, 30),
+    },
+    ["beer"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'alcool',
+        value = math.random(30, 40),
+    },
+    ["vodka"] = {
+        prop = 'water',
+        anim = 'drinking',
+        type = 'alcool',
+        value = math.random(20, 40),
+    },
 }
 
 ConsumablesFireworks = {
