@@ -47,10 +47,10 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
 end)
 
 CreateThread(function()
-    for _,v in pairs(Config.CarWash) do
+    for k,v in pairs(Config.CarWash) do
         if Config.UseTarget then
-            exports["qb-target"]:AddBoxZone('carwash', v['poly'].coords, v['poly'].length, v['poly'].width, {
-                name = 'carwash',
+            exports["qb-target"]:AddBoxZone('carwash_'..k, v['poly'].coords, v['poly'].length, v['poly'].width, {
+                name = 'carwash_'..k,
                 debugPoly = false,
                 heading = v['poly'].heading,
                 minZ = v['poly'].coords.z - 5,
