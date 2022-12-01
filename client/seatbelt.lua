@@ -37,7 +37,7 @@ end
 
 local function ToggleSeatbelt()
     seatbeltOn = not seatbeltOn
-    TriggerEvent("seatbelt:client:ToggleSeatbelt")
+    TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
     TriggerServerEvent("InteractSound_SV:PlayOnSource", seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
 end
 
