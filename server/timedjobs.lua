@@ -21,7 +21,7 @@ function CheckTimes(day, hour, min)
 end
 
 -- Exports
-exports("CreateCronJob", function(hour, min, cb)
+exports("CreateTimedJob", function(hour, min, cb)
 	if hour and type(hour) == "number" and min and type(min) == "number" and cb and (type(cb) == "function" or type(cb) == "table") then
 		table.insert(Jobs, {
 			min  = min,
@@ -31,19 +31,19 @@ exports("CreateCronJob", function(hour, min, cb)
 
 		return #Jobs
 	else
-		print("WARN: Invalid arguments for cronrunAt(hour, min, cb)")
+		print("WARN: Invalid arguments for export CreateTimedJob(hour, min, cb)")
 		return nil
 	end
 end)
 
-exports("ForceRunCronJob", function(idx)
+exports("ForceRunTimedJob", function(idx)
 	if Jobs[idx] then
 		local time = GetTime()
 		Jobs[idx].cb(time.day, time.hour, time.min)
 	end
 end)
 
-exports("StopCronJob", function(idx)
+exports("StopTimedJob", function(idx)
 	if Jobs[idx] then
 		Jobs[idx] = nil
 	end
