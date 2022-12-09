@@ -2,9 +2,13 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'QB-SmallResources'
-version '1.0.0'
+version '1.2.0'
 
-shared_script 'config.lua'
+shared_scripts {
+	'@qb-core/shared/locale.lua',
+    'locales/en.lua',
+	'config.lua'
+}
 server_script 'server/*.lua'
 client_scripts {
     '@PolyZone/client.lua',
@@ -39,3 +43,4 @@ exports {
 }
 
 lua54 'yes'
+use_experimental_fxv2_oal 'yes'
