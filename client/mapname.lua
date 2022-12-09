@@ -3,5 +3,5 @@ function AddTextEntry(key, value)
 end
 
 CreateThread(function()
-  AddTextEntry('FE_THDR_GTAO', '~y~ The Name | ~b~ OF Your Server, ~s~ RP..')
+  Citizen.InvokeNative(GetHashKey("ADD_TEXT_ENTRY"), "FE_THDR_GTAO", Config.MapText)
 end)
