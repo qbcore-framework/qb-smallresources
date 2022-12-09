@@ -1,42 +1,43 @@
+-- Variables
 local Jobs = {}
-local LastTime = nil
 
-function RunAt(h, m, cb)
-	table.insert(Jobs, {
-		h  = h,
-		m  = m,
-		cb = cb
-	})
-end
-
+-- Functions
 function GetTime()
 	local timestamp = os.time()
-	local d = os.date('*t', timestamp).wday
-	local h = tonumber(os.date('%H', timestamp))
-	local m = tonumber(os.date('%M', timestamp))
-	return {d = d, h = h, m = m}
+	local day = tonumber(os.date('*t', timestamp).wday)
+	local hour = tonumber(os.date('%H', timestamp))
+	local min = tonumber(os.date('%M', timestamp))
+
+	return {day = day, hour = hour, min = min}
 end
 
-function OnTime(d, h, m)
-	for i=1, #Jobs, 1 do
-		if Jobs[i].h == h and Jobs[i].m == m then
-			Jobs[i].cb(d, h, m)
+function CheckTimes(day, hour, min)
+	for i,v in pairs(Jobs) do
+		if v.hour == hour and v.min == min then
+			v.cb(day, hour, min)
 		end
 	end
 end
 
-function Tick()
-	local time = GetTime()
-	if time.h ~= LastTime.h or time.m ~= LastTime.m then
-		OnTime(time.d, time.h, time.m)
-		LastTime = time
+-- Exports
+exports("CreateCronJob", function(hour, min, cb)
+	if hour and type(hour) == "number" and min and type(min) == "number" and cb and (type(cb) == "function" or type(cb) == "table") then
+		table.insert(Jobs, {
+			min  = min,
+			hour  = hour,
+			cb = cb
+		})
+	else
+		print("WARN: Invalid arguments for cronrunAt(hour, min, cb)")
 	end
-	SetTimeout(60000, Tick)
-end
+end)
 
-LastTime = GetTime()
-Tick()
+-- Main Loop
+Citizen.CreateThread(function()
+	while true do
+		local time = GetTime()
+		CheckTimes(time.day, time.hour, time.min)
 
-AddEventHandler('smallresources:server:cronrunAt', function(h, m, cb)
-	RunAt(h, m, cb)
+		Citizen.Wait(60 * 1000)
+	end
 end)
