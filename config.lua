@@ -8,33 +8,60 @@ Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
-Config.DefaultPrice = 20 -- carwash
-Config.DirtLevel = 0.1 --carwash dirt level
-Config.FirstPersonViewOnly = false -- Only show firt person and third person close
+Config.FirstPersonViewOnly = false -- Force all players to be only in first person
+Config.DefaultPrice = 20 -- Default price for the carwash
+Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
+Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
+Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
-ConsumeablesEat = {
+Config.Disable = {
+    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
+    displayAmmo = true -- false disables ammo display
+}
+
+Config.Density = {
+    ['parked'] = 0.8,
+    ['vehicle'] = 0.8,
+    ['multiplier'] = 0.8,
+    ['peds'] = 0.8,
+    ['scenario'] = 0.8,
+}
+
+ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),
     ["twerks_candy"] = math.random(35, 54),
     ["snikkel_candy"] = math.random(40, 50),
 }
 
-ConsumeablesDrink = {
+ConsumablesDrink = {
     ["water_bottle"] = math.random(35, 54),
     ["kurkakola"] = math.random(35, 54),
     ["coffee"] = math.random(40, 50),
 }
 
-ConsumeablesAlcohol = {
+ConsumablesAlcohol = {
     ["whiskey"] = math.random(20, 30),
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
+}
+
+ConsumablesFireworks = {
+    "firework1",
+    "firework2",
+    "firework3",
+    "firework4"
 }
 
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
         "WORLD_VEHICLE_MILITARY_PLANES_BIG",
+        "WORLD_VEHICLE_AMBULANCE",
+        "WORLD_VEHICLE_POLICE_NEXT_TO_CAR",
+        "WORLD_VEHICLE_POLICE_CAR",
+        "WORLD_VEHICLE_POLICE_BIKE",
     },
     ['GROUPS'] = {
         2017590552,
@@ -144,11 +171,11 @@ Config.CarWash = { -- carwash
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-74.56, 6427.87, 31.44),
     },
-    [5] = {
+    [4] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(1363.22, 3592.7, 34.92),
     },
-    [6] = {
+    [5] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-699.62, -932.7, 19.01),
     }
