@@ -28,8 +28,17 @@ exports("CreateCronJob", function(hour, min, cb)
 			hour  = hour,
 			cb = cb
 		})
+
+		return #Jobs
 	else
 		print("WARN: Invalid arguments for cronrunAt(hour, min, cb)")
+		return nil
+	end
+end)
+
+exports("StopCronJob", function(idx)
+	if Jobs[idx] then
+		Jobs[idx] = nil
 	end
 end)
 
