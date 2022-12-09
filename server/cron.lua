@@ -36,6 +36,13 @@ exports("CreateCronJob", function(hour, min, cb)
 	end
 end)
 
+exports("ForceRunCronJob", function(idx)
+	if Jobs[idx] then
+		local time = GetTime()
+		Jobs[idx].cb(time.day, time.hour, time.min)
+	end
+end)
+
 exports("StopCronJob", function(idx)
 	if Jobs[idx] then
 		Jobs[idx] = nil
