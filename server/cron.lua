@@ -12,9 +12,10 @@ function GetTime()
 end
 
 function CheckTimes(day, hour, min)
-	for i,v in pairs(Jobs) do
-		if v.hour == hour and v.min == min then
-			v.cb(day, hour, min)
+	for i = 1, #Jobs, 1 do
+		local data = Jobs[i]
+		if data.hour == hour and data.min == min then
+			data.cb(day, hour, min)
 		end
 	end
 end
