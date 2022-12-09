@@ -1,5 +1,6 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local Player = nil
-local CruisedSpeed, CruisedSpeedKm, VehicleVectorY = 0, 0, 0
+local CruisedSpeed = 0
 local vehicleClasses = {
     [0] = true,
     [1] = true,
@@ -38,7 +39,7 @@ local function TriggerCruiseControl()
     if CruisedSpeed == 0 and IsDriving() then
         if GetVehicleSpeed() > 0 and GetVehicleCurrentGear(GetVehicle()) > 0 then
             CruisedSpeed = GetVehicleSpeed()
-            CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
+            local CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
             -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
             QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
@@ -46,17 +47,14 @@ local function TriggerCruiseControl()
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
-                    if not IsTurningOrHandBraking() and GetVehicleSpeed() <
-                        (CruisedSpeed - 1.5) then
+                    if not IsTurningOrHandBraking() and GetVehicleSpeed() < CruisedSpeed - 1.5 then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
                         QBCore.Functions.Notify("Cruise Deactivated", "error")
                         Wait(2000)
                         break
                     end
-                    if not IsTurningOrHandBraking() and
-                        IsVehicleOnAllWheels(GetVehicle()) and
-                        GetVehicleSpeed() < CruisedSpeed then
+                    if not IsTurningOrHandBraking() and IsVehicleOnAllWheels(GetVehicle()) and GetVehicleSpeed() < CruisedSpeed then
                         SetVehicleForwardSpeed(GetVehicle(), CruisedSpeed)
                     end
                     if IsControlJustPressed(1, 246) then
@@ -78,7 +76,7 @@ local function TriggerCruiseControl()
 end
 
 RegisterCommand('togglecruise', function()
-    local veh = GetVehiclePedIsIn(PlayerPedId())
+    local veh = GetVehiclePedIsIn(PlayerPedId(), false)
     local vehClass = GetVehicleClass(veh)
     if IsDriver() then
         if vehicleClasses[vehClass] then
