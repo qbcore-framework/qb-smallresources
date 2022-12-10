@@ -43,7 +43,7 @@ local function TriggerCruiseControl()
             -- local CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
             QBCore.Functions.Notify(Lang:t("info.cruise_activated_mp",{speed = CruisedSpeedMph})) -- Comment me for mp/h
-            -- QBCore.Functions.Notify(Lang:t("info.cruise_activated_km",{speed = CruisedSpeedKm}) -- Uncomment me for km/h
+            -- QBCore.Functions.Notify(Lang:t("info.cruise_activated_km",{speed = CruisedSpeedKm})) -- Uncomment me for km/h
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
