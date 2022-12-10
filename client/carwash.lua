@@ -20,7 +20,7 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
     washingVehicle = true
-    QBCore.Functions.Progressbar("search_cabin", "Vehicle is being washed ..", math.random(4000, 8000), false, true, {
+    QBCore.Functions.Progressbar("search_cabin", Lang:t("progress.car_wash_progress"), math.random(4000, 8000), false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -31,7 +31,7 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
         WashDecalsFromVehicle(PedVehicle, 1.0)
         washingVehicle = false
     end, function() -- Cancel
-        QBCore.Functions.Notify("Washing canceled ..", "error")
+        QBCore.Functions.Notify(Lang:t("error.car_wash_canceled"), "error")
         washingVehicle = false
     end)
 end)
@@ -56,7 +56,7 @@ CreateThread(function()
                             if dirtLevel > Config.DirtLevel then
                                 TriggerServerEvent('qb-carwash:server:washCar')
                             else
-                                QBCore.Functions.Notify("The vehicle isn't dirty", 'error')
+                                QBCore.Functions.Notify(Lang:t("error.car_wash_notdirty"), 'error')
                             end
                         end
                     else
