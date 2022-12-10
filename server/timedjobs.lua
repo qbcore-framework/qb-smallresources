@@ -50,11 +50,11 @@ exports("StopTimedJob", function(idx)
 end)
 
 -- Main Loop
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local time = GetTime()
 		CheckTimes(time.day, time.hour, time.min)
 
-		Citizen.Wait(60 * 1000)
+		Wait(60 * 1000)
 	end
 end)
