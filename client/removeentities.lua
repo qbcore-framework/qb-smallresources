@@ -6,7 +6,6 @@ CreateThread(function()
             name = v.model,
             debugPoly = false,
             heading = 0,
-            
         })
     end
 
