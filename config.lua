@@ -204,7 +204,6 @@ Config.Objects = { -- for object removal
     {coords = vector3(285.28,-355.78,45.13), heading = 0, length = 200, width = 200, model = "prop_sec_barier_02a"},
 }
 
-
 -- You may add more than 2 selections and it will bring up a menu for the player to select which floor be sure to label each section though
 Config.Teleports = {
     --Elevator @ labs

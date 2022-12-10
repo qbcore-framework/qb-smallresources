@@ -7,7 +7,6 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
             name = v.model,
             debugPoly = false,
             heading = 0,
-            
         })
     end
 
@@ -19,7 +18,8 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
                 if type(v.model) == 'string' then
                     model = GetHashKey(v.model)
                 end
-                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, model, false, false, false)
+
+                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, GetHashKey(model), false, false, false)
                 SetEntityAsMissionEntity(ent, true, true)
                 DeleteObject(ent)
                 SetEntityAsNoLongerNeeded(ent)
