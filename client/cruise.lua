@@ -40,17 +40,17 @@ local function TriggerCruiseControl()
         if GetVehicleSpeed() > 0 and GetVehicleCurrentGear(GetVehicle()) > 0 then
             CruisedSpeed = GetVehicleSpeed()
             local CruisedSpeedMph = TransformToMph(CruisedSpeed) -- Comment me for mp/h
-            -- CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
+            -- local CruisedSpeedKm = TransformToKm(CruisedSpeed) -- Uncomment me for km/h
             TriggerEvent('seatbelt:client:ToggleCruise')
-            QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedMph .." MP/H") -- Comment me for mp/h
-            -- QBCore.Functions.Notify("Cruise Activated: " .. CruisedSpeedKm ..  " km/h") -- Uncomment me for km/h
+            QBCore.Functions.Notify(Lang:t("info.cruise_activated_mp",{speed = CruisedSpeedMph})) -- Comment me for mp/h
+            -- QBCore.Functions.Notify(Lang:t("info.cruise_activated_km",{speed = CruisedSpeedKm})) -- Uncomment me for km/h
             CreateThread(function()
                 while CruisedSpeed > 0 and IsInVehicle() == Player do
                     Wait(0)
                     if not IsTurningOrHandBraking() and GetVehicleSpeed() < CruisedSpeed - 1.5 then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+                        QBCore.Functions.Notify(Lang:t("error.cruise_deactivated"), "error")
                         Wait(2000)
                         break
                     end
@@ -65,7 +65,7 @@ local function TriggerCruiseControl()
                     if IsControlJustPressed(2, 72) then
                         CruisedSpeed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise')
-                        QBCore.Functions.Notify("Cruise Deactivated", "error")
+                        QBCore.Functions.Notify(Lang:t("error.cruise_deactivated"), "error")
                         Wait(2000)
                         break
                     end
@@ -83,7 +83,7 @@ RegisterCommand('togglecruise', function()
             Player = PlayerPedId()
             TriggerCruiseControl()
         else
-            QBCore.Functions.Notify("Cruise control unavailable", "error")
+            QBCore.Functions.Notify(Lang:t("error.cruise_unavailable"), "error")
         end
     end
 end, false)

@@ -37,7 +37,7 @@ end
 
 local function ToggleSeatbelt()
     seatbeltOn = not seatbeltOn
-    TriggerEvent("seatbelt:client:ToggleSeatbelt")
+    TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
     TriggerServerEvent("InteractSound_SV:PlayOnSource", seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
 end
 
@@ -226,7 +226,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
     if inveh and class ~= 8 and class ~= 13 and class ~= 14 then
         if not harnessOn then
             LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", "Attaching Race Harness", 5000, false, true, {
+            QBCore.Functions.Progressbar("harness_equip", Lang:t("progress.attach_race_harness"), 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
@@ -241,7 +241,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
             TriggerEvent('hud:client:UpdateHarness', harnessHp)
         else
             LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", "Removing Race Harness", 5000, false, true, {
+            QBCore.Functions.Progressbar("harness_equip", Lang:t("progress.remove_race_harness"), 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
@@ -252,7 +252,7 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
             end)
         end
     else
-        QBCore.Functions.Notify('You\'re not in a car.', 'error')
+        QBCore.Functions.Notify(Lang:t("error.not_in_car"), 'error')
     end
 end)
 
