@@ -80,8 +80,7 @@ RegisterNetEvent('QBCore:Client:DrawWeapon', function()
 
             if weapon == `WEAPON_FIREEXTINGUISHER` or weapon == `WEAPON_PETROLCAN` then
                 if IsPedShooting(ped) then
-                    SetPedInfiniteAmmo(ped, true, `WEAPON_FIREEXTINGUISHER`)
-                    SetPedInfiniteAmmo(ped, true, `WEAPON_PETROLCAN`)
+                    SetPedInfiniteAmmo(ped, true, weapon)
                 end
             end
         else
