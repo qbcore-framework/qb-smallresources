@@ -8,26 +8,71 @@ Config.EnableProne = true
 Config.JointEffectTime = 60
 Config.RemoveWeaponDrops = true
 Config.RemoveWeaponDropsTimer = 25
-Config.DefaultPrice = 20 -- carwash
-Config.DirtLevel = 0.1 --carwash dirt level
+Config.DefaultPrice = 20 -- Default price for the carwash
+Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
+Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
+Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
-ConsumeablesEat = {
+-- Whether to enable or disable dispatch services
+Config.DispatchServices = {
+    [1] = false, -- Police Vehicles
+    [2] = false, -- Police Helicopters
+    [3] = false, -- Fire Department Vehicles
+    [4] = false, -- Swat Vehicles
+    [5] = false, -- Ambulance Vehicles
+    [6] = false, -- Police Motorcycles
+    [7] = false, -- Police Backup
+    [8] = false, -- Police Roadblocks
+    [9] = false, -- PoliceAutomobileWaitPulledOver
+    [10] = false, -- PoliceAutomobileWaitCruising
+    [11] = false, -- Gang Members
+    [12] = false, -- Swat Helicopters
+    [13] = false, -- Police Boats
+    [14] = false, -- Army Vehicles
+    [15] = false, -- Biker Backup
+}
+
+-- Enable or disable the wanted level
+Config.EnableWantedLevel = false
+
+Config.Disable = {
+    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
+    displayAmmo = true -- false disables ammo display
+}
+
+Config.Density = {
+    ['parked'] = 0.8,
+    ['vehicle'] = 0.8,
+    ['multiplier'] = 0.8,
+    ['peds'] = 0.8,
+    ['scenario'] = 0.8,
+}
+
+ConsumablesEat = {
     ["sandwich"] = math.random(35, 54),
     ["tosti"] = math.random(40, 50),
     ["twerks_candy"] = math.random(35, 54),
     ["snikkel_candy"] = math.random(40, 50),
 }
 
-ConsumeablesDrink = {
+ConsumablesDrink = {
     ["water_bottle"] = math.random(35, 54),
     ["kurkakola"] = math.random(35, 54),
     ["coffee"] = math.random(40, 50),
 }
 
-ConsumeablesAlcohol = {
+ConsumablesAlcohol = {
     ["whiskey"] = math.random(20, 30),
     ["beer"] = math.random(30, 40),
     ["vodka"] = math.random(20, 40),
+}
+
+ConsumablesFireworks = {
+    "firework1",
+    "firework2",
+    "firework3",
+    "firework4"
 }
 
 Config.BlacklistedScenarios = {
@@ -104,6 +149,11 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true,
 }
 
+Config.Objects = { -- for object removal
+    {coords = vector3(266.09,-349.35,44.74), heading = 0, length = 200, width = 200, model = "prop_sec_barier_02b"},
+    {coords = vector3(285.28,-355.78,45.13), heading = 0, length = 200, width = 200, model = "prop_sec_barier_02a"},
+}
+
 Config.Teleports = {
     --Elevator @ labs
     [1] = {
@@ -147,11 +197,11 @@ Config.CarWash = { -- carwash
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-74.56, 6427.87, 31.44),
     },
-    [5] = {
+    [4] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(1363.22, 3592.7, 34.92),
     },
-    [6] = {
+    [5] = {
         ["label"] = "Hands Free Carwash",
         ["coords"] = vector3(-699.62, -932.7, 19.01),
     }

@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local fireworkTime = 0
 local fireworkLoc = nil
 
@@ -34,69 +35,11 @@ local FireworkList = {
         "scr_firework_indep_repeat_burst_rwb",
     },
 }
-CreateThread(function()
-    local asset = "scr_indep_fireworks"
-    if not HasNamedPtfxAssetLoaded(asset) then
-        RequestNamedPtfxAsset(asset)
-        while not HasNamedPtfxAssetLoaded(asset) do
-            Wait(1)
-        end
-    end
-    local asset2 = "proj_xmas_firework"
-    if not HasNamedPtfxAssetLoaded(asset2) then
-        RequestNamedPtfxAsset(asset2)
-        while not HasNamedPtfxAssetLoaded(asset2) do
-            Wait(1)
-        end
-    end
-    local asset3 = "proj_indep_firework_v2"
-    if not HasNamedPtfxAssetLoaded(asset3) then
-        RequestNamedPtfxAsset(asset3)
-        while not HasNamedPtfxAssetLoaded(asset3) do
-            Wait(1)
-        end
-    end
-    local asset4 = "proj_indep_firework"
-    if not HasNamedPtfxAssetLoaded(asset4) then
-        RequestNamedPtfxAsset(asset4)
-        while not HasNamedPtfxAssetLoaded(asset4) do
-            Wait(1)
-        end
-    end
-    while true do
-        Wait(1)
-        if fireworkTime > 0 and fireworkLoc ~= nil then
-            DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, "Firework over ~r~"..fireworkTime)
-        end
-    end
-end)
 
-RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
-    QBCore.Functions.Progressbar("spawn_object", "Placing object..", 3000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = "anim@narcotics@trash",
-        anim = "drop_front",
-        flags = 16,
-    }, {}, {}, function() -- Done
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
-        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
-        local pos = GetEntityCoords(PlayerPedId())
-        DoFireWork(assetName, pos)
-    end, function() -- Cancel
-        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
-        QBCore.Functions.Notify("Canceled..", "error")
-    end)
-end)
-
-function DrawText3Ds(x, y, z, text)
+local function DrawText3Ds(x, y, z, text)
 	SetTextScale(0.35, 0.35)
     SetTextFont(4)
-    SetTextProportional(1)
+    SetTextProportional(true)
     SetTextColour(255, 255, 255, 215)
     SetTextEntry("STRING")
     SetTextCentre(true)
@@ -108,21 +51,80 @@ function DrawText3Ds(x, y, z, text)
     ClearDrawOrigin()
 end
 
-function DoFireWork(asset, coords)
+local function DoFireWork(asset, coords)
     fireworkTime = 5
     fireworkLoc = {x = coords.x, y = coords.y, z = coords.z}
     CreateThread(function()
         while fireworkTime > 0 do
             Wait(1000)
-            fireworkTime = fireworkTime - 1
+            fireworkTime -= 1
         end
         UseParticleFxAssetNextCall("scr_indep_fireworks")
         for _ = 1, math.random(5, 10), 1 do
             local firework = FireworkList[asset][math.random(1, #FireworkList[asset])]
             UseParticleFxAssetNextCall(asset)
-            StartNetworkedParticleFxNonLoopedAtCoord(firework, fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false, false)
+            StartNetworkedParticleFxNonLoopedAtCoord(firework, fireworkLoc.x, fireworkLoc.y, fireworkLoc.z + 42.5, 0.0, 0.0, 0.0, math.random() * 0.3 + 0.5, false, false, false)
             Wait(math.random()*500)
         end
         fireworkLoc = nil
     end)
 end
+
+CreateThread(function()
+    local asset = "scr_indep_fireworks"
+    if not HasNamedPtfxAssetLoaded(asset) then
+        RequestNamedPtfxAsset(asset)
+        while not HasNamedPtfxAssetLoaded(asset) do
+            Wait(10)
+        end
+    end
+    local asset2 = "proj_xmas_firework"
+    if not HasNamedPtfxAssetLoaded(asset2) then
+        RequestNamedPtfxAsset(asset2)
+        while not HasNamedPtfxAssetLoaded(asset2) do
+            Wait(10)
+        end
+    end
+    local asset3 = "proj_indep_firework_v2"
+    if not HasNamedPtfxAssetLoaded(asset3) then
+        RequestNamedPtfxAsset(asset3)
+        while not HasNamedPtfxAssetLoaded(asset3) do
+            Wait(10)
+        end
+    end
+    local asset4 = "proj_indep_firework"
+    if not HasNamedPtfxAssetLoaded(asset4) then
+        RequestNamedPtfxAsset(asset4)
+        while not HasNamedPtfxAssetLoaded(asset4) do
+            Wait(10)
+        end
+    end
+    while true do
+        Wait(0)
+        if fireworkTime > 0 and fireworkLoc then
+            DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, Lang:t("text.time_until_firework",{time = fireworkTime}))
+        end
+    end
+end)
+
+RegisterNetEvent('fireworks:client:UseFirework', function(itemName, assetName)
+    QBCore.Functions.Progressbar("spawn_object", Lang:t("progress.placing_firework"), 3000, false, true, {
+        disableMovement = true,
+        disableCarMovement = true,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = "anim@narcotics@trash",
+        anim = "drop_front",
+        flags = 16,
+    }, {}, {}, function() -- Done
+        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
+        TriggerServerEvent("consumables:server:UseFirework", itemName)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[itemName], "remove")
+        local pos = GetEntityCoords(PlayerPedId())
+        DoFireWork(assetName, pos)
+    end, function() -- Cancel
+        StopAnimTask(PlayerPedId(), "anim@narcotics@trash", "drop_front", 1.0)
+        QBCore.Functions.Notify(Lang:t("error.global_canceled"), "error")
+    end)
+end)
