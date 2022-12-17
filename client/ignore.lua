@@ -11,7 +11,7 @@ CreateThread(function()
 end)
 
 AddEventHandler("populationPedCreating", function(x, y, z)
-	Wait(500)	-- Give the entity some time to be created
+	Wait(500) -- Give the entity some time to be created
 	local _, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
 	SetPedDropsWeaponsWhenDead(handle, false)
 end)
@@ -19,6 +19,7 @@ end)
 CreateThread(function() -- all these should only need to be called once
 	if Config.DisableAmbience then
 		StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
+		SetAudioFlag("DisableFlightMusic", true)
 	end
 	SetAudioFlag("PoliceScannerDisabled", true)
 	SetGarbageTrucks(false)
@@ -49,13 +50,17 @@ CreateThread(function()
 	end
 end)
 
-
 CreateThread(function()
-	for i = 1, 15 do
-		EnableDispatchService(i, false)
+	for dispatchService, enabled in pairs(Config.DispatchServices) do
+		EnableDispatchService(dispatchService, enabled)
 	end
 
-	SetMaxWantedLevel(0)
+	local wantedLevel = 0
+	if Config.EnableWantedLevel then
+		wantedLevel = 5
+	end
+
+	SetMaxWantedLevel(wantedLevel)
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
