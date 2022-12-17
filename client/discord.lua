@@ -11,7 +11,7 @@ CreateThread(function()
 
         if conf.ShowPlayerCount then
             QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
-                SetRichPresence('Players: ' .. result .. '/' .. tostring(GetConvarInt('sv_maxclients', 64)))
+                SetRichPresence('Players: ' .. result .. '/' .. conf.MaxPlayers)
             end)
         end
 

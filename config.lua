@@ -45,6 +45,7 @@ Config.Discord = {
     ["IconSmallHoverText"] = 'This is a Small icon with text', -- The hover text of the small icon
     ["UpdateRate"] = 60000, -- How often the player count should be updated
     ["ShowPlayerCount"] = true, -- If set to true the player count will be displayed in the rich presence
+    ["MaxPlayers"] = 48, -- Maximum amount of players
     ["Buttons"] = {
         {
             text = 'First Button!',
