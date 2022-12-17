@@ -16,14 +16,12 @@ CreateThread(function()
         end
 
         if conf.Buttons.IsEnabled then
-            SetDiscordRichPresenceAction(0,
-                conf.Buttons[1].text,
-                conf.Buttons[1].url
-            )
-            SetDiscordRichPresenceAction(1,
-                conf.Buttons[2].text,
-                conf.Buttons[2].url
-            )
+            for i,v in pairs(conf.Buttons) do
+                SetDiscordRichPresenceAction(i - 1,
+                    v.text,
+                    v.url
+                )
+            end
         end
 
         Wait(conf.UpdateRate)
