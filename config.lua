@@ -15,21 +15,21 @@ Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
 -- Whether to enable or disable dispatch services
 Config.DispatchServices = {
-    [1] = false, -- PoliceAutomobile
-    [2] = false, -- PoliceHelicopter
-    [3] = false, -- FireDepartment
-    [4] = false, -- SwatAutomobile
-    [5] = false, -- AmbulanceDepartment
-    [6] = false, -- PoliceRiders
-    [7] = false, -- PoliceVehicleRequest
-    [8] = false, -- PoliceRoadBlock
+    [1] = false, -- Police Vehicles
+    [2] = false, -- Police Helicopters
+    [3] = false, -- Fire Department Vehicles
+    [4] = false, -- Swat Vehicles
+    [5] = false, -- Ambulance Vehicles
+    [6] = false, -- Police Motorcycles
+    [7] = false, -- Police Backup
+    [8] = false, -- Police Roadblocks
     [9] = false, -- PoliceAutomobileWaitPulledOver
     [10] = false, -- PoliceAutomobileWaitCruising
-    [11] = false, -- Gangs
-    [12] = false, -- SwatHelicopter
-    [13] = false, -- PoliceBoat
-    [14] = false, -- ArmyVehicle
-    [15] = false, -- BikerBackup
+    [11] = false, -- Gang Members
+    [12] = false, -- Swat Helicopters
+    [13] = false, -- Police Boats
+    [14] = false, -- Army Vehicles
+    [15] = false, -- Biker Backup
 }
 
 -- Enable or disable the wanted level
