@@ -13,7 +13,7 @@ Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
--- Whether to dispatch services
+-- Whether to enable or disable dispatch services
 Config.DispatchServices = {
     [1] = false, -- PoliceAutomobile
     [2] = false, -- PoliceHelicopter
