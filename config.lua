@@ -13,6 +13,28 @@ Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
+-- Whether to enable or disable dispatch services
+Config.DispatchServices = {
+    [1] = false, -- Police Vehicles
+    [2] = false, -- Police Helicopters
+    [3] = false, -- Fire Department Vehicles
+    [4] = false, -- Swat Vehicles
+    [5] = false, -- Ambulance Vehicles
+    [6] = false, -- Police Motorcycles
+    [7] = false, -- Police Backup
+    [8] = false, -- Police Roadblocks
+    [9] = false, -- PoliceAutomobileWaitPulledOver
+    [10] = false, -- PoliceAutomobileWaitCruising
+    [11] = false, -- Gang Members
+    [12] = false, -- Swat Helicopters
+    [13] = false, -- Police Boats
+    [14] = false, -- Army Vehicles
+    [15] = false, -- Biker Backup
+}
+
+-- Enable or disable the wanted level
+Config.EnableWantedLevel = false
+
 Config.Disable = {
     disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
     disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
