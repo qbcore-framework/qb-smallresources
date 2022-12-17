@@ -28,8 +28,8 @@ Config.DispatchServices = {
     [11] = false, -- Gangs
     [12] = false, -- SwatHelicopter
     [13] = false, -- PoliceBoat
-    [15] = false, -- ArmyVehicle
-    [16] = false, -- BikerBackup
+    [14] = false, -- ArmyVehicle
+    [15] = false, -- BikerBackup
 }
 
 Config.Disable = {
