@@ -54,7 +54,12 @@ CreateThread(function()
 		EnableDispatchService(dispatchService, enabled)
 	end
 
-	SetMaxWantedLevel(0)
+	local wantedLevel = 0
+	if Config.EnableWantedLevel then
+		wantedLevel = 5
+	end
+
+	SetMaxWantedLevel(wantedLevel)
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
