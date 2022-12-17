@@ -9,13 +9,13 @@ CreateThread(function()
         SetDiscordRichPresenceAssetSmall(conf.IconSmall)
         SetDiscordRichPresenceAssetSmallText(conf.IconSmallHoverText)
 
-        if conf.PlayerCount.IsEnabled then
+        if conf.ShowPlayerCount then
             QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
                 SetRichPresence('Players: ' .. result..'/64')
             end)
         end
 
-        if conf.Buttons.IsEnabled then
+        if conf.Buttons and type(conf.Buttons) == "table" then
             for i,v in pairs(conf.Buttons) do
                 SetDiscordRichPresenceAction(i - 1,
                     v.text,
