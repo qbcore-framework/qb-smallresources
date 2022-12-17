@@ -50,23 +50,7 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-	for dispatchService, enabled in pairs({
-		[1]  = Config.DispatchServices.PoliceAutomobile,
-		[2]  = Config.DispatchServices.PoliceHelicopter,
-		[3]  = Config.DispatchServices.FireDepartment,
-		[4]  = Config.DispatchServices.SwatAutomobile,
-		[5]  = Config.DispatchServices.AmbulanceDepartment,
-		[6]  = Config.DispatchServices.PoliceRiders,
-		[7]  = Config.DispatchServices.PoliceVehicleRequest,
-		[8]  = Config.DispatchServices.PoliceRoadBlock,
-		[9]  = Config.DispatchServices.PoliceAutomobileWaitPulledOver,
-		[10] = Config.DispatchServices.PoliceAutomobileWaitCruising,
-		[11] = Config.DispatchServices.Gangs,
-		[12] = Config.DispatchServices.SwatHelicopter,
-		[13] = Config.DispatchServices.PoliceBoat,
-		[15] = Config.DispatchServices.ArmyVehicle,
-		[16] = Config.DispatchServices.BikerBackup
-	}) do
+	for dispatchService, enabled in pairs(Config.DispatchServices) do
 		EnableDispatchService(dispatchService, enabled)
 	end
 

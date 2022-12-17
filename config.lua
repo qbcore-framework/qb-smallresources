@@ -15,21 +15,21 @@ Config.MapText = "Server Name" -- Text shown above the map in the escape menu.
 
 -- Whether to dispatch services
 Config.DispatchServices = {
-    ["AmbulanceDepartment"] = false,
-    ["ArmyVehicle"] = false,
-    ["BikerBackup"] = false,
-    ["FireDepartment"] = false,
-    ["Gangs"] = false,
-    ["PoliceAutomobile"] = false,
-    ["PoliceAutomobileWaitCruising"] = false,
-    ["PoliceAutomobileWaitPulledOver"] = false,
-    ["PoliceBoat"] = false,
-    ["PoliceHelicopter"] = false,
-    ["PoliceRiders"] = false,
-    ["PoliceRoadBlock"] = false,
-    ["PoliceVehicleRequest"] = false,
-    ["SwatAutomobile"] = false,
-    ["SwatHelicopter"] = false,
+    [1] = false, -- PoliceAutomobile
+    [2] = false, -- PoliceHelicopter
+    [3] = false, -- FireDepartment
+    [4] = false, -- SwatAutomobile
+    [5] = false, -- AmbulanceDepartment
+    [6] = false, -- PoliceRiders
+    [7] = false, -- PoliceVehicleRequest
+    [8] = false, -- PoliceRoadBlock
+    [9] = false, -- PoliceAutomobileWaitPulledOver
+    [10] = false, -- PoliceAutomobileWaitCruising
+    [11] = false, -- Gangs
+    [12] = false, -- SwatHelicopter
+    [13] = false, -- PoliceBoat
+    [15] = false, -- ArmyVehicle
+    [16] = false, -- BikerBackup
 }
 
 Config.Disable = {
