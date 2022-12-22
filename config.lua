@@ -93,6 +93,7 @@ Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms,
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- vehiclepush 0-1000
 Config.EnableProne = false -- prone isnt recomended at this time
+Config.MapText = "Server Name" -- This is the name / text shown above the map
 
 Config.Disable = {
     disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
