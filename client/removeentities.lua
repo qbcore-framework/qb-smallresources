@@ -1,6 +1,7 @@
 local entPoly = {}
 
-CreateThread(function()
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    Wait(5000)
     for _, v in pairs(Config.Objects) do
         entPoly[#entPoly + 1] = BoxZone:Create(v.coords, v.length, v.width, {
             name = v.model,
@@ -13,7 +14,12 @@ CreateThread(function()
     entCombo:onPlayerInOut(function(isPointInside)
         if isPointInside then
             for _,v in pairs(Config.Objects) do
-                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, GetHashKey(v.model), false, false, false)
+                local model = v.model
+                if type(v.model) == 'string' then
+                    model = GetHashKey(v.model)
+                end
+
+                local ent = GetClosestObjectOfType(v.coords.x, v.coords.y, v.coords.z, 2.0, GetHashKey(model), false, false, false)
                 SetEntityAsMissionEntity(ent, true, true)
                 DeleteObject(ent)
                 SetEntityAsNoLongerNeeded(ent)
