@@ -1,13 +1,13 @@
 CreateThread(function()
-	while true do
-		for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
-			SetScenarioTypeEnabled(sctyp, false)
-		end
-		for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
-			SetScenarioGroupEnabled(scgrp, false)
-		end
-		Wait(10000)
-	end
+    while true do
+        for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
+            SetScenarioTypeEnabled(sctyp, false)
+        end
+        for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
+            SetScenarioGroupEnabled(scgrp, false)
+        end
+        Wait(10000)
+    end
 end)
 
 AddEventHandler("populationPedCreating", function(x, y, z)
@@ -37,18 +37,20 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
-CreateThread(function()
-	local sleep
-	while true do
-		sleep = 1000
-		local ped = PlayerPedId()
-		if IsPedBeingStunned(ped, 0) then
-			sleep = 0
-			SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
-		end
-		Wait(sleep)
-	end
-end)
+if Config.Stun.active then
+    CreateThread(function()
+        local sleep
+        while true do
+            sleep = 1000
+            local ped = PlayerPedId()
+            if IsPedBeingStunned(ped, 0) then
+                sleep = 0
+                SetPedMinGroundTimeForStungun(ped, math.random(Config.Stun.min, Config.Stun.max))
+            end
+            Wait(sleep)
+        end
+    end)
+end
 
 CreateThread(function()
 	for dispatchService, enabled in pairs(Config.DispatchServices) do
@@ -64,37 +66,38 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-	DisableIdleCamera(true)
+    DisableIdleCamera(true)
 end
 
-CreateThread(function()
-	local sleep
-	while true do
-		sleep = 500
-		local ped = PlayerPedId()
-		local weapon = GetSelectedPedWeapon(ped)
-		if weapon ~= `WEAPON_UNARMED` then
-			if IsPedArmed(ped, 6) then
-				sleep = 0
-				DisableControlAction(1, 140, true)
-				DisableControlAction(1, 141, true)
-				DisableControlAction(1, 142, true)
-			end
+RegisterNetEvent('QBCore:Client:DrawWeapon', function()
+    local sleep
+    while true do
+        sleep = 500
+        local ped = PlayerPedId()
+        local weapon = GetSelectedPedWeapon(ped)
+        if weapon ~= `WEAPON_UNARMED` then
+            if IsPedArmed(ped, 6) then
+                sleep = 0
+                DisableControlAction(1, 140, true)
+                DisableControlAction(1, 141, true)
+                DisableControlAction(1, 142, true)
+            end
 
-			if weapon == `WEAPON_FIREEXTINGUISHER` or weapon == `WEAPON_PETROLCAN` then
-				if IsPedShooting(ped) then
-					SetPedInfiniteAmmo(ped, true, `WEAPON_FIREEXTINGUISHER`)
-					SetPedInfiniteAmmo(ped, true, `WEAPON_PETROLCAN`)
-				end
-			end
-		end
-		Wait(sleep)
-	end
+            if weapon == `WEAPON_FIREEXTINGUISHER` or weapon == `WEAPON_PETROLCAN` then
+                if IsPedShooting(ped) then
+                    SetPedInfiniteAmmo(ped, true, weapon)
+                end
+            end
+        else
+            break
+        end
+        Wait(sleep)
+    end
 end)
 
 CreateThread(function()
-	local pedPool = GetGamePool('CPed')
-	for _, v in pairs(pedPool) do
-		SetPedDropsWeaponsWhenDead(v, false)
-	end
+    local pedPool = GetGamePool('CPed')
+    for _, v in pairs(pedPool) do
+        SetPedDropsWeaponsWhenDead(v, false)
+    end
 end)

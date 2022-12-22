@@ -1,11 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
-local ignoredGroups = {
-    ['mod'] = true,
-    ['admin'] = true,
-    ['god'] = true
-}
-local secondsUntilKick = 1800 -- AFK Kick Time Limit (in seconds)
 local checkUser = true
 local prevPos, time = nil, nil
 local timeMinutes = {
@@ -22,7 +16,7 @@ local timeMinutes = {
 local function updatePermissionLevel()
     QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(userGroups)
         for k in pairs(userGroups) do
-            if ignoredGroups[k] then
+            if Config.AFK.ignoredGroups[k] then
                 checkUser = false
                 break
             end
@@ -46,7 +40,7 @@ end)
 
 CreateThread(function()
     while true do
-        Wait(1000)
+        Wait(10000)
         local playerPed = PlayerPedId()
         if isLoggedIn then
             if checkUser then
@@ -57,19 +51,19 @@ CreateThread(function()
                             if time > 0 then
                                 local _type = timeMinutes[tostring(time)]
                                 if _type == 'minutes' then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. math.ceil(time / 60) .. ' minute(s)!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. math.ceil(time / 60) .. Lang:t('afk.time_minutes'), 'error', 10000)
                                 elseif _type == 'seconds' then
-                                    QBCore.Functions.Notify('You are AFK and will be kicked in ' .. time .. ' seconds!', 'error', 10000)
+                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. time .. Lang:t('afk.time_seconds'), 'error', 10000)
                                 end
-                                time -= 1
+                                time -= 10
                             else
                                 TriggerServerEvent('KickForAFK')
                             end
                         else
-                            time = secondsUntilKick
+                            time = Config.AFK.secondsUntilKick
                         end
                     else
-                        time = secondsUntilKick
+                        time = Config.AFK.secondsUntilKick
                     end
                 end
                 prevPos = currentPos

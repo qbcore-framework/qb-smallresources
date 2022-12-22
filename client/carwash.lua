@@ -1,26 +1,36 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local washingVehicle = false
+local listen = false
+local washPoly = {}
 
-local function DrawText3Ds(x, y, z, text)
-	SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(true)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(true)
-    AddTextComponentString(text)
-    SetDrawOrigin(x,y,z, 0)
-    DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
+function WashLoop()
+    CreateThread(function()
+        while listen do
+            local PlayerPed = PlayerPedId()
+            local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
+            local Driver = GetPedInVehicleSeat(PedVehicle, -1)
+            local dirtLevel = GetVehicleDirtLevel(PedVehicle)
+            if Driver == PlayerPed and not washingVehicle then
+                if IsControlPressed(0, 38) then
+                    if dirtLevel > Config.DirtLevel then
+                        TriggerServerEvent('qb-carwash:server:washCar')
+                    else
+                        QBCore.Functions.Notify(Lang:t('wash.dirty'), 'error')
+                    end
+                    listen = false
+                    break
+                end
+            end
+            Wait(0)
+        end
+    end)
 end
 
 RegisterNetEvent('qb-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
     washingVehicle = true
-    QBCore.Functions.Progressbar("search_cabin", Lang:t("progress.car_wash_progress"), math.random(4000, 8000), false, true, {
+    QBCore.Functions.Progressbar("search_cabin", Lang:t('wash.in_progress'), math.random(4000, 8000), false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -31,47 +41,71 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
         WashDecalsFromVehicle(PedVehicle, 1.0)
         washingVehicle = false
     end, function() -- Cancel
-        QBCore.Functions.Notify(Lang:t("error.car_wash_canceled"), "error")
+        QBCore.Functions.Notify(Lang:t('wash.cancel'), "error")
         washingVehicle = false
     end)
 end)
 
 CreateThread(function()
-    local sleep
-    while true do
-        local PlayerPed = PlayerPedId()
-        local PlayerPos = GetEntityCoords(PlayerPed)
-        local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
-        local Driver = GetPedInVehicleSeat(PedVehicle, -1)
-        local dirtLevel = GetVehicleDirtLevel(PedVehicle)
-        sleep = 1000
-        if IsPedInAnyVehicle(PlayerPed, false) then
-            for k in pairs(Config.CarWash) do
-                local dist = #(PlayerPos - vector3(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"]))
-                if dist <= 7.5 and Driver == PlayerPed then
-                    sleep = 0
-                    if not washingVehicle then
-                        DrawText3Ds(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"], '~g~E~w~ - Washing car ($'..Config.DefaultPrice..')')
-                        if IsControlJustPressed(0, 38) then
-                            if dirtLevel > Config.DirtLevel then
-                                TriggerServerEvent('qb-carwash:server:washCar')
-                            else
-                                QBCore.Functions.Notify(Lang:t("error.car_wash_notdirty"), 'error')
-                            end
-                        end
-                    else
-                        DrawText3Ds(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"], 'The car wash is not available ..')
+    for k,v in pairs(Config.CarWash) do
+        if Config.UseTarget then
+            exports["qb-target"]:AddBoxZone('carwash_'..k, v['poly'].coords, v['poly'].length, v['poly'].width, {
+                name = 'carwash_'..k,
+                debugPoly = false,
+                heading = v['poly'].heading,
+                minZ = v['poly'].coords.z - 5,
+                maxZ = v['poly'].coords.z + 5,
+            }, {
+                    options = {
+                        {
+                            action = function()
+                                local PlayerPed = PlayerPedId()
+                                local PedVehicle = GetVehiclePedIsIn(PlayerPed, false)
+                                local Driver = GetPedInVehicleSeat(PedVehicle, -1)
+                                local dirtLevel = GetVehicleDirtLevel(PedVehicle)
+                                if Driver == PlayerPed and not washingVehicle then
+                                    if dirtLevel > Config.DirtLevel then
+                                        TriggerServerEvent('qb-carwash:server:washCar')
+                                    else
+                                        QBCore.Functions.Notify(Lang:t('wash.dirty'), 'error')
+                                    end
+                                end
+                            end,
+                            icon = "fa-car-wash",
+                            label = Lang:t('wash.wash_vehicle_target'),
+                        }
+                    },
+                distance = 3
+            })
+        else
+            washPoly[#washPoly+1] = BoxZone:Create(vector3(v['poly'].coords.x, v['poly'].coords.y, v['poly'].coords.z), v['poly'].length, v['poly'].width, {
+                heading = v['poly'].heading,
+                name = 'carwash',
+                debugPoly = false,
+                minZ = v['poly'].coords.z - 5,
+                maxZ = v['poly'].coords.z + 5,
+            })
+            local washCombo = ComboZone:Create(washPoly, {name = "washPoly"})
+            washCombo:onPlayerInOut(function(isPointInside)
+                if isPointInside then
+                    exports['qb-core']:DrawText(Lang:t('wash.wash_vehicle'),'left')
+                    if not listen then
+                        listen = true
+                        WashLoop()
                     end
+                else
+                    listen = false
+                    exports['qb-core']:HideText()
                 end
-            end
+            end)
         end
-        Wait(sleep)
     end
 end)
 
 CreateThread(function()
     for k in pairs(Config.CarWash) do
-        local carWash = AddBlipForCoord(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"])
+        local coords = Config.CarWash[k]["poly"]["coords"]
+        local carWash = AddBlipForCoord(coords.x, coords.y, coords.z)
         SetBlipSprite (carWash, 100)
         SetBlipDisplay(carWash, 4)
         SetBlipScale  (carWash, 0.75)

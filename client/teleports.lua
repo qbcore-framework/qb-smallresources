@@ -1,62 +1,69 @@
-local function DrawText3Ds(x, y, z, text)
-	SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(true)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(true)
-    AddTextComponentString(text)
-    SetDrawOrigin(x,y,z, 0)
-    DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
+local title = Lang:t('teleport.teleport_default')
+local ran = false
+local teleportPoly = {}
+
+local function teleportMenu(zones,currentZone)
+    local menu = {}
+    for k,v in pairs(Config.Teleports[zones]) do
+        if k ~= currentZone then
+            if not v.label then
+                title = Lang:t('teleport.teleport_default')
+            else
+                title = v.label
+            end
+            menu[#menu+1] = {
+                header = title,
+                params = {
+                    event = "teleports:chooseloc",
+                    args = {
+                        car = Config.Teleports[zones][currentZone]["AllowVehicle"],
+                        coords = v['poly'].coords,
+                        heading = v['poly'].heading
+                    }
+                }
+            }
+        end
+    end
+    exports['qb-menu']:showHeader(menu)
 end
 
 CreateThread(function()
-    local sleep
-    while true do
-        sleep = 1000
-        local ped = PlayerPedId()
-        local pos = GetEntityCoords(ped)
-
-        for loc in pairs(Config.Teleports) do
-            for k, v in pairs(Config.Teleports[loc]) do
-                local dist = #(pos - vector3(v.coords.x, v.coords.y, v.coords.z))
-                if dist < 2 then
-                    sleep = 0
-                    DrawMarker(2, v.coords.x, v.coords.y, v.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.3, 0.15, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
-
-                    if dist < 1 then
-                        DrawText3Ds(v.coords.x, v.coords.y, v.coords.z, v.drawText)
-                        if IsControlJustReleased(0, 51) then
-                            if k == 1 then
-                                if v.AllowVehicle then
-                                    SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
-                                else
-                                    SetEntityCoords(ped, Config.Teleports[loc][2].coords.x, Config.Teleports[loc][2].coords.y, Config.Teleports[loc][2].coords.z)
-                                end
-
-                                if type(Config.Teleports[loc][2].coords) == "vector4" then
-                                    SetEntityHeading(ped, Config.Teleports[loc][2].coords.w)
-                                end
-                            elseif k == 2 then
-                                if v.AllowVehicle then
-                                    SetPedCoordsKeepVehicle(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
-                                else
-                                    SetEntityCoords(ped, Config.Teleports[loc][1].coords.x, Config.Teleports[loc][1].coords.y, Config.Teleports[loc][1].coords.z)
-                                end
-
-                                if type(Config.Teleports[loc][1].coords) == "vector4" then
-                                    SetEntityHeading(ped, Config.Teleports[loc][1].coords.w)
-                                end
-                            end
-                        end
+    for i = 1,#Config.Teleports,1 do
+        for u = 1,#Config.Teleports[i] do
+            local portal = Config.Teleports[i][u]['poly']
+            teleportPoly[#teleportPoly+1] = BoxZone:Create(vector3(portal.coords.x, portal.coords.y, portal.coords.z), portal.length, portal.width, {
+                heading = portal.heading,
+                name = i,
+                debugPoly = false,
+                minZ = portal.coords.z - 5,
+                maxZ = portal.coords.z + 5,
+                data = {pad = u}
+            })
+            local teleportCombo = ComboZone:Create(teleportPoly, {name = "teleportPoly"})
+            teleportCombo:onPlayerInOut(function(isPointInside, _, zone)
+                if isPointInside then
+                    if not ran then
+                        ran = true
+                        teleportMenu(tonumber(zone.name),zone.data.pad)
                     end
+                else
+                    ran = false
                 end
-            end
+            end)
         end
-
-        Wait(sleep)
     end
+end)
+
+RegisterNetEvent("teleports:chooseloc", function(data)
+    local ped = PlayerPedId()
+    DoScreenFadeOut(500)
+    Wait(500)
+    if data.car then
+        SetPedCoordsKeepVehicle(ped, data.coords.x, data.coords.y, data.coords.z)
+    else
+        SetEntityCoords(ped, data.coords.x, data.coords.y, data.coords.z)
+    end
+    SetEntityHeading(ped, data.heading)
+    Wait(500)
+    DoScreenFadeIn(500)
 end)
