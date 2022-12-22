@@ -35,4 +35,10 @@ local Translations = {
         ["editor"] = "Later aligator🐊!",
     }
 }
-Lang = Locale:new({phrases = Translations, warnOnMissing = true})
+
+if GetConvar('qb_locale', 'en') == 'hu' then
+    Lang = Lang or Locale:new({
+        phrases = Translations, 
+        warnOnMissing = true
+    })
+end
