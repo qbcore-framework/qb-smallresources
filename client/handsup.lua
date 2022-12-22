@@ -9,7 +9,7 @@ local function handsUpListener()
             local ped = PlayerPedId()
             if not IsEntityPlayingAnim(ped, animDict, anim, 3) then
                 ClearPedTasks(ped)
-                exports['qb-smallresources']:removeDisableControls(disableHandsupControls)
+                exports['qb-smallresources']:removeDisableControls(Config.disableHandsupControls)
                 handsup = false
                 return
             end
