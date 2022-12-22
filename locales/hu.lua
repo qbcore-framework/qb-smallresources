@@ -38,7 +38,7 @@ local Translations = {
 
 if GetConvar('qb_locale', 'en') == 'hu' then
     Lang = Lang or Locale:new({
-        phrases = Translations, 
+        phrases = Translations,
         warnOnMissing = true
     })
 end
