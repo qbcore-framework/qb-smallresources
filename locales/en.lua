@@ -1,38 +1,68 @@
 local Translations = {
-    error = {
-        ["afk_time_left_minutes"] = "You are AFK and will be kicked in %{timeLeft} minutes!",
-        ["afk_time_left_minute"] = "You are AFK and will be kicked in %{timeLeft} minute!",
-        ["afk_time_left_seconds"] = "You are AFK and will be kicked in %{timeLeft} seconds!",
-        ["car_wash_canceled"] = "Washing canceled..",
-        ["car_wash_notdirty"] = "The vehicle isn't dirty",
-        ["cruise_deactivated"] = "Cruise Deactivated",
-        ["cruise_unavailable"] = "Cruise control unavailable",
-        ["not_in_car"] = "You\'re not in a car.",
-        ["dont_have_enough_money"] = "You dont have enough money..",
-        ["global_canceled"] = "Canceled..",
+    afk = {
+        will_kick = 'You are AFK and will be kicked in ',
+        time_seconds = ' seconds!',
+        time_minutes = ' minute(s)!'
     },
-    info = {
-        ["cruise_activated_mp"] = "Cruise Activated: %{speed} MP/H",
-        ["cruise_activated_km"] = "Cruise Activated: %{speed} KM/H",
+    wash = {
+        in_progress = "Vehicle is being washed ..",
+        wash_vehicle = "[E] Wash Vehicle",
+        wash_vehicle_target = "Wash Vehicle",
+        dirty = "The vehicle isn't dirty",
+        cancel = "Washing canceled ..",
     },
-    progress = {
-        ["car_wash_progress"] = "Vehicle is being washed..",
-        ["placing_firework"] = "Placing firework..",
-        ["attach_race_harness"] = "Attaching Race Harness",
-        ["remove_race_harness"] = "Removing Race Harness",
+    consumables = {
+        eat_progress = "Eating..",
+        drink_progress = "Drinking..",
+        liqour_progress = "Drinking liquor..",
+        coke_progress = "Quick sniff..",
+        crack_progress = "Smoking crack..",
+        ecstasy_progress = "Pops Pills",
+        healing_progress = "Healing",
+        meth_progress = "Smoking Ass Meth",
+        joint_progress = "Lighting joint..",
+        use_parachute_progress = "Putting on parachute..",
+        pack_parachute_progress = "Packing parachute..",
+        no_parachute = "You dont have a parachute!",
+        armor_full = "You already have enough armor on!",
+        armor_empty = "You're not wearing a vest..",
+        armor_progress = "Putting on the body armour..",
+        heavy_armor_progress = "Putting on body armour..",
+        remove_armor_progress = "Removing the body armour..",
+        canceled = "Canceled..",
     },
-    text = {
-        ["afk_kick_message"] = "You Have Been Kicked For Being AFK",
-        ["car_wash_text"] = "~g~E~w~ - Washing car ($%{price})",
-        ["car_wash_not_available"] = "The car wash is not available..",
-        ["time_until_firework"] = "Firework over ~r~%{time}",
-        ["push_vehicle"] = "Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle",
+    cruise = {
+        unavailable = "Cruise control unavailable",
+        activated = "Cruise Activated: ",
+        deactivated = "Cruise Deactivated",
     },
     editor = {
-        ["record"] = "Started Recording!",
-        ["save"] = "Saved Recording!",
-        ["delete_clip"] = "Deleted Recording!",
-        ["editor"] = "Later aligator!",
+        started = "Started Recording!",
+        save = "Saved Recording!",
+        delete = "Deleted Recording!",
+        editor = "Later aligator!"
+    },
+    firework = {
+        place_progress = "Placing object..",
+        canceled = "Canceled..",
+        time_left = "Firework over ~r~"
+    },
+    seatbelt = {
+        use_harness_progress = "Attaching Race Harness",
+        remove_harness_progress = "Removing Race Harness",
+        no_car = "You're not in a car."
+    },
+    teleport = {
+        teleport_default = 'Use Elevator'
+    },
+    pushcar = {
+        stop_push = "[E] Stop Pushing"
     }
+
+
 }
-Lang = Locale:new({phrases = Translations, warnOnMissing = true})
+
+Lang = Locale:new({
+    phrases = Translations,
+    warnOnMissing = true
+})

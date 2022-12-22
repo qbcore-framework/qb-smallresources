@@ -1,70 +1,52 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
 ----------- / alcohol
 
-QBCore.Functions.CreateUseableItem("vodka", function(source, item)
-    TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("beer", function(source, item)
-    TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("whiskey", function(source, item)
-    TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
-end)
+for k,_ in pairs(Config.ConsumablesAlcohol) do
+    QBCore.Functions.CreateUseableItem(k, function(source, item)
+        TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
+    end)
+end
 
 ----------- / Eat
 
-QBCore.Functions.CreateUseableItem("sandwich", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Eat", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("twerks_candy", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Eat", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("snikkel_candy", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Eat", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("tosti", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Eat", source, item.name)
-end)
+for k,_ in pairs(Config.ConsumablesEat) do
+    QBCore.Functions.CreateUseableItem(k, function(source, item)
+        local Player = QBCore.Functions.GetPlayer(source)
+        if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+        TriggerClientEvent("consumables:client:Eat", source, item.name)
+    end)
+end
 
 ----------- / Drink
+for k,_ in pairs(Config.ConsumablesDrink) do
+    QBCore.Functions.CreateUseableItem(k, function(source, item)
+        local Player = QBCore.Functions.GetPlayer(source)
+        if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+        TriggerClientEvent("consumables:client:Drink", source, item.name)
+    end)
+end
 
-QBCore.Functions.CreateUseableItem("water_bottle", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Drink", source, item.name)
-end)
+----------- / Custom
+for k,_ in pairs(Config.ConsumablesCustom) do
+    QBCore.Functions.CreateUseableItem(k, function(source, item)
+        local Player = QBCore.Functions.GetPlayer(source)
+        if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+        TriggerClientEvent("consumables:client:Custom", source, item.name)
+    end)
+end
 
-QBCore.Functions.CreateUseableItem("coffee", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Drink", source, item.name)
-end)
-
-QBCore.Functions.CreateUseableItem("kurkakola", function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
-    TriggerClientEvent("consumables:client:Drink", source, item.name)
-end)
-
+local function CreateItem(name,type)
+    QBCore.Functions.CreateUseableItem(name, function(source, item)
+        local Player = QBCore.Functions.GetPlayer(source)
+        if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+        TriggerClientEvent("consumables:client:"..type, source, item.name)
+    end)
+end
 ----------- / Drug
 
 QBCore.Functions.CreateUseableItem("joint", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+    if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
     TriggerClientEvent("consumables:client:UseJoint", source)
 end)
 
@@ -113,12 +95,12 @@ end)
 
 QBCore.Functions.CreateUseableItem("parachute", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-	if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+    if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
     TriggerClientEvent("consumables:client:UseParachute", source)
 end)
 
 QBCore.Commands.Add("resetparachute", "Resets Parachute", {}, false, function(source)
-	TriggerClientEvent("consumables:client:ResetParachute", source)
+    TriggerClientEvent("consumables:client:ResetParachute", source)
 end)
 
 RegisterNetEvent('qb-smallpenis:server:AddParachute', function()
@@ -131,25 +113,12 @@ end)
 
 ----------- / Firework
 
-QBCore.Functions.CreateUseableItem("firework1", function(source, item)
-    local src = source
-    TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_indep_firework")
-end)
-
-QBCore.Functions.CreateUseableItem("firework2", function(source, item)
-    local src = source
-    TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_indep_firework_v2")
-end)
-
-QBCore.Functions.CreateUseableItem("firework3", function(source, item)
-    local src = source
-    TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_xmas_firework")
-end)
-
-QBCore.Functions.CreateUseableItem("firework4", function(source, item)
-    local src = source
-    TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "scr_indep_fireworks")
-end)
+for _,v in pairs(ConsumablesFireworks) do
+    QBCore.Functions.CreateUseableItem(v, function(source, item)
+        local src = source
+        TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_indep_firework")
+    end)
+end
 
 ----------- / Lockpicking
 
@@ -165,7 +134,7 @@ end)
 
 -- QBCore.Functions.CreateUseableItem("smoketrailred", function(source, item)
 --     local Player = QBCore.Functions.GetPlayer(source)
--- 	   if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
+--     if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
 --     TriggerClientEvent("consumables:client:UseRedSmoke", source)
 -- end)
 
@@ -242,7 +211,7 @@ RegisterNetEvent('consumables:server:drinkAlcohol', function(item)
 
     local foundItem = nil
 
-    for k in pairs(ConsumablesAlcohol) do
+    for k in pairs(Config.ConsumablesAlcohol) do
         if k == item then
             foundItem = k
             break
@@ -290,3 +259,55 @@ RegisterNetEvent('consumables:server:addHunger', function(amount)
     Player.Functions.SetMetaData('hunger', amount)
     TriggerClientEvent('hud:client:UpdateNeeds', source, amount, Player.PlayerData.metadata.thirst)
 end)
+
+QBCore.Functions.CreateCallback('consumables:itemdata', function(_, cb, itemName)
+    cb(Config.ConsumablesCustom[itemName])
+end)
+
+local function AddDrink(drinkname, replenish)
+    if Config.ConsumablesDrink[drinkname] ~= nil then
+        return false, "already added"
+    else
+        Config.ConsumablesDrink[drinkname] = replenish
+        CreateItem(drinkname, 'Drink')
+        return true, "success"
+    end
+end
+
+exports('AddDrink', AddDrink)
+
+local function AddFood(foodname, replenish)
+    if Config.ConsumablesEat[foodname] ~= nil then
+        return false, "already added"
+    else
+        Config.ConsumablesEat[foodname] = replenish
+        CreateItem(foodname, 'Eat')
+        return true, "success"
+    end
+end
+
+exports('AddFood', AddFood)
+
+local function AddAlcohol(alcoholname, replenish)
+    if Config.ConsumablesAlcohol[alcoholname] ~= nil then
+        return false, "already added"
+    else
+        Config.ConsumablesAlcohol[alcoholname] = replenish
+        CreateItem(alcoholname, 'DrinkAlcohol')
+        return true, "success"
+    end
+end
+
+exports('AddAlcohol', AddAlcohol)
+
+local function AddCustom(itemname, data)
+    if 'consumables:itemdata' ~= nil then
+        return false, "already added"
+    else
+        Config.ConsumablesCustom[itemname] = data
+        CreateItem(itemname, 'Custom')
+        return true, "success"
+    end
+end
+
+exports('AddCustom', AddCustom)
