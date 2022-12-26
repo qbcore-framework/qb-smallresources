@@ -105,7 +105,7 @@ end)
 CreateThread(function()
     while Config.AntiCombatRoll do
         Wait(5)
-        if IsAimCamActive(bool) then
+        if IsAimCamActive() then
             if IsPedArmed(PlayerPedId(), 4 | 2) then 
                 DisableControlAction(0, 22, true)
             end
