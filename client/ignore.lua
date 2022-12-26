@@ -106,7 +106,7 @@ CreateThread(function()
     while Config.AntiCombatRoll do
         Wait(5)
         if IsAimCamActive(bool) then
-            if IsPedArmed(GetPlayerPed(-1), 4 | 2) then 
+            if IsPedArmed(PlayerPedId(), 4 | 2) then 
                 DisableControlAction(0, 22, true)
             end
         end
@@ -142,7 +142,7 @@ CreateThread(function()
 	-- Loop forever and update every frame
 	Wait(0)	
 		-- Get player, vehicle and vehicle class
-		local player = GetPlayerPed(-1)
+		local player = PlayerPedId()
 		local vehicle = GetVehiclePedIsIn(player, false)
 		local vehicleClass = GetVehicleClass(vehicle)
 
