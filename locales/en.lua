@@ -1,5 +1,6 @@
 local Translations = {
     afk = {
+        afk_kick_message = 'As a result of being AFK, you have got kicked out from the server.',
         will_kick = 'You are AFK and will be kicked in ',
         time_seconds = ' seconds!',
         time_minutes = ' minute(s)!'
@@ -8,6 +9,7 @@ local Translations = {
         in_progress = "Vehicle is being washed ..",
         wash_vehicle = "[E] Wash Vehicle",
         wash_vehicle_target = "Wash Vehicle",
+        dont_have_enough_money = "You don't have enough money in order to wash your vehicle.",
         dirty = "The vehicle isn't dirty",
         cancel = "Washing canceled ..",
     },
@@ -58,8 +60,6 @@ local Translations = {
     pushcar = {
         stop_push = "[E] Stop Pushing"
     }
-
-
 }
 
 Lang = Locale:new({
