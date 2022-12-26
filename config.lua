@@ -98,7 +98,6 @@ Config.MapText = "Server Name" -- This is the name / text shown above the map
 -- Other Config Options
 Config.AntiCombatRoll = false -- Self explanatory
 Config.MidAirVehControl = false -- Disables mid air vehicle rotating
-Config.DCR = false -- Disable Combat Roll
 
 Config.Disable = {
     disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
