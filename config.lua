@@ -45,8 +45,8 @@ Config.EnableWantedLevel = false
 
 -- To Set This Up visit https://forum.cfx.re/t/how-to-updated-discord-rich-presence-custom-image/157686
 Config.Discord = {
-    ["IsEnabled"] = true, -- If set to true, then discord rich presence will be enabled
-    ["ApplicationId"] = '915674222628585472', -- The discord application id
+    ["IsEnabled"] = false, -- If set to true, then discord rich presence will be enabled
+    ["ApplicationId"] = '00000000000000000', -- The discord application id
     ["IconLarge"] = 'logo_name', -- The name of the large icon
     ["IconLargeHoverText"] = 'This is a Large icon with text', -- The hover text of the large icon
     ["IconSmall"] = 'small_logo_name', -- The name of the small icon
@@ -64,12 +64,6 @@ Config.Discord = {
             url = 'fivem://connect/localhost:30120'
         }
     }
-}
-
-Config.Disable = {
-    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
-    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
-    displayAmmo = true -- false disables ammo display
 }
 
 Config.Density = {
