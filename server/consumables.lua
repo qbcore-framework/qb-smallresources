@@ -103,7 +103,7 @@ QBCore.Commands.Add("resetparachute", "Resets Parachute", {}, false, function(so
     TriggerClientEvent("consumables:client:ResetParachute", source)
 end)
 
-RegisterNetEvent('qb-smallpenis:server:AddParachute', function()
+RegisterNetEvent('qb-consumables:server:AddParachute', function()
     local Player = QBCore.Functions.GetPlayer(source)
 
     if not Player then return end

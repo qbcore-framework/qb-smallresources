@@ -416,7 +416,7 @@ RegisterNetEvent('consumables:client:ResetParachute', function()
             }
             TriggerEvent('qb-clothing:client:loadOutfit', ParachuteRemoveData)
             TaskPlayAnim(ped, "clothingshirt", "exit", 8.0, 1.0, -1, 49, 0, false, false, false)
-            TriggerServerEvent("qb-smallpenis:server:AddParachute")
+            TriggerServerEvent("qb-consumables:server:AddParachute")
             ParachuteEquiped = false
         end)
     else
