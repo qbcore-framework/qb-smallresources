@@ -27,12 +27,20 @@ CreateThread(function()
             HideHudComponentThisFrame(disableHudComponents[i])
         end
 
+        -- Check for sniper rifle
+        local currentWeapon = GetSelectedPedWeapon(PlayerPedId())
+        if currentWeapon == GetHashKey("WEAPON_SNIPERRIFLE") or currentWeapon == GetHashKey("WEAPON_MARKSMANRIFLE") or currentWeapon == GetHashKey("WEAPON_MARKSMANRIFLE_MK2") or currentWeapon == GetHashKey("WEAPON_HEAVYSNIPER") then
+            ShowHudComponentThisFrame(14)
+        else
+            HideHudComponentThisFrame(14)
+        end
+
         for i = 1, #disableControls do
             DisableControlAction(2, disableControls[i], true)
         end
 
         DisplayAmmoThisFrame(displayAmmo)
-        
+
         -- Density
 
         SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
