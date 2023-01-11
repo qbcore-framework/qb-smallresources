@@ -6,6 +6,7 @@ local ParachuteEquiped = false
 local currentVest = nil
 local currentVestTexture = nil
 local healing = false
+local ParachuteRemoveData = { outfitData = { ["bag"] = { item = 0, texture = 0} } }
 
 -- Functions
 RegisterNetEvent('QBCore:Client:UpdateObject', function()
@@ -409,14 +410,9 @@ RegisterNetEvent('consumables:client:ResetParachute', function()
         }, {}, {}, {}, function() -- Done
             local ped = PlayerPedId()
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["parachute"], "add")
-            local ParachuteRemoveData = {
-                outfitData = {
-                    ["bag"] = { item = 0, texture = 0} -- Removing Parachute Clothing
-                }
-            }
             TriggerEvent('qb-clothing:client:loadOutfit', ParachuteRemoveData)
             TaskPlayAnim(ped, "clothingshirt", "exit", 8.0, 1.0, -1, 49, 0, false, false, false)
-            TriggerServerEvent("qb-consumables:server:AddParachute")
+            TriggerServerEvent("consumables:server:AddParachute")
             ParachuteEquiped = false
         end)
     else
@@ -517,3 +513,15 @@ function AlcoholLoop()
         end)
     end
 end
+
+Citizen.CreateThread(function()
+    while true do
+        local ped = PlayerPedId()
+        local parachuteState = GetPedParachuteState(ped)
+        if parachuteState == 3 then
+            Wait(2300)
+            TriggerEvent('qb-clothing:client:loadOutfit', ParachuteRemoveData)
+        end
+        Citizen.Wait(0)
+    end
+end)
