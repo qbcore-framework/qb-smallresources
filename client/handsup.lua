@@ -1,8 +1,10 @@
+
 QBCore = exports["qb-core"]:GetCoreObject()
 
 local animDict = "missminuteman_1ig_2"
 local anim = "handsup_base"
 local handsup = false
+
 RegisterCommand('hu', function()
     local ped = PlayerPedId()
     if not HasAnimDictLoaded(animDict) then
@@ -11,9 +13,9 @@ RegisterCommand('hu', function()
             Wait(10)
         end
     end
-            -- We verify if the character is dead or in last stand or handcuffed.
+            -- We verify if the character is dead or in last stand or handcuffed or in bed
     QBCore.Functions.GetPlayerData(function(PlayerData)
-        if PlayerData.metadata["isdead"] or exports['qb-policejob']:IsHandcuffed() or PlayerData.metadata["inlaststand"] then
+        if PlayerData.metadata["isdead"] or exports['qb-policejob']:IsHandcuffed() or PlayerData.metadata["inlaststand"] or exports['qb-ambulancejob']:getisInHospitalBed() == true then
             return
         end
         handsup = not handsup
