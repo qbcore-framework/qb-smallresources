@@ -1,3 +1,4 @@
+local ignoreWeapons = Config.Disable.ignoreWeapons
 local disableHudComponents = Config.Disable.disableHudComponents
 local disableControls = Config.Disable.disableControls
 local displayAmmo = Config.Disable.displayAmmo
@@ -19,8 +20,24 @@ end
 exports('DecorSet', DecorSet)
 
 CreateThread(function()
+    local isIgnored = false
     while true do
 
+        local ped = GetPlayerPed(-1)
+        -- Crosshair
+
+        for i = 1, #ignoreWeapons do
+            local currentWeaponHash = GetSelectedPedWeapon(ped)
+
+            if currentWeaponHash == GetHashKey(ignoreWeapons[i]) then 
+                isIgnored = true
+            end
+
+            if not isIgnored then
+                HideHudComponentThisFrame(14)
+            end
+        end
+            
         -- Hud Components
 
         for i = 1, #disableHudComponents do
