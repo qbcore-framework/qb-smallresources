@@ -68,6 +68,24 @@ CreateThread(function()
                 end
                 prevPos = currentPos
             end
+        else
+            if checkUser then
+                if time then
+                    if time > 0 then
+                        local _type = timeMinutes[tostring(time)]
+                        if _type == 'minutes' then
+                            QBCore.Functions.Notify(Lang:t('afk.will_kick') .. math.ceil(time / 60) .. Lang:t('afk.time_minutes'), 'error', 10000)
+                        elseif _type == 'seconds' then
+                            QBCore.Functions.Notify(Lang:t('afk.will_kick') .. time .. Lang:t('afk.time_seconds'), 'error', 10000)
+                            end
+                        time -= 10
+                    else
+                        TriggerServerEvent('KickForAFK')
+                    end
+                else
+                    time = Config.AFK.secondsUntilKickCharacterSelection
+                end
+            end
         end
     end
 end)
