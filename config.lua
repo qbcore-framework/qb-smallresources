@@ -1,7 +1,65 @@
 Config = {}
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 
--- To make this simple. Everything you need is in the config, except for discord, weapon drops, vehicle classes for cruise, hands up disabled keys, and recoil
+-- To make this simple. Everything you need is in the config, except for weapon drops, vehicle classes for cruise, hands up disabled keys, and recoil
+
+-- webHooks for discord
+
+Config.webHooks = {
+    ['default'] = '',
+    ['testwebhook'] = '',
+    ['playermoney'] = '',
+    ['playerinventory'] = '',
+    ['robbing'] = '',
+    ['cuffing'] = '',
+    ['drop'] = '',
+    ['trunk'] = '',
+    ['stash'] = '',
+    ['glovebox'] = '',
+    ['banking'] = '',
+    ['vehicleshop'] = '',
+    ['vehicleupgrades'] = '',
+    ['shops'] = '',
+    ['dealers'] = '',
+    ['storerobbery'] = '',
+    ['bankrobbery'] = '',
+    ['powerplants'] = '',
+    ['death'] = '',
+    ['joinleave'] = '',
+    ['ooc'] = '',
+    ['report'] = '',
+    ['me'] = '',
+    ['pmelding'] = '',
+    ['112'] = '',
+    ['bans'] = '',
+    ['anticheat'] = '',
+    ['weather'] = '',
+    ['moneysafes'] = '',
+    ['bennys'] = '',
+    ['bossmenu'] = '',
+    ['robbery'] = '',
+    ['casino'] = '',
+    ['traphouse'] = '',
+    ['911'] = '',
+    ['palert'] = '',
+    ['house'] = '',
+    ['qbjobs'] = '',
+}
+
+-- Colors for webHooks
+
+Config.webHookColors = { -- https://www.spycolor.com/
+    ['default'] = 14423100,
+    ['blue'] = 255,
+    ['red'] = 16711680,
+    ['green'] = 65280,
+    ['white'] = 16777215,
+    ['black'] = 0,
+    ['orange'] = 16744192,
+    ['yellow'] = 16776960,
+    ['pink'] = 16761035,
+    ["lightgreen"] = 65309,
+}
 
 Config.AFK = {
     ignoredGroups = {

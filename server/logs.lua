@@ -1,66 +1,24 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local webHooks = Config.webHooks
 
-local Webhooks = {
-    ['default'] = '',
-    ['testwebhook'] = '',
-    ['playermoney'] = '',
-    ['playerinventory'] = '',
-    ['robbing'] = '',
-    ['cuffing'] = '',
-    ['drop'] = '',
-    ['trunk'] = '',
-    ['stash'] = '',
-    ['glovebox'] = '',
-    ['banking'] = '',
-    ['vehicleshop'] = '',
-    ['vehicleupgrades'] = '',
-    ['shops'] = '',
-    ['dealers'] = '',
-    ['storerobbery'] = '',
-    ['bankrobbery'] = '',
-    ['powerplants'] = '',
-    ['death'] = '',
-    ['joinleave'] = '',
-    ['ooc'] = '',
-    ['report'] = '',
-    ['me'] = '',
-    ['pmelding'] = '',
-    ['112'] = '',
-    ['bans'] = '',
-    ['anticheat'] = '',
-    ['weather'] = '',
-    ['moneysafes'] = '',
-    ['bennys'] = '',
-    ['bossmenu'] = '',
-    ['robbery'] = '',
-    ['casino'] = '',
-    ['traphouse'] = '',
-    ['911'] = '',
-    ['palert'] = '',
-    ['house'] = '',
-    ['qbjobs'] = '',
-}
-
-local Colors = { -- https://www.spycolor.com/
-    ['default'] = 14423100,
-    ['blue'] = 255,
-    ['red'] = 16711680,
-    ['green'] = 65280,
-    ['white'] = 16777215,
-    ['black'] = 0,
-    ['orange'] = 16744192,
-    ['yellow'] = 16776960,
-    ['pink'] = 16761035,
-    ["lightgreen"] = 65309,
-}
+local addToWebhooks = function(newWebHooks)
+    if not newWebHooks then return end
+    if next(newWebHooks) then
+        for k,v in pairs(newWebHooks) do
+            webHooks[k] = v
+        end
+    end
+    return
+end
+exports("addToWebhooks",addToWebhooks)
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local tag = tagEveryone or false
-    local webHook = Webhooks[name] or Webhooks['default']
+    local webHook = webHooks[name] or webHooks['default']
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = Colors[color] or Colors['default'],
+            ['color'] = Config.webHookColors[color] or Config.webHookColors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
