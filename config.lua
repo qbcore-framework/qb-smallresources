@@ -9,7 +9,7 @@ Config.AFK = {
         ['admin'] = true,
         ['god'] = true
     },
-    secondsUntilKick = 1800 -- AFK Kick Time Limit (in seconds)
+    secondsUntilKick = 1800, -- AFK Kick Time Limit (in seconds)
     secondsUntilKickInCharacterSelection = 600 -- AFK Kick Time Limit While Player is in the Character Selector (in seconds)
 }
 
