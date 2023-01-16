@@ -1,4 +1,10 @@
 local Translations = {
+    afk = {
+        ["will_kick"] = "You will be kicked for being AFK in ",
+        ["time_minutes"] = " minutes",
+        ["time_seconds"] = " seconds",
+        ["kick_message"] = "Foste Kickado Por Estares AFK",
+    },
     error = {
         ["afk_time_left_minutes"] = "Estás AFK e vais ser kickado em %{timeLeft} minutos!",
         ["afk_time_left_minute"] = "Estás AFK e vais ser kickado em %{timeLeft} minuto!",
@@ -22,7 +28,6 @@ local Translations = {
         ["remove_race_harness"] = "A remover Arnês de Corrida",
     },
     text = {
-        ["afk_kick_message"] = "Foste Kickado Por Estares AFK",
         ["car_wash_text"] = "~g~E~w~ - Lavar Veículo (%{price}€)",
         ["car_wash_not_available"] = "A estação de lavagem não está disponível...",
         ["time_until_firework"] = "Fogo de Artifício em ~r~%{time}",
