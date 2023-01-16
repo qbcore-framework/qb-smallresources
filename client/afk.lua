@@ -1,7 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local checkUser = true
-local prevPos = nil
 local checkInterval = 10
 local notificationDuration = (checkInterval - 2) * 1000
 
@@ -35,6 +34,9 @@ function getTimeUnit(time)
 end
 if Config.AFK.enabled then
     CreateThread(function()
+        local time = nil
+        local prevPos = nil
+
         while true do
             Wait(checkInterval * 1000)
             local playerPed = PlayerPedId()
