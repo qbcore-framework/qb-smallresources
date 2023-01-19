@@ -226,6 +226,7 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true,
 }
 
+Config.DisableVestDrawable = false -- Set to TRUE to disable the vest equipped when using heavy armor.
 Config.HolsterVariant = {130,122,3,6,8}
 Config.HolsterableWeapons = {
     --'WEAPON_STUNGUN',
