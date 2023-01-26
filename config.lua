@@ -215,6 +215,7 @@ Config.BlacklistedVehs = {
     [`rrocket`] = true,
     [`ruiner2`] = true,
     [`deluxo`] = true,
+    [`cargoplane2`] = true,
 }
 
 Config.BlacklistedPeds = {
