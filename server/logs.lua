@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local webHooks = svrConfig.webHooks
+local webHooks = SvrConfig.webHooks
 local addToWebhooks = function(newWebHooks)
     if not newWebHooks then return end
     if next(newWebHooks) then
@@ -17,7 +17,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = svrConfig.webHookColors[color] or svrConfig.webHookColors['default'],
+            ['color'] = SvrConfig.webHookColors[color] or SvrConfig.webHookColors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
