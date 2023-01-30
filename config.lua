@@ -116,6 +116,9 @@ Config.ConsumablesAlcohol = {
     ["vodka"] = math.random(20, 40),
 }
 
+-- Custom Consumables hand bones
+-- 18905 left hand
+-- 57005 right hand
 Config.ConsumablesCustom = {
     -- ['newitem'] = {
     --     ['progress'] = {
