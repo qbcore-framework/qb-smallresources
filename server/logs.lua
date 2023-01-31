@@ -56,7 +56,7 @@ local Colors = { -- https://www.spycolor.com/
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local tag = tagEveryone or false
-    local webHook = Webhooks[name] or Webhooks['default']
+    local webHook = Webhooks[name] ~= '' and Webhooks[name] or Webhooks['default']
     local embedData = {
         {
             ['title'] = title,
