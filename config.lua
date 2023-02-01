@@ -116,6 +116,9 @@ Config.ConsumablesAlcohol = {
     ["vodka"] = math.random(20, 40),
 }
 
+-- Custom Consumables hand bones
+-- 18905 left hand
+-- 57005 right hand
 Config.ConsumablesCustom = {
     -- ['newitem'] = {
     --     ['progress'] = {
@@ -215,6 +218,8 @@ Config.BlacklistedVehs = {
     [`rrocket`] = true,
     [`ruiner2`] = true,
     [`deluxo`] = true,
+    [`cargoplane2`] = true,
+    [`voltic2`] = true,
 }
 
 Config.BlacklistedPeds = {
