@@ -316,12 +316,6 @@ Config.BlacklistedVehs = {
     ['KURUMA2'] = true,
     ['JB700'] = true,
     ['TOREADOR'] = true,
-    ['BALLER2'] = true,
-    ['BALLER3'] = true,
-    ['BALLER4'] = true,
-    ['BALLER5'] = true,
-    ['BALLER6'] = true,
-    ['BALLER7'] = true,
 }
 
 Config.BlacklistedPeds = {
