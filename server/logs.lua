@@ -74,7 +74,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', embeds = embedData}), { ['Content-Type'] = 'application/json' })
     Citizen.Wait(100)
     if tag then
-        PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', content = '@everyone'}), { ['Content-Type'] = 'application/json' })
+        print("Tagging everyone has been deprecated! Remove the true from the consoleLog request!")
     end
 end)
 
