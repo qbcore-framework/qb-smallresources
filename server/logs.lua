@@ -54,8 +54,7 @@ local Colors = { -- https://www.spycolor.com/
     ["lightgreen"] = 65309,
 }
 
-RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
-    local tag = tagEveryone or false
+RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tag)
     local webHook = Webhooks[name] or Webhooks['default']
     local embedData = {
         {
@@ -73,8 +72,10 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     }
     PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', embeds = embedData}), { ['Content-Type'] = 'application/json' })
     Citizen.Wait(100)
-    if tag then
-        print("Tagging everyone has been deprecated! Remove the true from the consoleLog request!")
+    if tag and type(tag) == "boolean" then print("Please set to a string such as 'admin or everyone or whatever discord you group you wish to attach to'") end
+    if tag and type(tag) == "string" then
+        tag = string.format("@%s",tag)
+        PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', content = tag}), { ['Content-Type'] = 'application/json' })
     end
 end)
 
