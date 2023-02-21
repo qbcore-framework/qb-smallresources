@@ -463,6 +463,7 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
             SetPedComponentVariation(ped, 9, 30, 0, 2)
         end
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["heavyarmor"], "remove")
+        TriggerServerEvent('hospital:server:SetArmor', 100)
         TriggerServerEvent("consumables:server:useHeavyArmor")
         SetPedArmour(ped, 100)
     end)
