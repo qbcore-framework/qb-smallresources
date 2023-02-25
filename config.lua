@@ -232,9 +232,9 @@ Config.BlacklistedVehs = {
     [`dump`] = true,
     [`SHAMAL`] = true,
     [`LUXOR`] = true,
-    [`LUXOR2`] = true,   
+    [`LUXOR2`] = true, 
     [`FIRETRUK`] = true,
-    [`MAVERICK`] = true,  
+    [`MAVERICK`] = true, 
     [`CAMPER`] = true,
 }
 
