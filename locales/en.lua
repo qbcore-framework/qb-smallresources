@@ -59,7 +59,7 @@ local Translations = {
         stop_push = "[E] Stop Pushing"
     },
     text = {
-        afk_kick_message = 'You were kicked for AFK',
+        afk_kick_message = 'You were kicked for AFK'
     }
 }
 

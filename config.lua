@@ -173,8 +173,8 @@ Config.BlacklistedScenarios = {
 
 Config.BlacklistedVehs = {
 -- (weaponised) aircraft 
-     [`akula`] = true, = true,
-     [`annihilator`] = true, = true,
+     [`akula`] = true,
+     [`annihilator`] = true,
      [`annihilator2`] = true,
      [`avenger`] = true,
      [`savage`] = true,
