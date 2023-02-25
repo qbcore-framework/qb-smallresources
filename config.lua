@@ -172,7 +172,6 @@ Config.BlacklistedScenarios = {
 }
 
 Config.BlacklistedVehs = {
--- (weaponised) aircraft 
     [`akula`] = true,
     [`annihilator`] = true,
     [`annihilator2`] = true,
@@ -186,7 +185,6 @@ Config.BlacklistedVehs = {
     [`thruster`] = true,
     [`bombushka`] = true,
     [`molotok`] = true,
---  (weaponised) land/sea vehicles 
     [`ardent`] = true,
     [`minitank`] = true,
     [`rhino`] = true,
@@ -224,7 +222,6 @@ Config.BlacklistedVehs = {
     [`patrolboat`] = true,
     [`caracara`] = true,
     [`trailersmall2`] = true,
---  large vehicles 
     [`titan`] = true,
     [`jet`] = true,
     [`blimp`] = true,
@@ -233,7 +230,6 @@ Config.BlacklistedVehs = {
     [`cargoplane`] = true,
     [`cargoplane2`] = true,
     [`dump`] = true,
---  random? 
     [`SHAMAL`] = true,
     [`LUXOR`] = true,
     [`LUXOR2`] = true,   
