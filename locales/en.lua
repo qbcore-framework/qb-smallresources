@@ -2,7 +2,8 @@ local Translations = {
     afk = {
         will_kick = 'You are AFK and will be kicked in ',
         time_seconds = ' seconds!',
-        time_minutes = ' minute(s)!'
+        time_minutes = ' minute(s)!',
+        kick_message = 'You were kicked for being AFK',
     },
     wash = {
         in_progress = "Vehicle is being washed ..",
