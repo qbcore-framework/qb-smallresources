@@ -21,4 +21,6 @@ RegisterCommand('hu', function()
     end
 end, false)
 
+RegisterKeyMapping('hu', 'Put your hands up', 'KEYBOARD', Config.HandsupKey)
+
 exports('getHandsup', function() return handsup end)
