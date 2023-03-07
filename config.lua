@@ -3,6 +3,8 @@ Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target in
 
 -- To make this simple. Everything you need is in the config, except for discord, weapon drops, vehicle classes for cruise, hands up disabled keys, and recoil
 
+Config.HandsupKey = 'X' --Change this to the desired key for handsup
+
 Config.AFK = {
     ignoredGroups = {
         ['mod'] = true,
