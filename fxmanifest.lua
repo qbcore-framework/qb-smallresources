@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'QB-SmallResources'
-version '1.3.0'
+version '1.3.1'
 
 shared_scripts {
     '@qb-core/shared/locale.lua',
