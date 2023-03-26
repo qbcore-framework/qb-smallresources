@@ -4,7 +4,10 @@ Write up a clear and concise description of what your pull request adds or fixes
 
 If your PR is to fix an issue mention that issue here
 
-**Questions (please complete the following information):**
-- Have you personally loaded this code into an updated qbcore project and checked all it's functionality? [yes/no] (Be honest)
-- Does your code fit the style guidelines? [yes/no]
-- Does your PR fit the contribution guidelines? [yes/no]
+## Checklist
+
+<!-- Put an x inside the [ ] to check an item, like so: [x] -->
+
+-   [ ] I have personally loaded this code into an updated qbcore project and checked all of its functionality.
+-   [ ] My code fits the style guidelines.
+-   [ ] My PR fits the contribution guidelines.
