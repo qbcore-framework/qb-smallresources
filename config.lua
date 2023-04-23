@@ -137,7 +137,7 @@ Config.ConsumablesCustom = {
     --     },
     --     ['replenish'] = {
     --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
-    --         replenish = math.random(20, 40), 
+    --         replenish = math.random(20, 40),
     --         isAlcohol = false, -- if you want it to add alcohol count
     --         event = false, -- 'eventname' if you want it to trigger an outside event on use useful for drugs
     --         server = false -- if the event above is a server event
@@ -221,6 +221,10 @@ Config.BlacklistedVehs = {
     [`voltic2`] = true,
 }
 
+Config.BlacklistedWeapons = {
+    [`WEAPON_RAILGUN`] = true,
+}
+
 Config.BlacklistedPeds = {
     [`s_m_y_ranger_01`] = true,
     [`s_m_y_sheriff_01`] = true,
@@ -274,7 +278,7 @@ Config.Teleports = {
             ["AllowVehicle"] = false,
             label = false
         },
-        -- [3] = { 
+        -- [3] = {
         --     ['poly'] = {
         --         coords = vector3(0.0, 0.0, 0.0),
         --         heading = 0.0,
