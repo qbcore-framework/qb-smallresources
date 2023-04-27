@@ -59,11 +59,10 @@ local logQueue = {}
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local tag = tagEveryone or false
     local webHook = Webhooks[name] or Webhooks['default']
-    local colorCode = Colors[color] or Colors['default']
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = colorCode,
+            ['color'] = Colors[color] or Colors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
