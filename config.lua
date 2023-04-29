@@ -325,7 +325,8 @@ Config.Teleports = {
 
 Config.DefaultPrice = 20 -- Default price for the carwash
 Config.DirtLevel = 0.1 -- Threshold for the dirt level to be counted as dirty
-Config.CarWash = { -- carwash
+Config.CarWash = {
+    -- South Los Santos Carson Avenue
     [1] = {
         ["label"] = "Hands Free Carwash",
         ["poly"] = {
@@ -335,6 +336,7 @@ Config.CarWash = { -- carwash
             heading = 359
         }
     },
+    -- South Los Santos Innocence Boulevard
     [2] = {
         ["label"] = "Hands Free Carwash",
         ["poly"] = {
@@ -344,6 +346,7 @@ Config.CarWash = { -- carwash
             heading = 0
         }
     },
+    -- Paleto Bay Boulevard
     [3] = {
         ["label"] = "Hands Free Carwash",
         ["poly"] = {
@@ -353,6 +356,7 @@ Config.CarWash = { -- carwash
             heading = 315
         }
     },
+    -- Sandy Shores
     [4] = {
         ["label"] = "Hands Free Carwash",
         ["poly"] = {
@@ -362,6 +366,7 @@ Config.CarWash = { -- carwash
             heading = 21
         }
     },
+    -- Little Seoul gas station
     [5] = {
         ["label"] = "Hands Free Carwash",
         ["poly"] = {
