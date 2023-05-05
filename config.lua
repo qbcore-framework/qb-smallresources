@@ -10,7 +10,7 @@ Config.AFK = {
         ['god'] = true
     },
     secondsUntilKick = 1800, -- AFK Kick Time Limit (in seconds)
-    AFKKickInCharMenu = false -- Set to true if you want to kick players for being AFK even when they are in the character menu.
+    kickInCharMenu = false -- Set to true if you want to kick players for being AFK even when they are in the character menu.
 }
 
 Config.Binoculars = {
