@@ -40,6 +40,9 @@ Config.DispatchServices = {
     [15] = false, -- Biker Backup
 }
 
+-- Set to true if you want to kick players for being AFK even when they are in the character menu.
+Config.AFKKickInCharMenu = false
+
 -- Enable or disable the wanted level
 Config.EnableWantedLevel = false
 
