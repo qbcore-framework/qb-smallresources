@@ -12,6 +12,11 @@ Config.AFK = {
     secondsUntilKick = 1800 -- AFK Kick Time Limit (in seconds)
 }
 
+Config.HandsUp = {
+    command = 'hu',
+    keybind = 'X',
+}
+
 Config.Binoculars = {
     fov_max = 70.0,
     fov_min = 5.0, -- max zoom level (smaller fov is more zoom)
