@@ -32,6 +32,7 @@ end)
 function getTimeUnit(time)
     return time >= 60 and 'minutes' or 'seconds'
 end
+
 if Config.AFK.enabled then
     CreateThread(function()
         local time = nil
