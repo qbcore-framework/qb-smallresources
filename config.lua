@@ -4,12 +4,13 @@ Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target in
 -- To make this simple. Everything you need is in the config, except for discord, weapon drops, vehicle classes for cruise, hands up disabled keys, and recoil
 
 Config.AFK = {
+    enabled = true, -- Enable or disable AFK Kick
     ignoredGroups = {
         ['mod'] = true,
         ['admin'] = true,
         ['god'] = true
     },
-    secondsUntilKick = 1800 -- AFK Kick Time Limit (in seconds)
+    secondsUntilKick = 1800, -- AFK Kick Time Limit (in seconds)
 }
 
 Config.Binoculars = {

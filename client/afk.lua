@@ -1,17 +1,8 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local checkUser = true
-local prevPos, time = nil, nil
-local timeMinutes = {
-    ['900'] = 'minutes',
-    ['600'] = 'minutes',
-    ['300'] = 'minutes',
-    ['150'] = 'minutes',
-    ['60'] = 'minutes',
-    ['30'] = 'seconds',
-    ['20'] = 'seconds',
-    ['10'] = 'seconds',
-}
+local checkInterval = 10
+local notificationDuration = (checkInterval - 2) * 1000
 
 local function updatePermissionLevel()
     QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(userGroups)
@@ -38,36 +29,51 @@ RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function()
     updatePermissionLevel()
 end)
 
-CreateThread(function()
-    while true do
-        Wait(10000)
-        local playerPed = PlayerPedId()
-        if isLoggedIn then
-            if checkUser then
+function getTimeUnit(time)
+    return time >= 60 and 'minutes' or 'seconds'
+end
+
+if Config.AFK.enabled then
+    CreateThread(function()
+        local time = nil
+        local prevPos = nil
+
+        while true do
+            Wait(checkInterval * 1000)
+            local playerPed = PlayerPedId()
+            if not time then
+                time = Config.AFK.secondsUntilKick
+            end
+
+            if not checkUser then
+                goto skip
+            end
+
+            if isLoggedIn then
                 local currentPos = GetEntityCoords(playerPed, true)
-                if prevPos then
-                    if currentPos == prevPos then
-                        if time then
-                            if time > 0 then
-                                local _type = timeMinutes[tostring(time)]
-                                if _type == 'minutes' then
-                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. math.ceil(time / 60) .. Lang:t('afk.time_minutes'), 'error', 10000)
-                                elseif _type == 'seconds' then
-                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. time .. Lang:t('afk.time_seconds'), 'error', 10000)
-                                end
-                                time -= 10
-                            else
-                                TriggerServerEvent('KickForAFK')
-                            end
-                        else
-                            time = Config.AFK.secondsUntilKick
-                        end
-                    else
-                        time = Config.AFK.secondsUntilKick
-                    end
+                if currentPos ~= prevPos then
+                    time = Config.AFK.secondsUntilKick
                 end
                 prevPos = currentPos
             end
+
+            if time > 0 then
+                if time < Config.AFK.secondsUntilKick / 2 then
+                    local timeString = math.ceil(time / 60) .. Lang:t('afk.time_minutes')
+
+                    if getTimeUnit(time) == 'seconds' then
+                        timeString = time .. Lang:t('afk.time_seconds')
+                    end
+
+                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. timeString, 'error', notificationDuration)
+                end
+
+                time -= checkInterval
+            else
+                TriggerServerEvent('KickForAFK')
+            end
+
+            ::skip::
         end
-    end
-end)
+    end)
+end

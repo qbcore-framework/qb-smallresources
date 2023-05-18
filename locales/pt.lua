@@ -1,9 +1,9 @@
 local Translations = {
     afk = {
-        will_kick = "Estás AFK e vais ser kickado em",
-        time_seconds = " segundos!",
-        time_minutes = " minutos!",
-        kick_message = "Foste Kickado Por Estares AFK",
+        ["will_kick"] = "Estás AFK e vais ser kickado em ",
+        ["time_minutes"] = " minutos",
+        ["time_seconds"] = " segundos",
+        ["kick_message"] = "Foste Kickado Por Estares AFK",
     },
     error = {
         ["car_wash_canceled"] = "Lavagem cancelada...",
