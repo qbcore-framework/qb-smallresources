@@ -13,6 +13,11 @@ Config.AFK = {
     kickInCharMenu = false -- Set to true if you want to kick players for being AFK even when they are in the character menu.
 }
 
+Config.HandsUp = {
+    command = 'hu',
+    keybind = 'X',
+}
+
 Config.Binoculars = {
     fov_max = 70.0,
     fov_min = 5.0, -- max zoom level (smaller fov is more zoom)
