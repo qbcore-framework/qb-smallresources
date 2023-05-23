@@ -73,20 +73,17 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
             },
         }
     }
-    
-    if not logQueue[name] then
-        logQueue[name] = {}
-    end
-    
-    table.insert(logQueue[name], {webhook = webHook, data = embedData})
-    
+
+    if not logQueue[name] then logQueue[name] = {} end
+    logQueue[name][#logQueue[name]+1] = {webhook = webHook, data = embedData}
+
     if #logQueue[name] >= 10 then
         local postData = { username = 'QB Logs', embeds = {} }
-        
+
         for i = 1, #logQueue[name] do
-            table.insert(postData.embeds, logQueue[name][i].data[1])
+            postData.embeds[#postData.embeds+1] = logQueue[name][i].data[1]
         end
-        
+
         PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
 
         logQueue[name] = {}
@@ -95,8 +92,8 @@ end)
 
 Citizen.CreateThread(function()
     local timer = 0
-    while true do        
-        Citizen.Wait(1000)
+    while true do
+        Wait(1000)
         timer = timer + 1
         if timer >= 60 then -- If 60 seconds have passed, post the logs
             timer = 0
@@ -104,7 +101,7 @@ Citizen.CreateThread(function()
                 if #queue > 0 then
                     local postData = { username = 'QB Logs', embeds = {} }
                     for i = 1, #queue do
-                        table.insert(postData.embeds, queue[i].data[1])
+                        postData.embeds[#postData.embeds+1] = queue[i].data[1]
                     end
                     PerformHttpRequest(queue[1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
                     logQueue[name] = {}
