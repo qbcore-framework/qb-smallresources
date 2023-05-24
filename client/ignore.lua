@@ -114,7 +114,7 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    while (Config.RemovePistolWhipping) do
+    while Config.RemovePistolWhipping do
         if IsPedAiming(PlayerPedId()) then
             DisableControlAction(1, 140, true)
             DisableControlAction(1, 141, true)
