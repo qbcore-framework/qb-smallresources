@@ -27,7 +27,7 @@ RegisterCommand('tackle', function()
         TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
         TackleAnim()
     end
-end)
+end, false)
 
 RegisterKeyMapping('tackle', 'Tackle Someone', 'KEYBOARD', 'LMENU')
 
