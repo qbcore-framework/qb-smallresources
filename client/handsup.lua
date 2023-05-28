@@ -2,6 +2,7 @@ local animDict = "missminuteman_1ig_2"
 local anim = "handsup_base"
 local handsup = false
 
+
 local function handsUpListener()
     CreateThread(function()
         while true do
@@ -17,7 +18,7 @@ local function handsUpListener()
     end)
 end
 
-RegisterCommand('hu', function()
+RegisterCommand(Config.HandsUp.command, function()
     local ped = PlayerPedId()
     if not HasAnimDictLoaded(animDict) then
         RequestAnimDict(animDict)
@@ -37,4 +38,5 @@ RegisterCommand('hu', function()
     end
 end, false)
 
+RegisterKeyMapping(Config.HandsUp.command, 'Hands Up', 'keyboard', Config.HandsUp.keybind)
 exports('getHandsup', function() return handsup end)

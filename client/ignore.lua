@@ -101,3 +101,14 @@ CreateThread(function()
         SetPedDropsWeaponsWhenDead(v, false)
     end
 end)
+
+CreateThread(function()
+    while true do
+        Wait(2500)
+        local ped = PlayerPedId()
+        local weapon = GetSelectedPedWeapon(ped)
+        if Config.BlacklistedWeapons[weapon] then
+            RemoveWeaponFromPed(ped, weapon)
+        end
+    end
+end)
