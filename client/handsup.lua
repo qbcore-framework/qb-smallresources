@@ -2,7 +2,6 @@ local animDict = "missminuteman_1ig_2"
 local anim = "handsup_base"
 local handsup = false
 
-
 local function handsUpListener()
     CreateThread(function()
         while true do
