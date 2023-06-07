@@ -86,7 +86,7 @@ Config.Stun = {
     max = 7000
 }
 
-Config.RemovePistolWhipping = true
+Config.RemovePistolWhipping = true  -- Removes Pistol Whipping
 
 Config.Cruise = 'mp/h'
 Config.IdleCamera = true
