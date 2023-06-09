@@ -66,7 +66,13 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-    DisableIdleCamera(true)
+    CreateThread(function()
+        while true do
+            InvalidateIdleCam()
+            InvalidateVehicleIdleCam()
+            Wait(1000) --The idle camera activates after 30 second so we don't need to call this per frame
+        end
+    end)
 end
 
 RegisterNetEvent('QBCore:Client:DrawWeapon', function()
