@@ -120,11 +120,14 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    local ped = PlayerPedId()
     while Config.RemovePistolWhipping do
-        if IsPedArmed(PlayerPedId(), 6) then
+        if IsPedArmed(ped, 7) and not IsPedArmed(ped, 1) and not IsPedInAnyVehicle(ped, true) then
             DisableControlAction(1, 140, true)
             DisableControlAction(1, 141, true)
             DisableControlAction(1, 142, true)
+        else
+            Wait(1000)
         end
         Wait(5)
     end
