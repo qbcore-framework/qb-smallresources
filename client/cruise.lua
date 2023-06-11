@@ -36,19 +36,19 @@ end
 
 local function TriggerCruiseControl(veh)
     local ped = PlayerPedId()
-    local speed = GetEntitySpeed(veh)
     if IsPedInAnyVehicle(ped, false) then
+        local speed = GetEntitySpeed(veh)
         if speed > 0 and GetVehicleCurrentGear(veh) > 0 then
-            speed = GetEntitySpeed(veh)
-            local TransformedSpeed = TransformToSpeed(speed) -- Comment me for mp/h
-            TriggerEvent('seatbelt:client:ToggleCruise')
-            QBCore.Functions.Notify(Lang:t('cruise.activated') .. TransformedSpeed .." "..Config.Cruise) -- Comment me for mp/h
+            local TransformedSpeed = TransformToSpeed(speed)
+            TriggerEvent('seatbelt:client:ToggleCruise', true)
+            QBCore.Functions.Notify(Lang:t('cruise.activated') .. TransformedSpeed .." "..Config.Cruise)
             CreateThread(function()
                 while speed > 0 and GetPedInVehicleSeat(veh, -1) == ped do
                     Wait(0)
+                    -- Abnormally low speed
                     if not IsTurningOrHandBraking() and GetEntitySpeed(veh) < speed - 1.5 then
                         speed = 0
-                        TriggerEvent('seatbelt:client:ToggleCruise')
+                        TriggerEvent('seatbelt:client:ToggleCruise', false)
                         QBCore.Functions.Notify(Lang:t('cruise.deactivated'), "error")
                         Wait(2000)
                         break
@@ -56,13 +56,14 @@ local function TriggerCruiseControl(veh)
                     if not IsTurningOrHandBraking() and IsVehicleOnAllWheels(veh) and GetEntitySpeed(veh) < speed then
                         SetVehicleForwardSpeed(veh, speed)
                     end
+                    -- Update cruise control speed
                     if IsControlJustPressed(1, 246) then
-                        TriggerEvent('seatbelt:client:ToggleCruise')
-                        speed = GetEntitySpeed(veh) -- Comment me for mp/h
+                        speed = GetEntitySpeed(veh)
                     end
+                    -- Brake usage
                     if IsControlJustPressed(2, 72) then
                         speed = 0
-                        TriggerEvent('seatbelt:client:ToggleCruise')
+                        TriggerEvent('seatbelt:client:ToggleCruise', false)
                         QBCore.Functions.Notify(Lang:t('cruise.deactivated'), "error")
                         Wait(2000)
                         break
