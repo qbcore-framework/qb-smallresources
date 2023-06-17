@@ -120,12 +120,13 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    local ped = PlayerPedId()
     while Config.RemovePistolWhipping do
         if LocalPlayer.state.isLoggedIn then
-            if GetSelectedPedWeapon(PlayerPedId()) ~= GetHashKey('weapon_unarmed') and (not IsPedArmed(PlayerPedId(), 1)) then
-                if (not IsPedInAnyVehicle(PlayerPedId(), true)) then
-                    DisableControlAction(0, 140, true) 
-                    DisableControlAction(0, 141, true) 
+            if GetSelectedPedWeapon(ped) ~= GetHashKey('weapon_unarmed') and (not IsPedArmed(ped, 1)) then
+                if (not IsPedInAnyVehicle(ped, true)) then
+                    DisableControlAction(0, 140, true)
+                    DisableControlAction(0, 141, true)
                     DisableControlAction(0, 142, true)
                 else
                     Wait(1000)
