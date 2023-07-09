@@ -43,6 +43,7 @@ local recoils = {
     [727643628] = 0.3,            --['weapon_ceramicpistol']
     [-1853920116] = 0.3,        --['weapon_navyrevolver']
     [1470379660] = 0.3,            --['weapon_gadgetpistol']
+	[465894841] = 0.4,            --['weapon_pistolxm3']
 
     -- Submachine Guns
     [324215364] = 0.5,            --['weapon_microsmg']
@@ -53,6 +54,7 @@ local recoils = {
     [-619010992] = 0.3,            --['weapon_machinepistol']
     [-1121678507] = 0.1,        --['weapon_minismg']
     [1198256469] = 0.3,            --['weapon_raycarbine']
+	[350597077] = 0.3,            --['weapon_tecpistol']
 
     -- Shotguns
     [487013001] = 0.4,            --['weapon_pumpshotgun']
@@ -78,6 +80,8 @@ local recoils = {
     [-1768145561] = 0.2,        --['weapon_specialcarbine_mk2']
     [-2066285827] = 0.2,        --['weapon_bullpuprifle_mk2']
     [-1658906650] = 0.0,        --['weapon_militaryrifle']
+	[3347935668] = 0.3,        --['weapon_heavyrifle']
+	[3520460075] = 0.2,        --['weapon_tacticalrifle']
 
     -- Light Machine Guns
     [-1660422300] = 0.1,        --['weapon_mg']
