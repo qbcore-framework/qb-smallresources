@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local seatbeltOn = false
-local crashSpeedSeatbeltOn = Config.CrashSeatbeltOnSpeed
+local crashSeatbeltOnSpeed = Config.CrashSeatbeltOnSpeed
 local collisionSeatbeltOnSpeed = Config.CollisionSeatbeltOnSpeed
 local accidentSeatbeltOffSpeed = Config.AccidentSeatbeltOffSpeed
 local chanceToSeatEjectionSpeed = Config.ChanceToSeatEjectionSpeed;
