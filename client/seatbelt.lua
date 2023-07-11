@@ -1,5 +1,9 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local seatbeltOn = false
+local crashSpeedSeatbeltOn = Config.CrashSeatbeltOnSpeed
+local collisionSeatbeltOnSpeed = Config.CollisionSeatbeltOnSpeed
+local accidentSeatbeltOffSpeed = Config.AccidentSeatbeltOffSpeed
+local chanceToSeatEjectionSpeed = Config.ChanceToSeatEjectionSpeed;
 local harnessOn = false
 local harnessHp = Config.HarnessUses
 local handbrake = 0
@@ -110,49 +114,18 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                 frameBodyChange = 0
             end
             if frameBodyChange ~= 0 then
-                if lastFrameVehiclespeed > 110 and thisFrameVehicleSpeed < (lastFrameVehiclespeed * 0.75) and not damagedone then
-                    if frameBodyChange > 18.0 then
-                        if not seatbeltOn and not IsThisModelABike(currentVehicle) then
-                            if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
-                                if not harnessOn then
-                                    EjectFromVehicle()
-                                else
-                                    harnessHp -= 1
-                                    TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
-                                end
-                            end
-                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 150 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 150 then
-                                    if not harnessOn then
-                                        EjectFromVehicle()
-                                    else
-                                        harnessHp -= 1
-                                        TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
-                                    end
-                                end
-                            end
-                        end
-                    else
-                        if not seatbeltOn and not IsThisModelABike(currentVehicle) then
-                            if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
-                                if not harnessOn then
-                                    EjectFromVehicle()
-                                else
-                                    harnessHp -= 1
-                                    TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
-                                end
-                            end
-                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 120 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 200 then
-                                    if not harnessOn then
-                                        EjectFromVehicle()
-                                    else
-                                        harnessHp -= 1
-                                        TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
-                                    end
-                                end
+                if lastFrameVehiclespeed > chanceToSeatEjectionSpeed and thisFrameVehicleSpeed < (lastFrameVehiclespeed * 0.75) and not damagedone then
+                    if not IsThisModelABike(currentVehicle) then
+                        local damageSpeed = seatbeltOn and (
+                            frameBodyChange > 18.0 and crashSeatbeltOnSpeed or collisionSeatbeltOnSpeed
+                        ) or accidentSeatbeltOffSpeed
+
+                        if math.random(math.ceil(lastFrameVehiclespeed)) > damageSpeed then
+                            if harnessOn then
+                                harnessHp -= 1
+                                TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
+                            else
+                                EjectFromVehicle()
                             end
                         end
                     end
