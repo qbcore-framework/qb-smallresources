@@ -54,7 +54,7 @@ end
 
 local function ResetHandBrake()
     if handbrake <= 0 then return end
-    handbrake -= 1
+    handbrake = handbrake - 1
 end
 
 function SeatBeltLoop()
@@ -122,7 +122,7 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
 
                         if math.random(math.ceil(lastFrameVehiclespeed)) > damageSpeed then
                             if harnessOn then
-                                harnessHp -= 1
+                                harnessHp = harnessHp - 1
                                 TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                             else
                                 EjectFromVehicle()
