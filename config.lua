@@ -9,7 +9,13 @@ Config.AFK = {
         ['admin'] = true,
         ['god'] = true
     },
-    secondsUntilKick = 1800 -- AFK Kick Time Limit (in seconds)
+    secondsUntilKick = 1800, -- AFK Kick Time Limit (in seconds)
+    kickInCharMenu = false -- Set to true if you want to kick players for being AFK even when they are in the character menu.
+}
+
+Config.HandsUp = {
+    command = 'hu',
+    keybind = 'X',
 }
 
 Config.Binoculars = {
@@ -45,8 +51,8 @@ Config.EnableWantedLevel = false
 
 -- To Set This Up visit https://forum.cfx.re/t/how-to-updated-discord-rich-presence-custom-image/157686
 Config.Discord = {
-    ["IsEnabled"] = true, -- If set to true, then discord rich presence will be enabled
-    ["ApplicationId"] = '915674222628585472', -- The discord application id
+    ["IsEnabled"] = false, -- If set to true, then discord rich presence will be enabled
+    ["ApplicationId"] = '00000000000000000', -- The discord application id
     ["IconLarge"] = 'logo_name', -- The name of the large icon
     ["IconLargeHoverText"] = 'This is a Large icon with text', -- The hover text of the large icon
     ["IconSmall"] = 'small_logo_name', -- The name of the small icon
@@ -66,12 +72,6 @@ Config.Discord = {
     }
 }
 
-Config.Disable = {
-    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
-    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
-    displayAmmo = true -- false disables ammo display
-}
-
 Config.Density = {
     ['parked'] = 0.8,
     ['vehicle'] = 0.8,
@@ -85,6 +85,8 @@ Config.Stun = {
     min = 4000,
     max = 7000
 }
+
+Config.RemovePistolWhipping = true  -- Removes Pistol Whipping
 
 Config.Cruise = 'mp/h'
 Config.IdleCamera = true
@@ -121,6 +123,9 @@ Config.ConsumablesAlcohol = {
     ["vodka"] = math.random(20, 40),
 }
 
+-- Custom Consumables hand bones
+-- 18905 left hand
+-- 57005 right hand
 Config.ConsumablesCustom = {
     -- ['newitem'] = {
     --     ['progress'] = {
@@ -140,7 +145,7 @@ Config.ConsumablesCustom = {
     --     },
     --     ['replenish'] = {
     --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
-    --         replenish = math.random(20, 40), 
+    --         replenish = math.random(20, 40),
     --         isAlcohol = false, -- if you want it to add alcohol count
     --         event = false, -- 'eventname' if you want it to trigger an outside event on use useful for drugs
     --         server = false -- if the event above is a server event
@@ -220,6 +225,12 @@ Config.BlacklistedVehs = {
     [`rrocket`] = true,
     [`ruiner2`] = true,
     [`deluxo`] = true,
+    [`cargoplane2`] = true,
+    [`voltic2`] = true,
+}
+
+Config.BlacklistedWeapons = {
+    [`WEAPON_RAILGUN`] = true,
 }
 
 Config.BlacklistedPeds = {
@@ -231,6 +242,7 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true,
 }
 
+Config.DisableVestDrawable = false -- Set to TRUE to disable the vest equipped when using heavy armor.
 Config.HolsterVariant = {130,122,3,6,8}
 Config.HolsterableWeapons = {
     --'WEAPON_STUNGUN',
@@ -275,7 +287,7 @@ Config.Teleports = {
             ["AllowVehicle"] = false,
             label = false
         },
-        -- [3] = { 
+        -- [3] = {
         --     ['poly'] = {
         --         coords = vector3(0.0, 0.0, 0.0),
         --         heading = 0.0,
