@@ -66,7 +66,13 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-    DisableIdleCamera(true)
+    CreateThread(function()
+        while true do
+            InvalidateIdleCam()
+            InvalidateVehicleIdleCam()
+            Wait(1000) --The idle camera activates after 30 second so we don't need to call this per frame
+        end
+    end)
 end
 
 RegisterNetEvent('QBCore:Client:DrawWeapon', function()
@@ -110,5 +116,16 @@ CreateThread(function()
         if Config.BlacklistedWeapons[weapon] then
             RemoveWeaponFromPed(ped, weapon)
         end
+    end
+end)
+
+CreateThread(function()
+    while Config.RemovePistolWhipping do
+        if IsPedArmed(PlayerPedId(), 6) then
+            DisableControlAction(1, 140, true)
+            DisableControlAction(1, 141, true)
+            DisableControlAction(1, 142, true)
+        end
+        Wait(5)
     end
 end)
