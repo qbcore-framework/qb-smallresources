@@ -2,7 +2,7 @@ local stage = 0
 local movingForward = false
 local walkSet = "default"
 
-local function RequestWalking(set)
+local function requestWalking(set)
     if HasAnimSetLoaded(set) then return end
     RequestAnimSet(set)
     while not HasAnimSetLoaded(set) do
@@ -10,7 +10,7 @@ local function RequestWalking(set)
     end
 end
 
-local function ResetAnimSet()
+local function resetAnimSet()
     local ped = PlayerPedId()
     if walkSet == "default" then
         ResetPedMovementClipset(ped, 0)
@@ -21,7 +21,7 @@ local function ResetAnimSet()
         ResetPedWeaponMovementClipset(ped)
         ResetPedStrafeClipset(ped)
         Wait(100)
-        RequestWalking(walkSet)
+        requestWalking(walkSet)
         SetPedMovementClipset(ped, walkSet, 1)
         RemoveAnimSet(walkSet)
     end
@@ -43,17 +43,17 @@ CreateThread(function()
                 if stage == 2 then
                     -- Crouch stuff
                     ClearPedTasks(ped)
-                    RequestWalking("move_ped_crouched")
-                    SetPedMovementClipset(ped, "move_ped_crouched",1.0)
+                    requestWalking("move_ped_crouched")
+                    SetPedMovementClipset(ped, "move_ped_crouched", 1.0)
                     SetPedWeaponMovementClipset(ped, "move_ped_crouched")
                     SetPedStrafeClipset(ped, "move_ped_crouched_strafing")
                 elseif stage == 3 then
                     ClearPedTasks(ped)
-                    RequestWalking("move_crawl")
+                    requestWalking("move_crawl")
                 elseif stage > 3 then
                     stage = 0
                     ClearPedTasksImmediately(ped)
-                    ResetAnimSet()
+                    resetAnimSet()
                     SetPedStealthMovement(ped, false, "DEFAULT_ACTION")
                 end
             end
@@ -76,21 +76,21 @@ CreateThread(function()
                     movingForward = true
                     SetPedMoveAnimsBlendOut(ped)
                     local pronepos = GetEntityCoords(ped)
-                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 7, 2.0, 1, 1)
+                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z + 0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 7, 2.0, 1, 1)
                     Wait(500)
                 elseif not IsControlPressed(0, 32) and movingForward then
                     local pronepos = GetEntityCoords(ped)
-                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z+0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 6, 2.0, 1, 1)
+                    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", pronepos.x, pronepos.y, pronepos.z + 0.1, 0.0, 0.0, GetEntityHeading(ped), 100.0, 0.4, 1.0, 6, 2.0, 1, 1)
                     Wait(500)
                     movingForward = false
                 end
 
                 if IsControlPressed(0, 34) then
-                    SetEntityHeading(ped,GetEntityHeading(ped) + 1)
+                    SetEntityHeading(ped, GetEntityHeading(ped) + 1)
                 end
 
                 if IsControlPressed(0, 9) then
-                    SetEntityHeading(ped,GetEntityHeading(ped) - 1)
+                    SetEntityHeading(ped, GetEntityHeading(ped) - 1)
                 end
             end
         else

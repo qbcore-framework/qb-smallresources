@@ -35,7 +35,7 @@ local fireworkList = {
     }
 }
 
-local function DrawText3Ds(x, y, z, text)
+local function DrawText3D(x, y, z, text)
 	SetTextScale(0.35, 0.35)
     SetTextFont(4)
     SetTextProportional(true)
@@ -55,7 +55,7 @@ local function fireworkText()
         while true do
             Wait(0)
             if fireworkTime > 0 and fireworkLoc then
-                DrawText3Ds(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, Lang:t('firework.time_left')..fireworkTime)
+                DrawText3D(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, Lang:t('firework.time_left')..fireworkTime)
             end
             if fireworkTime <= 0 then break end
         end

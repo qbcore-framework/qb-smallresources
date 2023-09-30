@@ -291,7 +291,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
         end
         Wait(sleep)
         if currWeapon == nil or currWeapon == `WEAPON_UNARMED` then
-            weaponcheck = weaponcheck + 1
+            weaponcheck += 1
             if weaponcheck == 2 then
                 break
             end
