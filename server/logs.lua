@@ -56,12 +56,13 @@ local colors = { -- https://www.spycolor.com/
 local logQueue = {}
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
+    local postData = {}
     local tag = tagEveryone or false
     local webHook = webhooks[name] or webhooks['default']
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = colors[color] or colors['default'],
+            ['color'] = Colors[color] or Colors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
@@ -77,14 +78,13 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     logQueue[name][#logQueue[name] + 1] = {webhook = webHook, data = embedData}
 
     if #logQueue[name] >= 10 then
-        local postData = {username = 'QB Logs', embeds = {}}
-
-        for i = 1, #logQueue[name] do
-            postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1]
+        if tag then
+            postData = { username = 'QB Logs', content = '@everyone', embeds = {} }
+        else
+            postData = { username = 'QB Logs', embeds = {}}
         end
-
+        for i = 1, #logQueue[name] do postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1] end
         PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
-
         logQueue[name] = {}
     end
 end)
