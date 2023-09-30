@@ -100,8 +100,8 @@ local function checkWeapon(newWeap)
 end
 
 local function isWeaponHolsterable(weap)
-    for i = 1, #Config.HolsterableWeapons do
-        if joaat(Config.HolsterableWeapons[i]) == weap then
+    for i = 1, #Config.Config.WeapDraw.weapons do
+        if joaat(Config.Config.WeapDraw.weapons[i]) == weap then
             return true
         end
     end
@@ -139,8 +139,8 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
 
                 local holsterVariant = GetPedDrawableVariation(ped, 8)
                 wearingHolster = false
-                for i = 1, #Config.HolsterVariants, 1 do
-                    if holsterVariant == Config.HolsterVariants[i] then
+                for i = 1, #Config.WeapDraw.variants, 1 do
+                    if holsterVariant == Config.WeapDraw.variants[i] then
                         wearingHolster = true
                     end
                 end

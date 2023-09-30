@@ -2,6 +2,9 @@ Config = {}
 
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 Config.PauseMapText = '' -- Text shown above the map when ESC is pressed. If left empty 'FiveM' will appear
+Config.HarnessUses = 20
+Config.DamageNeeded = 100.0 -- amount of damage till you can push your vehicle. 0-1000
+Config.EnableProne = false -- prone isnt recomended at this time
 
 Config.AFK = {
     ignoredGroups = {
@@ -75,10 +78,6 @@ Config.Density = {
     peds = 0.8,
     scenario = 0.8
 }
-
-Config.HarnessUses = 20
-Config.DamageNeeded = 100.0 -- amount of damage till you can push your vehicle. 0-1000
-Config.EnableProne = false -- prone isnt recomended at this time
 
 Config.Disable = {
     hudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
@@ -225,18 +224,20 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true
 }
 
-Config.HolsterVariants = {130, 122, 3, 6, 8}
-Config.HolsterableWeapons = {
-    --'WEAPON_STUNGUN',
-    'WEAPON_PISTOL',
-    'WEAPON_PISTOL_MK2',
-    'WEAPON_COMBATPISTOL',
-    'WEAPON_APPISTOL',
-    'WEAPON_PISTOL50',
-    'WEAPON_REVOLVER',
-    'WEAPON_SNSPISTOL',
-    'WEAPON_HEAVYPISTOL',
-    'WEAPON_VINTAGEPISTOL'
+Config.WeapDraw = {
+    variants = {130, 122, 3, 6, 8},
+    weapons = {
+        --'WEAPON_STUNGUN',
+        'WEAPON_PISTOL',
+        'WEAPON_PISTOL_MK2',
+        'WEAPON_COMBATPISTOL',
+        'WEAPON_APPISTOL',
+        'WEAPON_PISTOL50',
+        'WEAPON_REVOLVER',
+        'WEAPON_SNSPISTOL',
+        'WEAPON_HEAVYPISTOL',
+        'WEAPON_VINTAGEPISTOL'
+    }
 }
 
 Config.Objects = { -- for object removal
