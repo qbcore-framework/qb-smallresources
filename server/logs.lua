@@ -50,13 +50,13 @@ local colors = { -- https://www.spycolor.com/
     ['orange'] = 16744192,
     ['yellow'] = 16776960,
     ['pink'] = 16761035,
-    ["lightgreen"] = 65309,
+    ['lightgreen'] = 65309,
 }
 
 local logQueue = {}
-local postData = {}
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
+    local postData = {}
     local tag = tagEveryone or false
     local webHook = webhooks[name] or webhooks['default']
     local embedData = {
