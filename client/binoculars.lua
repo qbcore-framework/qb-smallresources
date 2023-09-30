@@ -8,22 +8,15 @@ local speed_ud = 8.0 -- speed by which the camera pans up-down
 --FUNCTIONS--
 
 local function HideHUDThisFrame()
+    local componentsToHide = {1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 18, 19}
+
+    for i = 1, #componentsToHide do
+        local component = componentsToHide[i]
+        HideHudComponentThisFrame(component)
+    end
+
     HideHelpTextThisFrame()
     HideHudAndRadarThisFrame()
-    HideHudComponentThisFrame(1) -- Wanted Stars
-    HideHudComponentThisFrame(2) -- Weapon icon
-    HideHudComponentThisFrame(3) -- Cash
-    HideHudComponentThisFrame(4) -- MP CASH
-    HideHudComponentThisFrame(6)
-    HideHudComponentThisFrame(7)
-    HideHudComponentThisFrame(8)
-    HideHudComponentThisFrame(9)
-    HideHudComponentThisFrame(13) -- Cash Change
-    HideHudComponentThisFrame(11) -- Floating Help Text
-    HideHudComponentThisFrame(12) -- more floating help text
-    HideHudComponentThisFrame(15) -- Subtitle Text
-    HideHudComponentThisFrame(18) -- Game Stream
-    HideHudComponentThisFrame(19) -- weapon wheel
 end
 
 local function checkInputRot(cam, zoomValue)
