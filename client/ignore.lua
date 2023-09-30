@@ -65,7 +65,7 @@ CreateThread(function()
     SetMaxWantedLevel(wantedLevel)
 end)
 
-if Config.Disable.idleCamera then 
+if Config.Disable.idleCamera then
     CreateThread(function()
         while true do
             InvalidateIdleCam()
