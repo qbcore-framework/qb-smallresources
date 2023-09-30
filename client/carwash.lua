@@ -48,26 +48,61 @@ end)
 
 CreateThread(function()
     for k, v in pairs(Config.CarWash.locations) do
-            while listen do
-                local ped = PlayerPedId()
-                local pedVeh = GetVehiclePedIsIn(ped, false)
-                local driver = GetPedInVehicleSeat(pedVeh, -1)
-                local dirtLevel = GetVehicleDirtLevel(pedVeh)
-                if driver == ped and not washingVeh then
-                    if IsControlPressed(0, 38) then
-                        if dirtLevel > Config.CarWash.dirtLevel then
-                            TriggerServerEvent('qb-carwash:server:washCar')
-                        else
-                            QBCore.Functions.Notify(Lang:t('wash.dirty'), 'error')
-                        end
-                        listen = false
-                        break
+        if Config.UseTarget then
+            exports["qb-target"]:AddBoxZone('carwash_'..k, v.coords, v.length, v.width, {
+                name = 'carwash_'..k,
+                debugPoly = false,
+                heading = v.heading,
+                minZ = v.coords.z - 5,
+                maxZ = v.coords.z + 5,
+            }, {
+                    options = {
+                        {
+                            icon = "fa-car-wash",
+                            label = Lang:t('wash.wash_vehicle_target'),
+                            action = function()
+                                local ped = PlayerPedId()
+                                local pedVeh = GetVehiclePedIsIn(ped, false)
+                                local driver = GetPedInVehicleSeat(pedVeh, -1)
+                                local dirtLevel = GetVehicleDirtLevel(pedVeh)
+                                if driver == ped and not washingVeh then
+                                    if dirtLevel > Config.CarWash.dirtLevel then
+                                        TriggerServerEvent('qb-carwash:server:washCar')
+                                    else
+                                        QBCore.Functions.Notify(Lang:t('wash.dirty'), 'error')
+                                    end
+                                end
+                            end,
+                            canInteract = function()
+                                if IsPedInAnyVehicle(PlayerPedId(), false) then return true end
+                            end,
+                        }
+                    },
+                distance = 3
+            })
+        else
+            washPoly[#washPoly + 1] = BoxZone:Create(vector3(v.coords.x, v.coords.y, v.coords.z), v.length, v.width, {
+                heading = v.heading,
+                name = 'carwash',
+                debugPoly = false,
+                minZ = v.coords.z - 5,
+                maxZ = v.coords.z + 5,
+            })
+            local washCombo = ComboZone:Create(washPoly, {name = "washPoly"})
+            washCombo:onPlayerInOut(function(isPointInside)
+                if isPointInside and IsPedInAnyVehicle(PlayerPedId(), false) then
+                    exports['qb-core']:DrawText(Lang:t('wash.wash_vehicle'),'left')
+                    if not listen then
+                        listen = true
+                        WashLoop()
                     end
+                else
+                    listen = false
+                    exports['qb-core']:HideText()
                 end
-                Wait(0)
-            end
+            end)
         end
-    --end
+    end
 end)
 
 CreateThread(function()
