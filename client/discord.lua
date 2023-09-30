@@ -8,7 +8,7 @@ CreateThread(function()
         SetDiscordRichPresenceAssetSmall(Config.Discord.iconSmall)
         SetDiscordRichPresenceAssetSmallText(Config.Discord.iconSmallHoverText)
 
-        if Config.Discord.ShowPlayerCount then
+        if Config.Discord.showPlayerCount then
             QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
                 SetRichPresence('Players: ' .. result .. '/' .. Config.Discord.maxPlayers)
             end)
