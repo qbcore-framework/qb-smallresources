@@ -62,7 +62,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = Colors[color] or Colors['default'],
+            ['color'] = colors[color] or colors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
