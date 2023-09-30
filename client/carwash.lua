@@ -94,7 +94,7 @@ CreateThread(function()
                     exports['qb-core']:DrawText(Lang:t('wash.wash_vehicle'),'left')
                     if not listen then
                         listen = true
-                        WashLoop()
+                        washLoop()
                     end
                 else
                     listen = false
