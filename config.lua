@@ -108,22 +108,22 @@ Config.Consumables = {
     },
     custom = { -- put any custom items here
     -- ['newitem'] = {
-    --     ['progress'] = {
+    --     progress = {
     --         label = 'Using Item...',
     --         time = 5000
     --     },
-    --     ['animation'] = {
+    --     animation = {
     --         animDict = 'amb@prop_human_bbq@male@base',
     --         anim = 'base',
     --         flags = 8,
     --     },
-    --     ['prop'] = {
+    --     prop = {
     --         model = false,
     --         bone = false,
     --         coords = false, -- vector 3 format
     --         rotation = false, -- vector 3 format
     --     },
-    --     ['replenish'] = {'''
+    --     replenish = {'''
     --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
     --         replenish = math.random(20, 40),
     --         isAlcohol = false, -- if you want it to add alcohol count
