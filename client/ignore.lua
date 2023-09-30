@@ -1,27 +1,33 @@
 CreateThread(function()
     while true do
-        for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
+        for _, sctyp in next, Config.BlacklistedScenarios.types do
             SetScenarioTypeEnabled(sctyp, false)
         end
-        for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
+        for _, scgrp in next, Config.BlacklistedScenarios.groups do
             SetScenarioGroupEnabled(scgrp, false)
         end
         Wait(10000)
     end
 end)
 
-AddEventHandler("populationPedCreating", function(x, y, z)
+AddEventHandler('populationPedCreating', function(x, y, z)
 	Wait(500) -- Give the entity some time to be created
 	local _, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
 	SetPedDropsWeaponsWhenDead(handle, false)
 end)
 
+CreateThread(function()
+    local mapText = Config.PauseMapText
+    if mapText == '' or type(mapText) ~= 'string' then mapText = 'FiveM' end
+    Citizen.InvokeNative(joaat('ADD_TEXT_ENTRY'), 'FE_THDR_GTAO', mapText)
+end)
+
 CreateThread(function() -- all these should only need to be called once
 	if Config.DisableAmbience then
-		StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
-		SetAudioFlag("DisableFlightMusic", true)
+		StartAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE')
+		SetAudioFlag('DisableFlightMusic', true)
 	end
-	SetAudioFlag("PoliceScannerDisabled", true)
+	SetAudioFlag('PoliceScannerDisabled', true)
 	SetGarbageTrucks(false)
 	SetCreateRandomCops(false)
 	SetCreateRandomCopsNotOnScenarios(false)
@@ -37,32 +43,26 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
-if Config.Stun.active then
-    CreateThread(function()
-        local sleep
-        while true do
-            sleep = 1000
-            local ped = PlayerPedId()
-            if IsPedBeingStunned(ped, 0) then
-                sleep = 0
-                SetPedMinGroundTimeForStungun(ped, math.random(Config.Stun.min, Config.Stun.max))
-            end
-            Wait(sleep)
+CreateThread(function()
+    while true do
+        local sleep = 1000
+        local ped = PlayerPedId()
+        if IsPedBeingStunned(ped, 0) then
+            sleep = 0
+            SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
         end
-    end)
-end
+        Wait(sleep)
+    end
+end)
 
 CreateThread(function()
-	for dispatchService, enabled in pairs(Config.DispatchServices) do
-		EnableDispatchService(dispatchService, enabled)
-	end
+	for i = 1, 15 do
+        local toggle = Config.AIResponse.dispatchServices[i]
+        EnableDispatchService(i, toggle)
+    end
 
-	local wantedLevel = 0
-	if Config.EnableWantedLevel then
-		wantedLevel = 5
-	end
-
-	SetMaxWantedLevel(wantedLevel)
+    local wantedLevel = Config.AIResponse.wantedLevels and 5 or 0
+    SetMaxWantedLevel(wantedLevel)
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam

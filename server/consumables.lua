@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 ----------- / alcohol
 
-for k,_ in pairs(Config.ConsumablesAlcohol) do
+for k,_ in pairs(Config.Consumables.alcohol) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         TriggerClientEvent("consumables:client:DrinkAlcohol", source, item.name)
     end)
@@ -9,7 +9,7 @@ end
 
 ----------- / Eat
 
-for k,_ in pairs(Config.ConsumablesEat) do
+for k,_ in pairs(Config.Consumables.eat) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -18,7 +18,7 @@ for k,_ in pairs(Config.ConsumablesEat) do
 end
 
 ----------- / Drink
-for k,_ in pairs(Config.ConsumablesDrink) do
+for k,_ in pairs(Config.Consumables.drink) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -27,7 +27,7 @@ for k,_ in pairs(Config.ConsumablesDrink) do
 end
 
 ----------- / Custom
-for k,_ in pairs(Config.ConsumablesCustom) do
+for k,_ in pairs(Config.Consumables.custom) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
@@ -113,7 +113,7 @@ end)
 
 ----------- / Firework
 
-for _,v in pairs(ConsumablesFireworks) do
+for _,v in pairs(Config.Fireworks.items) do
     QBCore.Functions.CreateUseableItem(v, function(source, item)
         local src = source
         TriggerClientEvent("fireworks:client:UseFirework", src, item.name, "proj_indep_firework")
@@ -211,7 +211,7 @@ RegisterNetEvent('consumables:server:drinkAlcohol', function(item)
 
     local foundItem = nil
 
-    for k in pairs(Config.ConsumablesAlcohol) do
+    for k in pairs(Config.Consumables.alcohol) do
         if k == item then
             foundItem = k
             break
@@ -230,9 +230,9 @@ RegisterNetEvent('consumables:server:UseFirework', function(item)
 
     local foundItem = nil
 
-    for i = 1, #ConsumablesFireworks do
-        if ConsumablesFireworks[i] == item then
-            foundItem = ConsumablesFireworks[i]
+    for i = 1, #Config.Fireworks.items do
+        if Config.Fireworks.items[i] == item then
+            foundItem = Config.Fireworks.items[i]
             break
         end
     end
@@ -261,14 +261,14 @@ RegisterNetEvent('consumables:server:addHunger', function(amount)
 end)
 
 QBCore.Functions.CreateCallback('consumables:itemdata', function(_, cb, itemName)
-    cb(Config.ConsumablesCustom[itemName])
+    cb(Config.Consumables.custom[itemName])
 end)
 
 local function AddDrink(drinkname, replenish)
-    if Config.ConsumablesDrink[drinkname] ~= nil then
+    if Config.Consumables.drink[drinkname] ~= nil then
         return false, "already added"
     else
-        Config.ConsumablesDrink[drinkname] = replenish
+        Config.Consumables.drink[drinkname] = replenish
         CreateItem(drinkname, 'Drink')
         return true, "success"
     end
@@ -277,10 +277,10 @@ end
 exports('AddDrink', AddDrink)
 
 local function AddFood(foodname, replenish)
-    if Config.ConsumablesEat[foodname] ~= nil then
+    if Config.Consumables.eat[foodname] ~= nil then
         return false, "already added"
     else
-        Config.ConsumablesEat[foodname] = replenish
+        Config.Consumables.eat[foodname] = replenish
         CreateItem(foodname, 'Eat')
         return true, "success"
     end
@@ -289,10 +289,10 @@ end
 exports('AddFood', AddFood)
 
 local function AddAlcohol(alcoholname, replenish)
-    if Config.ConsumablesAlcohol[alcoholname] ~= nil then
+    if Config.Consumables.alcohol[alcoholname] ~= nil then
         return false, "already added"
     else
-        Config.ConsumablesAlcohol[alcoholname] = replenish
+        Config.Consumables.alcohol[alcoholname] = replenish
         CreateItem(alcoholname, 'DrinkAlcohol')
         return true, "success"
     end
@@ -304,7 +304,7 @@ local function AddCustom(itemname, data)
     if 'consumables:itemdata' ~= nil then
         return false, "already added"
     else
-        Config.ConsumablesCustom[itemname] = data
+        Config.Consumables.custom[itemname] = data
         CreateItem(itemname, 'Custom')
         return true, "success"
     end

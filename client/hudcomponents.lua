@@ -4,15 +4,15 @@ local displayAmmo = Config.Disable.displayAmmo
 
 local function DecorSet(Type, Value)
     if Type == 'parked' then
-        Config.Density['parked'] = Value
+        Config.Density.parked = Value
     elseif Type == 'vehicle' then
-        Config.Density['vehicle'] = Value
+        Config.Density.vehicle = Value
     elseif Type == 'multiplier' then
-        Config.Density['multiplier'] = Value
+        Config.Density.multiplier = Value
     elseif Type == 'peds' then
-        Config.Density['peds'] = Value
+        Config.Density.peds = Value
     elseif Type == 'scenario' then
-        Config.Density['scenario'] = Value
+        Config.Density.scenario = Value
     end
 end
 
@@ -35,11 +35,11 @@ CreateThread(function()
         
         -- Density
 
-        SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
-        SetVehicleDensityMultiplierThisFrame(Config.Density['vehicle'])
-        SetRandomVehicleDensityMultiplierThisFrame(Config.Density['multiplier'])
-        SetPedDensityMultiplierThisFrame(Config.Density['peds'])
-        SetScenarioPedDensityMultiplierThisFrame(Config.Density['scenario'], Config.Density['scenario']) -- Walking NPC Density
+        SetParkedVehicleDensityMultiplierThisFrame(Config.Density.parked)
+        SetVehicleDensityMultiplierThisFrame(Config.Density.vehicle)
+        SetRandomVehicleDensityMultiplierThisFrame(Config.Density.multiplier)
+        SetPedDensityMultiplierThisFrame(Config.Density.peds)
+        SetScenarioPedDensityMultiplierThisFrame(Config.Density.scenario, Config.Density.scenario) -- Walking NPC Density
         Wait(0)
     end
 end)
@@ -83,7 +83,7 @@ exports('addDisableControls', function(controls)
         disableControls[#disableControls+1] = controls
     elseif controlsType == 'table' and table.type(controls) == "array" then
         for i = 1, #controls do
-            disableControls[#disableControls+1] = controls[i]
+            disableControls[#disableControls + 1] = controls[i]
         end
     end
 end)

@@ -1,6 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
-local Webhooks = {
+local webhooks = {
     ['default'] = '',
     ['testwebhook'] = '',
     ['playermoney'] = '',
@@ -41,7 +40,7 @@ local Webhooks = {
     ['qbjobs'] = '',
 }
 
-local Colors = { -- https://www.spycolor.com/
+local colors = { -- https://www.spycolor.com/
     ['default'] = 14423100,
     ['blue'] = 255,
     ['red'] = 16711680,
@@ -58,11 +57,11 @@ local logQueue = {}
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local tag = tagEveryone or false
-    local webHook = Webhooks[name] or Webhooks['default']
+    local webHook = webhooks[name] or webhooks['default']
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = Colors[color] or Colors['default'],
+            ['color'] = colors[color] or colors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
@@ -75,13 +74,13 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     }
 
     if not logQueue[name] then logQueue[name] = {} end
-    logQueue[name][#logQueue[name]+1] = {webhook = webHook, data = embedData}
+    logQueue[name][#logQueue[name] + 1] = {webhook = webHook, data = embedData}
 
     if #logQueue[name] >= 10 then
-        local postData = { username = 'QB Logs', embeds = {} }
+        local postData = {username = 'QB Logs', embeds = {}}
 
         for i = 1, #logQueue[name] do
-            postData.embeds[#postData.embeds+1] = logQueue[name][i].data[1]
+            postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1]
         end
 
         PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
@@ -101,7 +100,7 @@ Citizen.CreateThread(function()
                 if #queue > 0 then
                     local postData = { username = 'QB Logs', embeds = {} }
                     for i = 1, #queue do
-                        postData.embeds[#postData.embeds+1] = queue[i].data[1]
+                        postData.embeds[#postData.embeds + 1] = queue[i].data[1]
                     end
                     PerformHttpRequest(queue[1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
                     logQueue[name] = {}

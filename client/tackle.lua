@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local function TackleAnim()
+local function tackleAnim()
     local ped = PlayerPedId()
     if not HasAnimDictLoaded("swimming@first_person@diving") then
         RequestAnimDict("swimming@first_person@diving")
@@ -11,7 +11,7 @@ local function TackleAnim()
     if IsEntityPlayingAnim(ped, "swimming@first_person@diving", "dive_run_fwd_-45_loop", 3) then
         ClearPedTasksImmediately(ped)
     else
-        TaskPlayAnim(ped, "swimming@first_person@diving", "dive_run_fwd_-45_loop" ,3.0, 3.0, -1, 49, 0, false, false, false)
+        TaskPlayAnim(ped, "swimming@first_person@diving", "dive_run_fwd_-45_loop", 3.0, 3.0, -1, 49, 0, false, false, false)
         Wait(250)
         ClearPedTasksImmediately(ped)
         SetPedToRagdoll(ped, 150, 150, 0, false, false, false)
@@ -21,9 +21,9 @@ end
 RegisterCommand('tackle', function()
     local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
     local ped = PlayerPedId()
-    if distance ~= -1 and distance < 2 and GetEntitySpeed(ped) > 2.5 and not IsPedInAnyVehicle(ped, false) and not QBCore.Functions.GetPlayerData().metadata["ishandcuffed"] and not IsPedRagdoll(ped) then
+    if distance ~= -1 and distance < 2 and GetEntitySpeed(ped) > 2.5 and not IsPedInAnyVehicle(ped, false) and not QBCore.Functions.GetPlayerData().metadata.ishandcuffed and not IsPedRagdoll(ped) then
         TriggerServerEvent("tackle:server:TacklePlayer", GetPlayerServerId(closestPlayer))
-        TackleAnim()
+        tackleAnim()
     end
 end)
 

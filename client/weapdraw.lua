@@ -78,9 +78,9 @@ local weapons = {
 local holstered = true
 local canFire = true
 local currWeapon = `WEAPON_UNARMED`
-local currentHolster = nil
-local currentHolsterTexture = nil
-local WearingHolster = nil
+local currHolster = nil
+local currHolsterTexture = nil
+local wearingHolster = nil
 
 local function loadAnimDict(dict)
     if HasAnimDictLoaded(dict) then return end
@@ -90,7 +90,7 @@ local function loadAnimDict(dict)
     end
 end
 
-local function CheckWeapon(newWeap)
+local function checkWeapon(newWeap)
     for i = 1, #weapons do
         if joaat(weapons[i]) == newWeap then
             return true
@@ -99,7 +99,7 @@ local function CheckWeapon(newWeap)
     return false
 end
 
-local function IsWeaponHolsterable(weap)
+local function isWeaponHolsterable(weap)
     for i = 1, #Config.HolsterableWeapons do
         if joaat(Config.HolsterableWeapons[i]) == weap then
             return true
@@ -112,9 +112,9 @@ RegisterNetEvent('weapons:ResetHolster', function()
     holstered = true
     canFire = true
     currWeapon = `WEAPON_UNARMED`
-    currentHolster = nil
-    currentHolsterTexture = nil
-    WearingHolster = nil
+    currHolster = nil
+    currHolsterTexture = nil
+    wearingHolster = nil
 end)
 
 RegisterNetEvent('weapons:client:DrawWeapon', function()
@@ -132,32 +132,32 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
 
                 local newWeap = GetSelectedPedWeapon(ped)
                 SetCurrentPedWeapon(ped, currWeapon, true)
-                loadAnimDict("reaction@intimidation@1h")
-                loadAnimDict("reaction@intimidation@cop@unarmed")
-                loadAnimDict("rcmjosh4")
-                loadAnimDict("weapons@pistol@")
+                loadAnimDict('reaction@intimidation@1h')
+                loadAnimDict('reaction@intimidation@cop@unarmed')
+                loadAnimDict('rcmjosh4')
+                loadAnimDict('weapons@pistol@')
 
                 local HolsterVariant = GetPedDrawableVariation(ped, 8)
-                WearingHolster = false
+                wearingHolster = false
                 for i = 1,#Config.HolsterVariant,1 do
                     if HolsterVariant == Config.HolsterVariant[i] then
-                        WearingHolster = true
+                        wearingHolster = true
                     end
                 end
-                if CheckWeapon(newWeap) then
+                if checkWeapon(newWeap) then
                     if holstered then
-                        if WearingHolster then
-                            --TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
+                        if wearingHolster then
+                            --TaskPlayAnim(ped, 'rcmjosh4', 'josh_leadout_cop2', 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
                             canFire = false
                             CeaseFire()
-                            currentHolster = GetPedDrawableVariation(ped, 7)
-                            currentHolsterTexture = GetPedTextureVariation(ped, 7)
-                            TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
+                            currHolster = GetPedDrawableVariation(ped, 7)
+                            currHolsterTexture = GetPedTextureVariation(ped, 7)
+                            TaskPlayAnimAdvanced(ped, 'rcmjosh4', 'josh_leadout_cop2', pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(300)
                             SetCurrentPedWeapon(ped, newWeap, true)
 
-                            if IsWeaponHolsterable(newWeap) then
-                                SetPedComponentVariation(ped, 7, currentHolster == 8 and 2 or currentHolster == 1 and 3 or currentHolster == 6 and 5, currentHolsterTexture, 2)
+                            if isWeaponHolsterable(newWeap) then
+                                SetPedComponentVariation(ped, 7, currHolster == 8 and 2 or currHolster == 1 and 3 or currHolster == 6 and 5, currHolsterTexture, 2)
                             end
                             currWeapon = newWeap
                             Wait(300)
@@ -167,7 +167,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                         else
                             canFire = false
                             CeaseFire()
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@1h', 'intro', pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(1000)
                             SetCurrentPedWeapon(ped, newWeap, true)
                             currWeapon = newWeap
@@ -176,28 +176,28 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                             holstered = false
                             canFire = true
                         end
-                    elseif newWeap ~= currWeapon and CheckWeapon(currWeapon) then
-                        if WearingHolster then
+                    elseif newWeap ~= currWeapon and checkWeapon(currWeapon) then
+                        if wearingHolster then
                             canFire = false
                             CeaseFire()
 
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@cop@unarmed", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@cop@unarmed', 'intro', pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(500)
 
-                            if IsWeaponHolsterable(currWeapon) then
-                                SetPedComponentVariation(ped, 7, currentHolster, currentHolsterTexture, 2)
+                            if isWeaponHolsterable(currWeapon) then
+                                SetPedComponentVariation(ped, 7, currHolster, currHolsterTexture, 2)
                             end
 
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-                            currentHolster = GetPedDrawableVariation(ped, 7)
-                            currentHolsterTexture = GetPedTextureVariation(ped, 7)
+                            currHolster = GetPedDrawableVariation(ped, 7)
+                            currHolsterTexture = GetPedTextureVariation(ped, 7)
 
-                            TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'rcmjosh4', 'josh_leadout_cop2', pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(300)
                             SetCurrentPedWeapon(ped, newWeap, true)
 
-                            if IsWeaponHolsterable(newWeap) then
-                                SetPedComponentVariation(ped, 7, currentHolster == 8 and 2 or currentHolster == 1 and 3 or currentHolster == 6 and 5, currentHolsterTexture, 2)
+                            if isWeaponHolsterable(newWeap) then
+                                SetPedComponentVariation(ped, 7, currHolster == 8 and 2 or currHolster == 1 and 3 or currHolster == 6 and 5, currHolsterTexture, 2)
                             end
 
                             Wait(500)
@@ -208,10 +208,10 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                         else
                             canFire = false
                             CeaseFire()
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "outro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@1h', 'outro', pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(1600)
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@1h', 'intro', pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(1000)
                             SetCurrentPedWeapon(ped, newWeap, true)
                             currWeapon = newWeap
@@ -221,16 +221,16 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                             canFire = true
                         end
                     else
-                        if WearingHolster then
+                        if wearingHolster then
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-                            currentHolster = GetPedDrawableVariation(ped, 7)
-                            currentHolsterTexture = GetPedTextureVariation(ped, 7)
-                            TaskPlayAnimAdvanced(ped, "rcmjosh4", "josh_leadout_cop2", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
+                            currHolster = GetPedDrawableVariation(ped, 7)
+                            currHolsterTexture = GetPedTextureVariation(ped, 7)
+                            TaskPlayAnimAdvanced(ped, 'rcmjosh4', 'josh_leadout_cop2', pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(300)
                             SetCurrentPedWeapon(ped, newWeap, true)
 
-                            if IsWeaponHolsterable(newWeap) then
-                                SetPedComponentVariation(ped, 7, currentHolster == 8 and 2 or currentHolster == 1 and 3 or currentHolster == 6 and 5, currentHolsterTexture, 2)
+                            if isWeaponHolsterable(newWeap) then
+                                SetPedComponentVariation(ped, 7, currHolster == 8 and 2 or currHolster == 1 and 3 or currHolster == 6 and 5, currHolsterTexture, 2)
                             end
 
                             currWeapon = newWeap
@@ -240,7 +240,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                             canFire = true
                         else
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@1h', 'intro', pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(1000)
                             SetCurrentPedWeapon(ped, newWeap, true)
                             currWeapon = newWeap
@@ -251,15 +251,15 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                         end
                     end
                 else
-                    if not holstered and CheckWeapon(currWeapon) then
-                        if WearingHolster then
+                    if not holstered and checkWeapon(currWeapon) then
+                        if wearingHolster then
                             canFire = false
                             CeaseFire()
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@cop@unarmed", "intro", pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@cop@unarmed', 'intro', pos.x, pos.y, pos.z, 0, 0, rot, 3.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(500)
 
-                            if IsWeaponHolsterable(currWeapon) then
-                                SetPedComponentVariation(ped, 7, currentHolster, currentHolsterTexture, 2)
+                            if isWeaponHolsterable(currWeapon) then
+                                SetPedComponentVariation(ped, 7, currHolster, currHolsterTexture, 2)
                             end
 
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
@@ -271,7 +271,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
                         else
                             canFire = false
                             CeaseFire()
-                            TaskPlayAnimAdvanced(ped, "reaction@intimidation@1h", "outro", pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
+                            TaskPlayAnimAdvanced(ped, 'reaction@intimidation@1h', 'outro', pos.x, pos.y, pos.z, 0, 0, rot, 8.0, 3.0, -1, 50, 0, 0, 0)
                             Wait(1400)
                             SetCurrentPedWeapon(ped, `WEAPON_UNARMED`, true)
                             ClearPedTasks(ped)

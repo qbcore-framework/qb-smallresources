@@ -34,8 +34,8 @@ local Translations = {
     },
     cruise = {
         unavailable = "Cruise control unavailable",
-        activated = "Cruise Activated: ",
-        deactivated = "Cruise Deactivated",
+        activated = "Cruise control activated",
+        deactivated = "Cruise control deactivated",
     },
     editor = {
         started = "Started Recording!",
@@ -44,9 +44,9 @@ local Translations = {
         editor = "Later aligator!"
     },
     firework = {
-        place_progress = "Placing object..",
-        canceled = "Canceled..",
-        time_left = "Firework over ~r~"
+        place_progress = "Placing firework...",
+        canceled = "Canceled...",
+        time_left = "Firework launch in ~r~"
     },
     seatbelt = {
         use_harness_progress = "Attaching Race Harness",

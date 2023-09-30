@@ -23,7 +23,7 @@ end
 -- Exports
 exports("CreateTimedJob", function(hour, min, cb)
 	if hour and type(hour) == "number" and min and type(min) == "number" and cb and (type(cb) == "function" or type(cb) == "table") then
-		Jobs[#Jobs+1] = {
+		Jobs[#Jobs + 1] = {
 			min  = min,
 			hour  = hour,
 			cb = cb
