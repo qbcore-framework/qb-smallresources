@@ -449,7 +449,7 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        if not Config.DisableVestDrawable then
+        if not Config.Disable.vestDrawable then
             if PlayerData.charinfo.gender == 0 then
                 currentVest = GetPedDrawableVariation(ped, 9)
                 currentVestTexture = GetPedTextureVariation(ped, 9)

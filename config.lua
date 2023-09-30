@@ -16,7 +16,7 @@ Config.AFK = {
 Config.HandsUp = {
     command = 'hu',
     keybind = 'X',
-    disableControls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
+    controls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
 }
 
 Config.Binoculars = {
@@ -76,18 +76,18 @@ Config.Density = {
     scenario = 0.8
 }
 
-Config.RemovePistolWhipping = true  -- Removes Pistol Whipping
-
-Config.IdleCamera = true
-Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, flight music, etc
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- amount of damage till you can push your vehicle. 0-1000
 Config.EnableProne = false -- prone isnt recomended at this time
 
 Config.Disable = {
-    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
-    disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
-    displayAmmo = true -- false disables ammo display
+    hudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+    controls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
+    displayAmmo = true, -- false disables ammo display
+    ambience = false, -- disables distance sirens, distance car alarms, flight music, etc
+    idleCamera = true, -- disables the idle cinematic camera
+    vestDrawable = false, -- disables the vest equipped when using heavy armor
+    pistolWhipping = true, -- disables pistol whipping
 }
 
 Config.Consumables = {
@@ -225,8 +225,7 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true
 }
 
-Config.DisableVestDrawable = false -- Set to TRUE to disable the vest equipped when using heavy armor.
-Config.HolsterVariant = {130, 122, 3, 6, 8}
+Config.HolsterVariants = {130, 122, 3, 6, 8}
 Config.HolsterableWeapons = {
     --'WEAPON_STUNGUN',
     'WEAPON_PISTOL',

@@ -1,5 +1,5 @@
-local disableHudComponents = Config.Disable.disableHudComponents
-local disableControls = Config.Disable.disableControls
+local disableHudComponents = Config.Disable.hudComponents
+local disableControls = Config.Disable.controls
 local displayAmmo = Config.Disable.displayAmmo
 
 local function DecorSet(Type, Value)

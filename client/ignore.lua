@@ -23,7 +23,7 @@ CreateThread(function()
 end)
 
 CreateThread(function() -- all these should only need to be called once
-	if Config.DisableAmbience then
+	if Config.Disable.ambience then
 		StartAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE')
 		SetAudioFlag('DisableFlightMusic', true)
 	end
@@ -65,12 +65,12 @@ CreateThread(function()
     SetMaxWantedLevel(wantedLevel)
 end)
 
-if Config.IdleCamera then --Disable Idle Cinamatic Cam
+if Config.Disable.idleCamera then 
     CreateThread(function()
         while true do
             InvalidateIdleCam()
             InvalidateVehicleIdleCam()
-            Wait(1000) --The idle camera activates after 30 second so we don't need to call this per frame
+            Wait(1000)
         end
     end)
 end
@@ -121,7 +121,7 @@ end)
 
 CreateThread(function()
     local ped = PlayerPedId()
-    while Config.RemovePistolWhipping do
+    while Config.Disable.pistolWhipping do
         local sleep = 1000
         if LocalPlayer.state.isLoggedIn then
             if GetSelectedPedWeapon(ped) ~= joaat(`WEAPON_UNARMED`) and not IsPedArmed(ped, 1) then
