@@ -120,7 +120,7 @@ end)
 RegisterNetEvent('weapons:client:DrawWeapon', function()
     if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
     local sleep
-    local weaponcheck = 0
+    local weaponCheck = 0
     while true do
         local ped = PlayerPedId()
         sleep = 250
@@ -291,8 +291,8 @@ RegisterNetEvent('weapons:client:DrawWeapon', function()
         end
         Wait(sleep)
         if currWeapon == nil or currWeapon == `WEAPON_UNARMED` then
-            weaponcheck += 1
-            if weaponcheck == 2 then
+            weaponCheck += 1
+            if weaponCheck == 2 then
                 break
             end
         end

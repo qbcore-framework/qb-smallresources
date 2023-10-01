@@ -1,15 +1,14 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local washingVeh = false
-local listen = false
+local washingVeh, listen = false, false
 local washPoly = {}
 
 local function washLoop()
     CreateThread(function()
         while listen do
             local ped = PlayerPedId()
-            local pedVeh = GetVehiclePedIsIn(ped, false)
-            local driver = GetPedInVehicleSeat(pedVeh, -1)
-            local dirtLevel = GetVehicleDirtLevel(pedVeh)
+            local veh = GetVehiclePedIsIn(ped, false)
+            local driver = GetPedInVehicleSeat(veh, -1)
+            local dirtLevel = GetVehicleDirtLevel(veh)
             if driver == ped and not washingVeh then
                 if IsControlPressed(0, 38) then
                     if dirtLevel > Config.CarWash.dirtLevel then
@@ -28,7 +27,7 @@ end
 
 RegisterNetEvent('qb-carwash:client:washCar', function()
     local ped = PlayerPedId()
-    local pedVeh = GetVehiclePedIsIn(ped, false)
+    local veh = GetVehiclePedIsIn(ped, false)
     washingVeh = true
     QBCore.Functions.Progressbar('search_cabin', Lang:t('wash.in_progress'), math.random(4000, 8000), false, true, {
         disableMovement = true,
@@ -36,9 +35,9 @@ RegisterNetEvent('qb-carwash:client:washCar', function()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        SetVehicleDirtLevel(pedVeh, 0.0)
-        SetVehicleUndriveable(pedVeh, false)
-        WashDecalsFromVehicle(pedVeh, 1.0)
+        SetVehicleDirtLevel(veh, 0.0)
+        SetVehicleUndriveable(veh, false)
+        WashDecalsFromVehicle(veh, 1.0)
         washingVeh = false
     end, function() -- Cancel
         QBCore.Functions.Notify(Lang:t('wash.cancel'), 'error')
@@ -62,9 +61,9 @@ CreateThread(function()
                             label = Lang:t('wash.wash_vehicle_target'),
                             action = function()
                                 local ped = PlayerPedId()
-                                local pedVeh = GetVehiclePedIsIn(ped, false)
-                                local driver = GetPedInVehicleSeat(pedVeh, -1)
-                                local dirtLevel = GetVehicleDirtLevel(pedVeh)
+                                local veh = GetVehiclePedIsIn(ped, false)
+                                local driver = GetPedInVehicleSeat(veh, -1)
+                                local dirtLevel = GetVehicleDirtLevel(veh)
                                 if driver == ped and not washingVeh then
                                     if dirtLevel > Config.CarWash.dirtLevel then
                                         TriggerServerEvent('qb-carwash:server:washCar')

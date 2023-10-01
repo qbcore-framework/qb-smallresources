@@ -228,48 +228,48 @@ QBCore.Functions.CreateCallback('consumables:itemdata', function(_, cb, itemName
     cb(Config.Consumables.custom[itemName])
 end)
 
-local function addDrink(drinkname, replenish)
-    if Config.Consumables.drink[drinkname] ~= nil then
+local function addDrink(drinkName, replenish)
+    if Config.Consumables.drink[drinkName] ~= nil then
         return false, "already added"
     else
-        Config.Consumables.drink[drinkname] = replenish
-        createItem(drinkname, 'Drink')
+        Config.Consumables.drink[drinkName] = replenish
+        createItem(drinkName, 'Drink')
         return true, "success"
     end
 end
 
 exports('AddDrink', addDrink)
 
-local function addFood(foodname, replenish)
-    if Config.Consumables.eat[foodname] ~= nil then
+local function addFood(foodName, replenish)
+    if Config.Consumables.eat[foodName] ~= nil then
         return false, "already added"
     else
-        Config.Consumables.eat[foodname] = replenish
-        createItem(foodname, 'Eat')
+        Config.Consumables.eat[foodName] = replenish
+        createItem(foodName, 'Eat')
         return true, "success"
     end
 end
 
 exports('AddFood', addFood)
 
-local function addAlcohol(alcoholname, replenish)
-    if Config.Consumables.alcohol[alcoholname] ~= nil then
+local function addAlcohol(alcoholName, replenish)
+    if Config.Consumables.alcohol[alcoholName] ~= nil then
         return false, "already added"
     else
-        Config.Consumables.alcohol[alcoholname] = replenish
-        createItem(alcoholname, 'DrinkAlcohol')
+        Config.Consumables.alcohol[alcoholName] = replenish
+        createItem(alcoholName, 'DrinkAlcohol')
         return true, "success"
     end
 end
 
 exports('AddAlcohol', addAlcohol)
 
-local function addCustom(itemname, data)
+local function addCustom(itemName, data)
     if 'consumables:itemdata' ~= nil then
         return false, "already added"
     else
-        Config.Consumables.custom[itemname] = data
-        createItem(itemname, 'Custom')
+        Config.Consumables.custom[itemName] = data
+        createItem(itemName, 'Custom')
         return true, "success"
     end
 end

@@ -2,10 +2,8 @@
 
 local QBCore = exports['qb-core']:GetCoreObject()
 local alcoholCount = 0
-local parachuteEquipped = false
-local currentVest = nil
-local currentVestTexture = nil
-local healing = false
+local healing, parachuteEquipped = false, false
+local currVest, currVestTexture = nil, nil
 
 -- Functions
 RegisterNetEvent('QBCore:Client:UpdateObject', function()
@@ -452,16 +450,16 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
     }, {}, {}, {}, function() -- Done
         if not Config.Disable.vestDrawable then
             if PlayerData.charinfo.gender == 0 then
-                currentVest = GetPedDrawableVariation(ped, 9)
-                currentVestTexture = GetPedTextureVariation(ped, 9)
+                currVest = GetPedDrawableVariation(ped, 9)
+                currVestTexture = GetPedTextureVariation(ped, 9)
                 if GetPedDrawableVariation(ped, 9) == 7 then
                     SetPedComponentVariation(ped, 9, 19, GetPedTextureVariation(ped, 9), 2)
                 else
                     SetPedComponentVariation(ped, 9, 5, 2, 2)
                 end
             else
-                currentVest = GetPedDrawableVariation(ped, 30)
-                currentVestTexture = GetPedTextureVariation(ped, 30)
+                currVest = GetPedDrawableVariation(ped, 30)
+                currVestTexture = GetPedTextureVariation(ped, 30)
                 SetPedComponentVariation(ped, 9, 30, 0, 2)
             end
         end
@@ -473,14 +471,14 @@ end)
 
 RegisterNetEvent('consumables:client:ResetArmor', function()
     local ped = PlayerPedId()
-    if currentVest ~= nil and currentVestTexture ~= nil then
+    if currVest ~= nil and currVestTexture ~= nil then
         QBCore.Functions.Progressbar("remove_armor", Lang:t('consumables.remove_armor_progress'), 2500, false, true, {
             disableMovement = false,
             disableCarMovement = false,
             disableMouse = false,
             disableCombat = true,
         }, {}, {}, {}, function() -- Done
-            SetPedComponentVariation(ped, 9, currentVest, currentVestTexture, 2)
+            SetPedComponentVariation(ped, 9, currVest, currVestTexture, 2)
             SetPedArmour(ped, 0)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["heavyarmor"], "add")
             TriggerServerEvent('consumables:server:resetArmor')

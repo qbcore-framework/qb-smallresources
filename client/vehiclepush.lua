@@ -12,14 +12,14 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
     if veh then
         local ped = PlayerPedId()
         local pos = GetEntityCoords(ped)
-        local vehpos = GetEntityCoords(veh)
+        local vehPos = GetEntityCoords(veh)
         local dimension = GetModelDimensions(GetEntityModel(veh))
         local vehClass = GetVehicleClass(veh)
         if not IsEntityAttachedToEntity(ped, veh) and IsVehicleSeatFree(veh, -1) and GetVehicleEngineHealth(veh) <= Config.DamageNeeded and GetVehicleEngineHealth(veh) >= 0 then
             if vehClass ~= 13 or vehClass ~= 14 or vehClass ~= 15 or vehClass ~= 16 then
                 NetworkRequestControlOfEntity(veh)
-                if #(pos - vehpos) < 3.0 and not IsPedInAnyVehicle(ped, false) then
-                    if #(vehpos + GetEntityForwardVector(veh) - pos) > #(vehpos + GetEntityForwardVector(veh) * -1 - pos) then
+                if #(pos - vehPos) < 3.0 and not IsPedInAnyVehicle(ped, false) then
+                    if #(vehPos + GetEntityForwardVector(veh) - pos) > #(vehPos + GetEntityForwardVector(veh) * -1 - pos) then
                         isInFront = false
                         AttachEntityToEntity(ped, veh, GetPedBoneIndex(ped, 6286), 0.0, dimension.y - 0.3, dimension.z + 1.0, 0.0, 0.0, 0.0, false, false, false, true, 0, true)
                     else

@@ -5,16 +5,16 @@ local harnessHp = Config.HarnessUses
 local handbrake = 0
 local sleep = 0
 local harnessData = {}
-local newvehicleBodyHealth = 0
-local currentvehicleBodyHealth = 0
+local newVehBodyHealth = 0
+local currVehBodyHealth = 0
 local frameBodyChange = 0
-local lastFrameVehiclespeed = 0
-local lastFrameVehiclespeed2 = 0
-local thisFrameVehicleSpeed = 0
+local lastFrameVehSpeed = 0
+local lastFrameVehSpeed2 = 0
+local thisFrameVehSpeed = 0
 local tick = 0
 local damageDone = false
 local modifierDensity = true
-local lastVehicle = nil
+local lastVeh = nil
 local veloc
 
 -- Functions
@@ -27,9 +27,9 @@ local function ejectFromVehicle()
     Wait(1)
     SetPedToRagdoll(ped, 5511, 5511, 0, 0, 0, 0)
     SetEntityVelocity(ped, veloc.x * 4, veloc.y * 4, veloc.z * 4)
-    local ejectspeed = math.ceil(GetEntitySpeed(ped) * 8)
-    if GetEntityHealth(ped) - ejectspeed > 0 then
-        SetEntityHealth(ped, GetEntityHealth(ped) - ejectspeed)
+    local ejectSpeed = math.ceil(GetEntitySpeed(ped) * 8)
+    if GetEntityHealth(ped) - ejectSpeed > 0 then
+        SetEntityHealth(ped, GetEntityHealth(ped) - ejectSpeed)
     elseif GetEntityHealth(ped) ~= 0 then
         SetEntityHealth(ped, 0)
     end
@@ -84,17 +84,17 @@ exports("HasHarness", HasHarness)
 -- Ejection Logic
 
 RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
-    local dped = PlayerPedId()
-    while IsPedInAnyVehicle(dped, false) do
+    local ped = PlayerPedId()
+    while IsPedInAnyVehicle(ped, false) do
         Wait(0)
-        local currentVehicle = GetVehiclePedIsIn(dped, false)
-        if currentVehicle and currentVehicle ~= false and currentVehicle ~= 0 then
-            SetPedHelmet(dped, false)
-            lastVehicle = GetVehiclePedIsIn(dped, false)
-            if GetVehicleEngineHealth(currentVehicle) < 0.0 then
-                SetVehicleEngineHealth(currentVehicle, 0.0)
+        local currVehicle = GetVehiclePedIsIn(ped, false)
+        if currVehicle and currVehicle ~= false and currVehicle ~= 0 then
+            SetPedHelmet(ped, false)
+            lastVeh = GetVehiclePedIsIn(ped, false)
+            if GetVehicleEngineHealth(currVehicle) < 0.0 then
+                SetVehicleEngineHealth(currVehicle, 0.0)
             end
-            if (GetVehicleHandbrake(currentVehicle) or (GetVehicleSteeringAngle(currentVehicle)) > 25.0 or (GetVehicleSteeringAngle(currentVehicle)) < -25.0) then
+            if (GetVehicleHandbrake(currVehicle) or (GetVehicleSteeringAngle(currVehicle)) > 25.0 or (GetVehicleSteeringAngle(currVehicle)) < -25.0) then
                 if handbrake == 0 then
                     handbrake = 100
                     resetHandBrake()
@@ -103,16 +103,16 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                 end
             end
 
-            thisFrameVehicleSpeed = GetEntitySpeed(currentVehicle) * 3.6
-            currentvehicleBodyHealth = GetVehicleBodyHealth(currentVehicle)
-            if currentvehicleBodyHealth == 1000 and frameBodyChange ~= 0 then
+            thisFrameVehSpeed = GetEntitySpeed(currVehicle) * 3.6
+            currVehBodyHealth = GetVehicleBodyHealth(currVehicle)
+            if currVehBodyHealth == 1000 and frameBodyChange ~= 0 then
                 frameBodyChange = 0
             end
             if frameBodyChange ~= 0 then
-                if lastFrameVehiclespeed > 110 and thisFrameVehicleSpeed < (lastFrameVehiclespeed * 0.75) and not damageDone then
+                if lastFrameVehSpeed > 110 and thisFrameVehSpeed < (lastFrameVehSpeed * 0.75) and not damageDone then
                     if frameBodyChange > 18.0 then
-                        if not seatbeltOn and not IsThisModelABike(currentVehicle) then
-                            if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
+                        if not seatbeltOn and not IsThisModelABike(currVehicle) then
+                            if math.random(math.ceil(lastFrameVehSpeed)) > 60 then
                                 if not harnessOn then
                                     ejectFromVehicle()
                                 else
@@ -120,9 +120,9 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                 end
                             end
-                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 150 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 150 then
+                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currVehicle) then
+                            if lastFrameVehSpeed > 150 then
+                                if math.random(math.ceil(lastFrameVehSpeed)) > 150 then
                                     if not harnessOn then
                                         ejectFromVehicle()
                                     else
@@ -133,8 +133,8 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                             end
                         end
                     else
-                        if not seatbeltOn and not IsThisModelABike(currentVehicle) then
-                            if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
+                        if not seatbeltOn and not IsThisModelABike(currVehicle) then
+                            if math.random(math.ceil(lastFrameVehSpeed)) > 60 then
                                 if not harnessOn then
                                     ejectFromVehicle()
                                 else
@@ -142,9 +142,9 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
                                 end
                             end
-                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 120 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 200 then
+                        elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currVehicle) then
+                            if lastFrameVehSpeed > 120 then
+                                if math.random(math.ceil(lastFrameVehSpeed)) > 200 then
                                     if not harnessOn then
                                         ejectFromVehicle()
                                     else
@@ -156,35 +156,35 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                         end
                     end
                     damageDone = true
-                    SetVehicleEngineOn(currentVehicle, false, true, true)
+                    SetVehicleEngineOn(currVehicle, false, true, true)
                 end
-                if currentvehicleBodyHealth < 350.0 and not damageDone then
+                if currVehBodyHealth < 350.0 and not damageDone then
                     damageDone = true
-                    SetVehicleEngineOn(currentVehicle, false, true, true)
+                    SetVehicleEngineOn(currVehicle, false, true, true)
                     Wait(1000)
                 end
             end
-            if lastFrameVehiclespeed < 100 then
+            if lastFrameVehSpeed < 100 then
                 Wait(100)
                 tick = 0
             end
-            frameBodyChange = newvehicleBodyHealth - currentvehicleBodyHealth
+            frameBodyChange = newVehBodyHealth - currVehBodyHealth
             if tick > 0 then
                 tick -= 1
                 if tick == 1 then
-                    lastFrameVehiclespeed = GetEntitySpeed(currentVehicle) * 3.6
+                    lastFrameVehSpeed = GetEntitySpeed(currVehicle) * 3.6
                 end
             else
                 if damageDone then
                     damageDone = false
                     frameBodyChange = 0
-                    lastFrameVehiclespeed = GetEntitySpeed(currentVehicle) * 3.6
+                    lastFrameVehSpeed = GetEntitySpeed(currVehicle) * 3.6
                 end
-                lastFrameVehiclespeed2 = GetEntitySpeed(currentVehicle) * 3.6
-                if lastFrameVehiclespeed2 > lastFrameVehiclespeed then
-                    lastFrameVehiclespeed = GetEntitySpeed(currentVehicle) * 3.6
+                lastFrameVehSpeed2 = GetEntitySpeed(currVehicle) * 3.6
+                if lastFrameVehSpeed2 > lastFrameVehSpeed then
+                    lastFrameVehSpeed = GetEntitySpeed(currVehicle) * 3.6
                 end
-                if lastFrameVehiclespeed2 < lastFrameVehiclespeed then
+                if lastFrameVehSpeed2 < lastFrameVehSpeed then
                     tick = 25
                 end
 
@@ -192,27 +192,27 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
             if tick < 0 then
                 tick = 0
             end
-            newvehicleBodyHealth = GetVehicleBodyHealth(currentVehicle)
+            newVehBodyHealth = GetVehicleBodyHealth(currVehicle)
             if not modifierDensity then
                 modifierDensity = true
             end
-            veloc = GetEntityVelocity(currentVehicle)
+            veloc = GetEntityVelocity(currVehicle)
         else
-            if lastVehicle then
-                SetPedHelmet(dped, true)
+            if lastVeh then
+                SetPedHelmet(ped, true)
                 Wait(200)
-                newvehicleBodyHealth = GetVehicleBodyHealth(lastVehicle)
-                if not damageDone and newvehicleBodyHealth < currentvehicleBodyHealth then
+                newVehBodyHealth = GetVehicleBodyHealth(lastVeh)
+                if not damageDone and newVehBodyHealth < currVehBodyHealth then
                     damageDone = true
-                    SetVehicleEngineOn(lastVehicle, false, true, true)
+                    SetVehicleEngineOn(lastVeh, false, true, true)
                     Wait(1000)
                 end
-                lastVehicle = nil
+                lastVeh = nil
             end
-            lastFrameVehiclespeed2 = 0
-            lastFrameVehiclespeed = 0
-            newvehicleBodyHealth = 0
-            currentvehicleBodyHealth = 0
+            lastFrameVehSpeed2 = 0
+            lastFrameVehSpeed = 0
+            newVehBodyHealth = 0
+            currVehBodyHealth = 0
             frameBodyChange = 0
             Wait(2000)
             break
@@ -224,9 +224,9 @@ end)
 
 RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use (registered server side)
     local ped = PlayerPedId()
-    local inveh = IsPedInAnyVehicle(ped, false)
+    local inVeh = IsPedInAnyVehicle(ped, false)
     local class = GetVehicleClass(GetVehiclePedIsUsing(ped))
-    if inveh and class ~= 8 and class ~= 13 and class ~= 14 then
+    if inVeh and class ~= 8 and class ~= 13 and class ~= 14 then
         if not harnessOn then
             LocalPlayer.state:set("inv_busy", true, true)
             QBCore.Functions.Progressbar("harness_equip", Lang:t('seatbelt.use_harness_progress'), 5000, false, true, {

@@ -121,15 +121,15 @@ local recoils = {
     -- [101631238] = 0.3,        --['weapon_fireextinguisher']
     -- [-1168940174] = 0.3,        --['weapon_hazardcan']
 }
-local loopend = true
+local loopEnd = true
 
-RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
-    loopend = true
-    if currentWeapon == nil then
-        loopend = false
+RegisterNetEvent('weapons:client:DrawWeapon', function(currWeap)
+    loopEnd = true
+    if currWeap == nil then
+        loopEnd = false
     end
-    while loopend do
-        if loopend then break end
+    while loopEnd do
+        if loopEnd then break end
         local ped = PlayerPedId()
         if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
             local _, wep = GetCurrentPedWeapon(ped)
@@ -141,7 +141,7 @@ RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
                     repeat
                         Wait(0)
                         local p = GetGameplayCamRelativePitch()
-                        SetGameplayCamRelativePitch(p+0.1, 0.2)
+                        SetGameplayCamRelativePitch(p + 0.1, 0.2)
                         tv += 0.1
                     until tv >= recoils[wep]
                 else
@@ -149,10 +149,10 @@ RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
                         Wait(0)
                         local p = GetGameplayCamRelativePitch()
                         if recoils[wep] > 0.1 then
-                            SetGameplayCamRelativePitch(p+0.6, 1.2)
+                            SetGameplayCamRelativePitch(p + 0.6, 1.2)
                             tv += 0.6
                         else
-                            SetGameplayCamRelativePitch(p+0.016, 0.333)
+                            SetGameplayCamRelativePitch(p + 0.016, 0.333)
                             tv += 0.1
                         end
                     until tv >= recoils[wep]
