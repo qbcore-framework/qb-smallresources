@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local webhooks = {
     ['default'] = '',
-    ['testwebhook'] = '',
+    ['testwebhook'] = 'https://discord.com/api/webhooks/1158095095262883941/9KaKwKoNVRiAcVuBTFu_DWddbnh-ZuXDv7gTKY8W8MATckVcwR0RSfLMDPFnrDLb0pa3',
     ['playermoney'] = '',
     ['playerinventory'] = '',
     ['robbing'] = '',
@@ -58,7 +58,7 @@ local logQueue = {}
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local postData = {}
     local tag = tagEveryone or false
-    local webHook = webhooks[name] or webhooks['default']
+    local webHook = webhooks[name] ~= '' and webhooks[name] or webhooks['default']
     local embedData = {
         {
             ['title'] = title,
@@ -69,7 +69,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
             ['description'] = message,
             ['author'] = {
                 ['name'] = 'QBCore Logs',
-                ['icon_url'] = 'https://media.discordapp.net/attachments/870094209783308299/870104331142189126/Logo_-_Display_Picture_-_Stylized_-_Red.png?width=670&height=670',
+                ['icon_url'] = 'https://cdn.discordapp.com/attachments/1011334833785557072/1158096910914175077/81791099.png',
             },
         }
     }
@@ -79,9 +79,9 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
 
     if #logQueue[name] >= 10 then
         if tag then
-            postData = { username = 'QB Logs', content = '@everyone', embeds = {} }
+            postData = {username = 'QB Logs', content = '@everyone', embeds = {}}
         else
-            postData = { username = 'QB Logs', embeds = {}}
+            postData = {username = 'QB Logs', embeds = {}}
         end
         for i = 1, #logQueue[name] do postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1] end
         PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
@@ -98,11 +98,11 @@ Citizen.CreateThread(function()
             timer = 0
             for name, queue in pairs(logQueue) do
                 if #queue > 0 then
-                    local postData = { username = 'QB Logs', embeds = {} }
+                    local postData = {username = 'QB Logs', embeds = {}}
                     for i = 1, #queue do
                         postData.embeds[#postData.embeds + 1] = queue[i].data[1]
                     end
-                    PerformHttpRequest(queue[1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
+                    PerformHttpRequest(queue[1].webhook, function() end, 'POST', json.encode(postData), {['Content-Type'] = 'application/json'})
                     logQueue[name] = {}
                 end
             end
