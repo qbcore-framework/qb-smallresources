@@ -15,7 +15,7 @@ CreateThread(function()
         end
 
         if Config.Discord.buttons and type(Config.Discord.buttons) == "table" then
-            for i, v in pairs(Config.Discord.Buttons) do
+            for i, v in pairs(Config.Discord.buttons) do
                 SetDiscordRichPresenceAction(i - 1, v.text, v.url)
             end
         end

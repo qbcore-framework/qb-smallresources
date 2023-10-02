@@ -39,11 +39,7 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
                             TaskVehicleTempAction(ped, veh, 10, 1000)
                         end
 
-                        if isInFront then
-                            SetVehicleForwardSpeed(veh, -1.0)
-                        else
-                            SetVehicleForwardSpeed(veh, 1.0)
-                        end
+                        SetVehicleForwardSpeed(veh, isInFront and -1.0 or 1.0)
 
                         if HasEntityCollidedWithAnything(veh) then
                             SetVehicleOnGroundProperly(veh)

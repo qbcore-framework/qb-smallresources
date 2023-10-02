@@ -35,7 +35,7 @@ for k, _ in pairs(Config.Consumables.custom) do
     end)
 end
 
-local function createItem(name,type)
+local function createItem(name, type)
     QBCore.Functions.CreateUseableItem(name, function(source, item)
         local Player = QBCore.Functions.GetPlayer(source)
         if not Player.Functions.RemoveItem(item.name, 1, item.slot) then return end
