@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local webhooks = {
     ['default'] = '',
-    ['testwebhook'] = 'https://discord.com/api/webhooks/1158095095262883941/9KaKwKoNVRiAcVuBTFu_DWddbnh-ZuXDv7gTKY8W8MATckVcwR0RSfLMDPFnrDLb0pa3',
+    ['testwebhook'] = '',
     ['playermoney'] = '',
     ['playerinventory'] = '',
     ['robbing'] = '',
@@ -69,7 +69,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
             ['description'] = message,
             ['author'] = {
                 ['name'] = 'QBCore Logs',
-                ['icon_url'] = 'https://cdn.discordapp.com/attachments/1011334833785557072/1158096910914175077/81791099.png',
+                ['icon_url'] = 'https://raw.githubusercontent.com/GhzGarage/qb-media-kit/main/Display%20Pictures/Logo%20-%20Display%20Picture%20-%20Stylized%20-%20Red.png',
             },
         }
     }
