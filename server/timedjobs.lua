@@ -21,6 +21,11 @@ function CheckTimes(day, hour, min)
 end
 
 -- Exports
+
+---Creates a Timed Job
+---@param hour number
+---@param min number
+---@param cb function
 exports("CreateTimedJob", function(hour, min, cb)
 	if hour and type(hour) == "number" and min and type(min) == "number" and cb and (type(cb) == "function" or type(cb) == "table") then
 		jobs[#jobs + 1] = {
@@ -36,6 +41,8 @@ exports("CreateTimedJob", function(hour, min, cb)
 	end
 end)
 
+---Force runs a Timed Job
+---@param idx number
 exports("ForceRunTimedJob", function(idx)
 	if jobs[idx] then
 		local time = GetTime()
@@ -43,6 +50,8 @@ exports("ForceRunTimedJob", function(idx)
 	end
 end)
 
+---Stops a Timed Job
+---@param idx number
 exports("StopTimedJob", function(idx)
 	if jobs[idx] then
 		jobs[idx] = nil

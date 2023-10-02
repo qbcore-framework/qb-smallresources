@@ -75,11 +75,13 @@ end
 
 -- Export
 
-function HasHarness()
+---Checks whether you have the harness on or not
+---@return boolean 
+local function hasHarness()
     return harnessOn
 end
 
-exports("HasHarness", HasHarness)
+exports("HasHarness", hasHarness)
 
 -- Ejection Logic
 

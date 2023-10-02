@@ -228,6 +228,10 @@ QBCore.Functions.CreateCallback('consumables:itemdata', function(_, cb, itemName
     cb(Config.Consumables.custom[itemName])
 end)
 
+---Checks if item already exists in the table. If not, it creates it.
+---@param drinkName string name of item
+---@param replenish number amount it replenishes
+---@return boolean, string
 local function addDrink(drinkName, replenish)
     if Config.Consumables.drink[drinkName] ~= nil then
         return false, "already added"
@@ -240,6 +244,10 @@ end
 
 exports('AddDrink', addDrink)
 
+---Checks if item already exists in the table. If not, it creates it.
+---@param foodName string name of item
+---@param replenish number amount it replenishes
+---@return boolean, string
 local function addFood(foodName, replenish)
     if Config.Consumables.eat[foodName] ~= nil then
         return false, "already added"
@@ -252,6 +260,10 @@ end
 
 exports('AddFood', addFood)
 
+---Checks if item already exists in the table. If not, it creates it.
+---@param alcoholName string name of item
+---@param replenish number amount it replenishes
+---@return boolean, string
 local function addAlcohol(alcoholName, replenish)
     if Config.Consumables.alcohol[alcoholName] ~= nil then
         return false, "already added"
@@ -264,6 +276,10 @@ end
 
 exports('AddAlcohol', addAlcohol)
 
+---Checks if item already exists in the table. If not, it creates it.
+---@param itemName string name of item
+---@param data number amount it replenishes
+---@return boolean, string
 local function addCustom(itemName, data)
     if 'consumables:itemdata' ~= nil then
         return false, "already added"
