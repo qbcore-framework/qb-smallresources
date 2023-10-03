@@ -1,19 +1,19 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local VehicleNitrous = {}
+local vehNitrous = {}
 
 RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
-    TriggerClientEvent("tackle:client:GetTackled", playerId)
+    TriggerClientEvent('tackle:client:GetTackled', playerId)
 end)
 
 QBCore.Functions.CreateCallback('nos:GetNosLoadedVehs', function(_, cb)
-    cb(VehicleNitrous)
+    cb(vehNitrous)
 end)
 
-QBCore.Commands.Add("id", "Check Your ID #", {}, false, function(source)
-    TriggerClientEvent('QBCore:Notify', source,  "ID: "..source)
+QBCore.Commands.Add('id', 'Check Your ID #', {}, false, function(source)
+    TriggerClientEvent('QBCore:Notify', source,  'ID: '..source)
 end)
 
-QBCore.Functions.CreateUseableItem("harness", function(source, item)
+QBCore.Functions.CreateUseableItem('harness', function(source, item)
     TriggerClientEvent('seatbelt:client:UseHarness', source, item)
 end)
 
@@ -27,7 +27,7 @@ RegisterNetEvent('equip:harness', function(item)
         Player.PlayerData.items[item.slot].info.uses = Config.HarnessUses - 1
         Player.Functions.SetInventory(Player.PlayerData.items)
     elseif Player.PlayerData.items[item.slot].info.uses == 1 then
-        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
+        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['harness'], 'remove')
         Player.Functions.RemoveItem('harness', 1)
     else
         Player.PlayerData.items[item.slot].info.uses -= 1
@@ -55,12 +55,12 @@ RegisterNetEvent('qb-carwash:server:washCar', function()
 
     if not Player then return end
 
-    if Player.Functions.RemoveMoney('cash', Config.DefaultPrice, "car-washed") then
+    if Player.Functions.RemoveMoney('cash', Config.CarWash.defaultPrice, 'car-washed') then
         TriggerClientEvent('qb-carwash:client:washCar', src)
-    elseif Player.Functions.RemoveMoney('bank', Config.DefaultPrice, "car-washed") then
+    elseif Player.Functions.RemoveMoney('bank', Config.CarWash.defaultPrice, 'car-washed') then
         TriggerClientEvent('qb-carwash:client:washCar', src)
     else
-        TriggerClientEvent('QBCore:Notify', src, Lang:t("error.dont_have_enough_money"), 'error')
+        TriggerClientEvent('QBCore:Notify', src, Lang:t('error.dont_have_enough_money'), 'error')
     end
 end)
 

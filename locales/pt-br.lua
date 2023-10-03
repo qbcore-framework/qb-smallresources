@@ -3,14 +3,14 @@ local Translations = {
         will_kick = 'Você está AFK e será expulso em ',
         time_seconds = ' segundos!',
         time_minutes = ' minuto(s)!',
-        kick_message = 'Você foi expulso por estar AFK',
+        kick_message = 'Você foi expulso por estar AFK'
     },
     wash = {
         in_progress = "O veículo está sendo lavado...",
         wash_vehicle = "[E] Lavar Veículo",
         wash_vehicle_target = "Lavar Veículo",
         dirty = "O veículo não está sujo",
-        cancel = "Lavagem cancelada...",
+        cancel = "Lavagem cancelada..."
     },
     consumables = {
         eat_progress = "Comendo...",
@@ -30,12 +30,12 @@ local Translations = {
         armor_progress = "Colocando a armadura...",
         heavy_armor_progress = "Colocando armadura pesada...",
         remove_armor_progress = "Removendo a armadura...",
-        canceled = "Cancelado...",
+        canceled = "Cancelado..."
     },
     cruise = {
         unavailable = "Controle de cruzeiro indisponível",
-        activated = "Cruise Control Ativado: ",
-        deactivated = "Cruise Control Desativado",
+        activated = "Cruise Control Ativado",
+        deactivated = "Cruise Control Desativado"
     },
     editor = {
         started = "Gravação Iniciada!",
@@ -44,7 +44,7 @@ local Translations = {
         editor = "Até logo, jacaré!"
     },
     firework = {
-        place_progress = "Colocando objeto...",
+        place_progress = "Soltando fogos de artifício...",
         canceled = "Cancelado...",
         time_left = "Fogos de artifício acabaram ~r~"
     },

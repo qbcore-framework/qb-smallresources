@@ -1,27 +1,33 @@
 CreateThread(function()
     while true do
-        for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
+        for _, sctyp in next, Config.BlacklistedScenarios.types do
             SetScenarioTypeEnabled(sctyp, false)
         end
-        for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
+        for _, scgrp in next, Config.BlacklistedScenarios.groups do
             SetScenarioGroupEnabled(scgrp, false)
         end
         Wait(10000)
     end
 end)
 
-AddEventHandler("populationPedCreating", function(x, y, z)
+AddEventHandler('populationPedCreating', function(x, y, z)
 	Wait(500) -- Give the entity some time to be created
 	local _, handle = GetClosestPed(x, y, z, 1.0) -- Get the entity handle
 	SetPedDropsWeaponsWhenDead(handle, false)
 end)
 
+CreateThread(function()
+    local mapText = Config.PauseMapText
+    if mapText == '' or type(mapText) ~= 'string' then mapText = 'FiveM' end
+    Citizen.InvokeNative(joaat('ADD_TEXT_ENTRY'), 'FE_THDR_GTAO', mapText)
+end)
+
 CreateThread(function() -- all these should only need to be called once
-	if Config.DisableAmbience then
-		StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
-		SetAudioFlag("DisableFlightMusic", true)
+	if Config.Disable.ambience then
+		StartAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE')
+		SetAudioFlag('DisableFlightMusic', true)
 	end
-	SetAudioFlag("PoliceScannerDisabled", true)
+	SetAudioFlag('PoliceScannerDisabled', true)
 	SetGarbageTrucks(false)
 	SetCreateRandomCops(false)
 	SetCreateRandomCopsNotOnScenarios(false)
@@ -37,40 +43,34 @@ CreateThread(function() -- all these should only need to be called once
 	RemoveVehiclesFromGeneratorsInArea(-724.46 - 300.0, -1444.03 - 300.0, 5.0 - 300.0, -724.46 + 300.0, -1444.03 + 300.0, 5.0 + 300.0) -- REMOVE CHOPPERS WOW
 end)
 
-if Config.Stun.active then
-    CreateThread(function()
-        local sleep
-        while true do
-            sleep = 1000
-            local ped = PlayerPedId()
-            if IsPedBeingStunned(ped, 0) then
-                sleep = 0
-                SetPedMinGroundTimeForStungun(ped, math.random(Config.Stun.min, Config.Stun.max))
-            end
-            Wait(sleep)
-        end
-    end)
-end
-
 CreateThread(function()
-	for dispatchService, enabled in pairs(Config.DispatchServices) do
-		EnableDispatchService(dispatchService, enabled)
-	end
-
-	local wantedLevel = 0
-	if Config.EnableWantedLevel then
-		wantedLevel = 5
-	end
-
-	SetMaxWantedLevel(wantedLevel)
+    while true do
+        local sleep = 1000
+        local ped = PlayerPedId()
+        if IsPedBeingStunned(ped, 0) then
+            sleep = 0
+            SetPedMinGroundTimeForStungun(ped, math.random(4000, 7000))
+        end
+        Wait(sleep)
+    end
 end)
 
-if Config.IdleCamera then --Disable Idle Cinamatic Cam
+CreateThread(function()
+	for i = 1, 15 do
+        local toggle = Config.AIResponse.dispatchServices[i]
+        EnableDispatchService(i, toggle)
+    end
+
+    local wantedLevel = Config.AIResponse.wantedLevels and 5 or 0
+    SetMaxWantedLevel(wantedLevel)
+end)
+
+if Config.Disable.idleCamera then
     CreateThread(function()
         while true do
             InvalidateIdleCam()
             InvalidateVehicleIdleCam()
-            Wait(1000) --The idle camera activates after 30 second so we don't need to call this per frame
+            Wait(1000)
         end
     end)
 end
@@ -120,11 +120,21 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    while Config.RemovePistolWhipping do
-        if IsPedArmed(PlayerPedId(), 6) then
-            DisableControlAction(1, 140, true)
-            DisableControlAction(1, 141, true)
-            DisableControlAction(1, 142, true)
+    local ped = PlayerPedId()
+    while Config.Disable.pistolWhipping do
+        local sleep = 1000
+        if LocalPlayer.state.isLoggedIn then
+            if GetSelectedPedWeapon(ped) ~= joaat(`WEAPON_UNARMED`) and not IsPedArmed(ped, 1) then
+                if not IsPedInAnyVehicle(ped, true) then
+                    DisableControlAction(0, 140, true)
+                    DisableControlAction(0, 141, true)
+                    DisableControlAction(0, 142, true)
+                else
+                    Wait(sleep)
+                end
+            end
+        else
+            Wait(sleep)
         end
         Wait(5)
     end

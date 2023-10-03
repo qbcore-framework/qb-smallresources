@@ -14,51 +14,38 @@ end
 
 local function stopPointing()
     local ped = PlayerPedId()
-    RequestTaskMoveNetworkStateTransition(ped, 'Stop')
     if not IsPedInjured(ped) then
+        RequestTaskMoveNetworkStateTransition(ped, 'Stop')
         ClearPedSecondaryTask(ped)
+        if not IsPedInAnyVehicle(ped, 1) then
+            SetPedCurrentWeaponVisible(ped, 1, true, true, true)
+        end
+        SetPedConfigFlag(ped, 36, false)
     end
-    if not IsPedInAnyVehicle(ped, 1) then
-        SetPedCurrentWeaponVisible(ped, 1, true, true, true)
-    end
-    SetPedConfigFlag(ped, 36, false)
-    ClearPedSecondaryTask(ped)
 end
 
 RegisterCommand('point', function()
     local ped = PlayerPedId()
     if not IsPedInAnyVehicle(ped, false) then
+        mp_pointing = not mp_pointing
         if mp_pointing then
-            stopPointing()
-            mp_pointing = false
-        else
             startPointing()
-            mp_pointing = true
+        else
+            stopPointing()
         end
         while mp_pointing do
             local camPitch = GetGameplayCamRelativePitch()
-            if camPitch < -70.0 then
-                camPitch = -70.0
-            elseif camPitch > 42.0 then
-                camPitch = 42.0
-            end
-            camPitch = (camPitch + 70.0) / 112.0
-
             local camHeading = GetGameplayCamRelativeHeading()
             local cosCamHeading = Cos(camHeading)
             local sinCamHeading = Sin(camHeading)
-            if camHeading < -180.0 then
-                camHeading = -180.0
-            elseif camHeading > 180.0 then
-                camHeading = 180.0
-            end
+            camPitch = math.max(-70.0, math.min(42.0, camPitch))
+            camPitch = (camPitch + 70.0) / 112.0
+            camHeading = math.max(-180.0, math.min(180.0, camHeading))
             camHeading = (camHeading + 180.0) / 360.0
-
-            local blocked
 
             local coords = GetOffsetFromEntityInWorldCoords(ped, (cosCamHeading * -0.2) - (sinCamHeading * (0.4 * camHeading + 0.3)), (sinCamHeading * -0.2) + (cosCamHeading * (0.4 * camHeading + 0.3)), 0.6)
             local ray = StartShapeTestCapsule(coords.x, coords.y, coords.z - 0.2, coords.x, coords.y, coords.z + 0.2, 0.4, 95, ped, 7)
-            _, blocked = GetRaycastResult(ray)
+            local _, blocked = GetRaycastResult(ray)
             SetTaskMoveNetworkSignalFloat(ped, "Pitch", camPitch)
             SetTaskMoveNetworkSignalFloat(ped, "Heading", camHeading * -1.0 + 1.0)
             SetTaskMoveNetworkSignalBool(ped, "isBlocked", blocked)
@@ -68,4 +55,4 @@ RegisterCommand('point', function()
     end
 end, false)
 
-RegisterKeyMapping('point', 'Toggles Point', 'keyboard', 'b')
+RegisterKeyMapping('point', 'Toggles Point', 'keyboard', 'B')

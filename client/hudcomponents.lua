@@ -1,27 +1,25 @@
-local disableHudComponents = Config.Disable.disableHudComponents
-local disableControls = Config.Disable.disableControls
+local disableHudComponents = Config.Disable.hudComponents
+local disableControls = Config.Disable.controls
 local displayAmmo = Config.Disable.displayAmmo
 
-local function DecorSet(Type, Value)
+local function decorSet(Type, Value)
     if Type == 'parked' then
-        Config.Density['parked'] = Value
+        Config.Density.parked = Value
     elseif Type == 'vehicle' then
-        Config.Density['vehicle'] = Value
+        Config.Density.vehicle = Value
     elseif Type == 'multiplier' then
-        Config.Density['multiplier'] = Value
+        Config.Density.multiplier = Value
     elseif Type == 'peds' then
-        Config.Density['peds'] = Value
+        Config.Density.peds = Value
     elseif Type == 'scenario' then
-        Config.Density['scenario'] = Value
+        Config.Density.scenario = Value
     end
 end
 
-exports('DecorSet', DecorSet)
+exports('DecorSet', decorSet)
 
 CreateThread(function()
     while true do
-
-        -- Hud Components
 
         for i = 1, #disableHudComponents do
             HideHudComponentThisFrame(disableHudComponents[i])
@@ -32,14 +30,12 @@ CreateThread(function()
         end
 
         DisplayAmmoThisFrame(displayAmmo)
-        
-        -- Density
 
-        SetParkedVehicleDensityMultiplierThisFrame(Config.Density['parked'])
-        SetVehicleDensityMultiplierThisFrame(Config.Density['vehicle'])
-        SetRandomVehicleDensityMultiplierThisFrame(Config.Density['multiplier'])
-        SetPedDensityMultiplierThisFrame(Config.Density['peds'])
-        SetScenarioPedDensityMultiplierThisFrame(Config.Density['scenario'], Config.Density['scenario']) -- Walking NPC Density
+        SetParkedVehicleDensityMultiplierThisFrame(Config.Density.parked)
+        SetVehicleDensityMultiplierThisFrame(Config.Density.vehicle)
+        SetRandomVehicleDensityMultiplierThisFrame(Config.Density.multiplier)
+        SetPedDensityMultiplierThisFrame(Config.Density.peds)
+        SetScenarioPedDensityMultiplierThisFrame(Config.Density.scenario, Config.Density.scenario) -- Walking NPC Density
         Wait(0)
     end
 end)
@@ -47,10 +43,10 @@ end)
 exports('addDisableHudComponents', function(hudComponents)
     local hudComponentsType = type(hudComponents)
     if hudComponentsType == 'number' then
-        disableHudComponents[#disableHudComponents+1] = hudComponents
+        disableHudComponents[#disableHudComponents + 1] = hudComponents
     elseif hudComponentsType == 'table' and table.type(hudComponents) == "array" then
         for i = 1, #hudComponents do
-            disableHudComponents[#disableHudComponents+1] = hudComponents[i]
+            disableHudComponents[#disableHudComponents + 1] = hudComponents[i]
         end
     end
 end)
@@ -80,10 +76,10 @@ exports('getDisableHudComponents', function() return disableHudComponents end)
 exports('addDisableControls', function(controls)
     local controlsType = type(controls)
     if controlsType == 'number' then
-        disableControls[#disableControls+1] = controls
+        disableControls[#disableControls + 1] = controls
     elseif controlsType == 'table' and table.type(controls) == "array" then
         for i = 1, #controls do
-            disableControls[#disableControls+1] = controls[i]
+            disableControls[#disableControls + 1] = controls[i]
         end
     end
 end)

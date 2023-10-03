@@ -1,5 +1,5 @@
 -- Variables
-local Jobs = {}
+local jobs = {}
 
 -- Functions
 function GetTime()
@@ -12,8 +12,8 @@ function GetTime()
 end
 
 function CheckTimes(day, hour, min)
-	for i = 1, #Jobs, 1 do
-		local data = Jobs[i]
+	for i = 1, #jobs, 1 do
+		local data = jobs[i]
 		if data.hour == hour and data.min == min then
 			data.cb(day, hour, min)
 		end
@@ -21,31 +21,40 @@ function CheckTimes(day, hour, min)
 end
 
 -- Exports
+
+---Creates a Timed Job
+---@param hour number
+---@param min number
+---@param cb function
 exports("CreateTimedJob", function(hour, min, cb)
 	if hour and type(hour) == "number" and min and type(min) == "number" and cb and (type(cb) == "function" or type(cb) == "table") then
-		Jobs[#Jobs+1] = {
-			min  = min,
-			hour  = hour,
+		jobs[#jobs + 1] = {
+			min = min,
+			hour = hour,
 			cb = cb
 		}
 
-		return #Jobs
+		return #jobs
 	else
 		print("WARN: Invalid arguments for export CreateTimedJob(hour, min, cb)")
 		return nil
 	end
 end)
 
+---Force runs a Timed Job
+---@param idx number
 exports("ForceRunTimedJob", function(idx)
-	if Jobs[idx] then
+	if jobs[idx] then
 		local time = GetTime()
-		Jobs[idx].cb(time.day, time.hour, time.min)
+		jobs[idx].cb(time.day, time.hour, time.min)
 	end
 end)
 
+---Stops a Timed Job
+---@param idx number
 exports("StopTimedJob", function(idx)
-	if Jobs[idx] then
-		Jobs[idx] = nil
+	if jobs[idx] then
+		jobs[idx] = nil
 	end
 end)
 
