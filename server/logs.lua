@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local webhooks = {
+local Webhooks = {
     ['default'] = '',
     ['testwebhook'] = '',
     ['playermoney'] = '',
@@ -58,7 +58,8 @@ local logQueue = {}
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
     local postData = {}
     local tag = tagEveryone or false
-    local webHook = webhooks[name] ~= '' and webhooks[name] or webhooks['default']
+    if not Webhooks[name] then print('Tried to call a log that isn\'t configured with the name of ' ..name) return end
+    local webHook = Webhooks[name] ~= '' and Webhooks[name] or Webhooks['default']
     local embedData = {
         {
             ['title'] = title,
