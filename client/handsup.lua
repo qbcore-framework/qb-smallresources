@@ -12,10 +12,10 @@ RegisterCommand(Config.HandsUp.command, function()
     if exports['qb-policejob']:IsHandcuffed() then return end
     if handsUp then
         TaskPlayAnim(ped, 'missminuteman_1ig_2', 'handsup_base', 8.0, 8.0, -1, 50, 0, false, false, false)
-        exports['qb-smallresources']:addDisableControls(Config.HandsUp.disableControls)
+        exports['qb-smallresources']:addDisableControls(Config.HandsUp.controls)
     else
         ClearPedTasks(ped)
-        exports['qb-smallresources']:removeDisableControls(Config.HandsUp.disableControls)
+        exports['qb-smallresources']:removeDisableControls(Config.HandsUp.controls)
     end
 end, false)
 
