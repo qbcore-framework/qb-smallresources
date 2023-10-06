@@ -120,21 +120,11 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    local ped = PlayerPedId()
     while Config.Disable.pistolWhipping do
-        local sleep = 1000
-        if LocalPlayer.state.isLoggedIn then
-            if GetSelectedPedWeapon(ped) ~= joaat(`WEAPON_UNARMED`) and not IsPedArmed(ped, 1) then
-                if not IsPedInAnyVehicle(ped, true) then
-                    DisableControlAction(0, 140, true)
-                    DisableControlAction(0, 141, true)
-                    DisableControlAction(0, 142, true)
-                else
-                    Wait(sleep)
-                end
-            end
-        else
-            Wait(sleep)
+        if IsPedArmed(PlayerPedId(), 6) then
+            DisableControlAction(1, 140, true)
+            DisableControlAction(1, 141, true)
+            DisableControlAction(1, 142, true)
         end
         Wait(5)
     end
