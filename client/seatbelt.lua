@@ -38,7 +38,7 @@ end
 local function toggleSeatbelt()
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
-    TriggerEvent("seatbelt:client:toggleSeatbelt")
+    TriggerEvent("seatbelt:client:ToggleSeatbelt")
     TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
 end
 
@@ -64,7 +64,7 @@ function SeatBeltLoop()
             if not IsPedInAnyVehicle(PlayerPedId(), false) then
                 seatbeltOn = false
                 harnessOn = false
-                TriggerEvent("seatbelt:client:toggleSeatbelt")
+                TriggerEvent("seatbelt:client:ToggleSeatbelt")
                 break
             end
             if not seatbeltOn and not harnessOn then break end
