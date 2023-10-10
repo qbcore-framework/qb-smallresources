@@ -2,16 +2,6 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local checkUser = true
 local prevPos, time = nil, nil
-local timeMinutes = {
-    ['900'] = 'minutes',
-    ['600'] = 'minutes',
-    ['300'] = 'minutes',
-    ['150'] = 'minutes',
-    ['60'] = 'minutes',
-    ['30'] = 'seconds',
-    ['20'] = 'seconds',
-    ['10'] = 'seconds',
-}
 
 local function updatePermissionLevel()
     QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(userGroups)
@@ -23,6 +13,10 @@ local function updatePermissionLevel()
             checkUser = true
         end
     end)
+    local playerJob = QBCore.Functions.GetPlayerData().job
+    if playerJob and playerJob.name and Config.AFK.ignoredJobs[playerJob.name] then
+        checkUser = false
+    end
 end
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
@@ -42,32 +36,24 @@ CreateThread(function()
     while true do
         Wait(10000)
         local ped = PlayerPedId()
-        if isLoggedIn == true or Config.AFK.kickInCharMenu == true then
-            if checkUser then
-                local currPos = GetEntityCoords(ped, true)
-                if prevPos then
-                    if currPos == prevPos then
-                        if time then
-                            if time > 0 then
-                                local _type = timeMinutes[tostring(time)]
-                                if _type == 'minutes' then
-                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. math.ceil(time / 60) .. Lang:t('afk.time_minutes'), 'error', 10000)
-                                elseif _type == 'seconds' then
-                                    QBCore.Functions.Notify(Lang:t('afk.will_kick') .. time .. Lang:t('afk.time_seconds'), 'error', 10000)
-                                end
-                                time -= 10
-                            else
-                                TriggerServerEvent('KickForAFK')
-                            end
+        if isLoggedIn and checkUser then
+            local currPos = GetEntityCoords(ped, true)
+            if prevPos then
+                if currPos == prevPos then
+                    if time then
+                        if time > 0 then
+                            time = time - 10
                         else
-                            time = Config.AFK.secondsUntilKick
+                            TriggerServerEvent('KickForAFK')
                         end
                     else
                         time = Config.AFK.secondsUntilKick
                     end
+                else
+                    time = Config.AFK.secondsUntilKick
                 end
-                prevPos = currPos
             end
+            prevPos = currPos
         end
     end
 end)
