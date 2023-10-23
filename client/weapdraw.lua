@@ -127,8 +127,8 @@ local function checkWeapon(newWeap)
 end
 
 local function isWeaponHolsterable(weap)
-    for i = 1, #Config.Config.WeapDraw.weapons do
-        if joaat(Config.Config.WeapDraw.weapons[i]) == weap then
+    for i = 1, #Config.WeapDraw.weapons do
+        if joaat(Config.WeapDraw.weapons[i]) == weap then
             return true
         end
     end
