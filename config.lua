@@ -5,6 +5,8 @@ Config.PauseMapText = '' -- Text shown above the map when ESC is pressed. If lef
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- amount of damage till you can push your vehicle. 0-1000
 
+Config.TackleCooldown = 2 -- cooldown between tackles (in seconds)
+
 Config.AFK = {
     ignoredGroups = {
         ['mod'] = true,

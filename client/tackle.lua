@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local TackleCooldown = false
 
 local function tackleAnim()
     local ped = PlayerPedId()
@@ -16,9 +17,13 @@ local function tackleAnim()
         ClearPedTasksImmediately(ped)
         SetPedToRagdoll(ped, 150, 150, 0, false, false, false)
     end
+    TackleCooldown = true
+    Wait(1000 * Config.TackleCooldown)
+    TackleCooldown = false
 end
 
 RegisterCommand('tackle', function()
+    if TackleCooldown then return end
     local closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
     local ped = PlayerPedId()
     if distance ~= -1 and distance < 2 and GetEntitySpeed(ped) > 2.5 and not IsPedInAnyVehicle(ped, false) and not QBCore.Functions.GetPlayerData().metadata.ishandcuffed and not IsPedRagdoll(ped) then
@@ -31,7 +36,4 @@ RegisterKeyMapping('tackle', 'Tackle Someone', 'KEYBOARD', 'LMENU')
 
 RegisterNetEvent('tackle:client:GetTackled', function()
     SetPedToRagdoll(PlayerPedId(), math.random(1000, 6000), math.random(1000, 6000), 0, false, false, false)
-    TimerEnabled = true
-    Wait(1500)
-    TimerEnabled = false
 end)
