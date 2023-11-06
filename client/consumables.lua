@@ -197,7 +197,12 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
         animDict = 'mp_player_intdrink',
         anim = 'loop_bottle',
         flags = 49
-    }, {}, {}, function() -- Done
+    }, {
+        model = 'prop_cs_beer_bot_40oz',
+        bone = 60309,
+        coords = vec3(0.0, 0.0, -0.05),
+        rotation = vec3(0.0, 0.0, -40),
+    }, {}, function() -- Done
         TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items[itemName], 'remove')
         TriggerServerEvent('consumables:server:drinkAlcohol', itemName)
         TriggerServerEvent('consumables:server:addThirst', QBCore.Functions.GetPlayerData().metadata.thirst + Config.Consumables.alcohol[itemName])
