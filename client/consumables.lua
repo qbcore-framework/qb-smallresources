@@ -442,10 +442,7 @@ RegisterNetEvent('consumables:client:UseArmor', function()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['armor'], 'remove')
-        TriggerServerEvent('hospital:server:SetArmor', 75)
         TriggerServerEvent('consumables:server:useArmor')
-        SetPedArmour(PlayerPedId(), 75)
     end)
 end)
 
@@ -477,9 +474,7 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
                 SetPedComponentVariation(ped, 9, 30, 0, 2)
             end
         end
-        TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['heavyarmor'], 'remove')
         TriggerServerEvent('consumables:server:useHeavyArmor')
-        SetPedArmour(ped, 100)
     end)
 end)
 
