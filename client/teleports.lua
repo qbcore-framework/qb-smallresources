@@ -48,6 +48,7 @@ CreateThread(function()
                     end
                 else
                     ran = false
+                    exports['qb-menu']:closeMenu()
                 end
             end)
         end
