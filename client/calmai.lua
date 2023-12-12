@@ -1,10 +1,29 @@
---  Relationship Types:
---  0 = Companion
---  1 = Respect
---  2 = Like
---  3 = Neutral
---  4 = Dislike
---  5 = Hate
+-- 0 = Companion
+-- 1 = Respect
+-- 2 = Like
+-- 3 = Neutral
+-- 4 = Dislike
+-- 5 = Hate
+-- 255 = Pedestrians
+
+-- "AMBIENT_GANG_HILLBILLY" -- sandy shores + random trash {1813.9053955078,3780.8464355469,33.536880493164},
+-- "AMBIENT_GANG_CULT" -- hillbillys with their dicks out {-1109.9310302734,4915.4189453125,217.24272155762},
+-- "AMBIENT_GANG_LOST" - All lost gang members
+
+-- "MISSION4", -- WEST
+-- "MISSION5", -- CENTRAL
+-- "MISSION6", -- EAST
+
+-- "AMBIENT_GANG_FAMILY" -- Family (Green clothes near grove) {-173.74082946777,-1621.7894287109,33.628547668457},
+-- "AMBIENT_GANG_BALLAS" -- Grove Stret Gangs
+
+-- "AMBIENT_GANG_MEXICAN" -- mexican gang around {326.61358642578,-2034.1141357422,20.908306121826},
+-- "AMBIENT_GANG_SALVA" || "AMBIENT_GANG_MARABUNTE" -- gang bangers in fudge lane area - east side LS {1236.2904052734,-1616.4357910156,51.829231262207},
+
+-- "AMBIENT_GANG_WEICHENG" -- little seoul {-759.36694335938,-927.24609375,18.555536270142},
+
+-- mission 8 is the group we set to when we want all civilians to attack them, or gangs etc.
+
 
 	-------- PLAYER
 	-- PLAYER / FAMILY --
