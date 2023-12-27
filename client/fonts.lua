@@ -29,4 +29,4 @@ CreateThread(function()
     for _, font in pairs(Config.FontList) do
         RegisterCustomFont(font.dict, font.name, font.lang)
     end
-end
+end)
