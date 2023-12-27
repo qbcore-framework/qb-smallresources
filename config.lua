@@ -284,3 +284,7 @@ Config.CarWash = {
         [5] = {coords = vector3(-699.84, -932.68, 18.59), length = 11.8, width = 5.2, heading = 0} -- Little Seoul Gas Station
     }
 }
+
+Config.FontList = {
+    ["A9eelsh"] = { dict = 'A9eelsh', name = 'A9eelsh', lang = 'ar' }
+}
