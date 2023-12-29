@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+
 local Webhooks = {
     ['default'] = '',
     ['testwebhook'] = '',
@@ -35,6 +36,8 @@ local Webhooks = {
     ['casino'] = '',
     ['traphouse'] = '',
     ['911'] = '',
+    ['jail'] = '',
+    ['unjail'] = '',
     ['palert'] = '',
     ['house'] = '',
     ['qbjobs'] = '',
@@ -90,7 +93,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local timer = 0
     while true do
         Wait(1000)
