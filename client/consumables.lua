@@ -517,7 +517,7 @@ function AlcoholLoop()
             while true do
                 Wait(10)
                 if alcoholCount > 0 then
-                    Wait(1000 * 60 * 15)
+                    Wait(1000 * 60 * 15) -- Vitto 15 minutes refresh time for alcohol
                     alcoholCount -= 1
                 else
                     looped = false
