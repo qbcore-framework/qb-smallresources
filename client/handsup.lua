@@ -1,4 +1,5 @@
 local handsUp = false
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterCommand(Config.HandsUp.command, function()
     local ped = PlayerPedId()
@@ -9,9 +10,10 @@ RegisterCommand(Config.HandsUp.command, function()
         end
     end
     handsUp = not handsUp
-    if exports['qb-policejob']:IsHandcuffed() then return end
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    if exports['qb-policejob']:IsHandcuffed() or PlayerData.metadata["isdead"] or PlayerData.metadata["inlaststand"] then return end
     if handsUp then
-        TaskPlayAnim(ped, 'missminuteman_1ig_2', 'handsup_base', 8.0, 8.0, -1, 50, 0, false, false, false)
+        TaskPlayAnim(ped, 'missminuteman_1ig_2', 'handsup_base', 2.0, 2.5, -1, 50, 0, false, false, false)
         exports['qb-smallresources']:addDisableControls(Config.HandsUp.controls)
     else
         ClearPedTasks(ped)
