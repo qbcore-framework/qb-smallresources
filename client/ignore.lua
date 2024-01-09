@@ -107,6 +107,72 @@ RegisterNetEvent('QBCore:Client:DrawWeapon', function()
     end
 end)
 
+-----------------------
+-- Vitto Taser ammo
+maxTaserCarts = 3 -- The amount of taser cartridges a person can have.
+
+local QBCore = exports['qb-core']:GetCoreObject()
+local taserCartsLeft = maxTaserCarts
+
+RegisterNetEvent("FillTaser")
+AddEventHandler("FillTaser",function(source, args, rawCommand)
+
+	QBCore.Functions.Progressbar("load_tazer", "Rechargement du Taser..", 2000, false, true, {
+		disableMovement = false,
+		disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+	}, {
+		animDict = "anim@weapons@pistol@singleshot_str",
+		anim = "reload_aim",
+		flags = 48,
+	}, {}, {}, function() -- Done
+
+		taserCartsLeft = maxTaserCarts
+		TriggerServerEvent("QBCore:Server:RemoveItem", "taserammo", 1)
+		TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["taserammo"], "remove")
+	end)
+end)  
+
+local taserModel = GetHashKey("WEAPON_STUNGUN")
+
+CreateThread(function()
+while true do
+   Wait(0)
+   local ped = PlayerPedId()
+   if GetSelectedPedWeapon(ped) == taserModel then
+	   if IsPedShooting(ped) then
+		   DisplayAmmoThisFrame(true)
+		   taserCartsLeft = taserCartsLeft - 1
+	   end
+   end
+
+   if taserCartsLeft <= 0 then
+	   if GetSelectedPedWeapon(ped) == taserModel then
+		   SetPlayerCanDoDriveBy(ped, false)
+		   DisablePlayerFiring(ped, true)
+		   if IsControlJustReleased(0, 106) then
+			   QBCore.Functions.Notify("Vous devez recharger votre taser!", "error")
+		   end
+	   end
+   end
+
+   if longerTazeTime then
+	   SetPedMinGroundTimeForStungun(ped, longerTazeSecTime * 1000)
+   end
+end
+end)
+-----------------------
+
+-- Vitto
+CreateThread(function()        -- Train/metro spawn
+    SwitchTrainTrack(0, true)
+    SwitchTrainTrack(3, true)
+    N_0x21973bbf8d17edfa (0, 120000)
+    SetRandomTrains(true)
+end)
+-----------------------
+
 CreateThread(function()
     local pedPool = GetGamePool('CPed')
     for _, v in pairs(pedPool) do
