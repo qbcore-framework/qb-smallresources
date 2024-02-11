@@ -1,7 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
-
-description 'QB-SmallResources'
+lua54 'yes'
+use_experimental_fxv2_oal 'yes'
+author 'Kakarot'
+description 'Various small code snippets compiled into one resource for ease of use'
 version '1.4.0'
 
 shared_scripts {
@@ -26,6 +28,3 @@ files {
     'popgroups.ymt',
     'relationships.dat'
 }
-
-lua54 'yes'
-use_experimental_fxv2_oal 'yes'
