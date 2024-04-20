@@ -86,12 +86,12 @@ local recoils = {
     [`weapon_rayminigun`] = 0.3,
 }
 
-AddEventHandler("CEventGunShot", function (entities, eventEntity, args)
+AddEventHandler('CEventGunShot', function(entities, eventEntity, args)
     local ped = PlayerPedId()
 
     if eventEntity ~= ped then return end
     if IsPedDoingDriveby(ped) then return end
-    
+
     local _, weap = GetCurrentPedWeapon(ped)
     if recoils[weap] and recoils[weap] ~= 0 then
         local tv = 0

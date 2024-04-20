@@ -56,7 +56,7 @@ local colors = { -- https://www.spycolor.com/
 
 local logQueue = {}
 
-RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
+RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone, imageUrl)
     local postData = {}
     local tag = tagEveryone or false
 
@@ -78,6 +78,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
                     ['name'] = 'QBCore Logs',
                     ['icon_url'] = 'https://raw.githubusercontent.com/GhzGarage/qb-media-kit/main/Display%20Pictures/Logo%20-%20Display%20Picture%20-%20Stylized%20-%20Red.png',
                 },
+                ['image'] = imageUrl and imageUrl ~= '' and { ['url'] = imageUrl } or nil,
             }
         }
 
