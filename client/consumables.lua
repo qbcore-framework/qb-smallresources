@@ -384,7 +384,7 @@ RegisterNetEvent('consumables:client:UseJoint', function()
         end
         TriggerEvent('evidence:client:SetStatus', 'weedsmell', 300)
         TriggerEvent('animations:client:SmokeWeed')
-        TriggerServerEvent('hud:server:RelieveStress', math.random(15, 20))
+        TriggerServerEvent('hud:server:RelieveStress', Config.RelieveStress)
     end)
 end)
 
