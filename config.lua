@@ -90,7 +90,7 @@ Config.Disable = {
     driveby = false,                                              -- disables driveby
 }
 
-Config.RelieveStress = math.random(15, 20) -- stress relief amount (100 max)
+Config.RelieveWeedStress = math.random(15, 20) -- stress relief amount (100 max)
 
 Config.Consumables = {
     eat = { -- default food items
