@@ -227,22 +227,6 @@ Config.BlacklistedPeds = {
     [`s_m_y_hwaycop_01`] = true
 }
 
-Config.WeapDraw = {
-    variants = { 130, 122, 3, 6, 8 },
-    weapons = {
-        --'WEAPON_STUNGUN',
-        'WEAPON_PISTOL',
-        'WEAPON_PISTOL_MK2',
-        'WEAPON_COMBATPISTOL',
-        'WEAPON_APPISTOL',
-        'WEAPON_PISTOL50',
-        'WEAPON_REVOLVER',
-        'WEAPON_SNSPISTOL',
-        'WEAPON_HEAVYPISTOL',
-        'WEAPON_VINTAGEPISTOL'
-    }
-}
-
 Config.Objects = { -- for object removal
     { coords = vector3(266.09, -349.35, 44.74), heading = 0, length = 200, width = 200, model = 'prop_sec_barier_02b' },
     { coords = vector3(285.28, -355.78, 45.13), heading = 0, length = 200, width = 200, model = 'prop_sec_barier_02a' },

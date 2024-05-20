@@ -33,14 +33,14 @@ local function triggerCruiseControl(veh)
             local isTurningOrHandbraking = IsControlPressed(2, 76) or IsControlPressed(2, 63) or IsControlPressed(2, 64)
             TriggerEvent('seatbelt:client:ToggleCruise', true)
             QBCore.Functions.Notify(Lang:t('cruise.activated'))
-            
+
             CreateThread(function()
                 while speed > 0 and GetPedInVehicleSeat(veh, -1) == ped do
                     Wait(0)
                     if not isTurningOrHandbraking and GetEntitySpeed(veh) < speed - 1.5 then
                         speed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise', false)
-                        QBCore.Functions.Notify(Lang:t('cruise.deactivated'), "error")
+                        QBCore.Functions.Notify(Lang:t('cruise.deactivated'), 'error')
                         Wait(2000)
                         break
                     end
@@ -56,7 +56,7 @@ local function triggerCruiseControl(veh)
                     if IsControlJustPressed(2, 72) then
                         speed = 0
                         TriggerEvent('seatbelt:client:ToggleCruise', false)
-                        QBCore.Functions.Notify(Lang:t('cruise.deactivated'), "error")
+                        QBCore.Functions.Notify(Lang:t('cruise.deactivated'), 'error')
                         Wait(2000)
                         break
                     end
@@ -73,8 +73,6 @@ RegisterCommand('togglecruise', function()
     local vehClass = GetVehicleClass(veh)
     if ped == driver and vehicleClasses[vehClass] then
         triggerCruiseControl(veh)
-    else
-        QBCore.Functions.Notify(Lang:t('cruise.unavailable'), "error")
     end
 end, false)
 
