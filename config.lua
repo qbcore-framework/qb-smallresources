@@ -80,7 +80,30 @@ Config.Density = {
 }
 
 Config.Disable = {
-    hudComponents = { 1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22 }, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+    hudComponents = {
+        { "WANTED_STARS", true}, --1
+        { "WEAPON_ICON", true}, --2
+        { "CASH", true}, --3
+        { "MP_CASH", true}, --4
+        { "MP_MESSAGE", false}, --5
+        { "VEHICLE_NAME", false}, --6
+        { "AREA_NAME", true}, --7
+        { "VEHICLE_CLASS", false}, --8
+        { "STREET_NAME", true}, --9
+        { "HELP_TEXT", false}, --10
+        { "FLOATING_HELP_TEXT_1", false}, --11
+        { "FLOATING_HELP_TEXT_2", false}, --12
+        { "CASH_CHANGE", true}, --13
+        { "RETICLE", true}, --14
+        { "SUBTITLE_TEXT", false}, --15
+        { "RADIO_STATIONS", false}, --16
+        { "SAVING_GAME", false}, --17
+        { "GAME_STREAM", false}, --18
+        { "WEAPON_WHEEL", true}, --19
+        { "WEAPON_WHEEL_STATS", true}, --20
+        { "HUD_COMPONENTS", true}, --21
+        { "HUD_WEAPONS", true}, --22
+    }, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
     controls = { 37 },                                            -- Controls: https://docs.fivem.net/docs/game-references/controls/
     displayAmmo = true,                                           -- false disables ammo display
     ambience = false,                                             -- disables distance sirens, distance car alarms, flight music, etc
