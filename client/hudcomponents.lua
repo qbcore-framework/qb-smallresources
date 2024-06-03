@@ -1,4 +1,12 @@
-local disableHudComponents = Config.Disable.hudComponents
+local disableHudComponents = {}
+
+for i = 1, #Config.Disable.hudComponents do
+    local hudComponent = Config.Disable.hudComponents[i]
+    if hudComponent[2] then
+        disableHudComponents[#disableHudComponents + 1] = i
+    end
+end
+
 local disableControls = Config.Disable.controls
 local displayAmmo = Config.Disable.displayAmmo
 
