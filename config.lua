@@ -88,6 +88,7 @@ Config.Disable = {
     vestDrawable = false,                                         -- disables the vest equipped when using heavy armor
     pistolWhipping = true,                                        -- disables pistol whipping
     driveby = false,                                              -- disables driveby
+    stealthKills = false,                                         -- disables stealth kills
 }
 
 Config.RelieveWeedStress = math.random(15, 20) -- stress relief amount (100 max)
