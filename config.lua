@@ -4,7 +4,7 @@ Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target in
 Config.PauseMapText = ''                                     -- Text shown above the map when ESC is pressed. If left empty 'FiveM' will appear
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0                                  -- amount of damage till you can push your vehicle. 0-1000
-Config.Logging = 'discord'                                   -- fivemanage
+Config.Logging = 'discord'                                   -- fivemanage, fivemerr
 
 Config.AFK = {
     ignoredGroups = {
