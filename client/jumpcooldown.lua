@@ -1,12 +1,13 @@
 -- Initialize variables
+local QBCore = exports['qb-core']:GetCoreObject()
 local jumpCooldown = false
-local cooldownTime = 10 -- Cooldown time in seconds
+local cooldownTime = Config.jumpCooldown
 
 -- Cooldown function
 local function startJumpCooldown()
     jumpCooldown = true
     Citizen.CreateThread(function()
-        Citizen.Wait(cooldownTime * 1000)
+        Citizen.Wait(cooldownTime * 1000) -- Wait for the cooldown time
         jumpCooldown = false
     end)
 end
@@ -15,11 +16,14 @@ end
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if IsControlJustPressed(0, 22) then
-            if not jumpCooldown then
-                TaskJump(PlayerPedId())
-                startJumpCooldown()
+        if not IsControlPressed(0, 25) then
+            if IsControlJustPressed(0, 22) then
+                if not jumpCooldown then
+                    TaskJump(PlayerPedId())
+                    startJumpCooldown()
+                end
             end
+        else
         end
     end
 end)
@@ -28,8 +32,12 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if jumpCooldown then
-            DisableControlAction(0, 22, true)
+        if not IsControlPressed(0, 25) then
+            if jumpCooldown then
+                DisableControlAction(0, 22, true)
+            end
+        else
+            EnableControlAction(0, 22, true)
         end
     end
 end)
