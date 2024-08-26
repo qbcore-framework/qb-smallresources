@@ -6,7 +6,7 @@ local cooldownTime = Config.jumpCooldown
 local function startJumpCooldown()
     jumpCooldown = true
     Citizen.CreateThread(function()
-        Citizen.Wait(cooldownTime * 1000) -- Wait for the cooldown time
+        Citizen.Wait(cooldownTime * 1000)
         jumpCooldown = false
     end)
 end
@@ -15,10 +15,14 @@ end
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if not IsControlPressed(0, 25) then
+
+        local playerPed = PlayerPedId()
+        local isAiming = IsControlPressed(0, 25)
+        local isInVehicle = IsPedInAnyVehicle(playerPed, false)
+        if not isAiming and not isInVehicle then
             if IsControlJustPressed(0, 22) then
                 if not jumpCooldown then
-                    TaskJump(PlayerPedId())
+                    TaskJump(playerPed)
                     startJumpCooldown()
                 end
             end
@@ -31,7 +35,11 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if not IsControlPressed(0, 25) then
+
+        local playerPed = PlayerPedId()
+        local isAiming = IsControlPressed(0, 25)
+        local isInVehicle = IsPedInAnyVehicle(playerPed, false)
+        if not isAiming and not isInVehicle then
             if jumpCooldown then
                 DisableControlAction(0, 22, true)
             end
