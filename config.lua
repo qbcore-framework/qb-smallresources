@@ -5,6 +5,7 @@ Config.PauseMapText = ''                                     -- Text shown above
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0                                  -- amount of damage till you can push your vehicle. 0-1000
 Config.Logging = 'discord'                                   -- fivemanage
+Config.jumpCooldown = 7                                      -- in seconds
 
 Config.AFK = {
     ignoredGroups = {
