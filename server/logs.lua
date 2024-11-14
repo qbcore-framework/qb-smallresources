@@ -57,10 +57,10 @@ local colors = { -- https://www.spycolor.com/
 local logQueue = {}
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone, imageUrl)
-    local postData = {}
     local tag = tagEveryone or false
 
     if Config.Logging == 'discord' then
+        local postData = {}
         if not Webhooks[name] then
             print('Tried to call a log that isn\'t configured with the name of ' .. name)
             return
