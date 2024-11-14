@@ -60,7 +60,6 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
     local tag = tagEveryone or false
 
     if Config.Logging == 'discord' then
-        local postData = {}
         if not Webhooks[name] then
             print('Tried to call a log that isn\'t configured with the name of ' .. name)
             return
@@ -86,6 +85,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
         logQueue[name][#logQueue[name] + 1] = { webhook = webHook, data = embedData }
 
         if #logQueue[name] >= 10 then
+            local postData = {}
             if tag then
                 postData = { username = 'QB Logs', content = '@everyone', embeds = {} }
             else
