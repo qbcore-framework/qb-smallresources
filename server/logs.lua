@@ -85,7 +85,7 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
         logQueue[name][#logQueue[name] + 1] = { webhook = webHook, data = embedData }
 
         if #logQueue[name] >= 10 then
-            local postData = {}
+            local postData = nil
             if tag then
                 postData = { username = 'QB Logs', content = '@everyone', embeds = {} }
             else
