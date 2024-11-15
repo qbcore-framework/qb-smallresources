@@ -19,7 +19,7 @@ end)
 CreateThread(function()
     local mapText = Config.PauseMapText
     if mapText == '' or type(mapText) ~= 'string' then mapText = 'FiveM' end
-    AddTextEntryByHash('FE_THDR_GTAO', mapText)
+    AddTextEntry('FE_THDR_GTAO', mapText)
 end)
 
 CreateThread(function() -- all these should only need to be called once
