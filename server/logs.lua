@@ -57,7 +57,6 @@ local colors = { -- https://www.spycolor.com/
 local logQueue = {}
 
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone, imageUrl)
-    local postData = {}
     local tag = tagEveryone or false
 
     if Config.Logging == 'discord' then
@@ -86,11 +85,12 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
         logQueue[name][#logQueue[name] + 1] = { webhook = webHook, data = embedData }
 
         if #logQueue[name] >= 10 then
+            local postData = { username = 'QB Logs', embeds = {} }
+
             if tag then
-                postData = { username = 'QB Logs', content = '@everyone', embeds = {} }
-            else
-                postData = { username = 'QB Logs', embeds = {} }
+                postData.content = '@everyone'
             end
+
             for i = 1, #logQueue[name] do postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1] end
             PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
             logQueue[name] = {}
