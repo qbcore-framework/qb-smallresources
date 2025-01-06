@@ -3,8 +3,11 @@ local QBCore = exports['qb-core']:GetCoreObject()
 CreateThread(function()
     for _, v in pairs(QBCore.Shared.Vehicles) do
         local text
-        if v.brand then
-            text = v.brand..' '..v.name
+        local name = string.lower(v.name)
+        local brand = string.lower(v.brand)
+        if v.brand and string.match(name, brand) then
+            local nameWithoutBrand = string.gsub(name, brand, "")
+            text = v.brand .. ' ' .. nameWithoutBrand
         else
             text = v.name
         end
