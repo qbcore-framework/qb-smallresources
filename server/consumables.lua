@@ -281,7 +281,7 @@ exports('AddAlcohol', addAlcohol)
 ---@param data number amount it replenishes
 ---@return boolean, string
 local function addCustom(itemName, data)
-    if 'consumables:itemdata' ~= nil then
+    if Config.Consumables.custom[itemName] ~= nil then
         return false, 'already added'
     else
         Config.Consumables.custom[itemName] = data
