@@ -2,10 +2,11 @@ local isCrouching = false
 local walkSet = 'default'
 
 local function loadAnimSet(anim)
-    if HasAnimSetLoaded(anim) then return end
-    RequestAnimSet(anim)
-    while not HasAnimSetLoaded(anim) do
-        Wait(10)
+    if not HasAnimSetLoaded(anim) then
+        RequestAnimSet(anim)
+        while not HasAnimSetLoaded(anim) do
+            Wait(10)
+        end
     end
 end
 
@@ -14,7 +15,7 @@ local function resetAnimSet()
     ResetPedMovementClipset(ped, 1.0)
     ResetPedWeaponMovementClipset(ped)
     ResetPedStrafeClipset(ped)
-    
+
     if walkSet ~= 'default' then
         loadAnimSet(walkSet)
         SetPedMovementClipset(ped, walkSet, 1.0)
@@ -26,29 +27,24 @@ RegisterNetEvent('crouchprone:client:SetWalkSet', function(clipset)
     walkSet = clipset
 end)
 
-CreateThread(function()
-    local sleep
-    while true do
-        sleep = 1000
-        local ped = PlayerPedId()
-        DisableControlAction(0, 36, true)
-        if not IsPedSittingInAnyVehicle(ped) and not IsPedFalling(ped) and not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) and not IsPauseMenuActive() then
-            sleep = 0
-            if IsDisabledControlJustReleased(2, 36) then
-                if isCrouching then
-                    ClearPedTasks(ped)
-                    resetAnimSet()
-                    SetPedStealthMovement(ped, false, 'DEFAULT_ACTION')
-                    isCrouching = false
-                else
-                    ClearPedTasks(ped)
-                    loadAnimSet('move_ped_crouched')
-                    SetPedMovementClipset(ped, 'move_ped_crouched', 1.0)
-                    SetPedStrafeClipset(ped, 'move_ped_crouched_strafing')
-                    isCrouching = true
-                end
-            end
-        end
-        Wait(sleep)
+RegisterCommand('togglecrouch', function()
+    local ped = PlayerPedId()
+    if IsPedSittingInAnyVehicle(ped) or IsPedFalling(ped) or IsPedSwimming(ped) or IsPedSwimmingUnderWater(ped) or IsPauseMenuActive() then
+        return
     end
-end)
+
+    ClearPedTasks(ped)
+    if isCrouching then
+        resetAnimSet()
+        SetPedStealthMovement(ped, false, 'DEFAULT_ACTION')
+        isCrouching = false
+    else
+        loadAnimSet('move_ped_crouched')
+        SetPedMovementClipset(ped, 'move_ped_crouched', 1.0)
+        SetPedStrafeClipset(ped, 'move_ped_crouched_strafing')
+        isCrouching = true
+    end
+end, false)
+
+-- Optional: Register a keybind so they can press CTRL (36) to toggle
+RegisterKeyMapping('togglecrouch', 'Toggle Crouch', 'keyboard', 'LCONTROL')
