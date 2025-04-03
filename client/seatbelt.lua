@@ -83,6 +83,14 @@ end
 
 exports("HasHarness", hasHarness)
 
+---Checks whether the player has their seatbelt on or not
+---@return boolean
+local function hasSeatbeltOn()
+    return seatbeltOn
+end
+
+exports("HasSeatbeltOn", hasSeatbeltOn)
+
 -- Ejection Logic
 
 RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
