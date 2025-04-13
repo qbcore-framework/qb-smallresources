@@ -4,8 +4,14 @@ RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
     TriggerClientEvent('tackle:client:GetTackled', playerId)
 end)
 
-QBCore.Commands.Add('id', 'Check Your ID #', {}, false, function(source)
-    TriggerClientEvent('QBCore:Notify', source, 'ID: ' .. source)
+QBCore.Commands.Add('id', 'Check Your Player ID', {}, false, function(source)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if not Player then return end
+    TriggerClientEvent('QBCore:Notify', source, 'Player ID: ' .. Player.PlayerData.playerid)
+end)
+
+QBCore.Commands.Add('source', 'Check Your Source Id', {}, false, function(source)
+    TriggerClientEvent('QBCore:Notify', source, 'Source ID: ' .. source)
 end)
 
 QBCore.Functions.CreateUseableItem('harness', function(source, item)
