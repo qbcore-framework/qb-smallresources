@@ -135,7 +135,7 @@ RegisterNetEvent('consumables:server:useHeavyArmor', function()
     if not Player then return end
     if not exports['qb-inventory']:RemoveItem(source, 'heavyarmor', 1, false, 'consumables:server:useHeavyArmor') then return end
     TriggerClientEvent('qb-inventory:client:ItemBox', source, QBCore.Shared.Items['heavyarmor'], 'remove')
-    TriggerClientEvent('hospital:server:SetArmor', source, 100)
+    TriggerClientEvent('hospital:client:SetArmor', source, 100)
     SetPedArmour(GetPlayerPed(source), 100)
 end)
 
@@ -144,7 +144,7 @@ RegisterNetEvent('consumables:server:useArmor', function()
     if not Player then return end
     if not exports['qb-inventory']:RemoveItem(source, 'armor', 1, false, 'consumables:server:useArmor') then return end
     TriggerClientEvent('qb-inventory:client:ItemBox', source, QBCore.Shared.Items['armor'], 'remove')
-    TriggerClientEvent('hospital:server:SetArmor', source, 75)
+    TriggerClientEvent('hospital:client:SetArmor', source, 75)
     SetPedArmour(GetPlayerPed(source), 75)
 end)
 
