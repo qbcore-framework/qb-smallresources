@@ -8,7 +8,6 @@ for k, _ in pairs(Config.Consumables.alcohol) do
 end
 
 ----------- / Eat
-
 for k, _ in pairs(Config.Consumables.eat) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
         if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:consumables:eat') then return end
@@ -38,8 +37,8 @@ local function createItem(name, type)
         TriggerClientEvent('consumables:client:' .. type, source, item.name)
     end)
 end
------------ / Drug
 
+----------- / Drug
 QBCore.Functions.CreateUseableItem('joint', function(source, item)
     if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:joint') then return end
     TriggerClientEvent('consumables:client:UseJoint', source)
@@ -66,7 +65,6 @@ QBCore.Functions.CreateUseableItem('meth', function(source)
 end)
 
 ----------- / Tools
-
 QBCore.Functions.CreateUseableItem('armor', function(source)
     TriggerClientEvent('consumables:client:UseArmor', source)
 end)
@@ -98,7 +96,6 @@ QBCore.Commands.Add('resetparachute', 'Resets Parachute', {}, false, function(so
 end)
 
 ----------- / Firework
-
 for _, v in pairs(Config.Fireworks.items) do
     QBCore.Functions.CreateUseableItem(v, function(source, item)
         local src = source
@@ -107,7 +104,6 @@ for _, v in pairs(Config.Fireworks.items) do
 end
 
 ----------- / Lockpicking
-
 QBCore.Functions.CreateUseableItem('lockpick', function(source)
     TriggerClientEvent('lockpicks:UseLockpick', source, false)
 end)
@@ -117,7 +113,6 @@ QBCore.Functions.CreateUseableItem('advancedlockpick', function(source)
 end)
 
 -- Events for adding and removing specific items to fix some exploits
-
 RegisterNetEvent('consumables:server:AddParachute', function()
     local Player = QBCore.Functions.GetPlayer(source)
     if not Player then return end
