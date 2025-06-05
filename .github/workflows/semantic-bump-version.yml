@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   semver-bump:
     runs-on: ubuntu-latest
@@ -34,9 +37,13 @@ jobs:
         if: steps.bump.outputs.bump != 'none'
         run: |
           FILE="fxmanifest.lua"
-          VERSION_LINE=$(grep -E "version ['\"]?[0-9]+\.[0-9]+\.[0-9]+['\"]?" "$FILE")
-          VERSION=$(echo "$VERSION_LINE" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+          if [[ ! -f "$FILE" ]]; then
+            echo "ERROR: fxmanifest.lua not found. Exiting."
+            exit 1
+          fi
 
+          VERSION_LINE=$(grep -E "^ *version +['\"][0-9]+\.[0-9]+\.[0-9]+['\"]" "$FILE")
+          VERSION=$(echo "$VERSION_LINE" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
           IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
           case "${{ steps.bump.outputs.bump }}" in
@@ -72,4 +79,11 @@ jobs:
 
           COMMIT_MSG="${{ github.event.head_commit.message }}"
           git commit -m "ci: bump fxmanifest version to ${{ env.new_version }} – $COMMIT_MSG"
-          git push
+          git push origin HEAD:main
+
+      - name: Create and push Git tag
+        if: steps.bump.outputs.bump != 'none'
+        run: |
+          TAG="v${{ env.new_version }}"
+          git tag "$TAG"
+          git push origin "$TAG"
