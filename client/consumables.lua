@@ -1,6 +1,5 @@
 -- Variables
 
-local QBCore = exports['qb-core']:GetCoreObject()
 local alcoholCount = 0
 local healing, parachuteEquipped = false, false
 local currVest, currVestTexture = nil, nil

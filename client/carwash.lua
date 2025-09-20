@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 local washingVeh, listen = false, false
 local washPoly = {}
 

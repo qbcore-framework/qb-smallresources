@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Cruisecontrol niet beschikbaar",
         activated = "Cruise geactiveerd",
-        deactivated = "Cruise gedeactiveerd"
+        deactivated = "Cruise gedeactiveerd",
+        not_Enough_Fuel = "Niet genoeg brandstof"
     },
     editor = {
         started = "Aan het opnemen!",
@@ -57,7 +58,8 @@ local Translations = {
         teleport_default = 'Gebruik lift'
     },
     pushcar = {
-        stop_push = "[E] Stop met duwen"
+        stop_push = "[E] Stop met duwen",
+        notDamaged = "Het voertuig is niet beschadigd genoeg om te duwen!"
     }
 }
 

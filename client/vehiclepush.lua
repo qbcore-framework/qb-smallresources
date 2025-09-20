@@ -66,6 +66,10 @@ CreateThread(function()
                 icon = 'fas fa-wrench',
                 label = 'Push Vehicle',
                 action = function(entity)
+                    if GetEntityHealth(entity) > Config.DamageNeeded then
+                        QBCore.Functions.Notify(Lang:t('pushcar.notDamaged'), 'error')
+                        return
+                    end
                     TriggerEvent('vehiclepush:client:push', entity)
                 end,
                 distance = 1.3

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 local fireworkTime = 0
 local fireworkLoc = nil
 local fireworkList = {

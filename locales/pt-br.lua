@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Controle de cruzeiro indisponível",
         activated = "Cruise Control Ativado",
-        deactivated = "Cruise Control Desativado"
+        deactivated = "Cruise Control Desativado",
+        not_Enough_Fuel = "Combustível insuficiente"
     },
     editor = {
         started = "Gravação Iniciada!",
