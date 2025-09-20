@@ -47,7 +47,7 @@ local Translations = {
     firework = {
         place_progress = "Feuerwerk platzieren...",
         canceled = "Abgebrochen...",
-        time_left = "Feuerwerk startet in ~r~"
+        time_left = "Feuerwerk startet in "
     },
     seatbelt = {
         use_harness_progress = "Renngurt anlegen",

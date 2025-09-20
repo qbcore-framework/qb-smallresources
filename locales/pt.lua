@@ -44,7 +44,7 @@ local Translations = {
     },
     firework = {
         ["canceled"] = "Cancelado...",
-        ["time_left"] = "Fogo de Artifício em ~r~",
+        ["time_left"] = "Fogo de Artifício em ",
         ["place_firework"] = "A colocar fogo de artifício..."
     },
     seatbelt = {
