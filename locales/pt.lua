@@ -30,11 +30,34 @@ local Translations = {
         ["time_until_firework"] = "Fogo de Artifício em ~r~%{time}",
         ["push_vehicle"] = "[~g~SHIFT~w~] + [~g~E~w~] para empurrar veículo"
     },
+    cruise = {
+        ["not_Enough_Fuel"] = "Combustível insuficiente",
+        ["activated"] = "Cruise control ativado",
+        ["deactivated"] = "Cruise control desativado",
+        ["unavailable"] = "Cruise control indisponível"
+    },
     editor = {
         ["record"] = "Gravação Iniciada!",
         ["save"] = "Gravação Guardada!",
         ["delete_clip"] = "Gravação Apagada!",
         ["editor"] = "Later aligator!"
+    },
+    firework = {
+        ["canceled"] = "Cancelado...",
+        ["time_left"] = "Fogo de Artifício em ",
+        ["place_firework"] = "A colocar fogo de artifício..."
+    },
+    seatbelt = {
+        ["no_car"] = "Não estás dentro de um carro.",
+        ["use_harness"] = "A colocar Arnês de Corrida",
+        ["remove_harness"] = "A remover Arnês de Corrida"
+    },
+    teleport = {
+        ["teleport_default"] = "Usar Elevador"
+    },
+    pushcar = {
+        ["stop_push"] = "[E] Parar de Empurrar",
+        ["notDamaged"] = "O veículo não está danificado o suficiente para empurrar!"
     }
 }
 

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 
 local function tackleAnim()
     local ped = PlayerPedId()

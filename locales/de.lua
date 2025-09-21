@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Tempomat nicht verfügbar",
         activated = "Tempomat aktiviert",
-        deactivated = "Tempomat deaktiviert"
+        deactivated = "Tempomat deaktiviert",
+        not_Enough_Fuel = "Nicht genug Treibstoff"
     },
     editor = {
         started = "Aufnahme gestartet!",
@@ -46,7 +47,7 @@ local Translations = {
     firework = {
         place_progress = "Feuerwerk platzieren...",
         canceled = "Abgebrochen...",
-        time_left = "Feuerwerk startet in ~r~"
+        time_left = "Feuerwerk startet in "
     },
     seatbelt = {
         use_harness_progress = "Renngurt anlegen",
@@ -57,7 +58,8 @@ local Translations = {
         teleport_default = 'Aufzug benutzen'
     },
     pushcar = {
-        stop_push = "[E] Schieben beenden"
+        stop_push = "[E] Schieben beenden",
+        notDamaged = "Das Fahrzeug ist nicht beschädigt genug, um es zu schieben!",
     }
 }
 
