@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 ----------- / alcohol
 
 for k, _ in pairs(Config.Consumables.alcohol) do
@@ -11,7 +11,6 @@ end
 
 for k, _ in pairs(Config.Consumables.eat) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
-        local Player = QBCore.Functions.GetPlayer(source)
         if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:consumables:eat') then return end
         TriggerClientEvent('consumables:client:Eat', source, item.name)
     end)
@@ -20,7 +19,6 @@ end
 ----------- / Drink
 for k, _ in pairs(Config.Consumables.drink) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
-        local Player = QBCore.Functions.GetPlayer(source)
         if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:consumables:drink') then return end
         TriggerClientEvent('consumables:client:Drink', source, item.name)
     end)
@@ -29,7 +27,6 @@ end
 ----------- / Custom
 for k, _ in pairs(Config.Consumables.custom) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
-        local Player = QBCore.Functions.GetPlayer(source)
         if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:consumables:custom') then return end
         TriggerClientEvent('consumables:client:Custom', source, item.name)
     end)
@@ -37,7 +34,6 @@ end
 
 local function createItem(name, type)
     QBCore.Functions.CreateUseableItem(name, function(source, item)
-        local Player = QBCore.Functions.GetPlayer(source)
         if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:consumables:createItem') then return end
         TriggerClientEvent('consumables:client:' .. type, source, item.name)
     end)
@@ -45,7 +41,6 @@ end
 ----------- / Drug
 
 QBCore.Functions.CreateUseableItem('joint', function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
     if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:joint') then return end
     TriggerClientEvent('consumables:client:UseJoint', source)
 end)
@@ -94,7 +89,6 @@ QBCore.Functions.CreateUseableItem('binoculars', function(source)
 end)
 
 QBCore.Functions.CreateUseableItem('parachute', function(source, item)
-    local Player = QBCore.Functions.GetPlayer(source)
     if not exports['qb-inventory']:RemoveItem(source, item.name, 1, item.slot, 'qb-smallresources:parachute') then return end
     TriggerClientEvent('consumables:client:UseParachute', source)
 end)
@@ -287,7 +281,7 @@ exports('AddAlcohol', addAlcohol)
 ---@param data number amount it replenishes
 ---@return boolean, string
 local function addCustom(itemName, data)
-    if 'consumables:itemdata' ~= nil then
+    if Config.Consumables.custom[itemName] ~= nil then
         return false, 'already added'
     else
         Config.Consumables.custom[itemName] = data

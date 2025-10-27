@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 local seatbeltOn = false
 local harnessOn = false
 local harnessHp = Config.HarnessUses
@@ -82,6 +82,14 @@ local function hasHarness()
 end
 
 exports("HasHarness", hasHarness)
+
+---Checks whether the player has their seatbelt on or not
+---@return boolean
+local function hasSeatbeltOn()
+    return seatbeltOn
+end
+
+exports("HasSeatbeltOn", hasSeatbeltOn)
 
 -- Ejection Logic
 
