@@ -18,7 +18,6 @@ local lastVeh = nil
 local veloc
 
 -- Functions
-
 local function ejectFromVehicle()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped, false)
@@ -92,7 +91,6 @@ end
 exports("HasSeatbeltOn", hasSeatbeltOn)
 
 -- Ejection Logic
-
 RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
     local ped = PlayerPedId()
     while IsPedInAnyVehicle(ped, false) do
@@ -231,7 +229,6 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
 end)
 
 -- Events
-
 RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use (registered server side)
     local ped = PlayerPedId()
     local inVeh = IsPedInAnyVehicle(ped, false)
@@ -270,7 +267,6 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
 end)
 
 -- Register Key
-
 RegisterCommand('toggleseatbelt', function()
     if not IsPedInAnyVehicle(PlayerPedId(), false) or IsPauseMenuActive() then return end
     local class = GetVehicleClass(GetVehiclePedIsUsing(PlayerPedId()))
