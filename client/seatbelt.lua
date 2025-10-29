@@ -16,6 +16,32 @@ local damageDone = false
 local modifierDensity = true
 local lastVeh = nil
 local veloc
+local seatbeltAlarmRunning = false
+
+local function seatbeltShouldBeep()
+    local ped = PlayerPedId()
+    if not IsPedInAnyVehicle(ped, false) then return false end
+    if seatbeltOn or harnessOn then return false end
+    return true -- біпаємо завжди, коли не пристебнутий і в авто
+end
+
+local function seatbeltAlarmStop()
+    seatbeltAlarmRunning = false
+end
+
+local function seatbeltAlarmStart(delayMs)
+    if seatbeltAlarmRunning then return end
+    seatbeltAlarmRunning = true
+    CreateThread(function()
+        if delayMs and delayMs > 0 then Wait(delayMs) end
+        while seatbeltAlarmRunning do
+            if not seatbeltShouldBeep() then break end
+            TriggerServerEvent('InteractSound_SV:PlayOnSource', 'beltalarm', 0.2)
+            Wait(2500)
+        end
+        seatbeltAlarmRunning = false
+    end)
+end
 
 -- Functions
 
@@ -40,7 +66,14 @@ local function toggleSeatbelt()
     SeatBeltLoop()
     TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
     TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+
+    if seatbeltOn or harnessOn then
+        seatbeltAlarmStop()
+    else
+        seatbeltAlarmStart(1200)
+    end
 end
+
 
 local function toggleHarness()
     harnessOn = not harnessOn
@@ -64,6 +97,7 @@ function SeatBeltLoop()
             if not IsPedInAnyVehicle(PlayerPedId(), false) then
                 seatbeltOn = false
                 harnessOn = false
+                seatbeltAlarmStop()
                 TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
                 break
             end
@@ -226,6 +260,9 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
             frameBodyChange = 0
             Wait(2000)
             break
+        end
+        if not seatbeltOn and not harnessOn then
+            seatbeltAlarmStart()
         end
     end
 end)

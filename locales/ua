@@ -1,0 +1,67 @@
+local Translations = {
+    afk = {
+        will_kick = "Ви AFK і будете кікнуті через ",
+        time_seconds = " секунд!",
+        time_minutes = " хвилину(и)!",
+        kick_message = "Вас було кікнуто за бездіяльність (AFK)"
+    },
+    wash = {
+        in_progress = "Авто миється...",
+        wash_vehicle = "[E] Помити авто",
+        wash_vehicle_target = "Помити авто",
+        dirty = "Авто не забруднене",
+        cancel = "Миття скасовано..."
+    },
+    consumables = {
+        eat_progress = "Їсте...",
+        drink_progress = "П'єте...",
+        liqour_progress = "Вживаєте алкоголь...",
+        coke_progress = "Швидке вдихання...",
+        crack_progress = "Курите крек...",
+        ecstasy_progress = "Ковтаєте пігулки...",
+        healing_progress = "Зцілення...",
+        meth_progress = "Курите жорсткий мет...",
+        joint_progress = "Підпалюєте косяк...",
+        use_parachute_progress = "Надягаєте парашут...",
+        pack_parachute_progress = "Пакуєте парашут...",
+        no_parachute = "У вас немає парашута!",
+        armor_full = "У вас вже достатньо броні!",
+        armor_empty = "На вас немає бронежилета...",
+        armor_progress = "Надягаєте бронежилет...",
+        heavy_armor_progress = "Надягаєте важкий бронежилет...",
+        remove_armor_progress = "Знімаєте бронежилет...",
+        canceled = "Скасовано..."
+    },
+    cruise = {
+        unavailable = "Круїз-контроль недоступний",
+        activated = "Круїз-контроль активовано",
+        deactivated = "Круїз-контроль вимкнено"
+    },
+    editor = {
+        started = "Запис розпочато!",
+        save = "Запис збережено!",
+        delete = "Запис видалено!",
+        editor = "До зустрічі, алігаторе!"
+    },
+    firework = {
+        place_progress = "Встановлення феєрверку...",
+        canceled = "Скасовано...",
+        time_left = "Запуск феєрверку через ~r~"
+    },
+    seatbelt = {
+        use_harness_progress = "Пристібання гоночного ременя",
+        remove_harness_progress = "Зняття гоночного ременя",
+        no_car = "Ви не в автомобілі."
+    },
+    teleport = {
+        teleport_default = "Скористатись ліфтом"
+    },
+    pushcar = {
+        stop_push = "[E] Зупинити штовхання"
+    }    
+}
+
+Lang = Lang or Locale:new({
+    phrases = Translations,
+    warnOnMissing = true
+})
