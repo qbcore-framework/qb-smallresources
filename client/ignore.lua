@@ -135,3 +135,9 @@ CreateThread(function()
         Wait(5)
     end
 end)
+
+RegisterNetEvent('QBCore:Client:EnteredVehicle', function(data)
+    if Config.Disable.carRadio then
+        SetVehRadioStation(data.vehicle, 'OFF')
+    end
+end)

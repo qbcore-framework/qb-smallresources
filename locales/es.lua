@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Control de crucero no disponible",
         activated = "Control de crucero activado",
-        deactivated = "Control de crucero desactivado"
+        deactivated = "Control de crucero desactivado",
+        not_Enough_Fuel = "No hay suficiente combustible"
     },
     editor = {
         started = "¡Grabación iniciada!",
@@ -46,7 +47,7 @@ local Translations = {
     firework = {
         place_progress = "Colocando fuegos artificiales...",
         canceled = "Cancelado...",
-        time_left = "Lanzamiento de fuegos artificiales en ~r~"
+        time_left = "Lanzamiento de fuegos artificiales en "
     },
     seatbelt = {
         use_harness_progress = "Colocando arnés de carrera",
@@ -57,7 +58,8 @@ local Translations = {
         teleport_default = 'Usar ascensor'
     },
     pushcar = {
-        stop_push = "[E] Dejar de empujar"
+        stop_push = "[E] Dejar de empujar",
+        notDamaged = "¡El vehículo no está lo suficientemente dañado para empujar!"
     }
 }
 

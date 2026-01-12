@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 
 RegisterNetEvent('KickForAFK', function()
 	DropPlayer(source, Lang:t("afk.kick_message"))

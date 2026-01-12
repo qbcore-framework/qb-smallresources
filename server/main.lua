@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 
 RegisterNetEvent('tackle:server:TacklePlayer', function(playerId)
     TriggerClientEvent('tackle:client:GetTackled', playerId)

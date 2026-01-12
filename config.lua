@@ -1,5 +1,5 @@
 Config = {}
-
+QBCore = exports['qb-core']:GetCoreObject()
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 Config.PauseMapText = ''                                     -- Text shown above the map when ESC is pressed. If left empty 'FiveM' will appear
 Config.HarnessUses = 20
@@ -88,6 +88,7 @@ Config.Disable = {
     vestDrawable = false,                                         -- disables the vest equipped when using heavy armor
     pistolWhipping = true,                                        -- disables pistol whipping
     driveby = false,                                              -- disables driveby
+    carRadio = false                                              -- When set to true car radio will default to off when entering a vehicle.
 }
 
 Config.RelieveWeedStress = math.random(15, 20) -- stress relief amount (100 max)

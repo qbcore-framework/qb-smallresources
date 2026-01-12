@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local checkUser = true
 local prevPos, time = nil, nil

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 
 local Webhooks = {
     ['default'] = '',

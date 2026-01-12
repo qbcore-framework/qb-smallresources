@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 ----------- / alcohol
 
 for k, _ in pairs(Config.Consumables.alcohol) do

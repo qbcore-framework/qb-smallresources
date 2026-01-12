@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+
 local fireworkTime = 0
 local fireworkLoc = nil
 local fireworkList = {
@@ -35,42 +35,20 @@ local fireworkList = {
     }
 }
 
-local function DrawText3D(x, y, z, text)
-    SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(true)
-    SetTextColour(255, 255, 255, 215)
-    BeginTextCommandDisplayText('STRING')
-    SetTextCentre(true)
-    AddTextComponentSubstringPlayerName(text)
-    SetDrawOrigin(x, y, z, 0)
-    EndTextCommandDisplayText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
-end
-
-local function fireworkText()
-    CreateThread(function()
-        while true do
-            Wait(0)
-            if fireworkTime > 0 and fireworkLoc then
-                DrawText3D(fireworkLoc.x, fireworkLoc.y, fireworkLoc.z, Lang:t('firework.time_left') .. fireworkTime)
-            end
-            if fireworkTime <= 0 then break end
-        end
-    end)
-end
 
 local function startFirework(asset, coords)
     fireworkTime = Config.Fireworks.delay
     fireworkLoc = { x = coords.x, y = coords.y, z = coords.z }
+    local pedCoords = GetEntityCoords(PlayerPedId())
     CreateThread(function()
-        fireworkText()
         while fireworkTime > 0 do
+            if #(pedCoords - vector3(coords.x, coords.y, coords.z)) < 50.0 then
+               exports['qb-core']:DrawText(Lang:t('firework.time_left') .. ' ' .. fireworkTime)
+            end
             Wait(1000)
             fireworkTime -= 1
         end
+        exports['qb-core']:HideText()
         UseParticleFxAssetNextCall('scr_indep_fireworks')
         for _ = 1, math.random(5, 10), 1 do
             local firework = fireworkList[asset][math.random(1, #fireworkList[asset])]
