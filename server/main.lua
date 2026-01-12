@@ -17,24 +17,17 @@ RegisterNetEvent('equip:harness', function(item)
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
 
-    local slot = item and item.slot
-    local itemData = slot and Player.PlayerData.items[slot]
-    local info = itemData and itemData.info
-    local uses = info and info.uses
+    if type(item) ~= 'table' or item.slot == nil then return end
+    if type(Player.PlayerData.items) ~= 'table' then return end
 
-    if not uses then
-        -- if there was no uses at all, set the initial value
-        Player.PlayerData.items[slot].info.uses = Config.HarnessUses - 1
-        Player.Functions.SetInventory(Player.PlayerData.items)
-    elseif uses == 1 then
-        exports['qb-inventory']:RemoveItem(src, 'harness', 1, false, 'equip:harness')
-        TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items['harness'], 'remove')
-    else
-        Player.PlayerData.items[slot].info.uses -= 1
-        Player.Functions.SetInventory(Player.PlayerData.items)
-    end
+    local invItem = Player.PlayerData.items[item.slot]
+    if type(invItem) ~= 'table' then return end
+
+    invItem.info = invItem.info or {}
+    invItem.info.uses = tonumber(invItem.info.uses) or tonumber(Config.HarnessUses) or 0
+
+    Player.Functions.SetInventory(Player.PlayerData.items)
 end)
-
 
 RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
     local src = source
