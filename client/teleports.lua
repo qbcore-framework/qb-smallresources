@@ -37,9 +37,9 @@ CreateThread(function()
                 debugPoly = false,
                 minZ = portal.coords.z - 5,
                 maxZ = portal.coords.z + 5,
-                data = {pad = u}
+                data = { pad = u }
             })
-            local teleportCombo = ComboZone:Create(teleportPoly, {name = 'teleportPoly'})
+            local teleportCombo = ComboZone:Create(teleportPoly, { name = 'teleportPoly' })
             teleportCombo:onPlayerInOut(function(isPointInside, _, zone)
                 if isPointInside then
                     if not ran then

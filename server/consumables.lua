@@ -1,4 +1,3 @@
-
 ----------- / alcohol
 
 for k, _ in pairs(Config.Consumables.alcohol) do
@@ -76,7 +75,7 @@ QBCore.Functions.CreateUseableItem('heavyarmor', function(source)
 end)
 
 QBCore.Commands.Add('resetarmor', 'Resets Vest (Police Only)', {}, false, function(source)
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if Player.PlayerData.job.name == 'police' then
         TriggerClientEvent('consumables:client:ResetArmor', source)
     else
@@ -119,19 +118,19 @@ end)
 -- Events for adding and removing specific items to fix some exploits
 
 RegisterNetEvent('consumables:server:AddParachute', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:AddItem(source, 'parachute', 1, false, false, 'consumables:server:AddParachute')
 end)
 
 RegisterNetEvent('consumables:server:resetArmor', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:AddItem(source, 'heavyarmor', 1, false, false, 'consumables:server:resetArmor')
 end)
 
 RegisterNetEvent('consumables:server:useHeavyArmor', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     if not exports['qb-inventory']:RemoveItem(source, 'heavyarmor', 1, false, 'consumables:server:useHeavyArmor') then return end
     TriggerClientEvent('qb-inventory:client:ItemBox', source, QBCore.Shared.Items['heavyarmor'], 'remove')
@@ -140,7 +139,7 @@ RegisterNetEvent('consumables:server:useHeavyArmor', function()
 end)
 
 RegisterNetEvent('consumables:server:useArmor', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     if not exports['qb-inventory']:RemoveItem(source, 'armor', 1, false, 'consumables:server:useArmor') then return end
     TriggerClientEvent('qb-inventory:client:ItemBox', source, QBCore.Shared.Items['armor'], 'remove')
@@ -149,37 +148,37 @@ RegisterNetEvent('consumables:server:useArmor', function()
 end)
 
 RegisterNetEvent('consumables:server:useMeth', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:RemoveItem(source, 'meth', 1, false, 'consumables:server:useMeth')
 end)
 
 RegisterNetEvent('consumables:server:useOxy', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:RemoveItem(source, 'oxy', 1, false, 'consumables:server:useOxy')
 end)
 
 RegisterNetEvent('consumables:server:useXTCBaggy', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:RemoveItem(source, 'xtcbaggy', 1, false, 'consumables:server:useXTCBaggy')
 end)
 
 RegisterNetEvent('consumables:server:useCrackBaggy', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:RemoveItem(source, 'crack_baggy', 1, false, 'consumables:server:useCrackBaggy')
 end)
 
 RegisterNetEvent('consumables:server:useCokeBaggy', function()
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     exports['qb-inventory']:RemoveItem(source, 'cokebaggy', 1, false, 'consumables:server:useCokeBaggy')
 end)
 
 RegisterNetEvent('consumables:server:drinkAlcohol', function(item)
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     local foundItem = nil
 
@@ -195,7 +194,7 @@ RegisterNetEvent('consumables:server:drinkAlcohol', function(item)
 end)
 
 RegisterNetEvent('consumables:server:UseFirework', function(item)
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
     local foundItem = nil
 
@@ -211,16 +210,16 @@ RegisterNetEvent('consumables:server:UseFirework', function(item)
 end)
 
 RegisterNetEvent('consumables:server:addThirst', function(amount)
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
-    Player.Functions.SetMetaData('thirst', amount)
+    Player.SetMetaData('thirst', amount)
     TriggerClientEvent('hud:client:UpdateNeeds', source, Player.PlayerData.metadata.hunger, amount)
 end)
 
 RegisterNetEvent('consumables:server:addHunger', function(amount)
-    local Player = QBCore.Functions.GetPlayer(source)
+    local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
-    Player.Functions.SetMetaData('hunger', amount)
+    Player.SetMetaData('hunger', amount)
     TriggerClientEvent('hud:client:UpdateNeeds', source, amount, Player.PlayerData.metadata.thirst)
 end)
 

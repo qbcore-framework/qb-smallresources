@@ -1,4 +1,3 @@
-
 local vehicleClasses = {
     [0] = true,
     [1] = true,

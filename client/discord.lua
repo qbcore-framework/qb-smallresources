@@ -1,4 +1,3 @@
-
 CreateThread(function()
     while Config.Discord.isEnabled do
         SetDiscordAppId(Config.Discord.applicationId)
@@ -13,7 +12,7 @@ CreateThread(function()
             end)
         end
 
-        if Config.Discord.buttons and type(Config.Discord.buttons) == "table" then
+        if Config.Discord.buttons and type(Config.Discord.buttons) == 'table' then
             for i, v in pairs(Config.Discord.buttons) do
                 SetDiscordRichPresenceAction(i - 1, v.text, v.url)
             end

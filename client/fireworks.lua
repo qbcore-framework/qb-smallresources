@@ -1,4 +1,3 @@
-
 local fireworkTime = 0
 local fireworkLoc = nil
 local fireworkList = {
@@ -43,7 +42,7 @@ local function startFirework(asset, coords)
     CreateThread(function()
         while fireworkTime > 0 do
             if #(pedCoords - vector3(coords.x, coords.y, coords.z)) < 50.0 then
-               exports['qb-core']:DrawText(Lang:t('firework.time_left') .. ' ' .. fireworkTime)
+                exports['qb-core']:DrawText(Lang:t('firework.time_left') .. ' ' .. fireworkTime)
             end
             Wait(1000)
             fireworkTime -= 1

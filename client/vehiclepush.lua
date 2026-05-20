@@ -28,7 +28,7 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
                     end
                     loadAnimDict('missfinale_c2ig_11')
                     TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, false, false, false)
-                    exports['qb-core']:DrawText(Lang:t('pushcar.stop_push'),'left')
+                    exports['qb-core']:DrawText(Lang:t('pushcar.stop_push'), 'left')
                     while true do
                         Wait(0)
                         if IsDisabledControlPressed(0, 34) then
@@ -60,7 +60,7 @@ RegisterNetEvent('vehiclepush:client:push', function(veh)
 end)
 
 CreateThread(function()
-    exports['qb-target']:AddTargetBone({'bonnet', 'boot'}, {
+    exports['qb-target']:AddTargetBone({ 'bonnet', 'boot' }, {
         options = {
             {
                 icon = 'fas fa-wrench',

@@ -1,5 +1,3 @@
-
-
 local Webhooks = {
     ['default'] = '',
     ['testwebhook'] = '',

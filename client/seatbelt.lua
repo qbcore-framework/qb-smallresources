@@ -1,4 +1,3 @@
-
 local seatbeltOn = false
 local harnessOn = false
 local harnessHp = Config.HarnessUses
@@ -38,8 +37,8 @@ end
 local function toggleSeatbelt()
     seatbeltOn = not seatbeltOn
     SeatBeltLoop()
-    TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
-    TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+    TriggerEvent('seatbelt:client:ToggleSeatbelt', seatbeltOn)
+    TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5.0, seatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
 end
 
 local function toggleHarness()
@@ -64,7 +63,7 @@ function SeatBeltLoop()
             if not IsPedInAnyVehicle(PlayerPedId(), false) then
                 seatbeltOn = false
                 harnessOn = false
-                TriggerEvent("seatbelt:client:ToggleSeatbelt", seatbeltOn)
+                TriggerEvent('seatbelt:client:ToggleSeatbelt', seatbeltOn)
                 break
             end
             if not seatbeltOn and not harnessOn then break end
@@ -76,12 +75,12 @@ end
 -- Export
 
 ---Checks whether you have the harness on or not
----@return boolean 
+---@return boolean
 local function hasHarness()
     return harnessOn
 end
 
-exports("HasHarness", hasHarness)
+exports('HasHarness', hasHarness)
 
 ---Checks whether the player has their seatbelt on or not
 ---@return boolean
@@ -89,7 +88,7 @@ local function hasSeatbeltOn()
     return seatbeltOn
 end
 
-exports("HasSeatbeltOn", hasSeatbeltOn)
+exports('HasSeatbeltOn', hasSeatbeltOn)
 
 -- Ejection Logic
 
@@ -197,7 +196,6 @@ RegisterNetEvent('QBCore:Client:EnteredVehicle', function()
                 if lastFrameVehSpeed2 < lastFrameVehSpeed then
                     tick = 25
                 end
-
             end
             if tick < 0 then
                 tick = 0
@@ -238,14 +236,14 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
     local class = GetVehicleClass(GetVehiclePedIsUsing(ped))
     if inVeh and class ~= 8 and class ~= 13 and class ~= 14 then
         if not harnessOn then
-            LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", Lang:t('seatbelt.use_harness_progress'), 5000, false, true, {
+            LocalPlayer.state:set('inv_busy', true, true)
+            QBCore.Functions.Progressbar('harness_equip', Lang:t('seatbelt.use_harness_progress'), 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
                 disableCombat = true,
             }, {}, {}, {}, function()
-                LocalPlayer.state:set("inv_busy", false, true)
+                LocalPlayer.state:set('inv_busy', false, true)
                 toggleHarness()
                 TriggerServerEvent('equip:harness', ItemData)
             end)
@@ -253,14 +251,14 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData) -- On Item Use
             harnessData = ItemData
             TriggerEvent('hud:client:UpdateHarness', harnessHp)
         else
-            LocalPlayer.state:set("inv_busy", true, true)
-            QBCore.Functions.Progressbar("harness_equip", Lang:t('seatbelt.remove_harness_progress'), 5000, false, true, {
+            LocalPlayer.state:set('inv_busy', true, true)
+            QBCore.Functions.Progressbar('harness_equip', Lang:t('seatbelt.remove_harness_progress'), 5000, false, true, {
                 disableMovement = false,
                 disableCarMovement = false,
                 disableMouse = false,
                 disableCombat = true,
             }, {}, {}, {}, function()
-                LocalPlayer.state:set("inv_busy", false, true)
+                LocalPlayer.state:set('inv_busy', false, true)
                 toggleHarness()
             end)
         end
