@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Cruise control unavailable",
         activated = "Cruise control activated",
-        deactivated = "Cruise control deactivated"
+        deactivated = "Cruise control deactivated",
+        not_Enough_Fuel = "Not enough fuel"
     },
     editor = {
         started = "Started Recording!",
@@ -46,7 +47,7 @@ local Translations = {
     firework = {
         place_progress = "Placing firework...",
         canceled = "Canceled...",
-        time_left = "Firework launch in ~r~"
+        time_left = "Firework launch in "
     },
     seatbelt = {
         use_harness_progress = "Attaching Race Harness",
@@ -57,7 +58,8 @@ local Translations = {
         teleport_default = 'Use Elevator'
     },
     pushcar = {
-        stop_push = "[E] Stop Pushing"
+        stop_push = "[E] Stop Pushing",
+        notDamaged = "The vehicle isn't damaged enough to push!",
     }
 }
 

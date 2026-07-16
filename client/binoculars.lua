@@ -1,6 +1,6 @@
 local binoculars = false
 local fov_max = 70.0
-local fov_min = 5.0 -- max zoom level (smaller fov is more zoom)
+local fov_min = 5.0  -- max zoom level (smaller fov is more zoom)
 local fov = (fov_max + fov_min) * 0.5
 local speed_lr = 8.0 -- speed by which the camera pans left-right
 local speed_ud = 8.0 -- speed by which the camera pans up-down
@@ -8,7 +8,7 @@ local speed_ud = 8.0 -- speed by which the camera pans up-down
 --FUNCTIONS--
 
 local function HideHUDThisFrame()
-    local componentsToHide = {1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 18, 19}
+    local componentsToHide = { 1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 18, 19 }
 
     for i = 1, #componentsToHide do
         local component = componentsToHide[i]
@@ -112,6 +112,9 @@ end
 -- Activate binoculars
 RegisterNetEvent('binoculars:Toggle', function()
     binoculars = not binoculars
-    if binoculars then binocularLoop() return end
+    if binoculars then
+        binocularLoop()
+        return
+    end
     ClearPedTasks(PlayerPedId())
 end)

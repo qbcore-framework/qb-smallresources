@@ -35,7 +35,8 @@ local Translations = {
     cruise = {
         unavailable = "Controle de cruzeiro indisponível",
         activated = "Cruise Control Ativado",
-        deactivated = "Cruise Control Desativado"
+        deactivated = "Cruise Control Desativado",
+        not_Enough_Fuel = "Combustível insuficiente"
     },
     editor = {
         started = "Gravação Iniciada!",
@@ -46,7 +47,7 @@ local Translations = {
     firework = {
         place_progress = "Soltando fogos de artifício...",
         canceled = "Cancelado...",
-        time_left = "Fogos de artifício acabaram ~r~"
+        time_left = "Fogos de artifício acabaram "
     },
     seatbelt = {
         use_harness_progress = "Prendendo o Cinto de Corrida",
