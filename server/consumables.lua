@@ -120,12 +120,14 @@ end)
 RegisterNetEvent('consumables:server:AddParachute', function()
     local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
+    if exports['qb-inventory']:GetItemByName(source, 'parachute') then return end
     exports['qb-inventory']:AddItem(source, 'parachute', 1, false, false, 'consumables:server:AddParachute')
 end)
 
 RegisterNetEvent('consumables:server:resetArmor', function()
     local Player = exports['qb-core']:GetPlayer(source)
     if not Player then return end
+    if exports['qb-inventory']:GetItemByName(source, 'heavyarmor') then return end
     exports['qb-inventory']:AddItem(source, 'heavyarmor', 1, false, false, 'consumables:server:resetArmor')
 end)
 
